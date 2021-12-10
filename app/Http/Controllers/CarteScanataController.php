@@ -18,12 +18,13 @@ class CarteScanataController extends Controller
     {
         $search_titlu = \Request::get('search_titlu');
 
-        $carti_scanate = CarteScanata::
-            when($search_titlu, function ($query, $search_titlu) {
+        $carti_scanate = CarteScanata::with('utilizator')
+            ->when($search_titlu, function ($query, $search_titlu) {
                 return $query->where('titlu', 'like', '%' . $search_titlu . '%');
             })
             ->latest()
             ->simplePaginate(25);
+// dd($carti_scanate->first());
 
         return view('carti_scanate.index', compact('carti_scanate', 'search_titlu'));
     }

@@ -5,12 +5,16 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+use Illuminate\Support\Facades\Gate;
+
 class CarteScanata extends Model
 {
     use HasFactory;
 
     protected $table = 'carti_scanate';
     protected $guarded = [];
+
+    // protected $appends = ['acces'];
 
     public function path()
     {
@@ -27,5 +31,9 @@ class CarteScanata extends Model
         return $this->belongsTo(User::class, 'user_id');
     }
 
-
+    //define accessor
+    public function getAccesAttribute()
+    {
+        return 1;
+    }
 }
