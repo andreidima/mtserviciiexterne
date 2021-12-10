@@ -75,7 +75,7 @@
                                     <b>{{ $carte_scanata->nr_pagini ?? '' }}</b>
                                 </td>
                                 <td>
-                                    <b>{{ $carte_scanata->utilizator->id ?? '' }}</b>
+                                    <b>{{ $carte_scanata->utilizator->id ?? '' }} - {{ auth()->user()->id ?? '' }}</b>
                                 </td>
                                 <td class="d-flex justify-content-end">
                                     <a href="{{ $carte_scanata->path() }}"
