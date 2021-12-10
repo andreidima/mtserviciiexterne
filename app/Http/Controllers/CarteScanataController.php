@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 use App\Models\CarteScanata;
 
@@ -45,6 +46,7 @@ class CarteScanataController extends Controller
      */
     public function store(Request $request)
     {
+        $request->request->add(['user_id' => $request->user()->id]);
         $carte_scanata = CarteScanata::create($this->validateRequest($request));
 
         return redirect('/carti-scanate')->with('status', 'Cartea „' . ($carte_scanata->titlu ?? '') . '” a fost adăugată cu succes!');
@@ -69,6 +71,10 @@ class CarteScanataController extends Controller
      */
     public function edit(CarteScanata $carte_scanata)
     {
+        if (Gate::denies('modifica-carte-scanata', $carte_scanata)) {
+            abort(403);
+        }
+
         return view('carti_scanate.edit', compact('carte_scanata'));
     }
 
@@ -81,6 +87,11 @@ class CarteScanataController extends Controller
      */
     public function update(Request $request, CarteScanata $carte_scanata)
     {
+        if (Gate::denies('modifica-carte-scanata', $carte_scanata)) {
+            abort(403);
+        }
+
+        $request->request->add(['user_id' => $request->user()->id]);
         $carte_scanata->update($this->validateRequest($request));
 
         return redirect('/carti-scanate')->with('status', 'Cartea „' . ($carte_scanata->titlu ?? '') . '” a fost modificată cu succes!');
@@ -94,6 +105,10 @@ class CarteScanataController extends Controller
      */
     public function destroy(CarteScanata $carte_scanata)
     {
+        if (Gate::denies('modifica-carte-scanata', $carte_scanata)) {
+            abort(403);
+        }
+
         $carte_scanata->delete();
 
         return redirect('/carti-scanate')->with('status', 'Cartea „' . ($carte_scanata->titlu ?? '') . '” a a fost ștearsă cu succes!');
@@ -108,10 +123,12 @@ class CarteScanataController extends Controller
     {
         return $request->validate(
             [
+                'user_id' => 'required',
                 'titlu' => 'required|max:500',
                 'autor' => 'nullable|max:500',
                 'editura' => 'nullable|max:500',
                 'anul' => 'nullable|max:500',
+                'nr_pagini' => 'nullable|numeric|integer|max:9999',
             ],
             [
 

@@ -5,6 +5,9 @@ namespace App\Providers;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
 
+use App\Models\User;
+use App\Models\CarteScanata;
+
 class AuthServiceProvider extends ServiceProvider
 {
     /**
@@ -25,6 +28,9 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
+        Gate::define('modifica-carte-scanata', function (User $user, CarteScanata $carte_scanata) {
+            return $user->id === $carte_scanata->user_id;
+        });
         //
     }
 }

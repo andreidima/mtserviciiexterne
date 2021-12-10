@@ -48,6 +48,8 @@
                             <th>Autor</th>
                             <th>Editura</th>
                             <th>Anul</th>
+                            <th>Nr. pagini</th>
+                            <th>Utilizator</th>
                             <th class="text-end">Acțiuni</th>
                         </tr>
                     </thead>
@@ -69,27 +71,35 @@
                                 <td>
                                     <b>{{ $carte_scanata->anul ?? '' }}</b>
                                 </td>
+                                <td class="text-center">
+                                    <b>{{ $carte_scanata->nr_pagini ?? '' }}</b>
+                                </td>
+                                <td>
+                                    <b>{{ $carte_scanata->utilizator->name ?? '' }}</b>
+                                </td>
                                 <td class="d-flex justify-content-end">
                                     <a href="{{ $carte_scanata->path() }}"
                                         class="flex me-1"
                                     >
                                         <span class="badge bg-success">Vizualizează</span>
                                     </a>
-                                    <a href="{{ $carte_scanata->path() }}/modifica"
-                                        class="flex me-1"
-                                    >
-                                        <span class="badge bg-primary">Modifică</span>
-                                    </a>
-                                    <div style="flex" class="">
-                                        <a
-                                            href="#"
-                                            data-bs-toggle="modal"
-                                            data-bs-target="#stergeCarteScanata{{ $carte_scanata->id }}"
-                                            title="Șterge Cartea Scanată"
-                                            >
-                                            <span class="badge bg-danger">Șterge</span>
+                                    @if (Gate::allows('modifica-carte-scanata', $carte_scanata))
+                                        <a href="{{ $carte_scanata->path() }}/modifica"
+                                            class="flex me-1"
+                                        >
+                                            <span class="badge bg-primary">Modifică</span>
                                         </a>
-                                    </div>
+                                        <div style="flex" class="">
+                                            <a
+                                                href="#"
+                                                data-bs-toggle="modal"
+                                                data-bs-target="#stergeCarteScanata{{ $carte_scanata->id }}"
+                                                title="Șterge Cartea Scanată"
+                                                >
+                                                <span class="badge bg-danger">Șterge</span>
+                                            </a>
+                                        </div>
+                                    @endif
                                 </td>
                             </tr>
                         @empty
