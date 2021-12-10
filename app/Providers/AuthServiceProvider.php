@@ -29,7 +29,7 @@ class AuthServiceProvider extends ServiceProvider
         $this->registerPolicies();
 
         Gate::define('modifica-carte-scanata', function (User $user, CarteScanata $carte_scanata) {
-            return $user->id === $carte_scanata->user_id;
+            return $user->id == $carte_scanata->user_id;
         });
         //
     }
