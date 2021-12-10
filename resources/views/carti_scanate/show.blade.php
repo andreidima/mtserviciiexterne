@@ -52,6 +52,22 @@
                                     {{ $carte_scanata->anul }}
                                 </td>
                             </tr>
+                            <tr>
+                                <td class="pe-4">
+                                    Nr. pagini
+                                </td>
+                                <td>
+                                    {{ $carte_scanata->nr_pagini }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="pe-4">
+                                    Utilizator
+                                </td>
+                                <td>
+                                    {{ $carte_scanata->utilizator->name ?? '' }}
+                                </td>
+                            </tr>
                         </table>
                     </div>
 
