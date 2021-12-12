@@ -2,8 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 
-use App\Http\Controllers\CarteScanataController;
-use App\Http\Controllers\ImportDBController;
+use App\Http\Controllers\FirmaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,5 +23,5 @@ Route::redirect('/', '/acasa');
 Route::group(['middleware' => 'auth'], function () {
     Route::view('/acasa', 'acasa');
 
-    Route::resource('/carti-scanate', CarteScanataController::class,  ['parameters' => ['carti-scanate' => 'carte_scanata']]);
+    Route::resource('/firme', FirmaController::class,  ['parameters' => ['firme' => 'firma']]);
 });

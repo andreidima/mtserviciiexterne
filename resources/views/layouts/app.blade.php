@@ -40,9 +40,9 @@
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item">
-                            <a class="nav-link active" href="/carti-scanate">
-                                <i class="fas fa-book me-1"></i>
-                                Cărți scanate
+                            <a class="nav-link active" href="/firme">
+                                <i class="fas fa-building me-1"></i>
+                                Firme
                             </a>
                         </li>
                     </ul>
