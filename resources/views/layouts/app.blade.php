@@ -40,8 +40,14 @@
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item">
+                            <a class="nav-link active" href="/firme/salariati">
+                                <i class="fas fa-users "></i>
+                                Salariați
+                            </a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link active" href="/firme">
-                                <i class="fas fa-building me-1"></i>
+                                <i class="fas fa-building "></i>
                                 Firme
                             </a>
                         </li>

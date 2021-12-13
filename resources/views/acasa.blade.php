@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-8">
+        <div class="col-md-6">
             <div class="card">
                 <div class="card-header">{{ __('Dashboard') }}</div>
 
@@ -11,10 +11,10 @@
                     @include ('errors')
 
                     Bine ai venit <b>{{ auth()->user()->name ?? '' }}</b>!
-                    <br><br><br>
+                    {{-- <br><br><br>
                         <p class="text-center">
                             {{ \Illuminate\Foundation\Inspiring::quote() }}
-                        </p>
+                        </p> --}}
                 </div>
             </div>
         </div>

@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\FirmaController;
+use App\Http\Controllers\FirmaSalariatController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,5 +24,6 @@ Route::redirect('/', '/acasa');
 Route::group(['middleware' => 'auth'], function () {
     Route::view('/acasa', 'acasa');
 
+    Route::resource('/firme/salariati', FirmaSalariatController::class,  ['parameters' => ['salariati' => 'salariat']]);
     Route::resource('/firme', FirmaController::class,  ['parameters' => ['firme' => 'firma']]);
 });
