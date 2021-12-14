@@ -7,8 +7,8 @@
             <div class="shadow-lg" style="border-radius: 40px 40px 40px 40px;">
                 <div class="border border-secondary p-2" style="border-radius: 40px 40px 0px 0px; background-color:#e66800">
                     <h6 class="ms-2 my-0" style="color:white">
-                        <i class="fas fa-building me-1"></i>
-                        Firme / {{ $firma->nume ?? '' }}</h6>
+                        <i class="fas fa-users me-1"></i>
+                        Salariați / {{ $salariat->nume ?? '' }}</h6>
                 </div>
 
                 <div class="card-body py-2 border border-secondary"
@@ -25,87 +25,103 @@
                                     Nume
                                 </td>
                                 <td>
-                                    {{ $firma->nume }}
+                                    {{ $salariat->nume }}
                                 </td>
                             </tr>
                             <tr>
                                 <td class="pe-4">
-                                    Cod fiscal
+                                    Firma
                                 </td>
                                 <td>
-                                    {{ $firma->cod_fiscal }}
+                                    {{ $salariat->firma->nume ?? '' }}
                                 </td>
                             </tr>
                             <tr>
                                 <td class="pe-4">
-                                    Domeniu de activitate
+                                    CNP
                                 </td>
                                 <td>
-                                    {{ $firma->domeniu_de_activitate->nume ?? ''}}
+                                    {{ $salariat->cnp }}
                                 </td>
                             </tr>
                             <tr>
                                 <td class="pe-4">
-                                    Telefon
+                                    Funcția
                                 </td>
                                 <td>
-                                    {{ $firma->telefon }}
+                                    {{ $salariat->functie }}
                                 </td>
                             </tr>
                             <tr>
                                 <td class="pe-4">
-                                    Adresa
+                                    Dată Angajare
                                 </td>
                                 <td>
-                                    {{ $firma->adresa }}
+                                    {{ $salariat->data_angajare ? \Carbon\Carbon::parse($salariat->data_angajare)->isoFormat('DD.MM.YYYY') : '' }}
                                 </td>
                             </tr>
                             <tr>
                                 <td class="pe-4">
-                                    Localitate
+                                    Dată Încetare
                                 </td>
                                 <td>
-                                    {{ $firma->localitate }}
+                                    {{ $salariat->data_incetare ? \Carbon\Carbon::parse($salariat->data_incetare)->isoFormat('DD.MM.YYYY') : '' }}
                                 </td>
                             </tr>
                             <tr>
                                 <td class="pe-4">
-                                    Județ
+                                    Instructaj la (nr. luni)
                                 </td>
                                 <td>
-                                    {{ $firma->judet }}
+                                    {{ $salariat->instructaj_la_nr_luni }}
                                 </td>
                             </tr>
                             <tr>
                                 <td class="pe-4">
-                                    Email
+                                    Dată Instructaj
                                 </td>
                                 <td>
-                                    {{ $firma->email }}
+                                    {{ $salariat->data_instructaj ? \Carbon\Carbon::parse($salariat->data_instructaj)->isoFormat('DD.MM.YYYY') : '' }}
                                 </td>
                             </tr>
                             <tr>
                                 <td class="pe-4">
-                                    Buletin pram data expirare
+                                    Medicina muncii (dată expirare)
                                 </td>
                                 <td>
-                                    {{ $firma->buletin_pram_expirare ? \Carbon\Carbon::parse($firma->buletin_pram_expirare)->isoFormat('DD.MM.YYYY') : '' }}
+                                    {{ $salariat->medicina_muncii_expirare ? \Carbon\Carbon::parse($salariat->medicina_muncii_expirare)->isoFormat('DD.MM.YYYY') : '' }}
                                 </td>
                             </tr>
                             <tr>
                                 <td class="pe-4">
-                                    Nume administrator
+                                    Anexa SSM
                                 </td>
                                 <td>
-                                    {{ $firma->nume_administrator }}
+                                    {{ ($salariat->anexa_ssm == '1') ? 'DA' : 'NU' }}
                                 </td>
                             </tr>
                             <tr>
                                 <td class="pe-4">
-                                    Angajat desemnat
+                                    Lista EIP
                                 </td>
                                 <td>
-                                    {{ $firma->angajat_desemnat }}
+                                    {{ ($salariat->lista_eip == '1') ? 'DA' : 'NU' }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="pe-4">
+                                    Locație fișă SSM
+                                </td>
+                                <td>
+                                    {{ ($salariat->locatie_fisa_ssm == '1') ? 'la noi' : 'la ei' }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="pe-4">
+                                    Locație fisă SU
+                                </td>
+                                <td>
+                                    {{ ($salariat->locatie_fisa_su == '1') ? 'la noi' : 'la ei' }}
                                 </td>
                             </tr>
                         </table>
@@ -113,7 +129,7 @@
 
                     <div class="form-row mb-2 px-2">
                         <div class="col-lg-12 d-flex justify-content-center">
-                            <a class="btn btn-primary text-white btn-sm rounded-pill" href="/firme">Pagină Firme</a>
+                            <a class="btn btn-primary text-white btn-sm rounded-pill" href="/firme/salariati">Pagină Salariați</a>
                         </div>
                     </div>
 

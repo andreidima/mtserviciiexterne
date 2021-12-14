@@ -19,7 +19,7 @@ class FirmaSalariatController extends Controller
     {
         $search_nume = \Request::get('search_nume');
 
-        $salariati = FirmaSalariat::with('')
+        $salariati = FirmaSalariat::with('firma')
             ->when($search_nume, function ($query, $search_nume) {
                 return $query->where('nume', 'like', '%' . $search_nume . '%');
             })
@@ -50,8 +50,9 @@ class FirmaSalariatController extends Controller
     public function store(Request $request)
     {
         $request->request->add(['user_id' => $request->user()->id]);
-        dd($request);
+        // dd($request);
         $salariat = FirmaSalariat::create($this->validateRequest($request));
+        // dd($salariat);
 
         return redirect('/firme/salariati')->with('status', 'Salariatul „' . ($salariat->nume ?? '') . '” a fost adăugat cu succes!');
     }
@@ -120,10 +121,10 @@ class FirmaSalariatController extends Controller
                 'firma_id' => 'nullable|numeric|integer',
                 'nume' => 'required|max:500',
                 'cnp' => 'nullable|numeric|integer|digits:13',
-                'functia' => 'nullable|max:500',
+                'functie' => 'nullable|max:500',
                 'data_angajare' => 'nullable|date',
                 'data_incetare' => 'nullable|date',
-                'tip_instructaj' => 'nullable|max:500',
+                'instructaj_la_nr_luni' => 'nullable|numeric|integer|between:1,12',
                 'data_instructaj' => 'nullable|max:500',
                 'anexa_ssm' => 'nullable',
                 'lista_eip' => 'nullable',

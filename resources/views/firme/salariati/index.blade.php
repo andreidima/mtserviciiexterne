@@ -5,7 +5,7 @@
         <div class="row card-header align-items-center" style="border-radius: 40px 40px 0px 0px;">
             <div class="col-lg-3">
                 <h4 class="mb-0">
-                    <a href="/firme">
+                    <a href="/firme/salariati">
                         <i class="fas fa-users me-1"></i>
                         Salariați
                     </a>
@@ -30,7 +30,7 @@
             </div>
             <div class="col-lg-3 text-end">
                 <a class="btn btn-sm bg-success text-white border border-dark rounded-pill col-md-8" href="/firme/salariati/adauga" role="button">
-                    <i class="fas fa-plus-square text-white me-1"></i>Adaugă firmă
+                    <i class="fas fa-plus-square text-white me-1"></i>Adaugă salariat
                 </a>
             </div>
         </div>

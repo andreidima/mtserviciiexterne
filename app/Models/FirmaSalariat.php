@@ -20,12 +20,12 @@ class FirmaSalariat extends Model
     }
 
     /**
-     * Get the domeniu_de_activitate that owns the FirmaSalariat
+     * Get the firma that owns the FirmaSalariat
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function domeniu_de_activitate()
+    public function firma()
     {
-        return $this->belongsTo(FirmaSalariat::class, 'firma_id', 'id');
+        return $this->belongsTo(Firma::class, 'firma_id', 'id');
     }
 }
