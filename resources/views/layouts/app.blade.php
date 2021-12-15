@@ -27,7 +27,7 @@
     @auth
     {{-- <div id="app"> --}}
     <header>
-        <nav class="navbar navbar-expand-lg navbar-dark shadow-sm" style="background-color: darkcyan">
+        <nav class="navbar navbar-lg navbar-expand-lg navbar-dark shadow-sm" style="background-color: darkcyan">
             <div class="container">
                 <a class="navbar-brand me-5" href="{{ url('/') }}">
                     {{ config('app.name', 'BJVrancea') }}
@@ -39,13 +39,13 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li class="nav-item">
+                        <li class="nav-item me-3">
                             <a class="nav-link active" href="/firme/salariati">
                                 <i class="fas fa-users "></i>
                                 Salariați
                             </a>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item me-3">
                             <a class="nav-link active" href="/firme">
                                 <i class="fas fa-building "></i>
                                 Firme

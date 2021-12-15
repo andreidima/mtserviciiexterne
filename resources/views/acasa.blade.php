@@ -11,10 +11,6 @@
                     @include ('errors')
 
                     Bine ai venit <b>{{ auth()->user()->name ?? '' }}</b>!
-                    {{-- <br><br><br>
-                        <p class="text-center">
-                            {{ \Illuminate\Foundation\Inspiring::quote() }}
-                        </p> --}}
                 </div>
             </div>
         </div>

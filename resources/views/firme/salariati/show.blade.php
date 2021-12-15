@@ -18,7 +18,7 @@
             @include ('errors')
 
                     <div class="table-responsive col-md-12 mx-auto">
-                        <table class="table table-sm table-striped table-hover"
+                        <table class="table table-striped table-hover"
                         >
                             <tr>
                                 <td class="pe-4">
@@ -113,7 +113,11 @@
                                     Locație fișă SSM
                                 </td>
                                 <td>
-                                    {{ ($salariat->locatie_fisa_ssm == '1') ? 'la noi' : 'la ei' }}
+                                    @if ($salariat->locatie_fisa_ssm == '0')
+                                        {{ 'la ei' }}
+                                    @elseif ($salariat->locatie_fisa_ssm == '1')
+                                        {{ 'la noi' }}
+                                    @endif
                                 </td>
                             </tr>
                             <tr>
@@ -121,7 +125,19 @@
                                     Locație fisă SU
                                 </td>
                                 <td>
-                                    {{ ($salariat->locatie_fisa_su == '1') ? 'la noi' : 'la ei' }}
+                                    @if ($salariat->locatie_fisa_su == '0')
+                                        {{ 'la ei' }}
+                                    @elseif ($salariat->locatie_fisa_su == '1')
+                                        {{ 'la noi' }}
+                                    @endif
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="pe-4">
+                                    Observații
+                                </td>
+                                <td>
+                                    {{ $salariat->observatii }}
                                 </td>
                             </tr>
                         </table>
@@ -129,7 +145,7 @@
 
                     <div class="form-row mb-2 px-2">
                         <div class="col-lg-12 d-flex justify-content-center">
-                            <a class="btn btn-primary text-white btn-sm rounded-pill" href="/firme/salariati">Pagină Salariați</a>
+                            <a class="btn btn-primary text-white rounded-3" href="/firme/salariati">Pagină Salariați</a>
                         </div>
                     </div>
 

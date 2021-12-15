@@ -127,6 +127,7 @@ class FirmaController extends Controller
                 'buletin_pram_expirare' => 'nullable|date',
                 'nume_administrator' => 'nullable|max:500',
                 'angajat_desemnat' => 'nullable|max:500',
+                'observatii' => 'nullable|max:2000',
                 'user_id' => 'required',
             ],
             [

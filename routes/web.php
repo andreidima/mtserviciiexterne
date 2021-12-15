@@ -26,4 +26,9 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::resource('/firme/salariati', FirmaSalariatController::class,  ['parameters' => ['salariati' => 'salariat']]);
     Route::resource('/firme', FirmaController::class,  ['parameters' => ['firme' => 'firma']]);
+
+
+    Route::get('test', function() {
+        dd(\App\Models\FirmaDomeniuDeActivitate::inRandomOrder()->first()->id);
+    });
 });
