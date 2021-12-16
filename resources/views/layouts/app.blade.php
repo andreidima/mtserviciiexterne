@@ -51,6 +51,12 @@
                                 Firme
                             </a>
                         </li>
+                        <li class="nav-item me-3">
+                            <a class="nav-link active" href="/firme/trasee">
+                                <i class="fas fa-route "></i>
+                                Trasee
+                            </a>
+                        </li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->

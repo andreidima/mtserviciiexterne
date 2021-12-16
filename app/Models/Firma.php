@@ -28,4 +28,14 @@ class Firma extends Model
     {
         return $this->belongsTo(FirmaDomeniuDeActivitate::class, 'domeniu_de_activitate_id', 'id');
     }
+
+    /**
+     * Get all of the salariati for the Firma
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function salariati()
+    {
+        return $this->hasMany(FirmaSalariat::class, 'firma_id', 'id');
+    }
 }

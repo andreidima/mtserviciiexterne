@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 
 use App\Models\Firma;
+use App\Models\FirmaSalariat;
 use App\Models\FirmaDomeniuDeActivitate;
 
 class FirmaController extends Controller
@@ -19,8 +20,8 @@ class FirmaController extends Controller
     {
         $search_nume = \Request::get('search_nume');
 
-        $firme = Firma::with('domeniu_de_activitate')
-            ->when($search_nume, function ($query, $search_nume) {
+        $firme = Firma::
+            when($search_nume, function ($query, $search_nume) {
                 return $query->where('nume', 'like', '%' . $search_nume . '%');
             })
             ->latest()
@@ -102,6 +103,10 @@ class FirmaController extends Controller
      */
     public function destroy(Firma $firma)
     {
+        if (count($firma->salariati)){
+            return back()->with('error', 'Firma „' . ($firma->nume ?? '') . '” nu poate fi ștearsă pentru că are salariați adăugați. Ștergeți mai întâi salariații firmei');
+        }
+
         $firma->delete();
 
         return redirect('/firme')->with('status', 'Firma „' . ($firma->nume ?? '') . '” a fost ștearsă cu succes!');
@@ -129,6 +134,8 @@ class FirmaController extends Controller
                 'angajat_desemnat' => 'nullable|max:500',
                 'observatii' => 'nullable|max:2000',
                 'user_id' => 'required',
+                'traseu_id' => 'nullable|numeric|integer',
+                'traseu_ordine' => 'nullable|numeric|integer'
             ],
             [
 
