@@ -112,7 +112,30 @@
                     placeholder=""
                     value="{{ old('angajat_desemnat', $firma->angajat_desemnat) }}">
             </div>
-            <div class="col-lg-12 mb-5 mx-auto">
+            <div class="col-lg-3 mb-5 mx-auto">
+                <label for="traseu_id" class="mb-0 ps-3">Traseu</label>
+                <select name="traseu_id"
+                    class="form-select bg-white rounded-3 {{ $errors->has('traseu_id') ? 'is-invalid' : '' }}"
+                >
+                        <option value='' selected>Selectează</option>
+                    @foreach ($trasee as $traseu)
+                        <option
+                            value='{{ $traseu->id }}'
+                            {{ ($traseu->id == old('traseu_id', $firma->traseu->id ?? '')) ? 'selected' : '' }}
+                        >{{ $traseu->nume }} </option>
+                    @endforeach
+                </select>
+            </div>
+            <div class="col-lg-3 mb-5 mx-auto">
+                <label for="traseu_ordine" class="mb-0 ps-3">Ordine în traseu</label>
+                <input
+                    type="text"
+                    class="form-control bg-white rounded-3 {{ $errors->has('traseu_ordine') ? 'is-invalid' : '' }}"
+                    name="traseu_ordine"
+                    placeholder=""
+                    value="{{ old('traseu_ordine', $firma->traseu_ordine) }}">
+            </div>
+            <div class="col-lg-6 mb-5 mx-auto">
                 <label for="observatii" class="form-label mb-0 ps-3">Observații</label>
                 <textarea class="form-control bg-white {{ $errors->has('observatii') ? 'is-invalid' : '' }}"
                     name="observatii" rows="2">{{ old('observatii', $firma->observatii) }}</textarea>

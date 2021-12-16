@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Gate;
 
 use App\Models\Firma;
 use App\Models\FirmaSalariat;
+use App\Models\FirmaTraseu;
 use App\Models\FirmaDomeniuDeActivitate;
 
 class FirmaController extends Controller
@@ -38,8 +39,9 @@ class FirmaController extends Controller
     public function create()
     {
         $domenii_de_activitate = FirmaDomeniuDeActivitate::orderBy('nume')->get();
+        $trasee = FirmaTraseu::orderBy('nume')->get();
 
-        return view('firme.create', compact('domenii_de_activitate'));
+        return view('firme.create', compact('domenii_de_activitate', 'trasee'));
     }
 
     /**
@@ -76,8 +78,9 @@ class FirmaController extends Controller
     public function edit(Firma $firma)
     {
         $domenii_de_activitate = FirmaDomeniuDeActivitate::orderBy('nume')->get();
+        $trasee = FirmaTraseu::orderBy('nume')->get();
 
-        return view('firme.edit', compact('firma', 'domenii_de_activitate'));
+        return view('firme.edit', compact('firma', 'domenii_de_activitate', 'trasee'));
     }
 
     /**

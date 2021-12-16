@@ -30,6 +30,16 @@ class Firma extends Model
     }
 
     /**
+     * Get the traseu that owns the Firma
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function traseu()
+    {
+        return $this->belongsTo(FirmaTraseu::class, 'traseu_id', 'id');
+    }
+
+    /**
      * Get all of the salariati for the Firma
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany

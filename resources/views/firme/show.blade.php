@@ -110,6 +110,22 @@
                             </tr>
                             <tr>
                                 <td class="pe-4">
+                                    Traseu
+                                </td>
+                                <td>
+                                    {{ $firma->traseu->nume ?? ''}}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="pe-4">
+                                    Ordine în traseu
+                                </td>
+                                <td>
+                                    {{ $firma->traseu_ordine }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="pe-4">
                                     Observații
                                 </td>
                                 <td>
