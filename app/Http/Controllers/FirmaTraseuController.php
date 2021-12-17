@@ -20,7 +20,10 @@ class FirmaTraseuController extends Controller
         $search_nume = \Request::get('search_nume');
 
         $trasee = FirmaTraseu::
-            when($search_nume, function ($query, $search_nume) {
+            with(['firme' => function ($query) {
+                $query->orderBy('traseu_ordine');
+            }])
+            ->when($search_nume, function ($query, $search_nume) {
                 return $query->where('nume', 'like', '%' . $search_nume . '%');
             })
             ->latest()

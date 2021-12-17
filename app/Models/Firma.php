@@ -48,4 +48,14 @@ class Firma extends Model
     {
         return $this->hasMany(FirmaSalariat::class, 'firma_id', 'id');
     }
+
+    /**
+     * Get the stingator associated with the Firma
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function stingator()
+    {
+        return $this->hasOne(FirmaStingator::class, 'firma_id', 'id');
+    }
 }

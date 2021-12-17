@@ -43,6 +43,7 @@
                         <tr class="" style="padding:2rem">
                             <th>Nr. Crt.</th>
                             <th>Nume</th>
+                            <th>Firme</th>
                             <th class="text-end">Acțiuni</th>
                         </tr>
                     </thead>
@@ -55,18 +56,28 @@
                                 <td>
                                     <b>{{ $traseu->nume ?? '' }}</b>
                                 </td>
-                                <td class="d-flex justify-content-end">
-                                    <a href="{{ $traseu->path() }}"
-                                        class="flex me-1"
-                                    >
-                                        <span class="badge bg-success">Vizualizează</span>
-                                    </a>
-                                    <a href="{{ $traseu->path() }}/modifica"
-                                        class="flex me-1"
-                                    >
-                                        <span class="badge bg-primary">Modifică</span>
-                                    </a>
-                                    <div style="flex" class="">
+                                <td>
+                                    <div>
+                                        @foreach ($traseu->firme as $firma)
+                                            {{ $firma->traseu_ordine }} - {{ $firma->nume }}
+                                            @if (!$loop->last)
+                                                <br>
+                                            @endif
+                                        @endforeach
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="d-flex justify-content-end">
+                                        <a href="{{ $traseu->path() }}"
+                                            class="me-1"
+                                        >
+                                            <span class="badge bg-success">Vizualizează</span>
+                                        </a>
+                                        <a href="{{ $traseu->path() }}/modifica"
+                                            class="me-1"
+                                        >
+                                            <span class="badge bg-primary">Modifică</span>
+                                        </a>
                                         <a
                                             href="#"
                                             data-bs-toggle="modal"
