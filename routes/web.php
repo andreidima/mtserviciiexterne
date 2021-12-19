@@ -4,7 +4,11 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\FirmaController;
 use App\Http\Controllers\FirmaSalariatController;
+use App\Http\Controllers\FirmaStingatorController;
 use App\Http\Controllers\FirmaTraseuController;
+use App\Http\Controllers\TematicaController;
+use App\Http\Controllers\TematicaFisierController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -26,11 +30,15 @@ Route::group(['middleware' => 'auth'], function () {
     Route::view('/acasa', 'acasa');
 
     Route::resource('/firme/salariati', FirmaSalariatController::class,  ['parameters' => ['salariati' => 'salariat']]);
+    Route::resource('/firme/stingatoare', FirmaStingatorController::class,  ['parameters' => ['stingatoare' => 'stingator']]);
 
     Route::get('/firme/trasee/adauga-firma', [FirmaTraseuController::class, 'traseuAdaugaFirma']);
     Route::resource('/firme/trasee', FirmaTraseuController::class,  ['parameters' => ['trasee' => 'traseu']]);
 
     Route::resource('/firme', FirmaController::class,  ['parameters' => ['firme' => 'firma']]);
+
+    Route::get('/tematici/file-download/{fisier}', [TematicaFisierController::class, 'fileDownload']);
+    Route::resource('/tematici', TematicaController::class,  ['parameters' => ['tematici' => 'tematica']]);
 
 
     Route::get('test', function() {

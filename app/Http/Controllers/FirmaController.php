@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Gate;
 
 use App\Models\Firma;
 use App\Models\FirmaSalariat;
+use App\Models\FirmaStingator;
 use App\Models\FirmaTraseu;
 use App\Models\FirmaDomeniuDeActivitate;
 
@@ -21,8 +22,8 @@ class FirmaController extends Controller
     {
         $search_nume = \Request::get('search_nume');
 
-        $firme = Firma::
-            when($search_nume, function ($query, $search_nume) {
+        $firme = Firma::with('stingator')
+            ->when($search_nume, function ($query, $search_nume) {
                 return $query->where('nume', 'like', '%' . $search_nume . '%');
             })
             ->latest()

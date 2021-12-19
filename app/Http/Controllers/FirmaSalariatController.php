@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Gate;
 use App\Models\FirmaSalariat;
 use App\Models\Firma;
 
+use Illuminate\Database\Eloquent\Builder;
+
 class FirmaSalariatController extends Controller
 {
     /**
@@ -18,15 +20,21 @@ class FirmaSalariatController extends Controller
     public function index()
     {
         $search_nume = \Request::get('search_nume');
+        $search_firma = \Request::get('search_firma');
 
         $salariati = FirmaSalariat::with('firma')
             ->when($search_nume, function ($query, $search_nume) {
                 return $query->where('nume', 'like', '%' . $search_nume . '%');
             })
+            ->when($search_firma, function (Builder $query) use ($search_firma) {
+                $query->whereHas('firma', function (Builder $query) use ($search_firma) {
+                    $query->where('nume', 'like', '%' . $search_firma . '%');
+                });
+            })
             ->latest()
             ->simplePaginate(25);
 
-        return view('firme.salariati.index', compact('salariati', 'search_nume'));
+        return view('firme.salariati.index', compact('salariati', 'search_nume', 'search_firma'));
     }
 
     /**

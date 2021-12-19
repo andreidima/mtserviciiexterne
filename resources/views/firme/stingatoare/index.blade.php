@@ -5,32 +5,30 @@
         <div class="row card-header align-items-center" style="border-radius: 40px 40px 0px 0px;">
             <div class="col-lg-3">
                 <h4 class="mb-0">
-                    <a href="/firme/salariati"><i class="fas fa-users me-1"></i></a>
-                    <a href="/firme/salariati">Salariați</a>
+                    <a href="/firme/stingatoare"><i class="fas fa-fire-extinguisher me-1"></i></a>
+                    <a href="/firme/stingatoare">Stingătoare</a>
                 </h4>
             </div>
             <div class="col-lg-6" id="app">
-                <form class="needs-validation" novalidate method="GET" action="/firme/salariati">
+                <form class="needs-validation" novalidate method="GET" action="/firme/stingatoare">
                     @csrf
                     <div class="row mb-1 input-group custom-search-form justify-content-center">
-                        <input type="text" class="form-control form-control-sm col-md-4 me-3 border rounded-3" id="search_nume" name="search_nume" placeholder="Nume" autofocus
+                        <input type="text" class="form-control form-control-sm col-md-4 me-1 border rounded-3" id="search_nume" name="search_nume" placeholder="Firma" autofocus
                                 value="{{ $search_nume }}">
-                        <input type="text" class="form-control form-control-sm col-md-4 border rounded-3" id="search_firma" name="search_firma" placeholder="Firma" autofocus
-                                value="{{ $search_firma }}">
                     </div>
                     <div class="row input-group custom-search-form justify-content-center">
                         <button class="btn btn-sm btn-primary text-white col-md-4 me-3 border border-dark rounded-3" type="submit">
                             <i class="fas fa-search text-white me-1"></i>Caută
                         </button>
-                        <a class="btn btn-sm bg-secondary text-white col-md-4 border border-dark rounded-3" href="/firme/salariati" role="button">
+                        <a class="btn btn-sm bg-secondary text-white col-md-4 border border-dark rounded-3" href="/firme/stingatoare" role="button">
                             <i class="far fa-trash-alt text-white me-1"></i>Resetează căutarea
                         </a>
                     </div>
                 </form>
             </div>
             <div class="col-lg-3 text-end">
-                <a class="btn btn-sm bg-success text-white border border-dark rounded-3 col-md-8" href="/firme/salariati/adauga" role="button">
-                    <i class="fas fa-plus-square text-white me-1"></i>Adaugă salariat
+                <a class="btn btn-sm bg-success text-white border border-dark rounded-3 col-md-8" href="/firme/stingatoare/adauga" role="button">
+                    <i class="fas fa-plus-square text-white me-1"></i>Adaugă stingătoare
                 </a>
             </div>
         </div>
@@ -44,34 +42,26 @@
                     <thead class="text-white rounded-3" style="background-color:#e66800;">
                         <tr class="" style="padding:2rem">
                             <th>Nr. Crt.</th>
-                            <th>Nume</th>
-                            <th>Funcția</th>
                             <th>Firma</th>
                             <th class="text-end">Acțiuni</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @forelse ($salariati as $salariat)
+                        @forelse ($stingatoare as $stingator)
                             <tr>
                                 <td align="">
-                                    {{ ($salariati ->currentpage()-1) * $salariati ->perpage() + $loop->index + 1 }}
+                                    {{ ($stingatoare ->currentpage()-1) * $stingatoare ->perpage() + $loop->index + 1 }}
                                 </td>
                                 <td>
-                                    <b>{{ $salariat->nume ?? '' }}</b>
-                                </td>
-                                <td>
-                                    <b>{{ $salariat->functie ?? '' }}</b>
-                                </td>
-                                <td>
-                                    <b>{{ $salariat->firma->nume ?? '' }}</b>
+                                    <b>{{ $stingator->firma->nume ?? '' }}</b>
                                 </td>
                                 <td class="d-flex justify-content-end">
-                                    <a href="{{ $salariat->path() }}"
+                                    <a href="{{ $stingator->path() }}"
                                         class="flex me-1"
                                     >
                                         <span class="badge bg-success">Vizualizează</span>
                                     </a>
-                                    <a href="{{ $salariat->path() }}/modifica"
+                                    <a href="{{ $stingator->path() }}/modifica"
                                         class="flex me-1"
                                     >
                                         <span class="badge bg-primary">Modifică</span>
@@ -80,8 +70,8 @@
                                         <a
                                             href="#"
                                             data-bs-toggle="modal"
-                                            data-bs-target="#stergeSalariat{{ $salariat->id }}"
-                                            title="Șterge Salariat"
+                                            data-bs-target="#stergeStingător{{ $stingator->id }}"
+                                            title="Șterge Stingător"
                                             >
                                             <span class="badge bg-danger">Șterge</span>
                                         </a>
@@ -97,7 +87,7 @@
 
                 <nav>
                     <ul class="pagination justify-content-center">
-                        {{$salariati->appends(Request::except('page'))->links()}}
+                        {{$stingatoare->appends(Request::except('page'))->links()}}
                     </ul>
                 </nav>
 
@@ -105,28 +95,28 @@
     </div>
 
     {{-- Modalele pentru stergere firma --}}
-    @foreach ($salariati as $salariat)
-        <div class="modal fade text-dark" id="stergeSalariat{{ $salariat->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    @foreach ($stingatoare as $stingator)
+        <div class="modal fade text-dark" id="stergeStingător{{ $stingator->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                 <div class="modal-header bg-danger">
-                    <h5 class="modal-title text-white" id="exampleModalLabel">Salariat: <b>{{ $salariat->nume ?? '' }}</b></h5>
+                    <h5 class="modal-title text-white" id="exampleModalLabel">Stingător: <b>{{ $stingator->nume ?? '' }}</b></h5>
                     <button type="button" class="btn-close bg-white" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body" style="text-align:left;">
-                    Ești sigur ca vrei să ștergi Salariatul?
+                    Ești sigur ca vrei să ștergi Stingător?
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Renunță</button>
 
-                    <form method="POST" action="{{ $salariat->path() }}">
+                    <form method="POST" action="{{ $stingator->path() }}">
                         @method('DELETE')
                         @csrf
                         <button
                             type="submit"
                             class="btn btn-danger text-white"
                             >
-                            Șterge Salariatul
+                            Șterge Stingător
                         </button>
                     </form>
 

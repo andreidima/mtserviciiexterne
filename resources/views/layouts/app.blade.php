@@ -40,12 +40,6 @@
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item me-3">
-                            <a class="nav-link active" href="/firme/salariati">
-                                <i class="fas fa-users "></i>
-                                Salariați
-                            </a>
-                        </li>
-                        <li class="nav-item me-3">
                             <a class="nav-link active" href="/firme">
                                 <i class="fas fa-building "></i>
                                 Firme
@@ -55,6 +49,24 @@
                             <a class="nav-link active" href="/firme/trasee">
                                 <i class="fas fa-route "></i>
                                 Trasee
+                            </a>
+                        </li>
+                        <li class="nav-item me-3">
+                            <a class="nav-link active" href="/firme/salariati">
+                                <i class="fas fa-users "></i>
+                                Salariați
+                            </a>
+                        </li>
+                        <li class="nav-item me-3">
+                            <a class="nav-link active" href="/firme/stingatoare">
+                                <i class="fas fa-fire-extinguisher "></i>
+                                Stingătoare
+                            </a>
+                        </li>
+                        <li class="nav-item me-3">
+                            <a class="nav-link active" href="/tematici">
+                                <i class="fas fa-file-pdf "></i>
+                                Tematici
                             </a>
                         </li>
                     </ul>

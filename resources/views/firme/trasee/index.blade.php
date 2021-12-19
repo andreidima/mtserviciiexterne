@@ -13,8 +13,10 @@
                 <form class="needs-validation" novalidate method="GET" action="/firme/trasee">
                     @csrf
                     <div class="row mb-1 input-group custom-search-form justify-content-center">
-                        <input type="text" class="form-control form-control-sm col-md-4 me-1 rounded-3" id="search_nume" name="search_nume" placeholder="Nume" autofocus
+                        <input type="text" class="form-control form-control-sm col-md-4 me-3 rounded-3" id="search_nume" name="search_nume" placeholder="Nume" autofocus
                                 value="{{ $search_nume }}">
+                        <input type="text" class="form-control form-control-sm col-md-4 border rounded-3" id="search_firma" name="search_firma" placeholder="Firma" autofocus
+                                value="{{ $search_firma }}">
                     </div>
                     <div class="row input-group custom-search-form justify-content-center">
                         <button class="btn btn-sm btn-primary text-white col-md-4 me-3 border border-dark rounded-3" type="submit">

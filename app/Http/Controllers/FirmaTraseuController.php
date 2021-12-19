@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Gate;
 use App\Models\FirmaTraseu;
 use App\Models\Firma;
 
+use Illuminate\Database\Eloquent\Builder;
+
 class FirmaTraseuController extends Controller
 {
     /**
@@ -18,6 +20,7 @@ class FirmaTraseuController extends Controller
     public function index()
     {
         $search_nume = \Request::get('search_nume');
+        $search_firma = \Request::get('search_firma');
 
         $trasee = FirmaTraseu::
             with(['firme' => function ($query) {
@@ -26,10 +29,15 @@ class FirmaTraseuController extends Controller
             ->when($search_nume, function ($query, $search_nume) {
                 return $query->where('nume', 'like', '%' . $search_nume . '%');
             })
+            ->when($search_firma, function (Builder $query) use ($search_firma) {
+                $query->whereHas('firme', function (Builder $query) use ($search_firma) {
+                    $query->where('nume', 'like', '%' . $search_firma . '%');
+                });
+            })
             ->latest()
             ->simplePaginate(25);
 
-        return view('firme.trasee.index', compact('trasee', 'search_nume'));
+        return view('firme.trasee.index', compact('trasee', 'search_nume', 'search_firma'));
     }
 
     /**
