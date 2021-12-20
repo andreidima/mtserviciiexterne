@@ -43,7 +43,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('/tematici/fisiere', TematicaFisierController::class,  ['parameters' => ['fisiere' => 'fisier']]);
 
     Route::get('/tematici/firme-tematici', [TematicaController::class, 'firmeTematici']);
-    Route::post('/tematici/firme-tematici/{firma}/tematici-sync', [TematicaController::class, 'firmeTematici']);
+    Route::get('/tematici/firme-tematici/{firma}/tematici-modifica', [TematicaController::class, 'firmeTematiciModifica']);
+    Route::post('/tematici/firme-tematici/{firma}/tematici-modifica', [TematicaController::class, 'postFirmeTematiciModifica']);
 
     Route::resource('/tematici', TematicaController::class,  ['parameters' => ['tematici' => 'tematica']]);
 

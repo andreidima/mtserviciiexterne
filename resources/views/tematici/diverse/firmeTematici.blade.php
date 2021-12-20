@@ -68,7 +68,7 @@
                                 </td>
                                 <td>
                                     <div class="d-flex justify-content-end">
-                                        <a href="{{ $firma->path() }}/modifica"
+                                        <a href="/tematici/firme-tematici/{{ $firma->id }}/tematici-modifica"
                                             class="me-1"
                                         >
                                             <span class="badge bg-primary">Modifică</span>

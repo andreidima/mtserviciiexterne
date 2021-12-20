@@ -198,4 +198,16 @@ class TematicaController extends Controller
 
         return view('tematici/diverse/firmeTematici', compact('firme', 'search_nume'));
     }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function firmeTematiciModifica(Firma $firma)
+    {
+        $tematici = Tematica::select('id', 'nume')->where('tip', 0)->get();
+
+        return view('tematici.diverse.firmeTematiciModifica', compact('firma', 'tematici'));
+    }
 }
