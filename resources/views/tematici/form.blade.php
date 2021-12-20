@@ -4,7 +4,7 @@
     <div class="col-lg-12 mb-0">
 
         <div class="row mb-0">
-            <div class="col-lg-12 mb-5 mx-auto">
+            <div class="col-lg-9 mb-5 mx-auto">
                 <label for="nume" class="mb-0 ps-3">Nume<span class="text-danger">*</span></label>
                 <input
                     type="text"
@@ -14,13 +14,29 @@
                     value="{{ old('nume', $tematica->nume) }}"
                     required>
             </div>
+            <div class="col-lg-3 mb-5 mx-auto">
+                <label for="tip" class="mb-0 ps-3">Tip:</label>
+                <select name="tip"
+                    class="form-select bg-white rounded-3 {{ $errors->has('tip') ? 'is-invalid' : '' }}"
+                >
+                    <option value='' selected>Selectează</option>
+                    <option
+                        value='0'
+                        {{ (old('tip', $tematica->tip) == '0') ? 'selected' : '' }}
+                    >SU</option>
+                    <option
+                        value='1'
+                        {{ (old('tip', $tematica->tip) == '1') ? 'selected' : '' }}
+                    >SSM</option>
+                </select>
+            </div>
             <div class="col-lg-12 mb-5 mx-auto">
                 <label for="descriere" class="form-label mb-0 ps-3">Descriere</label>
                 <textarea class="form-control bg-white {{ $errors->has('descriere') ? 'is-invalid' : '' }}"
                     name="descriere" rows="2">{{ old('descriere', $tematica->descriere) }}</textarea>
             </div>
             <div class="col-lg-12 mb-5">
-                <label for="file" class="form-label mb-0 pl-3">Adaugă fișiere</label>
+                <label for="file" class="form-label mb-0 ps-3">Adaugă fișiere</label>
                 <input type="file" name="fisiere[]" class="form-control rounded-3" multiple>
                 @if($errors->has('fisiere'))
                 <span class="help-block text-danger">{{ $errors->first('fisiere') }}</span>

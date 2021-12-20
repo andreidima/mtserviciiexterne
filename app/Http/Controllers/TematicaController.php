@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\Gate;
 
 use App\Models\Tematica;
 use App\Models\TematicaFisier;
+use App\Models\Firma;
+use App\Models\Salariat;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Storage;
@@ -69,8 +71,8 @@ class TematicaController extends Controller
 
                 $fisier = new TematicaFisier;
                 $fisier->tematica_id = $tematica->id;
-                $fisier->fisier_nume = $nume;
-                $fisier->fisier_cale = $cale;
+                $fisier->nume = $nume;
+                $fisier->cale = $cale;
                 $fisier->user_id = $request->user()->id;
                 $fisier->save();
             }
@@ -129,8 +131,8 @@ class TematicaController extends Controller
 
                 $fisier = new TematicaFisier;
                 $fisier->tematica_id = $tematica->id;
-                $fisier->fisier_nume = $nume;
-                $fisier->fisier_cale = $cale;
+                $fisier->nume = $nume;
+                $fisier->cale = $cale;
                 $fisier->user_id = $request->user()->id;
                 $fisier->save();
             }
@@ -166,6 +168,7 @@ class TematicaController extends Controller
         return $request->validate(
             [
                 'nume' => 'required|max:500',
+                'tip' => 'required|numeric|integer|min:0|max:1',
                 'descriere' => 'nullable|max:2000',
                 'observatii' => 'nullable|max:2000',
                 'user_id' => 'required',
@@ -175,5 +178,24 @@ class TematicaController extends Controller
 
             ]
         );
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function firmeTematici()
+    {
+        $search_nume = \Request::get('search_nume');
+
+        $firme = Firma::with('tematici')
+            ->when($search_nume, function ($query, $search_nume) {
+                return $query->where('nume', 'like', '%' . $search_nume . '%');
+            })
+            ->latest()
+            ->simplePaginate(25);
+
+        return view('tematici/diverse/firmeTematici', compact('firme', 'search_nume'));
     }
 }

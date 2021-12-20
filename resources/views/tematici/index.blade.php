@@ -43,6 +43,7 @@
                         <tr class="" style="padding:2rem">
                             <th>Nr. Crt.</th>
                             <th>Nume</th>
+                            <th>Fișiere</th>
                             <th class="text-end">Acțiuni</th>
                         </tr>
                     </thead>
@@ -54,6 +55,17 @@
                                 </td>
                                 <td>
                                     <b>{{ $tematica->nume ?? '' }}</b>
+                                </td>
+                                <td>
+                                    <div>
+                                        @foreach ($tematica->fisiere as $fisier)
+                                            {{ $fisier->nume }}
+                                            @if (!$loop->last)
+                                                <br>
+                                            @endif
+                                        @endforeach
+                                    </div>
+                                    {{-- {{ count($tematica->fisiere) }} --}}
                                 </td>
                                 <td>
                                     <div class="d-flex justify-content-end">

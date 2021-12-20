@@ -45,7 +45,7 @@
                         <tr class="" style="padding:2rem">
                             <th>Nr. Crt.</th>
                             <th>Nume</th>
-                            <th>Firme</th>
+                            <th>Firme - poziție</th>
                             <th class="text-end">Acțiuni</th>
                         </tr>
                     </thead>
@@ -61,7 +61,7 @@
                                 <td>
                                     <div>
                                         @foreach ($traseu->firme as $firma)
-                                            {{ $firma->traseu_ordine }} - {{ $firma->nume }}
+                                            {{ $firma->nume }} - {{ $firma->traseu_ordine }}
                                             @if (!$loop->last)
                                                 <br>
                                             @endif

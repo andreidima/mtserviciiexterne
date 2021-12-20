@@ -46,7 +46,6 @@
                             <th>Telefon</th>
                             <th>Angajat desemnat</th>
                             <th>Localitate</th>
-                            <th>Stingătoare</th>
                             <th class="text-end">Acțiuni</th>
                         </tr>
                     </thead>
@@ -67,27 +66,6 @@
                                 </td>
                                 <td>
                                     <b>{{ $firma->localitate ?? '' }}</b>
-                                </td>
-                                <td>
-                                    @if ($firma->stingator)
-                                        {{-- <div class="d-flex justify-content-end">
-                                            <a href="{{ $firma->path() . '/' . $firma->id . '/adauga' }}"
-                                                class="me-1"
-                                            >
-                                                <span class="badge bg-success">Vizualizează</span>
-                                            </a>
-                                            <a href="{{ $traseu->path() }}/modifica"
-                                                class="me-1"
-                                            >
-                                                <span class="badge bg-primary">Modifică</span>
-                                            </a> --}}
-                                    @else
-                                        <a href="{{ $firma->path() . '/' . $firma->id . '/adauga' }}">
-                                            <span class="badge bg-success">
-                                                <i class="fas fa-plus-square text-white me-1"></i>Adaugă
-                                            </span>
-                                        </a>
-                                    @endif
                                 </td>
                                 <td class="d-flex justify-content-end">
                                     <a href="{{ $firma->path() }}"

@@ -29,6 +29,7 @@ Route::redirect('/', '/acasa');
 Route::group(['middleware' => 'auth'], function () {
     Route::view('/acasa', 'acasa');
 
+
     Route::resource('/firme/salariati', FirmaSalariatController::class,  ['parameters' => ['salariati' => 'salariat']]);
     Route::resource('/firme/stingatoare', FirmaStingatorController::class,  ['parameters' => ['stingatoare' => 'stingator']]);
 
@@ -37,7 +38,13 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::resource('/firme', FirmaController::class,  ['parameters' => ['firme' => 'firma']]);
 
+
     Route::get('/tematici/file-download/{fisier}', [TematicaFisierController::class, 'fileDownload']);
+    Route::resource('/tematici/fisiere', TematicaFisierController::class,  ['parameters' => ['fisiere' => 'fisier']]);
+
+    Route::get('/tematici/firme-tematici', [TematicaController::class, 'firmeTematici']);
+    Route::post('/tematici/firme-tematici/{firma}/tematici-sync', [TematicaController::class, 'firmeTematici']);
+
     Route::resource('/tematici', TematicaController::class,  ['parameters' => ['tematici' => 'tematica']]);
 
 

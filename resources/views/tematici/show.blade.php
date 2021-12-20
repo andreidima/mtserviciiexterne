@@ -38,6 +38,21 @@
                             </tr>
                             <tr>
                                 <td class="pe-4">
+                                    Fișiere
+                                </td>
+                                <td>
+                                    <div>
+                                        @foreach ($tematica->fisiere as $fisier)
+                                            {{ $fisier->nume }}
+                                            @if (!$loop->last)
+                                                <br>
+                                            @endif
+                                        @endforeach
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="pe-4">
                                     Observații
                                 </td>
                                 <td>

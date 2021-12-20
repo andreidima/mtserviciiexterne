@@ -58,4 +58,14 @@ class Firma extends Model
     {
         return $this->hasOne(FirmaStingator::class, 'firma_id', 'id');
     }
+
+    /**
+     * The tematici that belong to the Firma
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function tematici()
+    {
+        return $this->belongsToMany(Tematica::class, 'firma_tematica', 'firma_id', 'tematica_id');
+    }
 }
