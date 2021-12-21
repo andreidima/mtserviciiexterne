@@ -30,7 +30,7 @@
         <nav class="navbar navbar-lg navbar-expand-lg navbar-dark shadow-sm" style="background-color: darkcyan">
             <div class="container">
                 <a class="navbar-brand me-5" href="{{ url('/') }}">
-                    {{ config('app.name', 'BJVrancea') }}
+                    MT
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>

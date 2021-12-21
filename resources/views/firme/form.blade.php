@@ -65,7 +65,7 @@
                     value="{{ old('judet', $firma->judet) }}">
             </div>
             <div class="col-lg-2 mb-5 mx-auto">
-                <label for="data" class="mb-0 ps-3">Buletin pram</label>
+                <label for="data" class="mb-0 ps-xxl-3">Buletin pram</label>
                     <vue2-datepicker
                         data-veche="{{ old('buletin_pram_expirare', ($firma->buletin_pram_expirare ?? '')) }}"
                         nume-camp-db="buletin_pram_expirare"

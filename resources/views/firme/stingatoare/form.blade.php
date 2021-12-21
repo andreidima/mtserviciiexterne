@@ -145,7 +145,7 @@
                     format="DD-MM-YYYY"
                     :latime="{ width: '125px' }"
                 ></vue2-datepicker>
-                <small class="ps-3">*data de expirare</small>
+                <small class="ps-xl-3">*data expirării</small>
             </div>
             <div class="col-lg-2 mb-5">
                 <label for="hidranti_expirare" class="mb-0 ps-3 pe-3">Hidranți</label>
@@ -157,7 +157,7 @@
                     format="DD-MM-YYYY"
                     :latime="{ width: '125px' }"
                 ></vue2-datepicker>
-                <small class="ps-3">*data de expirare</small>
+                <small class="ps-xl-3">*data expirării</small>
             </div>
             <div class="col-lg-12 mb-5">
                 <label for="observatii" class="form-label mb-0 ps-3">Observații</label>

@@ -47,7 +47,7 @@
                     value="{{ old('functie', $salariat->functie) }}">
             </div>
             <div class="col-lg-2 mb-5 mx-auto">
-                <label for="data_angajare" class="mb-0 ps-3 pe-3">Dată Angajare</label>
+                <label for="data_angajare" class="mb-0 ps-xxl-3">Dată Angajare</label>
                 <vue2-datepicker
                     data-veche="{{ old('data_angajare', ($salariat->data_angajare ?? '')) }}"
                     nume-camp-db="data_angajare"
@@ -58,7 +58,7 @@
                 ></vue2-datepicker>
             </div>
             <div class="col-lg-2 mb-5 mx-auto">
-                <label for="data_incetare" class="mb-0 ps-3 pe-3">Dată Încetare</label>
+                <label for="data_incetare" class="mb-0 ps-xxl-3">Dată Încetare</label>
                 <vue2-datepicker
                     data-veche="{{ old('data_incetare', ($salariat->data_incetare ?? '')) }}"
                     nume-camp-db="data_incetare"
@@ -69,7 +69,7 @@
                 ></vue2-datepicker>
             </div>
             <div class="col-lg-2 mb-5 mx-auto">
-                <label for="instructaj_la_nr_luni" class="mb-0 ps-3 pe-3">Instructaj la</label>
+                <label for="instructaj_la_nr_luni" class="mb-0 ps-3">Instructaj la</label>
                 <input
                     type="text"
                     class="form-control bg-white rounded-3 {{ $errors->has('instructaj_la_nr_luni') ? 'is-invalid' : '' }}"
@@ -79,7 +79,7 @@
                 <small class="ps-3">*nr. de luni</small>
             </div>
             <div class="col-lg-2 mb-5 mx-auto">
-                <label for="data_instructaj" class="mb-0 ps-3 pe-3">Dată Instructaj</label>
+                <label for="data_instructaj" class="mb-0 ps-xxl-3">Dată Instructaj</label>
                 <vue2-datepicker
                     data-veche="{{ old('data_instructaj', ($salariat->data_instructaj ?? '')) }}"
                     nume-camp-db="data_instructaj"
@@ -90,7 +90,7 @@
                 ></vue2-datepicker>
             </div>
             <div class="col-lg-2 mb-5 mx-auto">
-                <label for="medicina_muncii_expirare" class="mb-0 ps-2 pe-3">Medicina muncii</label>
+                <label for="medicina_muncii_expirare" class="mb-0 ps-xxl-3"><small>Medicina muncii</small></label>
                 <vue2-datepicker
                     data-veche="{{ old('medicina_muncii_expirare', ($salariat->medicina_muncii_expirare ?? '')) }}"
                     nume-camp-db="medicina_muncii_expirare"
@@ -99,7 +99,7 @@
                     format="DD-MM-YYYY"
                     :latime="{ width: '125px' }"
                 ></vue2-datepicker>
-                <small class="ps-3">*data de expirare</small>
+                <small class="ps-3">*data expirării</small>
             </div>
             <div class="form-check col-lg-3 mb-5 ps-5 mx-auto d-flex align-items-center">
                 <div>

@@ -21,15 +21,19 @@ class FirmaController extends Controller
     public function index()
     {
         $search_nume = \Request::get('search_nume');
+        $search_cod_fiscal = \Request::get('search_cod_fiscal');
 
         $firme = Firma::with('stingator')
             ->when($search_nume, function ($query, $search_nume) {
                 return $query->where('nume', 'like', '%' . $search_nume . '%');
             })
+            ->when($search_cod_fiscal, function ($query, $search_cod_fiscal) {
+                return $query->where('cod_fiscal', 'like', '%' . $search_cod_fiscal . '%');
+            })
             ->latest()
             ->simplePaginate(25);
 
-        return view('firme.index', compact('firme', 'search_nume'));
+        return view('firme.index', compact('firme', 'search_nume', 'search_cod_fiscal'));
     }
 
     /**
