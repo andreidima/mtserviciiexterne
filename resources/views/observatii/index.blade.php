@@ -59,7 +59,7 @@
                                     {{ $observatie->nume }}
                                 </td>
                                 <td>
-                                    <b>{{ $observatie->firma->nume ?? '' }}</b>
+                                    {{ $observatie->firma->nume ?? '' }}
                                 </td>
                                 <td class="d-flex justify-content-end">
                                     <a href="{{ $observatie->path() }}"
