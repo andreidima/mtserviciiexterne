@@ -8,7 +8,7 @@
                 <div class="border border-secondary p-2" style="border-radius: 40px 40px 0px 0px; background-color:#e66800">
                     <h6 class="ms-3 my-0" style="color:white">
                         <i class="fas fa-fa-file-pdf me-1"></i>
-                        Firme - Tematici
+                        Salariați - Tematici
                     </h6>
                 </div>
 
@@ -17,7 +17,7 @@
                 <div class="card-body px-4 py-4 border border-secondary"
                     style="border-radius: 0px 0px 40px 40px;"
                 >
-                    <form  class="needs-validation" novalidate method="POST" action="/tematici/firme-tematici/{{ $firma->id }}/tematici-modifica">
+                    <form  class="needs-validation" novalidate method="POST" action="/tematici/salariati-tematici/{{ $salariat->id }}/tematici-modifica">
                         @csrf
 
                         <div class="row px-2 py-2 rounded-3"
@@ -32,7 +32,7 @@
                                     "
                                 > --}}
                                 {{-- <span class="badge bg-dark fs-6">  --}}
-                                    <b>Firma: {{ $firma->nume }}</b>
+                                    <b>Salariat: {{ $salariat->nume }}</b>
                                 {{-- </span> --}}
                                 {{-- <br> --}}
                                 {{-- <span class="badge bg-dark fs-6"> --}}
@@ -63,7 +63,7 @@
                                             @if (old("tematici_selectate"))
                                                 {{ in_array($tematica->id, old("tematici_selectate")) ? "checked":"" }}
                                             @else
-                                                {{ in_array($tematica->id, $firma->tematici->pluck('id')->toArray()) ? "checked":"" }}
+                                                {{ in_array($tematica->id, $salariat->tematici->pluck('id')->toArray()) ? "checked":"" }}
                                             @endif
                                             >
                                         <label class="form-check-label text-white px-1" for="{{ $tematica->id }}" style="background-color:mediumseagreen;">
@@ -76,7 +76,7 @@
                         <div class="row">
                             <div class="col-lg-12 mb-2 d-flex justify-content-center">
                                 <button type="submit" class="btn btn-primary text-white me-3 rounded-3">Salvează</button>
-                                <a class="btn btn-secondary rounded-3" href="/tematici/firme-tematici">Renunță</a>
+                                <a class="btn btn-secondary rounded-3" href="/tematici/salariati-tematici">Renunță</a>
                             </div>
                         </div>
                     </form>

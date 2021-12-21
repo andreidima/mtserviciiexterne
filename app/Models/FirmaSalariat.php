@@ -28,4 +28,14 @@ class FirmaSalariat extends Model
     {
         return $this->belongsTo(Firma::class, 'firma_id', 'id');
     }
+
+    /**
+     * The tematici that belong to the FirmaSalariat
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function tematici()
+    {
+        return $this->belongsToMany(Tematica::class, 'firma_salariat_tematica', 'salariat_id', 'tematica_id');
+    }
 }

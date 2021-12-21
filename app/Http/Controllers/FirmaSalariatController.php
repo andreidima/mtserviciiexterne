@@ -140,7 +140,7 @@ class FirmaSalariatController extends Controller
                 'locatie_fisa_ssm' => 'nullable|max:500',
                 'locatie_fisa_su' => 'nullable|max:500',
                 'observatii' => 'nullable|max:2000',
-                'user_id' => 'required',
+                'user_id' => 'nullable',
             ],
             [
 

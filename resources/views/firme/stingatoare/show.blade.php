@@ -25,7 +25,7 @@
                                     Firma
                                 </td>
                                 <td>
-                                    {{ $stingator->firma->nume }}
+                                    {{ $stingator->firma->nume ?? '' }}
                                 </td>
                             </tr>
                             <tr>

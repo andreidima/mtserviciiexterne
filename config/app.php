@@ -176,6 +176,10 @@ return [
         App\Providers\RouteServiceProvider::class,
         App\Providers\TelescopeServiceProvider::class,
 
+        /*
+         * Andrei...
+         */
+        Intervention\Image\ImageServiceProvider::class
     ],
 
     /*
@@ -231,6 +235,10 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
 
+        /*
+         * Andrei...
+         */
+        'Image' => Intervention\Image\Facades\Image::class
     ],
 
 ];

@@ -139,7 +139,7 @@ class FirmaController extends Controller
                 'nume_administrator' => 'nullable|max:500',
                 'angajat_desemnat' => 'nullable|max:500',
                 'observatii' => 'nullable|max:2000',
-                'user_id' => 'required',
+                'user_id' => 'nullable',
                 'traseu_id' => 'nullable|numeric|integer',
                 'traseu_ordine' => 'nullable|numeric|integer'
             ],

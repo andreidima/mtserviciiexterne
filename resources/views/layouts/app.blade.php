@@ -80,7 +80,19 @@
                                         Firme - tematici
                                     </a>
                                 </li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li>
+                                    <a class="dropdown-item" href="/tematici/salariati-tematici">
+                                        Salariați - tematici
+                                    </a>
+                                </li>
                             </ul>
+                        </li>
+                        <li class="nav-item me-3">
+                            <a class="nav-link active" href="/observatii">
+                                <i class="fas fa-comments"></i>
+                                Observații
+                            </a>
                         </li>
                     </ul>
 

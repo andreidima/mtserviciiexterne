@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Gate;
 use App\Models\Tematica;
 use App\Models\TematicaFisier;
 use App\Models\Firma;
-use App\Models\Salariat;
+use App\Models\FirmaSalariat;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Storage;
@@ -193,14 +193,14 @@ class TematicaController extends Controller
             ->when($search_nume, function ($query, $search_nume) {
                 return $query->where('nume', 'like', '%' . $search_nume . '%');
             })
-            ->latest()
+            ->orderBy('updated_at', 'DESC')
             ->simplePaginate(25);
 
         return view('tematici/diverse/firmeTematici', compact('firme', 'search_nume'));
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Incarca formularul cu tematici pentru firma aleasa
      *
      * @return \Illuminate\Http\Response
      */
@@ -209,5 +209,66 @@ class TematicaController extends Controller
         $tematici = Tematica::select('id', 'nume')->where('tip', 0)->get();
 
         return view('tematici.diverse.firmeTematiciModifica', compact('firma', 'tematici'));
+    }
+
+    /**
+     * Modificarea tematicilor unei firme
+     */
+    public function postFirmeTematiciModifica(Request $request, Firma $firma)
+    {
+        $firma->tematici()->sync($request->input('tematici_selectate'));
+        $firma->updated_at = \Carbon\Carbon::now();
+        $firma->save();
+
+        return redirect('/tematici/firme-tematici')->with('status', 'Tematicile pentru firma „' . ($firma->nume ?? '') . '” au fost modificate cu succes!');
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function salariatiTematici()
+    {
+        $search_nume = \Request::get('search_nume');
+        $search_firma = \Request::get('search_firma');
+
+        $salariati = FirmaSalariat::with('tematici', 'firma')
+            ->when($search_nume, function ($query, $search_nume) {
+                return $query->where('nume', 'like', '%' . $search_nume . '%');
+            })
+            ->when($search_firma, function (Builder $query) use ($search_firma) {
+                $query->whereHas('firma', function (Builder $query) use ($search_firma) {
+                    $query->where('nume', 'like', '%' . $search_firma . '%');
+                });
+            })
+            ->orderBy('updated_at', 'DESC')
+            ->simplePaginate(25);
+
+        return view('tematici/diverse/salariatiTematici', compact('salariati', 'search_nume', 'search_firma'));
+    }
+
+    /**
+     * Incarca formularul cu tematici pentru salariatu ales
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function salariatiTematiciModifica(FirmaSalariat $salariat)
+    {
+        $tematici = Tematica::select('id', 'nume')->where('tip', 1)->get();
+
+        return view('tematici.diverse.salariatiTematiciModifica', compact('salariat', 'tematici'));
+    }
+
+    /**
+     * Modificarea tematicilor unui salariat
+     */
+    public function postSalariatiTematiciModifica(Request $request, FirmaSalariat $salariat)
+    {
+        $salariat->tematici()->sync($request->input('tematici_selectate'));
+        $salariat->updated_at = \Carbon\Carbon::now();
+        $salariat->save();
+
+        return redirect('/tematici/salariati-tematici')->with('status', 'Tematicile pentru salariatul „' . ($salariat->nume ?? '') . '” au fost modificate cu succes!');
     }
 }
