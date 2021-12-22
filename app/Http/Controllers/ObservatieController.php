@@ -71,18 +71,19 @@ class ObservatieController extends Controller
                 $nume = $poza->getClientOriginalName();
                 $cale = '/uploads/observatii/' . $observatie->id . '/';
 
-                if (Storage::disk('public')->exists($cale.$nume)){
+                if (Storage::disk('local')->exists($cale.$nume)){
                     return back()->with('error', 'Poza ' . $nume . ' este deja încărcată la această Observație');
                 }
 
-                Storage::disk('public')->makeDirectory($cale);
+                Storage::disk('local')->makeDirectory($cale);
 
                 // Prelucrarea pozei si salvarea pe hard-disk
                 $imagine = Image::make($poza->path());
                 $imagine->resize(1500, 1500, function ($const) {
                     $const->aspectRatio();
                 });
-                $imagine->save(public_path($cale . $nume));
+                dd(storage_path('app/' . $cale . $nume), storage_path() );
+                $imagine->save(storage_path('app/' . $cale . $nume));
 
                 $poza = new ObservatiePoza;
                 $poza->observatie_id = $observatie->id;
