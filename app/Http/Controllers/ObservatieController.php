@@ -75,10 +75,10 @@ class ObservatieController extends Controller
                     return back()->with('error', 'Poza ' . $nume . ' este deja încărcată la această Observație');
                 }
 
-                // Storage::makeDirectory($cale);
-                Storage::makeDirectory('app/uploads');
-                Storage::disk('local')->makeDirectory('uploads');
-                dd(Storage::makeDirectory($cale), storage_path());
+                Storage::makeDirectory($cale);
+                // Storage::makeDirectory('app/uploads');
+                // Storage::disk('local')->makeDirectory('uploads');
+                // dd(Storage::makeDirectory($cale), storage_path());
 
                 // Prelucrarea pozei si salvarea pe hard-disk
                 $imagine = Image::make($poza->path());
