@@ -59,11 +59,6 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('/observatii/poze', ObservatiePozaController::class,  ['parameters' => ['poze' => 'poza']]);
     Route::resource('/observatii', ObservatieController::class,  ['parameters' => ['observatii' => 'observatie']]);
 
-
-    Route::get('/sym', function () {
-        Artisan::call('storage:link');
-    });
-
     Route::get('test', function() {
         dd(\App\Models\FirmaDomeniuDeActivitate::inRandomOrder()->first()->id);
     });

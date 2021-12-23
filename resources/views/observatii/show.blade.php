@@ -68,8 +68,7 @@
                             <div class="col-lg-6 mb-2 justify-content-center">
                                 <a href="{{ asset('storage/observatii/' . $observatie->id . '/' . $poza->nume) }}" target="_blank">
                                     <img
-                                        {{-- src="{{ asset('storage/observatii/' . $observatie->id . '/' . $poza->nume) }}" --}}
-                                        src="{{ storage_path('app/observatii/' . $observatie->id . '/' . $poza->nume) }}"
+                                        src="{{ asset('storage/observatii/' . $observatie->id . '/' . $poza->nume) }}"
                                         alt=""
                                         width="100%"
                                     >
