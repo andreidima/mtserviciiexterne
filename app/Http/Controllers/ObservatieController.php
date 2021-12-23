@@ -77,6 +77,7 @@ class ObservatieController extends Controller
 
                 // Storage::makeDirectory($cale);
                 Storage::makeDirectory('app/uploads');
+                Storage::makeDirectory('uploads');
                 dd(Storage::makeDirectory($cale), storage_path());
 
                 // Prelucrarea pozei si salvarea pe hard-disk
