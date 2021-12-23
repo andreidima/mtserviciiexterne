@@ -40,6 +40,6 @@ class ObservatiePozaController extends Controller
      */
     public function fileDownload(Request $request, ObservatiePoza $poza)
     {
-        return Storage::disk('public')->download($poza->cale . $poza->nume);
+        return Storage::download($poza->cale . $poza->nume);
     }
 }

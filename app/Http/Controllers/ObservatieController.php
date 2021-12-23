@@ -69,21 +69,20 @@ class ObservatieController extends Controller
         if($request->hasfile('poze')) {
             foreach ($request->file('poze') as $poza) {
                 $nume = $poza->getClientOriginalName();
-                $cale = '/uploads/observatii/' . $observatie->id . '/';
+                $cale = 'app/uploads/observatii/' . $observatie->id . '/';
 
-                if (Storage::disk('local')->exists($cale.$nume)){
+                if (Storage::exists($cale.$nume)){
                     return back()->with('error', 'Poza ' . $nume . ' este deja încărcată la această Observație');
                 }
 
-                Storage::disk('local')->makeDirectory($cale);
+                Storage::makeDirectory($cale);
 
                 // Prelucrarea pozei si salvarea pe hard-disk
                 $imagine = Image::make($poza->path());
                 $imagine->resize(1500, 1500, function ($const) {
                     $const->aspectRatio();
                 });
-                dd(storage_path('app/' . $cale . $nume), storage_path() );
-                $imagine->save(storage_path('app/' . $cale . $nume));
+                $imagine->save(storage_path($cale . $nume));
 
                 $poza = new ObservatiePoza;
                 $poza->observatie_id = $observatie->id;
@@ -138,20 +137,20 @@ class ObservatieController extends Controller
         if($request->hasfile('poze')) {
             foreach ($request->file('poze') as $poza) {
                 $nume = $poza->getClientOriginalName();
-                $cale = '/uploads/observatii/' . $observatie->id . '/';
+                $cale = 'app/uploads/observatii/' . $observatie->id . '/';
 
-                if (Storage::disk('public')->exists($cale.$nume)){
+                if (Storage::exists($cale.$nume)){
                     return back()->with('error', 'Poza ' . $nume . ' este deja încărcată la această tematică');
                 }
 
-                Storage::disk('public')->makeDirectory($cale);
+                Storage::makeDirectory($cale);
 
                 // Prelucrarea pozei si salvarea pe hard-disk
                 $imagine = Image::make($poza->path());
                 $imagine->resize(1500, 1500, function ($const) {
                     $const->aspectRatio();
                 });
-                $imagine->save(public_path($cale . $nume));
+                $imagine->save(storage_path($cale . $nume));
 
                 $poza = new ObservatiePoza;
                 $poza->observatie_id = $observatie->id;

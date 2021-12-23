@@ -66,9 +66,9 @@
                     <div class="row mb-2 px-2">
                         @forelse ($observatie->poze as $poza)
                             <div class="col-lg-6 mb-2 justify-content-center">
-                                <a href="{{ env('APP_URL') . $poza->cale . $poza->nume }}" target="_blank">
+                                <a href="{{ asset('storage/observatii/' . $observatie->id . '/' . $poza->nume) }}" target="_blank">
                                     <img
-                                        src="{{ env('APP_URL') . $poza->cale . $poza->nume }}"
+                                        src="{{ asset('storage/observatii/' . $observatie->id . '/' . $poza->nume) }}"
                                         alt=""
                                         width="100%"
                                     >
