@@ -76,6 +76,7 @@ class ObservatieController extends Controller
                 }
 
                 Storage::makeDirectory($cale);
+                dd(Storage::makeDirectory($cale));
 
                 // Prelucrarea pozei si salvarea pe hard-disk
                 $imagine = Image::make($poza->path());
