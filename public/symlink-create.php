@@ -1,6 +1,6 @@
 <?php
-$targetFolder = '/home/your_account/your_project_src/storage/app/public';
-$linkFolder = '/home/your_account/your_domain.com/storage';
+$targetFolder = '/home/validmag21f/laravel/mtserviciiexterne/storage/app/uploads';
+$linkFolder = '/home/validmag21f/laravel/mtserviciiexterne/public/storage';
 symlink($targetFolder, $linkFolder);
 echo 'Symlink process successfully completed';
 ?>
