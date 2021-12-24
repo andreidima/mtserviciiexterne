@@ -46,6 +46,7 @@
                             <th>Nr. Crt.</th>
                             <th>Observație</th>
                             <th>Firma</th>
+                            <th>Email</th>
                             <th class="text-end">Acțiuni</th>
                         </tr>
                     </thead>
@@ -61,6 +62,20 @@
                                 <td>
                                     {{ $observatie->firma->nume ?? '' }}
                                 </td>
+                                <td>
+                                    @if ($observatie->nr_trimiteri == 0)
+                                        <a
+                                            href="#"
+                                            data-bs-toggle="modal"
+                                            data-bs-target="#trimiteEmailObservatie{{ $observatie->id }}"
+                                            title="Trimite Email Observație"
+                                            >
+                                                <span class="badge bg-success">Trimite</span>
+                                        </a>
+                                    @else
+                                        <span class="badge bg-secondary">Trimis</span>
+                                    @endif
+                                </td>
                                 <td class="d-flex justify-content-end">
                                     <a href="{{ $observatie->path() }}"
                                         class="flex me-1"
@@ -72,16 +87,14 @@
                                     >
                                         <span class="badge bg-primary">Modifică</span>
                                     </a>
-                                    <div style="flex" class="">
-                                        <a
-                                            href="#"
-                                            data-bs-toggle="modal"
-                                            data-bs-target="#stergeObservatie{{ $observatie->id }}"
-                                            title="Șterge Observație"
-                                            >
-                                            <span class="badge bg-danger">Șterge</span>
-                                        </a>
-                                    </div>
+                                    <a
+                                        href="#"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#stergeObservatie{{ $observatie->id }}"
+                                        title="Șterge Observație"
+                                        >
+                                        <span class="badge bg-danger">Șterge</span>
+                                    </a>
                                 </td>
                             </tr>
                         @empty
@@ -99,6 +112,38 @@
 
         </div>
     </div>
+
+    {{-- Modalele pentru trimitere email --}}
+    @foreach ($observatii as $observatie)
+        <div class="modal fade text-dark" id="trimiteEmailObservatie{{ $observatie->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                <div class="modal-header bg-danger">
+                    <h5 class="modal-title text-white" id="exampleModalLabel">Observație: <b>{{ $observatie->nume ?? '' }}</b></h5>
+                    <button type="button" class="btn-close bg-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" style="text-align:left;">
+                    Ești sigur ca vrei să trimiți email cu acestă Observație?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Renunță</button>
+
+                    <form method="POST" action="{{ $observatie->path() }}/trimite-email ">
+                        @method('PATCH')
+                        @csrf
+                        <button
+                            type="submit"
+                            class="btn btn-danger text-white"
+                            >
+                            Trimite email
+                        </button>
+                    </form>
+
+                </div>
+                </div>
+            </div>
+        </div>
+    @endforeach
 
     {{-- Modalele pentru stergere înregistrări --}}
     @foreach ($observatii as $observatie)

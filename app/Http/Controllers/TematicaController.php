@@ -60,14 +60,15 @@ class TematicaController extends Controller
         if($request->hasfile('fisiere')) {
             foreach ($request->file('fisiere') as $fisier) {
                 $nume = $fisier->getClientOriginalName();
-                $cale = '/uploads/tematici/' . $tematica->id . '/';
+                $cale = 'app/uploads/tematici/' . $tematica->id . '/';
 
-                if (Storage::disk('public')->exists($cale.$nume)){
+                if (Storage::exists($cale.$nume)){
                     return back()->with('error', 'Fișierul ' . $nume . ' este deja încărcat la această tematică');
                 }
 
-                Storage::disk('public')->makeDirectory($cale);
-                $fisier->move(public_path($cale), $nume);
+                Storage::makeDirectory($cale);
+
+                $fisier->move(storage_path($cale), $nume);
 
                 $fisier = new TematicaFisier;
                 $fisier->tematica_id = $tematica->id;
@@ -120,14 +121,15 @@ class TematicaController extends Controller
         if($request->hasfile('fisiere')) {
             foreach ($request->file('fisiere') as $fisier) {
                 $nume = $fisier->getClientOriginalName();
-                $cale = '/uploads/tematici/' . $tematica->id . '/';
+                $cale = 'app/uploads/tematici/' . $tematica->id . '/';
 
-                if (Storage::disk('public')->exists($cale.$nume)){
+                if (Storage::exists($cale.$nume)){
                     return back()->with('error', 'Fișierul ' . $nume . ' este deja încărcat la această tematică');
                 }
 
-                Storage::disk('public')->makeDirectory($cale);
-                $fisier->move(public_path($cale), $nume);
+                Storage::makeDirectory($cale);
+
+                $fisier->move(storage_path($cale), $nume);
 
                 $fisier = new TematicaFisier;
                 $fisier->tematica_id = $tematica->id;
@@ -168,7 +170,7 @@ class TematicaController extends Controller
         return $request->validate(
             [
                 'nume' => 'required|max:500',
-                'tip' => 'required|numeric|integer|min:0|max:1',
+                'tip' => 'nullable|numeric|integer|min:0|max:1',
                 'descriere' => 'nullable|max:2000',
                 'observatii' => 'nullable|max:2000',
                 'user_id' => 'required',
@@ -206,7 +208,9 @@ class TematicaController extends Controller
      */
     public function firmeTematiciModifica(Firma $firma)
     {
-        $tematici = Tematica::select('id', 'nume')->where('tip', 0)->get();
+        $tematici = Tematica::select('id', 'nume')
+            // ->where('tip', 0)  // extragere doar a tematicilor su
+            ->get();
 
         return view('tematici.diverse.firmeTematiciModifica', compact('firma', 'tematici'));
     }
@@ -255,7 +259,9 @@ class TematicaController extends Controller
      */
     public function salariatiTematiciModifica(FirmaSalariat $salariat)
     {
-        $tematici = Tematica::select('id', 'nume')->where('tip', 1)->get();
+        $tematici = Tematica::select('id', 'nume')
+            // ->where('tip', 1)   // extragere doar a tematicilor ssm
+            ->get();
 
         return view('tematici.diverse.salariatiTematiciModifica', compact('salariat', 'tematici'));
     }

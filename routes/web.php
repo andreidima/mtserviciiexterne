@@ -57,6 +57,7 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('/observatii/file-download/{poza}', [ObservatiePozaController::class, 'fileDownload']);
     Route::resource('/observatii/poze', ObservatiePozaController::class,  ['parameters' => ['poze' => 'poza']]);
+    Route::patch('/observatii/{observatie}/trimite-email', [ObservatieController::class, 'trimiteEmail']);
     Route::resource('/observatii', ObservatieController::class,  ['parameters' => ['observatii' => 'observatie']]);
 
     Route::get('test', function() {

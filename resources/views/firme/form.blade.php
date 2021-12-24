@@ -46,7 +46,7 @@
                     placeholder=""
                     value="{{ old('adresa', $firma->adresa) }}">
             </div>
-            <div class="col-lg-2 mb-5 mx-auto">
+            <div class="col-lg-3 mb-5 mx-auto">
                 <label for="localitate" class="mb-0 ps-3">Localitate</label>
                 <input
                     type="text"
@@ -55,7 +55,7 @@
                     placeholder=""
                     value="{{ old('localitate', $firma->localitate) }}">
             </div>
-            <div class="col-lg-2 mb-5 mx-auto">
+            <div class="col-lg-3 mb-5 mx-auto">
                 <label for="judet" class="mb-0 ps-3">Județ</label>
                 <input
                     type="text"
@@ -63,18 +63,6 @@
                     name="judet"
                     placeholder=""
                     value="{{ old('judet', $firma->judet) }}">
-            </div>
-            <div class="col-lg-2 mb-5 mx-auto">
-                <label for="data" class="mb-0 ps-xxl-3">Buletin pram</label>
-                    <vue2-datepicker
-                        data-veche="{{ old('buletin_pram_expirare', ($firma->buletin_pram_expirare ?? '')) }}"
-                        nume-camp-db="buletin_pram_expirare"
-                        tip="date"
-                        value-type="YYYY-MM-DD"
-                        format="DD-MM-YYYY"
-                        :latime="{ width: '125px' }"
-                    ></vue2-datepicker>
-                <small class="ps-3">*data expirare</small>
             </div>
             <div class="col-lg-3 mb-5 mx-auto">
                 <label for="telefon" class="mb-0 ps-3">Telefon</label>
@@ -111,6 +99,33 @@
                     name="angajat_desemnat"
                     placeholder=""
                     value="{{ old('angajat_desemnat', $firma->angajat_desemnat) }}">
+            </div>
+            <div class="col-lg-3 mb-5 mx-auto">
+                <label for="data" class="mb-0 ps-xxl-3">Buletin pram</label>
+                    <vue2-datepicker
+                        data-veche="{{ old('buletin_pram_expirare', ($firma->buletin_pram_expirare ?? '')) }}"
+                        nume-camp-db="buletin_pram_expirare"
+                        tip="date"
+                        value-type="YYYY-MM-DD"
+                        format="DD-MM-YYYY"
+                        :latime="{ width: '125px' }"
+                    ></vue2-datepicker>
+                <small class="ps-3">*data expirare</small>
+            </div>
+            <div class="form-check col-lg-3 mb-5 ps-5 mx-auto d-flex align-items-center">
+                <div>
+                    <input type="hidden" name="iscir" value="0" />
+                    <input class="form-check-input bg-white" type="checkbox" value="1" name="iscir" id=""
+                        {{ old('iscir', $firma->iscir) == '1' ? 'checked' : '' }}>
+                    <label class="form-check-label" for="iscir">
+                        ISCIR
+                    </label>
+                </div>
+            </div>
+            <div class="col-lg-6 mb-5 mx-auto">
+                <label for="iscir_descriere" class="form-label mb-0 ps-3">ISCIR descriere</label>
+                <textarea class="form-control bg-white {{ $errors->has('iscir_descriere') ? 'is-invalid' : '' }}"
+                    name="iscir_descriere" rows="2">{{ old('iscir_descriere', $firma->iscir_descriere) }}</textarea>
             </div>
             <div class="col-lg-3 mb-5 mx-auto">
                 <label for="traseu_id" class="mb-0 ps-3">Traseu</label>

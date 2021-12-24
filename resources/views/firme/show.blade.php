@@ -94,6 +94,22 @@
                             </tr>
                             <tr>
                                 <td class="pe-4">
+                                    ISCIR
+                                </td>
+                                <td>
+                                    {{ ($firma->iscir == '1') ? 'DA' : 'NU' }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="pe-4">
+                                    ISCIR_descriere
+                                </td>
+                                <td>
+                                    {{ $firma->iscir_descriere }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="pe-4">
                                     Nume administrator
                                 </td>
                                 <td>

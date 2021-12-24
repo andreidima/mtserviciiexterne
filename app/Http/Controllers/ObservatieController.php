@@ -8,9 +8,11 @@ use Illuminate\Support\Facades\Gate;
 use App\Models\Observatie;
 use App\Models\ObservatiePoza;
 use App\Models\Firma;
+use App\Mail\ObservatieFirma;
 
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
 
 use Image;
 
@@ -76,9 +78,6 @@ class ObservatieController extends Controller
                 }
 
                 Storage::makeDirectory($cale);
-                // Storage::makeDirectory('app/uploads');
-                // Storage::disk('local')->makeDirectory('uploads');
-                // dd(Storage::makeDirectory($cale), storage_path());
 
                 // Prelucrarea pozei si salvarea pe hard-disk
                 $imagine = Image::make($poza->path());
@@ -215,5 +214,41 @@ class ObservatieController extends Controller
 
             ]
         );
+    }
+
+    /**
+     * Validate the request attributes.
+     *
+     * @return array
+     */
+    protected function trimiteEmail(Request $request, Observatie $observatie)
+    {
+        // Verificare daca exista email FIRMA corect catre care sa se trimita mesajul.
+        $validator = Validator::make($observatie->firma->toArray(), [
+            'email' => ['email:rfc,dns']
+        ]);
+
+        if ($validator->fails()) {
+            return back()
+                        ->withErrors($validator)
+                        ->withInput();
+        }
+
+            \Mail::to($observatie->firma->email)
+                ->send(
+                    new ObservatieFirma($observatie)
+                );
+
+            $observatie->nr_trimiteri ++;
+
+            $observatie->save();
+
+            // sleep(5);
+
+            return back()->with('status',
+                'Emailul către firma „' . $observatie->firma->nume . '”, cu  observația „' . $observatie->nume . '”,
+                    a fost trimis cu succes!');
+
+
     }
 }

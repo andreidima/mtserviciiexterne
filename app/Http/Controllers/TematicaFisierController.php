@@ -40,6 +40,6 @@ class TematicaFisierController extends Controller
      */
     public function fileDownload(Request $request, TematicaFisier $fisier)
     {
-        return Storage::disk('public')->download($fisier->cale . $fisier->nume);
+        return Storage::download($fisier->cale . $fisier->nume);
     }
 }
