@@ -243,8 +243,6 @@ class ObservatieController extends Controller
 
             $observatie->save();
 
-            // sleep(5);
-
             return back()->with('status',
                 'Emailul către firma „' . $observatie->firma->nume . '”, cu  observația „' . $observatie->nume . '”,
                     a fost trimis cu succes!');

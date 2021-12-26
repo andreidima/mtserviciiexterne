@@ -10,6 +10,7 @@ use App\Http\Controllers\TematicaController;
 use App\Http\Controllers\TematicaFisierController;
 use App\Http\Controllers\ObservatieController;
 use App\Http\Controllers\ObservatiePozaController;
+use App\Http\Controllers\RaportController;
 
 
 /*
@@ -60,7 +61,15 @@ Route::group(['middleware' => 'auth'], function () {
     Route::patch('/observatii/{observatie}/trimite-email', [ObservatieController::class, 'trimiteEmail']);
     Route::resource('/observatii', ObservatieController::class,  ['parameters' => ['observatii' => 'observatie']]);
 
-    Route::get('test', function() {
-        dd(\App\Models\FirmaDomeniuDeActivitate::inRandomOrder()->first()->id);
+    Route::get('/rapoarte/stingatoare', [RaportController::class, 'raportStingatoare']);
+
+    Route::get('teste', function(){
+        // $firme = \App\Models\Firma::all();
+        // dd($firme);
+
+        if (\App\Models\Firma::whereDoesntHave('stingator')->inRandomOrder()->first()){
+            return \App\Models\Firma::whereDoesntHave('stingator')->inRandomOrder()->first()->id;
+        }
+            return 'nimic';
     });
 });

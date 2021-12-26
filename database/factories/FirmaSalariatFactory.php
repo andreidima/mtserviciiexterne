@@ -21,10 +21,10 @@ class FirmaSalariatFactory extends Factory
             'data_angajare' => $this->faker->dateTimeBetween('-10 years', '-1 week')->format('Y-m-d'),
             // 'data_incetare' => '',
             'instructaj_la_nr_luni' => $this->faker->numberBetween(1, 12),
-            'data_instructaj' => $this->faker->dateTimeBetween('-1 year', '-1 week')->format('Y-m-d'),
+            'data_instructaj' => $this->faker->dateTimeBetween('-2 months', '-1 week')->format('Y-m-d'),
             'anexa_ssm' => $this->faker->numberBetween(0, 1),
             'lista_eip' => $this->faker->numberBetween(0, 1),
-            'medicina_muncii_expirare' => $this->faker->dateTimeBetween('+1 week', '+1 year')->format('Y-m-d'),
+            'medicina_muncii_expirare' => $this->faker->dateTimeBetween('+1 week', '+2 months')->format('Y-m-d'),
             'locatie_fisa_ssm' => $this->faker->numberBetween(0, 1),
             'locatie_fisa_su' => $this->faker->numberBetween(0, 1),
             'user_id' => '1'

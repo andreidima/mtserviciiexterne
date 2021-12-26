@@ -15,7 +15,7 @@
                     <div class="row mb-1 input-group custom-search-form justify-content-center">
                         <input type="text" class="form-control form-control-sm col-md-4 me-3 rounded-3" id="search_nume" name="search_nume" placeholder="Nume" autofocus
                                 value="{{ $search_nume }}">
-                        <input type="text" class="form-control form-control-sm col-md-4 rounded-3" id="search_cod_fiscal" name="search_cod_fiscal" placeholder="Nume" autofocus
+                        <input type="text" class="form-control form-control-sm col-md-4 rounded-3" id="search_cod_fiscal" name="search_cod_fiscal" placeholder="Cod fiscal" autofocus
                                 value="{{ $search_cod_fiscal }}">
                     </div>
                     <div class="row input-group custom-search-form justify-content-center">
