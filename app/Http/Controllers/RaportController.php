@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\FirmaStingator;
+use App\Models\FirmaSalariat;
 
 use Illuminate\Http\Request;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\DB;
 
 class RaportController extends Controller
 {
@@ -21,11 +24,6 @@ class RaportController extends Controller
             ->whereBetween('stingatoare_expirare', [$search_data_inceput, $search_data_sfarsit])
             ->orWhereBetween('hidranti_expirare', [$search_data_inceput, $search_data_sfarsit])
             ->get();
-// foreach ($stingatoare_nesortate as $stingator){
-//     echo $stingator->firma->traseu_id . ' - ' . $stingator->firma->traseu->nume;
-//     echo '<br>';
-// }
-//         dd($stingatoare_nesortate);
 
         foreach ($stingatoare_nesortate as $stingator){
             if (($stingator->stingatoare_expirare < $search_data_inceput) || ($stingator->stingatoare_expirare > $search_data_sfarsit)) {
@@ -63,5 +61,39 @@ class RaportController extends Controller
         // $stingatoare->sortByDesc('id');
 // dd($stingatoare);
         return view('rapoarte.stingatoare', compact('stingatoare', 'search_data_inceput', 'search_data_sfarsit'));
+    }
+
+    public function raportInstructaj()
+    {
+        $search_data_inceput = \Request::get('search_data_inceput') ?? \Carbon\Carbon::today();
+        $search_data_sfarsit = \Request::get('search_data_sfarsit') ?? \Carbon\Carbon::today()->addDays(5);
+
+        $salariati = FirmaSalariat::
+            with('firma:id,nume,traseu_id', 'firma.traseu')
+            ->join('firme', 'firme_salariati.firma_id', '=', 'firme.id')
+            ->select(
+                'firme_salariati.id',
+                'firme_salariati.firma_id',
+                'firme_salariati.nume',
+                'firme_salariati.data_instructaj',
+                'firme_salariati.instructaj_la_nr_luni',
+                'firme.traseu_id as traseu_id',
+                DB::raw('DATE_ADD(firme_salariati.data_instructaj, INTERVAL -(firme_salariati.instructaj_la_nr_luni) MONTH) AS DateAdd')
+            )
+            // ->whereBetween('data_instructaj', [$search_data_inceput, $search_data_sfarsit])
+            ->get();
+
+        foreach ($salariati as $salariat){
+            echo $salariat->nume;
+            echo '<br>';
+            echo $salariat->data_instructaj;
+            echo '<br>';
+            echo $salariat->instructaj_la_nr_luni;
+            echo '<br>';
+            echo $salariat->DateAdd;
+            echo '<br><br><br>';
+        }
+
+        dd('stop');
     }
 }

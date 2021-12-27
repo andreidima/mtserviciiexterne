@@ -62,6 +62,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('/observatii', ObservatieController::class,  ['parameters' => ['observatii' => 'observatie']]);
 
     Route::get('/rapoarte/stingatoare', [RaportController::class, 'raportStingatoare']);
+    Route::get('/rapoarte/instructaj', [RaportController::class, 'raportInstructaj']);
 
     Route::get('teste', function(){
         // $firme = \App\Models\Firma::all();
