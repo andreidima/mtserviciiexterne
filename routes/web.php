@@ -61,8 +61,9 @@ Route::group(['middleware' => 'auth'], function () {
     Route::patch('/observatii/{observatie}/trimite-email', [ObservatieController::class, 'trimiteEmail']);
     Route::resource('/observatii', ObservatieController::class,  ['parameters' => ['observatii' => 'observatie']]);
 
-    Route::get('/rapoarte/stingatoare', [RaportController::class, 'raportStingatoare']);
-    Route::get('/rapoarte/instructaj', [RaportController::class, 'raportInstructaj']);
+    Route::get('/rapoarte/stingatoare', [RaportController::class, 'stingatoare']);
+    Route::get('/rapoarte/instructaj', [RaportController::class, 'instructaj']);
+    Route::get('/rapoarte/medicina-muncii', [RaportController::class, 'medicinaMuncii']);
 
     Route::get('teste', function(){
         // $firme = \App\Models\Firma::all();

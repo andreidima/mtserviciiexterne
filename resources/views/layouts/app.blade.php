@@ -111,6 +111,12 @@
                                         Salariați instructaj
                                     </a>
                                 </li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li>
+                                    <a class="dropdown-item" href="/rapoarte/medicina-muncii">
+                                        Salariați medicina muncii
+                                    </a>
+                                </li>
                             </ul>
                         </li>
                     </ul>

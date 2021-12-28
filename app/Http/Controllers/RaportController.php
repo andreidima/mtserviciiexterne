@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\DB;
 
 class RaportController extends Controller
 {
-    public function raportStingatoare()
+    public function stingatoare()
     {
         $search_data_inceput = \Request::get('search_data_inceput') ?? \Carbon\Carbon::today();
         $search_data_sfarsit = \Request::get('search_data_sfarsit') ?? \Carbon\Carbon::today()->addDays(5);
@@ -63,7 +63,7 @@ class RaportController extends Controller
         return view('rapoarte.stingatoare', compact('stingatoare', 'search_data_inceput', 'search_data_sfarsit'));
     }
 
-    public function raportInstructaj()
+    public function instructaj()
     {
         $search_data_inceput = \Request::get('search_data_inceput') ?? \Carbon\Carbon::today();
         $search_data_sfarsit = \Request::get('search_data_sfarsit') ?? \Carbon\Carbon::today()->addDays(5);
@@ -78,22 +78,55 @@ class RaportController extends Controller
                 'firme_salariati.data_instructaj',
                 'firme_salariati.instructaj_la_nr_luni',
                 'firme.traseu_id as traseu_id',
-                DB::raw('DATE_ADD(firme_salariati.data_instructaj, INTERVAL -(firme_salariati.instructaj_la_nr_luni) MONTH) AS DateAdd')
+                DB::raw('DATE_ADD(firme_salariati.data_instructaj, INTERVAL +(firme_salariati.instructaj_la_nr_luni) MONTH) AS data_expirare')
             )
-            // ->whereBetween('data_instructaj', [$search_data_inceput, $search_data_sfarsit])
+            // ->whereBetween('data_expirare', [$search_data_inceput, $search_data_sfarsit])
+            ->whereBetween(DB::raw('DATE_ADD(firme_salariati.data_instructaj, INTERVAL +(firme_salariati.instructaj_la_nr_luni) MONTH)'), [$search_data_inceput, $search_data_sfarsit])
             ->get();
 
-        foreach ($salariati as $salariat){
-            echo $salariat->nume;
-            echo '<br>';
-            echo $salariat->data_instructaj;
-            echo '<br>';
-            echo $salariat->instructaj_la_nr_luni;
-            echo '<br>';
-            echo $salariat->DateAdd;
-            echo '<br><br><br>';
-        }
+        // foreach ($salariati as $salariat){
+        //     echo $salariat->nume;
+        //     echo '<br>';
+        //     echo $salariat->data_instructaj;
+        //     echo '<br>';
+        //     echo $salariat->instructaj_la_nr_luni;
+        //     echo '<br>';
+        //     echo $salariat->data_expirare;
+        //     echo '<br><br><br>';
+        // }
 
-        dd('stop');
+        return view('rapoarte.instructaj', compact('salariati', 'search_data_inceput', 'search_data_sfarsit'));
+    }
+
+    public function medicinaMuncii()
+    {
+        $search_data_inceput = \Request::get('search_data_inceput') ?? \Carbon\Carbon::today();
+        $search_data_sfarsit = \Request::get('search_data_sfarsit') ?? \Carbon\Carbon::today()->addDays(5);
+
+        $salariati = FirmaSalariat::
+            with('firma:id,nume,traseu_id', 'firma.traseu')
+            ->join('firme', 'firme_salariati.firma_id', '=', 'firme.id')
+            ->select(
+                'firme_salariati.id',
+                'firme_salariati.firma_id',
+                'firme_salariati.nume',
+                'firme_salariati.medicina_muncii_expirare',
+                'firme.traseu_id as traseu_id',
+            )
+            ->whereBetween('medicina_muncii_expirare', [$search_data_inceput, $search_data_sfarsit])
+            ->get();
+
+        // foreach ($salariati as $salariat){
+        //     echo $salariat->nume;
+        //     echo '<br>';
+        //     echo $salariat->data_instructaj;
+        //     echo '<br>';
+        //     echo $salariat->instructaj_la_nr_luni;
+        //     echo '<br>';
+        //     echo $salariat->data_expirare;
+        //     echo '<br><br><br>';
+        // }
+
+        return view('rapoarte.medicinaMuncii', compact('salariati', 'search_data_inceput', 'search_data_sfarsit'));
     }
 }
