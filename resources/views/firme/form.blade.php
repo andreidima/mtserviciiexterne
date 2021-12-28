@@ -112,10 +112,10 @@
                     ></vue2-datepicker>
                 <small class="ps-3">*data expirare</small>
             </div>
-            <div class="form-check col-lg-3 mb-5 ps-5 mx-auto d-flex align-items-center">
-                <div>
-                    <input type="hidden" name="iscir" value="0" />
-                    <input class="form-check-input bg-white" type="checkbox" value="1" name="iscir" id=""
+            <div class="col-lg-3 mb-5 ps-5 mx-auto d-flex align-items-center">
+                <div class="form-check">
+                    <input class="form-check-input" type="hidden" name="iscir" value="0" />
+                    <input class="form-check-input" type="checkbox" value="1" name="iscir" id="iscir"
                         {{ old('iscir', $firma->iscir) == '1' ? 'checked' : '' }}>
                     <label class="form-check-label" for="iscir">
                         ISCIR

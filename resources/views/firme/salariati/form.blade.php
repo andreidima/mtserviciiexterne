@@ -101,20 +101,20 @@
                 ></vue2-datepicker>
                 <small class="ps-3">*data expirării</small>
             </div>
-            <div class="form-check col-lg-3 mb-5 ps-5 mx-auto d-flex align-items-center">
-                <div>
-                    <input type="hidden" name="anexa_ssm" value="0" />
-                    <input class="form-check-input bg-white" type="checkbox" value="1" name="anexa_ssm" id=""
+            <div class="col-lg-3 mb-5 ps-5 mx-auto d-flex align-items-center">
+                <div class="form-check">
+                    <input class="form-check-input" type="hidden" name="anexa_ssm" value="0" />
+                    <input class="form-check-input" type="checkbox" value="1" name="anexa_ssm" id="anexa_ssm"
                         {{ old('anexa_ssm', $salariat->anexa_ssm) == '1' ? 'checked' : '' }}>
                     <label class="form-check-label" for="anexa_ssm">
                         Anexa SSM
                     </label>
                 </div>
             </div>
-            <div class="form-check col-lg-3 mb-5 ps-5 mx-auto d-flex align-items-center">
-                <div>
-                    <input type="hidden" name="lista_eip" value="0" />
-                    <input class="form-check-input bg-white" type="checkbox" value="1" name="lista_eip" id=""
+            <div class="col-lg-3 mb-5 ps-5 mx-auto d-flex align-items-center">
+                <div class="form-check">
+                    <input class="form-check-input" type="hidden" name="lista_eip" value="0" />
+                    <input class="form-check-input" type="checkbox" value="1" name="lista_eip" id="lista_eip"
                         {{ old('lista_eip', $salariat->lista_eip) == '1' ? 'checked' : '' }}>
                     <label class="form-check-label" for="lista_eip">
                         Lista EIP
