@@ -11,7 +11,7 @@ use App\Http\Controllers\TematicaFisierController;
 use App\Http\Controllers\ObservatieController;
 use App\Http\Controllers\ObservatiePozaController;
 use App\Http\Controllers\RaportController;
-
+use App\Http\Controllers\ImportInitialFisierExcelController;
 
 /*
 |--------------------------------------------------------------------------
@@ -66,12 +66,12 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/rapoarte/medicina-muncii', [RaportController::class, 'medicinaMuncii']);
 
     Route::get('teste', function(){
-        // $firme = \App\Models\Firma::all();
-        // dd($firme);
-
-        if (\App\Models\Firma::whereDoesntHave('stingator')->inRandomOrder()->first()){
-            return \App\Models\Firma::whereDoesntHave('stingator')->inRandomOrder()->first()->id;
-        }
-            return 'nimic';
+        // if (\App\Models\Firma::whereDoesntHave('stingator')->inRandomOrder()->first()){
+        //     return \App\Models\Firma::whereDoesntHave('stingator')->inRandomOrder()->first()->id;
+        // }
+        //     return 'nimic';
     });
+
+    Route::get('/import/import-firme', [ImportInitialFisierExcelController::class, 'importFirme']);
+    Route::get('/import/import-salariati', [ImportInitialFisierExcelController::class, 'importSalariati']);
 });
