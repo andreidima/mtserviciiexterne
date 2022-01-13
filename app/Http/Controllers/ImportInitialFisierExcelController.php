@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Firma;
 use App\Models\FirmaSalariat;
+use App\Models\FirmaStingator;
 use App\Models\FirmaTraseu;
 use App\Models\FirmaDomeniuDeActivitate;
 
@@ -110,5 +111,103 @@ class ImportInitialFisierExcelController extends Controller
             $salariat->save();
         }
         dd('stop');
+    }
+
+    public function importStingatoare()
+    {
+        $stingatoare_import = DB::table('import_stingatoare_firme')->take(10)->get();
+        // dd($stingatoare_import);
+
+        foreach ($stingatoare_import as $stingator_import){
+
+            $stingator = new FirmaStingator;
+
+
+            //Firma
+            if ($stingator_import->{'DENUMIREA FIRMEI'}){
+                $firma = Firma::firstOrCreate([
+                    'nume' => $stingator_import->{'DENUMIREA FIRMEI'},
+                    'cod_fiscal' => $stingator_import->{'C.I.F'}
+                ]);
+
+                $stingator->firma_id = $firma->id;
+            }
+
+
+            //Traseu
+            if ($stingator_import->RUTA){
+                $traseu = FirmaTraseu::firstOrCreate([
+                    'nume' => $stingator_import->RUTA
+                ]);
+                $firma->traseu_id = $traseu->id;
+            }
+
+
+            if (strpos($stingator_import->{'TIP STING.'}, ';') !== false) {
+                // Se intra aici daca in campul stingatoare sunt mai multe tipuri
+                $stingatoare = $stingator_import->{'TIP STING.'};
+
+                // Se elimina toate spatiile albe
+                $stingatoare = preg_replace('/\s+/', '', $stingatoare);
+
+                $stingatoare_array = explode(';', $stingatoare);
+
+                echo $stingator_import->{'NR. STING'};
+                    echo '<br>';
+                foreach($stingatoare_array as $stingator_array){
+                    echo $stingator_array;
+                    echo '<br>';
+                }
+                    echo '<br>';
+
+
+
+            } else {
+                switch($stingator_import->{'TIP STING.'}){
+                    case ('p1' || 'P1'):
+                        $stingator->p6 = $stingator_import->{'NR. STING'};
+                        break;
+                    case ('p2' || 'P2'):
+                        $stingator->p6 = $stingator_import->{'NR. STING'};
+                        break;
+                    case ('p3' || 'P3'):
+                        $stingator->p6 = $stingator_import->{'NR. STING'};
+                        break;
+                    case ('p6' || 'P6'):
+                        $stingator->p6 = $stingator_import->{'NR. STING'};
+                        break;
+                    case ('p9' || 'P9'):
+                        $stingator->p6 = $stingator_import->{'NR. STING'};
+                        break;
+                    case ('sm6' || 'SM6'):
+                        $stingator->p6 = $stingator_import->{'NR. STING'};
+                        break;
+                    case ('sm9' || 'SM9'):
+                        $stingator->p6 = $stingator_import->{'NR. STING'};
+                        break;
+                    case ('p50' || 'P50'):
+                        $stingator->p6 = $stingator_import->{'NR. STING'};
+                        break;
+                    case ('p100' || 'P100'):
+                        $stingator->p6 = $stingator_import->{'NR. STING'};
+                        break;
+                    case ('sm50' || 'SM50'):
+                        $stingator->p6 = $stingator_import->{'NR. STING'};
+                        break;
+                    case ('sm100' || 'SM100'):
+                        $stingator->p6 = $stingator_import->{'NR. STING'};
+                        break;
+                    case ('g2' || 'G2'):
+                        $stingator->p6 = $stingator_import->{'NR. STING'};
+                        break;
+                    case ('g5' || 'G5'):
+                        $stingator->p6 = $stingator_import->{'NR. STING'};
+                        break;
+                }
+            }
+
+            // $stingator->save();
+        }
+
     }
 }

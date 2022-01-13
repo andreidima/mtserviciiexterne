@@ -74,4 +74,5 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('/import/import-firme', [ImportInitialFisierExcelController::class, 'importFirme']);
     Route::get('/import/import-salariati', [ImportInitialFisierExcelController::class, 'importSalariati']);
+    Route::get('/import/import-stingatoare', [ImportInitialFisierExcelController::class, 'importStingatoare']);
 });
