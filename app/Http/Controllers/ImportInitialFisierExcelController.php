@@ -118,8 +118,8 @@ class ImportInitialFisierExcelController extends Controller
     public function importStingatoare()
     {
         $stingatoare_import = DB::table('import_stingatoare_firme')
-            ->where('id', '>', '660')
-            // ->take(500)
+            // ->where('id', '>', '1150')
+            // ->take(5)
             ->get();
         // dd($stingatoare_import);
 
@@ -133,12 +133,19 @@ class ImportInitialFisierExcelController extends Controller
 // echo $stingator_import->{'DENUMIREA FIRMEI'} . ' - ' . $stingator_import->{'C.I.F'} . '<br><br>';
             //Firma
             if ($stingator_import->{'DENUMIREA FIRMEI'}){
-                $firma = Firma::firstOrCreate(
+                // $firma = Firma::firstOrCreate(
+                //     [
+                //         'nume' => $stingator_import->{'DENUMIREA FIRMEI'},
+                //         'cod_fiscal' => $stingator_import->{'C.I.F'}
+                //     ],
+                //     [
+                //         'telefon' => $stingator_import->{'TELEFON'},
+                //     ]
+                // );
+                $firma = Firma::create(
                     [
                         'nume' => $stingator_import->{'DENUMIREA FIRMEI'},
-                        'cod_fiscal' => $stingator_import->{'C.I.F'}
-                    ],
-                    [
+                        'cod_fiscal' => $stingator_import->{'C.I.F'},
                         'telefon' => $stingator_import->{'TELEFON'},
                     ]
                 );
@@ -164,15 +171,16 @@ class ImportInitialFisierExcelController extends Controller
                 // echo ($iteratie++) . '-';
                 // echo preg_match('(;|-|:)', $stingator_import->{'TIP STING.'});
                 // echo '<br><br>';
-            if(preg_match('(;|-|:)', $stingator_import->{'TIP STING.'}) === 1){
+            if(preg_match("(;|-|:|'|,)", $stingator_import->{'TIP STING.'}) === 1){
+                // echo 'aici' . preg_match("(;|-|:|'|,)", $stingator_import->{'TIP STING.'}) . '<br>';
                 // Se intra aici daca in campul stingatoare sunt mai multe tipuri
                 $stingatoare = $stingator_import->{'TIP STING.'};
 
                 // Se elimina toate spatiile albe
                 $stingatoare = preg_replace('/\s+/', '', $stingatoare);
 
-                $stingatoare_array = preg_split('/ (;|-|:) /', $stingatoare);
-                $stingatoare_array = preg_split('/[;|-|:]/', $stingatoare);
+                // $stingatoare_array = preg_split('/ (;|-|:) /', $stingatoare);
+                $stingatoare_array = preg_split("/[;|-|:|'|,]/", $stingatoare);
                 // if (strpos($stingator_import->{'TIP STING.'}, ';')){
                 //     $stingatoare_array = explode(';', $stingatoare);
                 // } elseif (strpos($stingator_import->{'TIP STING.'}, ':'){
@@ -190,10 +198,19 @@ class ImportInitialFisierExcelController extends Controller
                             // se sterge primul numar din $stingator_string, astfel ramanand tipul stingatorului
                             $tip_stingatoare = substr($stingator_string, strlen($numar_stingatoare));
 
-                            // Daca $numar_stingatoare este '', inseamna ca acolo este doar 1 stingator, asa ca automat i se va da valoarea 1;
-                            ($numar_stingatoare == '') ? ($numar_stingatoare = 1) : '';
+                            // Se transforma in litere mici numele stingatorului, pentru a nu fi probleme la importul in baza de date
+                            $tip_stingatoare = strtolower($tip_stingatoare);
 
-                            $stingator->{$tip_stingatoare} = $numar_stingatoare;
+                            // Verificare daca exista acel tip de stingator (acea coloana) in baza de date
+                            if (in_array($tip_stingatoare, ['p1', 'p2', 'p3', 'p6', 'p9', 'sm6', 'sm9', 'p50', 'p100', 'sm50', 'sm100', 'g2', 'g5'], true)){
+                                // Daca $numar_stingatoare este '', inseamna ca acolo este doar 1 stingator, asa ca automat i se va da valoarea 1;
+                                ($numar_stingatoare == '') ? ($numar_stingatoare = 1) : '';
+
+                                $stingator->{$tip_stingatoare} = $numar_stingatoare;
+                            } else {
+                                echo '<br><br>' . 'Nu exista in baza de date: ' . $tip_stingatoare . '<br><br>';
+                            }
+
                         }
                         // echo $stingator->{$tip_stingatoare};
                         // echo ' - ';
@@ -207,57 +224,57 @@ class ImportInitialFisierExcelController extends Controller
                 // echo '<br><br>';
 
             } else {
-                switch($stingator_import->{'TIP STING.'}){
+                switch(strtolower($stingator_import->{'TIP STING.'})){
                     case 'p1':
-                    case 'P1':
-                        $stingator->p1 = is_numeric(is_numeric($stingator_import->{'NR. STING'}) ? $stingator_import->{'NR. STING'} : 0) ? is_numeric($stingator_import->{'NR. STING'}) ? $stingator_import->{'NR. STING'} : 0 : 0;
+                    // case 'P1':
+                        $stingator->p1 = is_numeric($stingator_import->{'NR. STING'}) ? $stingator_import->{'NR. STING'} : 0;
                         break;
                     case 'p2':
-                    case 'P2':
+                    // case 'P2':
                         $stingator->p2 = is_numeric($stingator_import->{'NR. STING'}) ? $stingator_import->{'NR. STING'} : 0;
                         break;
                     case 'p3':
-                    case 'P3':
+                    // case 'P3':
                         $stingator->p3 = is_numeric($stingator_import->{'NR. STING'}) ? $stingator_import->{'NR. STING'} : 0;
                         break;
                     case 'p6':
-                    case 'P6':
+                    // case 'P6':
                         $stingator->p6 = is_numeric($stingator_import->{'NR. STING'}) ? $stingator_import->{'NR. STING'} : 0;
                         break;
                     case 'p9':
-                    case 'P9':
+                    // case 'P9':
                         $stingator->p9 = is_numeric($stingator_import->{'NR. STING'}) ? $stingator_import->{'NR. STING'} : 0;
                         break;
                     case 'sm6':
-                    case 'SM6':
+                    // case 'SM6':
                         $stingator->sm6 = is_numeric($stingator_import->{'NR. STING'}) ? $stingator_import->{'NR. STING'} : 0;
                         break;
                     case 'sm9':
-                    case 'SM9':
+                    // case 'SM9':
                         $stingator->sm9 = is_numeric($stingator_import->{'NR. STING'}) ? $stingator_import->{'NR. STING'} : 0;
                         break;
                     case 'p50':
-                    case 'P50':
+                    // case 'P50':
                         $stingator->p50 = is_numeric($stingator_import->{'NR. STING'}) ? $stingator_import->{'NR. STING'} : 0;
                         break;
                     case 'p100':
-                    case 'P100':
+                    // case 'P100':
                         $stingator->p100 = is_numeric($stingator_import->{'NR. STING'}) ? $stingator_import->{'NR. STING'} : 0;
                         break;
                     case 'sm50':
-                    case 'SM50':
+                    // case 'SM50':
                         $stingator->sm50 = is_numeric($stingator_import->{'NR. STING'}) ? $stingator_import->{'NR. STING'} : 0;
                         break;
                     case 'sm100':
-                    case 'SM100':
+                    // case 'SM100':
                         $stingator->sm100 = is_numeric($stingator_import->{'NR. STING'}) ? $stingator_import->{'NR. STING'} : 0;
                         break;
                     case 'g2':
-                    case 'G2':
+                    // case 'G2':
                         $stingator->g2 = is_numeric($stingator_import->{'NR. STING'}) ? $stingator_import->{'NR. STING'} : 0;
                         break;
                     case 'g5':
-                    case 'G5':
+                    // case 'G5':
                         $stingator->g5 = is_numeric($stingator_import->{'NR. STING'}) ? $stingator_import->{'NR. STING'} : 0;
                         break;
                     default:
@@ -268,6 +285,7 @@ class ImportInitialFisierExcelController extends Controller
                         echo '<br><br>';
                         break;
                 }
+                // echo strtolower($stingator_import->{'TIP STING.'}) . '<br><br>';
             }
 
             // Creare data expirare
@@ -284,5 +302,17 @@ class ImportInitialFisierExcelController extends Controller
         }
 
         echo 'done final';
+    }
+
+    public function firmeDuplicat(){
+        $firme = Firma::select('nume', 'cod_fiscal')
+            ->get();
+
+        foreach($firme->groupBy('nume') as $firme_grupate){
+            if ($firme_grupate->count() > 1) {
+                echo $firme_grupate->first()->nume . ' = ' . $firme_grupate->count();
+                echo '<br>'  ;
+            }
+        }
     }
 }

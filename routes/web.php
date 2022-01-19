@@ -72,7 +72,12 @@ Route::group(['middleware' => 'auth'], function () {
         //     return 'nimic';
     });
 
+
+    // Import
     Route::get('/import/import-firme', [ImportInitialFisierExcelController::class, 'importFirme']);
     Route::get('/import/import-salariati', [ImportInitialFisierExcelController::class, 'importSalariati']);
     Route::get('/import/import-stingatoare', [ImportInitialFisierExcelController::class, 'importStingatoare']);
+
+    // Erori dupa import
+    Route::get('/firme-duplicat', [ImportInitialFisierExcelController::class, 'firmeDuplicat']);
 });
