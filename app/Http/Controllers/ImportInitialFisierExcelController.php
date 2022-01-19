@@ -117,9 +117,9 @@ class ImportInitialFisierExcelController extends Controller
 
     public function importStingatoare()
     {
-        $stingatoare_import = DB::table('import_stingatoare_firme')
-            // ->where('id', '>', '1150')
-            // ->take(5)
+        $stingatoare_import = DB::table('import_stingatoare_parohii')
+            // ->where('id', '>', '8')
+            // ->take(15)
             ->get();
         // dd($stingatoare_import);
 
@@ -180,7 +180,8 @@ class ImportInitialFisierExcelController extends Controller
                 $stingatoare = preg_replace('/\s+/', '', $stingatoare);
 
                 // $stingatoare_array = preg_split('/ (;|-|:) /', $stingatoare);
-                $stingatoare_array = preg_split("/[;|-|:|'|,]/", $stingatoare);
+                $stingatoare_array = preg_split("/;|-|:|'|,/", $stingatoare);
+                // dd($stingatoare_array);
                 // if (strpos($stingator_import->{'TIP STING.'}, ';')){
                 //     $stingatoare_array = explode(';', $stingatoare);
                 // } elseif (strpos($stingator_import->{'TIP STING.'}, ':'){
@@ -188,7 +189,7 @@ class ImportInitialFisierExcelController extends Controller
                 // }
                 // $stingatoare_array = explode(';', $stingatoare);
 
-                //     echo '<br>';
+                    // echo '<br><br>';
                 foreach($stingatoare_array as $stingator_string){
                     if(!empty($stingator_string)){
                         // se extrage primul numar din $stingator_string
@@ -197,33 +198,54 @@ class ImportInitialFisierExcelController extends Controller
                         if($numar_stingatoare){
                             // se sterge primul numar din $stingator_string, astfel ramanand tipul stingatorului
                             $tip_stingatoare = substr($stingator_string, strlen($numar_stingatoare));
-
-                            // Se transforma in litere mici numele stingatorului, pentru a nu fi probleme la importul in baza de date
-                            $tip_stingatoare = strtolower($tip_stingatoare);
-
-                            // Verificare daca exista acel tip de stingator (acea coloana) in baza de date
-                            if (in_array($tip_stingatoare, ['p1', 'p2', 'p3', 'p6', 'p9', 'sm6', 'sm9', 'p50', 'p100', 'sm50', 'sm100', 'g2', 'g5'], true)){
-                                // Daca $numar_stingatoare este '', inseamna ca acolo este doar 1 stingator, asa ca automat i se va da valoarea 1;
-                                ($numar_stingatoare == '') ? ($numar_stingatoare = 1) : '';
-
-                                $stingator->{$tip_stingatoare} = $numar_stingatoare;
-                            } else {
-                                echo '<br><br>' . 'Nu exista in baza de date: ' . $tip_stingatoare . '<br><br>';
-                            }
-
+                        } else{
+                            $tip_stingatoare = $stingator_string;
                         }
+
+                        // Se transforma in litere mici numele stingatorului, pentru a nu fi probleme la importul in baza de date
+                        $tip_stingatoare = strtolower($tip_stingatoare);
+
+                        // echo $tip_stingatoare . ' = ' . $numar_stingatoare . '<br>';
+
+                        // Verificare daca exista acel tip de stingator (acea coloana) in baza de date
+                        if (in_array($tip_stingatoare, ['p1', 'p2', 'p3', 'p6', 'p9', 'sm6', 'sm9', 'p50', 'p100', 'sm50', 'sm100', 'g2', 'g5'], true)){
+                            // Daca $numar_stingatoare este '', inseamna ca acolo este doar 1 stingator, asa ca automat i se va da valoarea 1;
+                            ($numar_stingatoare == '') ?
+                                ( (count($stingatoare_array) == 1) ?
+                                    (is_numeric($stingator_import->{'NR. STING'}) ? $stingator_import->{'NR. STING'} : 0)
+                                    :
+                                    ($numar_stingatoare = 1)
+                                )
+                                : '';
+                            echo '<br><br>' . count($stingatoare_array) . '<br><br>';
+                            $stingator->{$tip_stingatoare} = $numar_stingatoare;
+                        } else {
+                            echo '<br><br>' . 'Nu exista in baza de date: ' . $tip_stingatoare . '<br><br>';
+                        }
+
                         // echo $stingator->{$tip_stingatoare};
                         // echo ' - ';
                         // echo $stingator_string;
                         // echo '<br>';
                     }
                 }
-                    // echo '<br>';
+                    // echo '<br><br>';
 
                 // echo $stingator_import->{'TIP STING.'};
                 // echo '<br><br>';
 
             } else {
+                // Se elimina toate spatiile albe
+                $stingator_import->{'TIP STING.'} = preg_replace('/\s+/', '', $stingator_import->{'TIP STING.'});
+
+                // se extrage primul numar din $stingator_string
+                $numar_stingatoare = substr($stingator_import->{'TIP STING.'}, 0, strspn($stingator_import->{'TIP STING.'}, "0123456789"));
+
+                if($numar_stingatoare){
+                    // se sterge primul numar din $stingator_string, astfel ramanand tipul stingatorului
+                    $stingator_import->{'TIP STING.'} = substr($stingator_import->{'TIP STING.'}, strlen($numar_stingatoare));
+                }
+
                 switch(strtolower($stingator_import->{'TIP STING.'})){
                     case 'p1':
                     // case 'P1':
@@ -289,7 +311,9 @@ class ImportInitialFisierExcelController extends Controller
             }
 
             // Creare data expirare
-            $stingator->stingatoare_expirare = Carbon::create($stingator_import->{'AN'}, $stingator_import->{'LUNA'}, 1);
+            if (is_numeric($stingator_import->{'LUNA'}) && is_numeric($stingator_import->{'AN'})){
+                $stingator->stingatoare_expirare = Carbon::create($stingator_import->{'AN'}, $stingator_import->{'LUNA'}, 1);
+            }
 
             // Numarul total de stingatoare din excel, pentru verificare ulterioara
             $stingator->total = is_numeric($stingator_import->{'NR. STING'}) ? $stingator_import->{'NR. STING'} : 0;
