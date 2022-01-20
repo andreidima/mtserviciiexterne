@@ -113,7 +113,7 @@ class FirmaController extends Controller
     {
         if (count($firma->salariati)){
             return back()->with('error', 'Firma „' . ($firma->nume ?? '') . '” nu poate fi ștearsă pentru că are salariați adăugați. Ștergeți mai întâi salariații firmei');
-        } else if (count($firma->stingator)){
+        } else if ($firma->stingator){
             return back()->with('error', 'Firma „' . ($firma->nume ?? '') . '” nu poate fi ștearsă pentru că are stingătoare adăugate. Ștergeți mai întâi stingătoarele firmei');
         }
 
