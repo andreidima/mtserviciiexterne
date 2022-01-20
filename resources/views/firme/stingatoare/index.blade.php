@@ -43,6 +43,7 @@
                         <tr class="" style="padding:2rem">
                             <th>Nr. Crt.</th>
                             <th>Firma</th>
+                            <th>Stingătoare</th>
                             <th class="text-end">Acțiuni</th>
                         </tr>
                     </thead>
@@ -54,6 +55,73 @@
                                 </td>
                                 <td>
                                     <b>{{ $stingator->firma->nume ?? '' }}</b>
+                                </td>
+                                <td>
+                                    @if($stingator->p1 > 0)
+                                            <span class="badge fs-6 bg-success">
+                                            {{ $stingator->p1 }} P1
+                                            </span>
+                                    @endif
+                                    @if($stingator->p2 > 0)
+                                            <span class="badge fs-6 bg-success">
+                                            {{ $stingator->p2 }} P2
+                                            </span>
+                                    @endif
+                                    @if($stingator->p3 > 0)
+                                            <span class="badge fs-6 bg-success">
+                                            {{ $stingator->p3 }} P3
+                                            </span>
+                                    @endif
+                                    @if($stingator->p6 > 0)
+                                            <span class="badge fs-6 bg-success">
+                                            {{ $stingator->p6 }} P6
+                                            </span>
+                                    @endif
+                                    @if($stingator->p9 > 0)
+                                            <span class="badge fs-6 bg-success">
+                                            {{ $stingator->p9 }} P9
+                                            </span>
+                                    @endif
+                                    @if($stingator->sm6 > 0)
+                                            <span class="badge fs-6 bg-success">
+                                            {{ $stingator->sm6 }} SM6
+                                            </span>
+                                    @endif
+                                    @if($stingator->sm9 > 0)
+                                            <span class="badge fs-6 bg-success">
+                                            {{ $stingator->sm9 }} SM9
+                                            </span>
+                                    @endif
+                                    @if($stingator->p50 > 0)
+                                            <span class="badge fs-6 bg-success">
+                                            {{ $stingator->p50 }} P50
+                                            </span>
+                                    @endif
+                                    @if($stingator->p100 > 0)
+                                            <span class="badge fs-6 bg-success">
+                                            {{ $stingator->p100 }} P100
+                                            </span>
+                                    @endif
+                                    @if($stingator->sm50 > 0)
+                                            <span class="badge fs-6 bg-success">
+                                            {{ $stingator->sm50 }} SM50
+                                            </span>
+                                    @endif
+                                    @if($stingator->sm100 > 0)
+                                            <span class="badge fs-6 bg-success">
+                                            {{ $stingator->sm100 }} SM100
+                                            </span>
+                                    @endif
+                                    @if($stingator->g2 > 0)
+                                            <span class="badge text-black fs-6 bg-warning">
+                                            {{ $stingator->g2 }} G2
+                                            </span>
+                                    @endif
+                                    @if($stingator->g5 > 0)
+                                            <span class="badge text-black fs-6 bg-warning">
+                                            {{ $stingator->g5 }} G5
+                                            </span>
+                                    @endif
                                 </td>
                                 <td class="d-flex justify-content-end">
                                     <a href="{{ $stingator->path() }}"
@@ -100,11 +168,11 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                 <div class="modal-header bg-danger">
-                    <h5 class="modal-title text-white" id="exampleModalLabel">Stingător: <b>{{ $stingator->nume ?? '' }}</b></h5>
+                    <h5 class="modal-title text-white" id="exampleModalLabel">Firma: <b>{{ $stingator->firma->nume ?? '' }}</b></h5>
                     <button type="button" class="btn-close bg-white" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body" style="text-align:left;">
-                    Ești sigur ca vrei să ștergi Stingător?
+                    Ești sigur ca vrei să ștergi Stingătoarele?
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Renunță</button>
@@ -116,7 +184,7 @@
                             type="submit"
                             class="btn btn-danger text-white"
                             >
-                            Șterge Stingător
+                            Șterge Stingătoare
                         </button>
                     </form>
 

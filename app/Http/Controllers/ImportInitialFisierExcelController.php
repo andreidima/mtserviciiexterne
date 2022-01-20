@@ -117,8 +117,10 @@ class ImportInitialFisierExcelController extends Controller
 
     public function importStingatoare()
     {
-        $stingatoare_import = DB::table('import_stingatoare_parohii')
-            // ->where('id', '>', '8')
+        $stingatoare_import =
+            // DB::table('import_stingatoare_firme')
+            DB::table('import_stingatoare_parohii')
+            // ->where('id', '>', '170')
             // ->take(15)
             ->get();
         // dd($stingatoare_import);
@@ -130,7 +132,13 @@ class ImportInitialFisierExcelController extends Controller
 
             $stingator = new FirmaStingator;
 
-// echo $stingator_import->{'DENUMIREA FIRMEI'} . ' - ' . $stingator_import->{'C.I.F'} . '<br><br>';
+            //Traseu
+            if ($stingator_import->RUTA){
+                $traseu = FirmaTraseu::firstOrCreate([
+                    'nume' => $stingator_import->RUTA
+                ]);
+            }
+
             //Firma
             if ($stingator_import->{'DENUMIREA FIRMEI'}){
                 // $firma = Firma::firstOrCreate(
@@ -140,6 +148,9 @@ class ImportInitialFisierExcelController extends Controller
                 //     ],
                 //     [
                 //         'telefon' => $stingator_import->{'TELEFON'},
+                //         'traseu_id' => $traseu->id,
+                //         // 'parohie' => 0
+                //         'parohie' => 1
                 //     ]
                 // );
                 $firma = Firma::create(
@@ -147,6 +158,9 @@ class ImportInitialFisierExcelController extends Controller
                         'nume' => $stingator_import->{'DENUMIREA FIRMEI'},
                         'cod_fiscal' => $stingator_import->{'C.I.F'},
                         'telefon' => $stingator_import->{'TELEFON'},
+                        'traseu_id' => $traseu->id,
+                        // 'parohie' => 0
+                        'parohie' => 1
                     ]
                 );
 
@@ -154,33 +168,20 @@ class ImportInitialFisierExcelController extends Controller
             }
 
 
-            //Traseu
-            if ($stingator_import->RUTA){
-                $traseu = FirmaTraseu::firstOrCreate([
-                    'nume' => $stingator_import->RUTA
-                ]);
-                $firma->traseu_id = $traseu->id;
-            }
+            // Se elimina toate spatiile albe
+            $stingator_import->{'TIP STING.'} = preg_replace('/\s+/', '', $stingator_import->{'TIP STING.'});
+            // echo $stingator_import->{'TIP STING.'} . '<br>';
 
+            // Se elimina caracterele nedorite de la inceput si sfarsit, pentru a nu se face un array cu elemente goale
+            $stingator_import->{'TIP STING.'} = trim($stingator_import->{'TIP STING.'}, ";-:',+");
+            // echo $stingator_import->{'TIP STING.'} . '<br><br>';
 
-            // if (
-            //     (strpos($stingator_import->{'TIP STING.'}, ';') !== false) ||
-            //     (strpos($stingator_import->{'TIP STING.'}, ':') !== false) ||
-            //     (strpos($stingator_import->{'TIP STING.'}, '-') !== false)
-            // ){
-                // echo ($iteratie++) . '-';
-                // echo preg_match('(;|-|:)', $stingator_import->{'TIP STING.'});
-                // echo '<br><br>';
-            if(preg_match("(;|-|:|'|,)", $stingator_import->{'TIP STING.'}) === 1){
-                // echo 'aici' . preg_match("(;|-|:|'|,)", $stingator_import->{'TIP STING.'}) . '<br>';
+            if(preg_match("(;|-|:|'|,|\+)", $stingator_import->{'TIP STING.'}) === 1){
                 // Se intra aici daca in campul stingatoare sunt mai multe tipuri
                 $stingatoare = $stingator_import->{'TIP STING.'};
 
-                // Se elimina toate spatiile albe
-                $stingatoare = preg_replace('/\s+/', '', $stingatoare);
-
                 // $stingatoare_array = preg_split('/ (;|-|:) /', $stingatoare);
-                $stingatoare_array = preg_split("/;|-|:|'|,/", $stingatoare);
+                $stingatoare_array = preg_split("/;|-|:|'|,|\+/", $stingatoare);
                 // dd($stingatoare_array);
                 // if (strpos($stingator_import->{'TIP STING.'}, ';')){
                 //     $stingatoare_array = explode(';', $stingatoare);
@@ -191,6 +192,7 @@ class ImportInitialFisierExcelController extends Controller
 
                     // echo '<br><br>';
                 foreach($stingatoare_array as $stingator_string){
+                    // echo 'String: ' . $stingator_string . '<br>';
                     if(!empty($stingator_string)){
                         // se extrage primul numar din $stingator_string
                         $numar_stingatoare = substr($stingator_string, 0, strspn($stingator_string, "0123456789"));
@@ -217,27 +219,16 @@ class ImportInitialFisierExcelController extends Controller
                                     ($numar_stingatoare = 1)
                                 )
                                 : '';
-                            echo '<br><br>' . count($stingatoare_array) . '<br><br>';
+
                             $stingator->{$tip_stingatoare} = $numar_stingatoare;
                         } else {
-                            echo '<br><br>' . 'Nu exista in baza de date: ' . $tip_stingatoare . '<br><br>';
+                            echo $iteratie . '. ' . 'Stingatoare: ' . $tip_stingatoare . '<br>';
                         }
 
-                        // echo $stingator->{$tip_stingatoare};
-                        // echo ' - ';
-                        // echo $stingator_string;
-                        // echo '<br>';
                     }
                 }
-                    // echo '<br><br>';
-
-                // echo $stingator_import->{'TIP STING.'};
-                // echo '<br><br>';
 
             } else {
-                // Se elimina toate spatiile albe
-                $stingator_import->{'TIP STING.'} = preg_replace('/\s+/', '', $stingator_import->{'TIP STING.'});
-
                 // se extrage primul numar din $stingator_string
                 $numar_stingatoare = substr($stingator_import->{'TIP STING.'}, 0, strspn($stingator_import->{'TIP STING.'}, "0123456789"));
 
@@ -299,12 +290,12 @@ class ImportInitialFisierExcelController extends Controller
                     // case 'G5':
                         $stingator->g5 = is_numeric($stingator_import->{'NR. STING'}) ? $stingator_import->{'NR. STING'} : 0;
                         break;
+                    case '':
+                        // Nu se face nimic
+                        break;
                     default:
                         // dd($stingator_import);
-                        echo $stingator_import->{'DENUMIREA FIRMEI'};
-                        echo " -> ";
-                        echo $stingator_import->{'TIP STING.'};
-                        echo '<br><br>';
+                        echo $iteratie . '. ' . 'Stingatoare: ' . $stingator_import->{'TIP STING.'} . '<br>';
                         break;
                 }
                 // echo strtolower($stingator_import->{'TIP STING.'}) . '<br><br>';
@@ -318,9 +309,8 @@ class ImportInitialFisierExcelController extends Controller
             // Numarul total de stingatoare din excel, pentru verificare ulterioara
             $stingator->total = is_numeric($stingator_import->{'NR. STING'}) ? $stingator_import->{'NR. STING'} : 0;
 
-            // Afisarea iteratiei pentru a vedea la ce rand din excel apar erorile
-            echo ($iteratie++) . '-';
-            // echo '<br><br>';
+            // Se incrementeaza iteratia
+            $iteratie++;
 
             $stingator->save();
         }
@@ -336,6 +326,34 @@ class ImportInitialFisierExcelController extends Controller
             if ($firme_grupate->count() > 1) {
                 echo $firme_grupate->first()->nume . ' = ' . $firme_grupate->count();
                 echo '<br>'  ;
+            }
+        }
+    }
+
+    public function totalIncorect(){
+        $stingatoare = FirmaStingator::get();
+
+        foreach($stingatoare as $stingator){
+            if (
+                    (
+                        $stingator->p1 +
+                        $stingator->p2 +
+                        $stingator->p3 +
+                        $stingator->p6 +
+                        $stingator->p9 +
+                        $stingator->sm6 +
+                        $stingator->sm9 +
+                        $stingator->p50 +
+                        $stingator->p100 +
+                        $stingator->sm50 +
+                        $stingator->sm100 +
+                        $stingator->g2 +
+                        $stingator->g5
+                    )
+                !== $stingator->total)
+            {
+                    echo $stingator->id + 1;
+                    echo '<br>'  ;
             }
         }
     }

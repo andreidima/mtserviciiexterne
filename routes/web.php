@@ -79,5 +79,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/import/import-stingatoare', [ImportInitialFisierExcelController::class, 'importStingatoare']);
 
     // Erori dupa import
+    Route::get('/total-incorect', [ImportInitialFisierExcelController::class, 'totalIncorect']);
+
+    // Erori dupa import
     Route::get('/firme-duplicat', [ImportInitialFisierExcelController::class, 'firmeDuplicat']);
 });

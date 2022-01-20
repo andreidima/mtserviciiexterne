@@ -9,12 +9,14 @@ use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Facades\DB;
 
+use Carbon\Carbon;
+
 class RaportController extends Controller
 {
-    public function stingatoare()
+    public function stingatoare_prima_varianta_backup()
     {
-        $search_data_inceput = \Request::get('search_data_inceput') ?? \Carbon\Carbon::today();
-        $search_data_sfarsit = \Request::get('search_data_sfarsit') ?? \Carbon\Carbon::today()->addDays(5);
+        $search_data_inceput = \Request::get('search_data_inceput') ?? Carbon::today();
+        $search_data_sfarsit = \Request::get('search_data_sfarsit') ?? Carbon::today()->addDays(5);
 
         $stingatoare_nesortate = FirmaStingator::
             with('firma:id,nume,traseu_id', 'firma.traseu')
@@ -63,10 +65,31 @@ class RaportController extends Controller
         return view('rapoarte.stingatoare', compact('stingatoare', 'search_data_inceput', 'search_data_sfarsit'));
     }
 
+    public function stingatoare()
+    {
+        $search_data = \Request::get('search_data') ?
+            (Carbon::parse(\Request::get('search_data'))->startOfMonth())
+            :
+            (Carbon::today()->startOfMonth());
+
+        // dd($search_data->month);
+
+        $stingatoare = FirmaStingator::
+            with('firma', 'firma.traseu')
+            ->whereMonth('stingatoare_expirare', $search_data->month)
+            ->whereYear('stingatoare_expirare', $search_data->year)
+            // ->take(10)
+            ->get();
+
+            // dd($stingatoare);
+
+        return view('rapoarte.stingatoare', compact('stingatoare', 'search_data'));
+    }
+
     public function instructaj()
     {
-        $search_data_inceput = \Request::get('search_data_inceput') ?? \Carbon\Carbon::today();
-        $search_data_sfarsit = \Request::get('search_data_sfarsit') ?? \Carbon\Carbon::today()->addDays(5);
+        $search_data_inceput = \Request::get('search_data_inceput') ?? Carbon::today();
+        $search_data_sfarsit = \Request::get('search_data_sfarsit') ?? Carbon::today()->addDays(5);
 
         $salariati = FirmaSalariat::
             with('firma:id,nume,traseu_id', 'firma.traseu')
@@ -100,8 +123,8 @@ class RaportController extends Controller
 
     public function medicinaMuncii()
     {
-        $search_data_inceput = \Request::get('search_data_inceput') ?? \Carbon\Carbon::today();
-        $search_data_sfarsit = \Request::get('search_data_sfarsit') ?? \Carbon\Carbon::today()->addDays(5);
+        $search_data_inceput = \Request::get('search_data_inceput') ?? Carbon::today();
+        $search_data_sfarsit = \Request::get('search_data_sfarsit') ?? Carbon::today()->addDays(5);
 
         $salariati = FirmaSalariat::
             with('firma:id,nume,traseu_id', 'firma.traseu')

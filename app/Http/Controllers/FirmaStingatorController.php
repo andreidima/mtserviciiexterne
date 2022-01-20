@@ -137,7 +137,7 @@ class FirmaStingatorController extends Controller
                 'g2' => 'nullable|numeric|integer|min:0|max:65000',
                 'g5' => 'nullable|numeric|integer|min:0|max:65000',
                 'stingatoare_expirare' => 'nullable|date',
-                'hidranti_expirare' => 'nullable|date',
+                // 'hidranti_expirare' => 'nullable|date',
                 'observatii' => 'nullable|max:2000',
                 'user_id' => 'required',
             ],

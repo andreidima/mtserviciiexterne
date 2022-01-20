@@ -14,19 +14,25 @@
                     @csrf
                     <div class="row mb-1 input-group custom-search-form justify-content-center">
                         <div class="col-lg-12 d-flex justify-content-center">
-                            <label for="search_data" class="mb-0 align-self-center me-1">Luna:</label>
+                            <label for="search_data_inceput" class="mb-0 align-self-center me-1">Data început:</label>
                             <vue2-datepicker
-                                data-veche="{{ $search_data }}"
-                                nume-camp-db="search_data"
+                                data-veche="{{ $search_data_inceput }}"
+                                nume-camp-db="search_data_inceput"
                                 tip="date"
                                 value-type="YYYY-MM-DD"
                                 format="DD-MM-YYYY"
                                 :latime="{ width: '125px' }"
                                 style="margin-right: 20px;"
                             ></vue2-datepicker>
-                            <small class="align-self-center">
-                                *Selectează orice zi din luna dorită
-                            </small>
+                            <label for="search_data_sfarsit" class="mb-0 align-self-center me-1">Data sfârșit:</label>
+                            <vue2-datepicker
+                                data-veche="{{ $search_data_sfarsit }}"
+                                nume-camp-db="search_data_sfarsit"
+                                tip="date"
+                                value-type="YYYY-MM-DD"
+                                format="DD-MM-YYYY"
+                                :latime="{ width: '125px' }"
+                            ></vue2-datepicker>
                         </div>
                     </div>
                     <div class="row input-group custom-search-form justify-content-center">
@@ -51,18 +57,21 @@
                         <tr class="" style="padding:2rem">
                             <th>Nr. Crt.</th>
                             <th>Firma</th>
-                            <th>Stingătoare</th>
+                            <th>Ordine expirare</th>
+                            <th>Expirare stingătoare</th>
+                            <th>Expirare hidranți</th>
+                            {{-- <th class="text-end">Acțiuni</th> --}}
                         </tr>
                     </thead>
                     <tbody>
                         @php
                             // dd($stingatoare);
                         @endphp
-                        @forelse ($stingatoare->groupBy('firma.traseu_id') as $stingatoare_per_traseu)
+                        @forelse ($stingatoare->groupBy('traseu_id', 'id') as $stingatoare_per_traseu)
                             <tr>
-                                <td colspan="3">
+                                <td colspan="5">
                                     Traseu:
-                                    <span class="badge bg-dark fs-6">
+                                    <span class="badge bg-dark">
                                         {{ $stingatoare_per_traseu->first()->firma->traseu->nume ?? '' }}
                                     </span>
                                 </td>
@@ -74,80 +83,39 @@
                                         {{ $loop->iteration }}
                                     </td>
                                     <td>
-                                        <b>
-                                            @if ($stingator->firma->parohie === 1)
-                                                Parohia
-                                            @endif
-                                            {{ $stingator->firma->nume ?? '' }}
-                                        </b>
+                                        <b>{{ $stingator->firma->nume ?? '' }}</b> {{ $stingator->id }}
                                     </td>
                                     <td>
-                                        @if($stingator->p1 > 0)
-                                             <span class="badge fs-6 bg-success">
-                                                {{ $stingator->p1 }} P1
-                                             </span>
-                                        @endif
-                                        @if($stingator->p2 > 0)
-                                             <span class="badge fs-6 bg-success">
-                                                {{ $stingator->p2 }} P2
-                                             </span>
-                                        @endif
-                                        @if($stingator->p3 > 0)
-                                             <span class="badge fs-6 bg-success">
-                                                {{ $stingator->p3 }} P3
-                                             </span>
-                                        @endif
-                                        @if($stingator->p6 > 0)
-                                             <span class="badge fs-6 bg-success">
-                                                {{ $stingator->p6 }} P6
-                                             </span>
-                                        @endif
-                                        @if($stingator->p9 > 0)
-                                             <span class="badge fs-6 bg-success">
-                                                {{ $stingator->p9 }} P9
-                                             </span>
-                                        @endif
-                                        @if($stingator->sm6 > 0)
-                                             <span class="badge fs-6 bg-success">
-                                                {{ $stingator->sm6 }} SM6
-                                             </span>
-                                        @endif
-                                        @if($stingator->sm9 > 0)
-                                             <span class="badge fs-6 bg-success">
-                                                {{ $stingator->sm9 }} SM9
-                                             </span>
-                                        @endif
-                                        @if($stingator->p50 > 0)
-                                             <span class="badge fs-6 bg-success">
-                                                {{ $stingator->p50 }} P50
-                                             </span>
-                                        @endif
-                                        @if($stingator->p100 > 0)
-                                             <span class="badge fs-6 bg-success">
-                                                {{ $stingator->p100 }} P100
-                                             </span>
-                                        @endif
-                                        @if($stingator->sm50 > 0)
-                                             <span class="badge fs-6 bg-success">
-                                                {{ $stingator->sm50 }} SM50
-                                             </span>
-                                        @endif
-                                        @if($stingator->sm100 > 0)
-                                             <span class="badge fs-6 bg-success">
-                                                {{ $stingator->sm100 }} SM100
-                                             </span>
-                                        @endif
-                                        @if($stingator->g2 > 0)
-                                             <span class="badge text-black fs-6 bg-warning">
-                                                {{ $stingator->g2 }} G2
-                                             </span>
-                                        @endif
-                                        @if($stingator->g5 > 0)
-                                             <span class="badge text-black fs-6 bg-warning">
-                                                {{ $stingator->g5 }} G5
-                                             </span>
-                                        @endif
+                                        {{ $stingator->data_expirare ? \Carbon\Carbon::parse($stingator->data_expirare)->isoFormat('DD.MM.YYYY') : '' }}
                                     </td>
+                                    <td>
+                                        {{ $stingator->stingatoare_expirare ? \Carbon\Carbon::parse($stingator->stingatoare_expirare)->isoFormat('DD.MM.YYYY') : '' }}
+                                    </td>
+                                    <td>
+                                        {{ $stingator->hidranti_expirare ? \Carbon\Carbon::parse($stingator->hidranti_expirare)->isoFormat('DD.MM.YYYY') : '' }}
+                                    </td>
+                                    {{-- <td class="d-flex justify-content-end">
+                                        <a href="{{ $stingator->path() }}"
+                                            class="flex me-1"
+                                        >
+                                            <span class="badge bg-success">Vizualizează</span>
+                                        </a>
+                                        <a href="{{ $stingator->path() }}/modifica"
+                                            class="flex me-1"
+                                        >
+                                            <span class="badge bg-primary">Modifică</span>
+                                        </a>
+                                        <div style="flex" class="">
+                                            <a
+                                                href="#"
+                                                data-bs-toggle="modal"
+                                                data-bs-target="#stergeStingător{{ $stingator->id }}"
+                                                title="Șterge Stingător"
+                                                >
+                                                <span class="badge bg-danger">Șterge</span>
+                                            </a>
+                                        </div>
+                                    </td> --}}
                                 </tr>
                             @empty
                                 {{-- <div>Nu s-au gasit rezervări în baza de date. Încearcă alte date de căutare</div> --}}

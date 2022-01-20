@@ -147,7 +147,7 @@
                 ></vue2-datepicker>
                 <small class="ps-xl-3">*data expirării</small>
             </div>
-            <div class="col-lg-2 mb-5">
+            {{-- <div class="col-lg-2 mb-5">
                 <label for="hidranti_expirare" class="mb-0 ps-3 pe-3">Hidranți</label>
                 <vue2-datepicker
                     data-veche="{{ old('hidranti_expirare', ($stingator->hidranti_expirare ?? '')) }}"
@@ -158,7 +158,7 @@
                     :latime="{ width: '125px' }"
                 ></vue2-datepicker>
                 <small class="ps-xl-3">*data expirării</small>
-            </div>
+            </div> --}}
             <div class="col-lg-12 mb-5">
                 <label for="observatii" class="form-label mb-0 ps-3">Observații</label>
                 <textarea class="form-control bg-white {{ $errors->has('observatii') ? 'is-invalid' : '' }}"

@@ -140,14 +140,14 @@
                                     {{ $stingator->stingatoare_expirare ? \Carbon\Carbon::parse($stingator->stingatoare_expirare)->isoFormat('DD.MM.YYYY') : '' }}
                                 </td>
                             </tr>
-                            <tr>
+                            {{-- <tr>
                                 <td class="pe-4">
                                     Expirare hidranți
                                 </td>
                                 <td>
                                     {{ $stingator->hidranti_expirare ? \Carbon\Carbon::parse($stingator->hidranti_expirare)->isoFormat('DD.MM.YYYY') : '' }}
                                 </td>
-                            </tr>
+                            </tr> --}}
                             <tr>
                                 <td class="pe-4">
                                     Observații
