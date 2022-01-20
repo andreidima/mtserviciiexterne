@@ -54,7 +54,12 @@
                                     {{ ($stingatoare ->currentpage()-1) * $stingatoare ->perpage() + $loop->index + 1 }}
                                 </td>
                                 <td>
-                                    <b>{{ $stingator->firma->nume ?? '' }}</b>
+                                    <b>
+                                        @if ($stingator->firma->parohie === 1)
+                                            Parohia
+                                        @endif
+                                        {{ $stingator->firma->nume ?? '' }}
+                                    </b>
                                 </td>
                                 <td>
                                     @if($stingator->p1 > 0)
