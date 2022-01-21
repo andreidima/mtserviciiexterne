@@ -51,6 +51,7 @@
                         <tr class="" style="padding:2rem">
                             <th>Nr. Crt.</th>
                             <th>Firma</th>
+                            <th>Telefon</th>
                             <th>Stingătoare</th>
                         </tr>
                     </thead>
@@ -59,18 +60,32 @@
                             // dd($stingatoare);
                         @endphp
                         @forelse ($stingatoare->groupBy('firma.traseu_id') as $stingatoare_per_traseu)
+                            @php
+                                $total_stingatoare_per_traseu = 0;
+                            @endphp
                             <tr>
-                                <td colspan="3">
+                                <td colspan="4">
                                     Traseu:
                                     <span class="badge bg-dark fs-6">
                                         {{ $stingatoare_per_traseu->first()->firma->traseu->nume ?? '' }}
                                     </span>
+                                    /
+                                    Stingatoare =
+                                    <span class="badge bg-success fs-6">
+                                        {{ $stingatoare_per_traseu->sum('p1') + $stingatoare_per_traseu->sum('p2') + $stingatoare_per_traseu->sum('p3') + $stingatoare_per_traseu->sum('p4') + $stingatoare_per_traseu->sum('p5') + $stingatoare_per_traseu->sum('p6') + $stingatoare_per_traseu->sum('p9') + $stingatoare_per_traseu->sum('p20') + $stingatoare_per_traseu->sum('p50') +
+                                            $stingatoare_per_traseu->sum('p100') + $stingatoare_per_traseu->sum('sm3') + $stingatoare_per_traseu->sum('sm6') + $stingatoare_per_traseu->sum('sm9') + $stingatoare_per_traseu->sum('sm50') + $stingatoare_per_traseu->sum('sm100') + $stingatoare_per_traseu->sum('g2') + $stingatoare_per_traseu->sum('g5') }}
+                                    </span>
                                 </td>
                             </tr>
                             @forelse ($stingatoare_per_traseu as $stingator)
+                                @php
+                                    $total_stingatoare_per_stingator =
+                                        $stingator->p1 + $stingator->p2 + $stingator->p3 + $stingator->p4 + $stingator->p5 + $stingator->p6 + $stingator->p9 + $stingator->p20 + $stingator->p50 +
+                                        $stingator->p100 + $stingator->sm3 + $stingator->sm6 + $stingator->sm9 + $stingator->sm50 + $stingator->sm100 + $stingator->g2 + $stingator->g5;
+                                    $total_stingatoare_per_traseu += $total_stingatoare_per_stingator
+                                @endphp
                                 <tr>
                                     <td align="">
-                                        {{-- {{ ($stingatoare ->currentpage()-1) * $stingatoare ->perpage() + $loop->index + 1 }} --}}
                                         {{ $loop->iteration }}
                                     </td>
                                     <td>
@@ -82,76 +97,113 @@
                                         </b>
                                     </td>
                                     <td>
+                                        {{ $stingator->firma->telefon ?? '' }}
+                                    </td>
+                                    <td>
+                                        <span class="badge fs-6 bg-success">
+                                            {{ $total_stingatoare_per_stingator }}
+                                        </span> =
                                         @if($stingator->p1 > 0)
-                                             <span class="badge fs-6 bg-success">
+                                                <span class="badge bg-secondary">
                                                 {{ $stingator->p1 }} P1
-                                             </span>
+                                                </span>
                                         @endif
                                         @if($stingator->p2 > 0)
-                                             <span class="badge fs-6 bg-success">
+                                                <span class="badge bg-secondary">
                                                 {{ $stingator->p2 }} P2
-                                             </span>
+                                                </span>
                                         @endif
                                         @if($stingator->p3 > 0)
-                                             <span class="badge fs-6 bg-success">
+                                                <span class="badge bg-secondary">
                                                 {{ $stingator->p3 }} P3
-                                             </span>
+                                                </span>
+                                        @endif
+                                        @if($stingator->p4 > 0)
+                                                <span class="badge bg-secondary">
+                                                {{ $stingator->p4 }} P4
+                                                </span>
+                                        @endif
+                                        @if($stingator->p5 > 0)
+                                                <span class="badge bg-secondary">
+                                                {{ $stingator->p5 }} P5
+                                                </span>
                                         @endif
                                         @if($stingator->p6 > 0)
-                                             <span class="badge fs-6 bg-success">
+                                                <span class="badge bg-secondary">
                                                 {{ $stingator->p6 }} P6
-                                             </span>
+                                                </span>
                                         @endif
                                         @if($stingator->p9 > 0)
-                                             <span class="badge fs-6 bg-success">
+                                                <span class="badge bg-secondary">
                                                 {{ $stingator->p9 }} P9
-                                             </span>
+                                                </span>
                                         @endif
-                                        @if($stingator->sm6 > 0)
-                                             <span class="badge fs-6 bg-success">
-                                                {{ $stingator->sm6 }} SM6
-                                             </span>
-                                        @endif
-                                        @if($stingator->sm9 > 0)
-                                             <span class="badge fs-6 bg-success">
-                                                {{ $stingator->sm9 }} SM9
-                                             </span>
+                                        @if($stingator->p20 > 0)
+                                                <span class="badge bg-secondary">
+                                                {{ $stingator->p20 }} P20
+                                                </span>
                                         @endif
                                         @if($stingator->p50 > 0)
-                                             <span class="badge fs-6 bg-success">
+                                                <span class="badge bg-secondary">
                                                 {{ $stingator->p50 }} P50
-                                             </span>
+                                                </span>
                                         @endif
                                         @if($stingator->p100 > 0)
-                                             <span class="badge fs-6 bg-success">
+                                                <span class="badge bg-secondary">
                                                 {{ $stingator->p100 }} P100
-                                             </span>
+                                                </span>
+                                        @endif
+                                        @if($stingator->sm3 > 0)
+                                                <span class="badge bg-secondary">
+                                                {{ $stingator->sm3 }} SM3
+                                                </span>
+                                        @endif
+                                        @if($stingator->sm6 > 0)
+                                                <span class="badge bg-secondary">
+                                                {{ $stingator->sm6 }} SM6
+                                                </span>
+                                        @endif
+                                        @if($stingator->sm9 > 0)
+                                                <span class="badge bg-secondary">
+                                                {{ $stingator->sm9 }} SM9
+                                                </span>
                                         @endif
                                         @if($stingator->sm50 > 0)
-                                             <span class="badge fs-6 bg-success">
+                                                <span class="badge bg-secondary">
                                                 {{ $stingator->sm50 }} SM50
-                                             </span>
+                                                </span>
                                         @endif
                                         @if($stingator->sm100 > 0)
-                                             <span class="badge fs-6 bg-success">
+                                                <span class="badge bg-secondary">
                                                 {{ $stingator->sm100 }} SM100
-                                             </span>
+                                                </span>
                                         @endif
                                         @if($stingator->g2 > 0)
-                                             <span class="badge text-black fs-6 bg-warning">
+                                                <span class="badge bg-secondary">
                                                 {{ $stingator->g2 }} G2
-                                             </span>
+                                                </span>
                                         @endif
                                         @if($stingator->g5 > 0)
-                                             <span class="badge text-black fs-6 bg-warning">
+                                                <span class="badge bg-secondary">
                                                 {{ $stingator->g5 }} G5
-                                             </span>
+                                                </span>
+                                        @endif
+                                        @if($stingator->hidranti > 0)
+                                                <br>
+                                                <span class="badge bg-warning text-black">
+                                                {{ $stingator->hidranti }} Hidranți
+                                                </span>
                                         @endif
                                     </td>
                                 </tr>
                             @empty
                                 {{-- <div>Nu s-au gasit rezervări în baza de date. Încearcă alte date de căutare</div> --}}
                             @endforelse
+                            <tr>
+                                <td colspan="4">
+                                    &nbsp;
+                                </td>
+                            </tr>
                         @empty
                             {{-- <div>Nu s-au gasit rezervări în baza de date. Încearcă alte date de căutare</div> --}}
                         @endforelse

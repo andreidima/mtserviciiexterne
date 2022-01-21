@@ -46,6 +46,24 @@
                     value="{{ old('p3', $stingator->p3) }}">
             </div>
             <div class="col-lg-2 mb-5">
+                <label for="p4" class="mb-0 ps-3">P4</label>
+                <input
+                    type="text"
+                    class="form-control bg-white rounded-3 {{ $errors->has('p4') ? 'is-invalid' : '' }}"
+                    name="p4"
+                    placeholder=""
+                    value="{{ old('p4', $stingator->p4) }}">
+            </div>
+            <div class="col-lg-2 mb-5">
+                <label for="p5" class="mb-0 ps-3">P5</label>
+                <input
+                    type="text"
+                    class="form-control bg-white rounded-3 {{ $errors->has('p5') ? 'is-invalid' : '' }}"
+                    name="p5"
+                    placeholder=""
+                    value="{{ old('p5', $stingator->p5) }}">
+            </div>
+            <div class="col-lg-2 mb-5">
                 <label for="p6" class="mb-0 ps-3">P6</label>
                 <input
                     type="text"
@@ -64,22 +82,13 @@
                     value="{{ old('p9', $stingator->p9) }}">
             </div>
             <div class="col-lg-2 mb-5">
-                <label for="sm6" class="mb-0 ps-3">SM6</label>
+                <label for="p20" class="mb-0 ps-3">P20</label>
                 <input
                     type="text"
-                    class="form-control bg-white rounded-3 {{ $errors->has('sm6') ? 'is-invalid' : '' }}"
-                    name="sm6"
+                    class="form-control bg-white rounded-3 {{ $errors->has('p20') ? 'is-invalid' : '' }}"
+                    name="p20"
                     placeholder=""
-                    value="{{ old('sm6', $stingator->sm6) }}">
-            </div>
-            <div class="col-lg-2 mb-5">
-                <label for="sm9" class="mb-0 ps-3">SM9</label>
-                <input
-                    type="text"
-                    class="form-control bg-white rounded-3 {{ $errors->has('sm9') ? 'is-invalid' : '' }}"
-                    name="sm9"
-                    placeholder=""
-                    value="{{ old('sm9', $stingator->sm9) }}">
+                    value="{{ old('p20', $stingator->p20) }}">
             </div>
             <div class="col-lg-2 mb-5">
                 <label for="p50" class="mb-0 ps-3">P50</label>
@@ -98,6 +107,33 @@
                     name="p100"
                     placeholder=""
                     value="{{ old('p100', $stingator->p100) }}">
+            </div>
+            <div class="col-lg-2 mb-5">
+                <label for="sm3" class="mb-0 ps-3">SM3</label>
+                <input
+                    type="text"
+                    class="form-control bg-white rounded-3 {{ $errors->has('sm3') ? 'is-invalid' : '' }}"
+                    name="sm3"
+                    placeholder=""
+                    value="{{ old('sm3', $stingator->sm3) }}">
+            </div>
+            <div class="col-lg-2 mb-5">
+                <label for="sm6" class="mb-0 ps-3">SM6</label>
+                <input
+                    type="text"
+                    class="form-control bg-white rounded-3 {{ $errors->has('sm6') ? 'is-invalid' : '' }}"
+                    name="sm6"
+                    placeholder=""
+                    value="{{ old('sm6', $stingator->sm6) }}">
+            </div>
+            <div class="col-lg-2 mb-5">
+                <label for="sm9" class="mb-0 ps-3">SM9</label>
+                <input
+                    type="text"
+                    class="form-control bg-white rounded-3 {{ $errors->has('sm9') ? 'is-invalid' : '' }}"
+                    name="sm9"
+                    placeholder=""
+                    value="{{ old('sm9', $stingator->sm9) }}">
             </div>
             <div class="col-lg-2 mb-5">
                 <label for="sm50" class="mb-0 ps-3">SM50</label>
@@ -147,7 +183,16 @@
                 ></vue2-datepicker>
                 <small class="ps-xl-3">*data expirării</small>
             </div>
-            {{-- <div class="col-lg-2 mb-5">
+            <div class="col-lg-2 mb-5">
+                <label for="hidranti" class="mb-0 ps-3">Hidranți</label>
+                <input
+                    type="text"
+                    class="form-control bg-white rounded-3 {{ $errors->has('hidranti') ? 'is-invalid' : '' }}"
+                    name="hidranti"
+                    placeholder=""
+                    value="{{ old('hidranti', $stingator->hidranti) }}">
+            </div>
+            <div class="col-lg-2 mb-5">
                 <label for="hidranti_expirare" class="mb-0 ps-3 pe-3">Hidranți</label>
                 <vue2-datepicker
                     data-veche="{{ old('hidranti_expirare', ($stingator->hidranti_expirare ?? '')) }}"
@@ -158,7 +203,7 @@
                     :latime="{ width: '125px' }"
                 ></vue2-datepicker>
                 <small class="ps-xl-3">*data expirării</small>
-            </div> --}}
+            </div>
             <div class="col-lg-12 mb-5">
                 <label for="observatii" class="form-label mb-0 ps-3">Observații</label>
                 <textarea class="form-control bg-white {{ $errors->has('observatii') ? 'is-invalid' : '' }}"

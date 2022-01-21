@@ -54,6 +54,22 @@
                             </tr>
                             <tr>
                                 <td class="pe-4">
+                                    P4
+                                </td>
+                                <td>
+                                    {{ $stingator->p4 }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="pe-4">
+                                    P5
+                                </td>
+                                <td>
+                                    {{ $stingator->p5 }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="pe-4">
                                     P6
                                 </td>
                                 <td>
@@ -70,18 +86,10 @@
                             </tr>
                             <tr>
                                 <td class="pe-4">
-                                    SM6
+                                    P20
                                 </td>
                                 <td>
-                                    {{ $stingator->sm6 }}
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="pe-4">
-                                    SM9
-                                </td>
-                                <td>
-                                    {{ $stingator->sm9 }}
+                                    {{ $stingator->p20 }}
                                 </td>
                             </tr>
                             <tr>
@@ -98,6 +106,30 @@
                                 </td>
                                 <td>
                                     {{ $stingator->p100 }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="pe-4">
+                                    SM3
+                                </td>
+                                <td>
+                                    {{ $stingator->sm3 }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="pe-4">
+                                    SM6
+                                </td>
+                                <td>
+                                    {{ $stingator->sm6 }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="pe-4">
+                                    SM9
+                                </td>
+                                <td>
+                                    {{ $stingator->sm9 }}
                                 </td>
                             </tr>
                             <tr>
@@ -140,14 +172,22 @@
                                     {{ $stingator->stingatoare_expirare ? \Carbon\Carbon::parse($stingator->stingatoare_expirare)->isoFormat('DD.MM.YYYY') : '' }}
                                 </td>
                             </tr>
-                            {{-- <tr>
+                            <tr>
+                                <td class="pe-4">
+                                    Hidranți
+                                </td>
+                                <td>
+                                    {{ $stingator->hidranti }}
+                                </td>
+                            </tr>
+                            <tr>
                                 <td class="pe-4">
                                     Expirare hidranți
                                 </td>
                                 <td>
                                     {{ $stingator->hidranti_expirare ? \Carbon\Carbon::parse($stingator->hidranti_expirare)->isoFormat('DD.MM.YYYY') : '' }}
                                 </td>
-                            </tr> --}}
+                            </tr>
                             <tr>
                                 <td class="pe-4">
                                     Observații
