@@ -81,9 +81,17 @@ class RaportController extends Controller
             // ->take(10)
             ->get();
 
+        $search_data_luna_precedenta = Carbon::parse($search_data)->subMonth();
+        $stingatoare_luna_precedenta = FirmaStingator::
+            with('firma', 'firma.traseu')
+            ->whereMonth('stingatoare_expirare', $search_data_luna_precedenta->month)
+            ->whereYear('stingatoare_expirare', $search_data_luna_precedenta->year)
+            // ->take(10)
+            ->get();
+
             // dd($stingatoare);
 
-        return view('rapoarte.stingatoare', compact('stingatoare', 'search_data'));
+        return view('rapoarte.stingatoare', compact('stingatoare', 'search_data', 'stingatoare_luna_precedenta', 'search_data_luna_precedenta'));
     }
 
     public function instructaj()
