@@ -94,6 +94,22 @@ class RaportController extends Controller
         return view('rapoarte.stingatoare', compact('stingatoare', 'search_data', 'stingatoare_luna_precedenta', 'search_data_luna_precedenta'));
     }
 
+    public function stingatoareExportPDF(Request $request, $data = null, $view_type = null)
+    {
+        $data = Carbon::parse($data);
+
+        $stingatoare = FirmaStingator::
+            with('firma', 'firma.traseu')
+            ->whereMonth('stingatoare_expirare', $data->month)
+            ->whereYear('stingatoare_expirare', $data->year)
+            // ->take(10)
+            ->get();
+
+            dd($stingatoare);
+
+        return view('rapoarte.stingatoare', compact('stingatoare', 'search_data', 'stingatoare_luna_precedenta', 'search_data_luna_precedenta'));
+    }
+
     public function instructaj()
     {
         $search_data_inceput = \Request::get('search_data_inceput') ?? Carbon::today();

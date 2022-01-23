@@ -67,7 +67,19 @@
                             <th>#</th>
                             <th>Firma</th>
                             <th>Telefon</th>
-                            <th>Stingătoare</th>
+                            <th>
+                                <div class="d-flex justify-content-between align-items-end">
+                                    <div>
+                                        Stingătoare
+                                    </div>
+                                    <div>
+                                        <a class="btn btn-sm btn-primary border border-light rounded-3"
+                                            href="/rapoarte/stingatoare/{{ $search_data->toDateString() }}/export-pdf" role="button">
+                                            Export PDF
+                                        </a>
+                                    </div>
+                                </div>
+                            </th>
                         </tr>
                     </thead>
                     <tbody>
