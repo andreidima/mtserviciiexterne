@@ -85,7 +85,7 @@
                 @forelse ($stingatoare->groupBy('firma.traseu_id') as $stingatoare_per_traseu)
 
                     <table>
-                        <tr class="" style="padding:2rem; background-color:rgb(226, 226, 226)">
+                        <tr class="" style="padding:2rem; background-color:lightgrey">
                             <th colspan="5">
                                 Traseu: <b>{{ $stingatoare_per_traseu->first()->firma->traseu->nume ?? '' }}</b>
                                 /
