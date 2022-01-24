@@ -62,7 +62,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('/observatii', ObservatieController::class,  ['parameters' => ['observatii' => 'observatie']]);
 
     Route::get('/rapoarte/stingatoare', [RaportController::class, 'stingatoare']);
-    Route::get('/rapoarte/stingatoare/{data}/{view_type}', [RaportController::class, 'stingatoareExportPDF']);
+    Route::get('/rapoarte/stingatoare/{search_data}/{view_type}', [RaportController::class, 'stingatoareExportPDF']);
     Route::get('/rapoarte/instructaj', [RaportController::class, 'instructaj']);
     Route::get('/rapoarte/medicina-muncii', [RaportController::class, 'medicinaMuncii']);
 

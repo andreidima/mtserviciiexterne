@@ -64,10 +64,10 @@
                             </th>
                         </tr>
                         <tr class="" style="padding:2rem">
-                            <th>#</th>
-                            <th>Firma</th>
-                            <th>Telefon</th>
-                            <th>
+                            <th width="5%">#</th>
+                            <th width="50%">Firma</th>
+                            <th width="15%">Telefon</th>
+                            <th width="30%">
                                 <div class="d-flex justify-content-between align-items-end">
                                     <div>
                                         Stingătoare
@@ -87,9 +87,9 @@
                             // dd($stingatoare);
                         @endphp
                         @forelse ($stingatoare->groupBy('firma.traseu_id') as $stingatoare_per_traseu)
-                            @php
+                            {{-- @php
                                 $total_stingatoare_per_traseu = 0;
-                            @endphp
+                            @endphp --}}
                             <tr>
                                 <td colspan="4">
                                     Traseu:
@@ -105,12 +105,12 @@
                                 </td>
                             </tr>
                             @forelse ($stingatoare_per_traseu as $stingator)
-                                @php
+                                {{-- @php
                                     $total_stingatoare_per_stingator =
                                         $stingator->p1 + $stingator->p2 + $stingator->p3 + $stingator->p4 + $stingator->p5 + $stingator->p6 + $stingator->p9 + $stingator->p20 + $stingator->p50 +
                                         $stingator->p100 + $stingator->sm3 + $stingator->sm6 + $stingator->sm9 + $stingator->sm50 + $stingator->sm100 + $stingator->g2 + $stingator->g5;
                                     $total_stingatoare_per_traseu += $total_stingatoare_per_stingator
-                                @endphp
+                                @endphp --}}
                                 <tr>
                                     <td align="">
                                         {{ $loop->iteration }}
@@ -128,7 +128,10 @@
                                     </td>
                                     <td>
                                         <span class="badge fs-6 bg-success">
-                                            {{ $total_stingatoare_per_stingator }}
+                                            {{
+                                                $stingator->p1 + $stingator->p2 + $stingator->p3 + $stingator->p4 + $stingator->p5 + $stingator->p6 + $stingator->p9 + $stingator->p20 + $stingator->p50 +
+                                                $stingator->p100 + $stingator->sm3 + $stingator->sm6 + $stingator->sm9 + $stingator->sm50 + $stingator->sm100 + $stingator->g2 + $stingator->g5;
+                                            }}
                                         </span> =
                                         @if($stingator->p1 > 0)
                                                 <span class="badge bg-secondary">
@@ -246,10 +249,10 @@
                             </th>
                         </tr>
                         <tr class="" style="padding:2rem">
-                            <th>#</th>
-                            <th>Firma</th>
-                            <th>Telefon</th>
-                            <th>Stingătoare</th>
+                            <th width="5%">#</th>
+                            <th width="50%">Firma</th>
+                            <th width="15%">Telefon</th>
+                            <th width="30%">Stingătoare</th>
                         </tr>
                     </thead>
                     <tbody>
