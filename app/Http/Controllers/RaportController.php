@@ -126,9 +126,9 @@ class RaportController extends Controller
             ->get();
 
         if ($request->view_type === 'export-html') {
-            return view('rapoarte.stingatoare.export.stingatoarePDF', compact('stingatoare', 'search_data'));
+            return view('rapoarte.stingatoare.export.stingatoarePdf', compact('stingatoare', 'search_data'));
         } elseif ($request->view_type === 'export-pdf') {
-            $pdf = \PDF::loadView('rapoarte.stingatoare.export.stingatoarePDF', compact('stingatoare', 'search_data'))
+            $pdf = \PDF::loadView('rapoarte.stingatoare.export.stingatoarePdf', compact('stingatoare', 'search_data'))
                 ->setPaper('a4', 'portrait');
             return $pdf->download('Raport stingatoare pe luna ' . \Carbon\Carbon::parse($search_data)->isoFormat('MM.YYYY') . '.pdf');
             // return $pdf->stream();
