@@ -54,9 +54,9 @@
 
 <body>
             <div style="
-                width:690px;
+                width:700px;
                 min-height:600px;
-                padding: 15px 10px 15px 10px;
+                padding: 0px 0px 0px 0px;
                 margin:0px 0px;
                     -moz-border-radius: 10px;
                     -webkit-border-radius: 10px;
@@ -85,7 +85,7 @@
                 @forelse ($stingatoare->groupBy('firma.traseu_id') as $stingatoare_per_traseu)
 
                     <table>
-                        <tr class="" style="padding:2rem">
+                        <tr class="" style="padding:2rem; background-color:rgb(226, 226, 226)">
                             <th colspan="5">
                                 Traseu: <b>{{ $stingatoare_per_traseu->first()->firma->traseu->nume ?? '' }}</b>
                                 /
@@ -120,89 +120,55 @@
                                 </td>
                                 <td align="center">
                                     @if($stingator->p1 > 0)
-                                            <span class="badge bg-secondary">
-                                            {{ $stingator->p1 }} P1
-                                            </span>
+                                        {{ $stingator->p1 }} P1;
                                     @endif
                                     @if($stingator->p2 > 0)
-                                            <span class="badge bg-secondary">
-                                            {{ $stingator->p2 }} P2
-                                            </span>
+                                        {{ $stingator->p2 }} P2;
                                     @endif
                                     @if($stingator->p3 > 0)
-                                            <span class="badge bg-secondary">
-                                            {{ $stingator->p3 }} P3
-                                            </span>
+                                        {{ $stingator->p3 }} P3;
                                     @endif
                                     @if($stingator->p4 > 0)
-                                            <span class="badge bg-secondary">
-                                            {{ $stingator->p4 }} P4
-                                            </span>
+                                        {{ $stingator->p4 }} P4;
                                     @endif
                                     @if($stingator->p5 > 0)
-                                            <span class="badge bg-secondary">
-                                            {{ $stingator->p5 }} P5
-                                            </span>
+                                        {{ $stingator->p5 }} P5;
                                     @endif
                                     @if($stingator->p6 > 0)
-                                            <span class="badge bg-secondary">
-                                            {{ $stingator->p6 }} P6
-                                            </span>
+                                        {{ $stingator->p6 }} P6;
                                     @endif
                                     @if($stingator->p9 > 0)
-                                            <span class="badge bg-secondary">
-                                            {{ $stingator->p9 }} P9
-                                            </span>
+                                        {{ $stingator->p9 }} P9;
                                     @endif
                                     @if($stingator->p20 > 0)
-                                            <span class="badge bg-secondary">
-                                            {{ $stingator->p20 }} P20
-                                            </span>
+                                        {{ $stingator->p20 }} P20;
                                     @endif
                                     @if($stingator->p50 > 0)
-                                            <span class="badge bg-secondary">
-                                            {{ $stingator->p50 }} P50
-                                            </span>
+                                        {{ $stingator->p50 }} P50;
                                     @endif
                                     @if($stingator->p100 > 0)
-                                            <span class="badge bg-secondary">
-                                            {{ $stingator->p100 }} P100
-                                            </span>
+                                        {{ $stingator->p100 }} P100;
                                     @endif
                                     @if($stingator->sm3 > 0)
-                                            <span class="badge bg-secondary">
-                                            {{ $stingator->sm3 }} SM3
-                                            </span>
+                                        {{ $stingator->sm3 }} SM3;
                                     @endif
                                     @if($stingator->sm6 > 0)
-                                            <span class="badge bg-secondary">
-                                            {{ $stingator->sm6 }} SM6
-                                            </span>
+                                        {{ $stingator->sm6 }} SM6;
                                     @endif
                                     @if($stingator->sm9 > 0)
-                                            <span class="badge bg-secondary">
-                                            {{ $stingator->sm9 }} SM9
-                                            </span>
+                                        {{ $stingator->sm9 }} SM9;
                                     @endif
                                     @if($stingator->sm50 > 0)
-                                            <span class="badge bg-secondary">
-                                            {{ $stingator->sm50 }} SM50
-                                            </span>
+                                        {{ $stingator->sm50 }} SM50;
                                     @endif
                                     @if($stingator->sm100 > 0)
-                                            <span class="badge bg-secondary">
-                                            {{ $stingator->sm100 }} SM100
-                                            </span>
+                                        {{ $stingator->sm100 }} SM100;
                                     @endif
                                     @if($stingator->g2 > 0)
-                                            <span class="badge bg-secondary">
-                                            {{ $stingator->g2 }} G2
-                                            </span>
+                                        {{ $stingator->g2 }} G2;
                                     @endif
                                     @if($stingator->g5 > 0)
-                                            <span class="badge bg-secondary">
-                                            {{ $stingator->g5 }} G5
-                                            </span>
+                                        {{ $stingator->g5 }} G5;
                                     @endif
                                 </td>
                                 <td align="right">
@@ -222,6 +188,22 @@
 
                 @empty
                 @endforelse
+
+
+                {{-- Here's the magic. This MUST be inside body tag. Page count / total, centered at bottom of page --}}
+                <script type="text/php">
+                    if (isset($pdf)) {
+                        $text = "Pagina {PAGE_NUM} / {PAGE_COUNT}";
+                        $size = 10;
+                        $font = $fontMetrics->getFont("DejaVu Sans");
+                        $width = $fontMetrics->get_text_width($text, $font, $size) / 2;
+                        $x = ($pdf->get_width() - $width) / 2;
+                        $y = $pdf->get_height() - 35;
+                        $pdf->page_text($x, $y, $text, $font, $size);
+                    }
+                </script>
+
+
             </div>
 
 
