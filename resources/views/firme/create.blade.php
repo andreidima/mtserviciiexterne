@@ -8,7 +8,19 @@
                 <div class="border border-secondary p-2" style="border-radius: 40px 40px 0px 0px; background-color:#e66800">
                     <h6 class="ms-3 my-0" style="color:white">
                         <i class="fas fa-building me-1"></i>
-                        Firme
+                        @switch($serviciu)
+                            @case('SSM')
+                                SSM
+                                @break
+                            @case('medicina-muncii')
+                                Medicina muncii
+                                @break
+                            @case('stingatoare')
+                                Stingătoare și hidranți
+                                @break
+                            @default
+                        @endswitch
+                        - Firme
                     </h6>
                 </div>
 
@@ -17,7 +29,7 @@
                 <div class="card-body py-2 border border-secondary"
                     style="border-radius: 0px 0px 40px 40px;"
                 >
-                    <form  class="needs-validation" novalidate method="POST" action="/firme">
+                    <form  class="needs-validation" novalidate method="POST" action="/{{ $serviciu }}/firme">
 
                                 @include ('firme.form', [
                                     'firma' => new App\Models\Firma,

@@ -42,11 +42,9 @@ class FirmaSalariatController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($serviciu = null, Firma $firma)
     {
-        $firme = Firma::orderBy('nume')->get();
-
-        return view('firme.salariati.create', compact('firme'));
+        return view('firme.salariati.create', compact('serviciu', 'firma'));
     }
 
     /**
@@ -55,14 +53,12 @@ class FirmaSalariatController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, $serviciu = null)
     {
         $request->request->add(['user_id' => $request->user()->id]);
-        // dd($request);
         $salariat = FirmaSalariat::create($this->validateRequest($request));
-        // dd($salariat);
 
-        return redirect('/firme/salariati')->with('status', 'Salariatul „' . ($salariat->nume ?? '') . '” a fost adăugat cu succes!');
+        return redirect('/' . $serviciu . '/firme')->with('status', 'Salariatul „' . ($salariat->nume ?? '') . '” a fost adăugat cu succes!');
     }
 
     /**
@@ -82,11 +78,11 @@ class FirmaSalariatController extends Controller
      * @param  \App\FirmaSalariat  $salariat
      * @return \Illuminate\Http\Response
      */
-    public function edit(FirmaSalariat $salariat)
+    public function edit($serviciu = null, Firma $firma, FirmaSalariat $salariat)
     {
         $firme = Firma::orderBy('nume')->get();
 
-        return view('firme.salariati.edit', compact('salariat', 'firme'));
+        return view('firme.salariati.edit', compact('serviciu', 'firma', 'salariat'));
     }
 
     /**
@@ -96,12 +92,12 @@ class FirmaSalariatController extends Controller
      * @param  \App\FirmaSalariat  $salariat
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, FirmaSalariat $salariat)
+    public function update(Request $request, $serviciu = null, Firma $firma, FirmaSalariat $salariat)
     {
         $request->request->add(['user_id' => $request->user()->id]);
         $salariat->update($this->validateRequest($request));
 
-        return redirect('/firme/salariati')->with('status', 'Salariatul „' . ($salariat->nume ?? '') . '” a fost modificat cu succes!');
+        return redirect('/' . $serviciu . '/firme')->with('status', 'Salariatul „' . ($salariat->nume ?? '') . '” a fost modificat cu succes!');
     }
 
     /**
@@ -110,11 +106,11 @@ class FirmaSalariatController extends Controller
      * @param  \App\FirmaSalariat  $salariat
      * @return \Illuminate\Http\Response
      */
-    public function destroy(FirmaSalariat $salariat)
+    public function destroy($serviciu = null, Firma $firma, FirmaSalariat $salariat)
     {
         $salariat->delete();
 
-        return redirect('/firme/salariati')->with('status', 'Salariatul „' . ($salariat->nume ?? '') . '” a fost șters cu succes!');
+        return redirect('/' . $serviciu . '/firme')->with('status', 'Salariatul „' . ($salariat->nume ?? '') . '” a fost șters cu succes!');
     }
 
     /**
@@ -136,6 +132,7 @@ class FirmaSalariatController extends Controller
                 'data_instructaj' => 'nullable|max:500',
                 'anexa_ssm' => 'nullable',
                 'lista_eip' => 'nullable',
+                'medicina_muncii_examinare' => 'nullable|date',
                 'medicina_muncii_expirare' => 'nullable|date',
                 'locatie_fisa_ssm' => 'nullable|max:500',
                 'locatie_fisa_su' => 'nullable|max:500',

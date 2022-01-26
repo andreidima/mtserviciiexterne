@@ -117,9 +117,6 @@
                                     </td>
                                     <td>
                                         <b>
-                                            @if ($stingator->firma->parohie === 1)
-                                                Parohia
-                                            @endif
                                             {{ $stingator->firma->nume ?? '' }}
                                         </b>
                                     </td>
@@ -290,9 +287,6 @@
                                     </td>
                                     <td>
                                         <b>
-                                            @if ($stingator->firma->parohie === 1)
-                                                Parohia
-                                            @endif
                                             {{ $stingator->firma->nume ?? '' }}
                                         </b>
                                     </td>

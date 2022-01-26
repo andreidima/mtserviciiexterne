@@ -110,9 +110,6 @@
                                     {{ $loop->iteration }}
                                 </td>
                                 <td>
-                                    @if ($stingator->firma->parohie === 1)
-                                        Parohia
-                                    @endif
                                     {{ $stingator->firma->nume ?? '' }}
                                 </td>
                                 <td align="center">

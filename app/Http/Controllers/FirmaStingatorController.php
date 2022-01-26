@@ -17,7 +17,7 @@ class FirmaStingatorController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($serviciu = null)
     {
         $search_nume = \Request::get('search_nume');
 
@@ -38,11 +38,9 @@ class FirmaStingatorController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($serviciu = null, Firma $firma)
     {
-        $firme = Firma::doesntHave('stingator')->orderBy('nume')->get();
-
-        return view('firme.stingatoare.create', compact('firme'));
+        return view('firme.stingatoare.create', compact('serviciu', 'firma'));
     }
 
     /**
@@ -51,12 +49,12 @@ class FirmaStingatorController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, $serviciu = null)
     {
         $request->request->add(['user_id' => $request->user()->id]);
         $stingator = FirmaStingator::create($this->validateRequest($request));
 
-        return redirect('/firme/stingatoare')->with('status', 'Stingătoarele pentru firma „' . ($stingator->firma->nume ?? '') . '” au fost adăugate cu succes!');
+        return redirect('/' . $serviciu . '/firme')->with('status', 'Stingătoarele pentru firma „' . ($stingator->firma->nume ?? '') . '” au fost adăugate cu succes!');
     }
 
     /**
@@ -65,7 +63,7 @@ class FirmaStingatorController extends Controller
      * @param  \App\FirmaStingator  $stingator
      * @return \Illuminate\Http\Response
      */
-    public function show(FirmaStingator $stingator)
+    public function show($serviciu = null, FirmaStingator $stingator)
     {
         return view('firme.stingatoare.show', compact('stingator'));
     }
@@ -76,13 +74,9 @@ class FirmaStingatorController extends Controller
      * @param  \App\FirmaStingator  $stingator
      * @return \Illuminate\Http\Response
      */
-    public function edit(FirmaStingator $stingator)
+    public function edit($serviciu = null, Firma $firma, FirmaStingator $stingator)
     {
-        $firme = Firma::doesntHave('stingator')
-            ->orWhere('id', '=', $stingator->firma_id)
-            ->orderBy('nume')->get();
-
-        return view('firme.stingatoare.edit', compact('stingator', 'firme'));
+        return view('firme.stingatoare.edit', compact('serviciu', 'stingator', 'firma'));
     }
 
     /**
@@ -92,12 +86,12 @@ class FirmaStingatorController extends Controller
      * @param  \App\FirmaStingator  $stingator
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, FirmaStingator $stingator)
+    public function update(Request $request, $serviciu = null, Firma $firma, FirmaStingator $stingator)
     {
         $request->request->add(['user_id' => $request->user()->id]);
         $stingator->update($this->validateRequest($request));
 
-        return redirect('/firme/stingatoare')->with('status', 'Stingătoarele pentru firma „' . ($stingator->firma->nume ?? '') . '” au fost modificate cu succes!');
+        return redirect('/' . $serviciu . '/firme')->with('status', 'Stingătoarele pentru firma „' . ($stingator->firma->nume ?? '') . '” au fost modificate cu succes!');
     }
 
     /**
@@ -106,11 +100,11 @@ class FirmaStingatorController extends Controller
      * @param  \App\FirmaStingator  $stingator
      * @return \Illuminate\Http\Response
      */
-    public function destroy(FirmaStingator $stingator)
+    public function destroy($serviciu = null, Firma $firma, FirmaStingator $stingator)
     {
         $stingator->delete();
 
-        return redirect('/firme/stingatoare')->with('status', 'Stingătoarele pentru firma „' . ($stingator->firma->nume ?? '') . '” au fost șterse cu succes!');
+        return redirect('/' . $serviciu . '/firme')->with('status', 'Stingătoarele pentru firma „' . ($stingator->firma->nume ?? '') . '” au fost șterse cu succes!');
     }
 
     /**
@@ -122,26 +116,26 @@ class FirmaStingatorController extends Controller
     {
         return $request->validate(
             [
-                'firma_id' => 'nullable|numeric|integer',
-                'p1' => 'nullable|numeric|integer|min:0|max:65000',
-                'p2' => 'nullable|numeric|integer|min:0|max:65000',
-                'p3' => 'nullable|numeric|integer|min:0|max:65000',
-                'p4' => 'nullable|numeric|integer|min:0|max:65000',
-                'p5' => 'nullable|numeric|integer|min:0|max:65000',
-                'p6' => 'nullable|numeric|integer|min:0|max:65000',
-                'p9' => 'nullable|numeric|integer|min:0|max:65000',
-                'p20' => 'nullable|numeric|integer|min:0|max:65000',
-                'p50' => 'nullable|numeric|integer|min:0|max:65000',
-                'p100' => 'nullable|numeric|integer|min:0|max:65000',
-                'sm3' => 'nullable|numeric|integer|min:0|max:65000',
-                'sm6' => 'nullable|numeric|integer|min:0|max:65000',
-                'sm9' => 'nullable|numeric|integer|min:0|max:65000',
-                'sm50' => 'nullable|numeric|integer|min:0|max:65000',
-                'sm100' => 'nullable|numeric|integer|min:0|max:65000',
-                'g2' => 'nullable|numeric|integer|min:0|max:65000',
-                'g5' => 'nullable|numeric|integer|min:0|max:65000',
+                'firma_id' => 'required|numeric|integer',
+                'p1' => 'nullable|numeric|integer|min:0|max:999',
+                'p2' => 'nullable|numeric|integer|min:0|max:999',
+                'p3' => 'nullable|numeric|integer|min:0|max:999',
+                'p4' => 'nullable|numeric|integer|min:0|max:999',
+                'p5' => 'nullable|numeric|integer|min:0|max:999',
+                'p6' => 'nullable|numeric|integer|min:0|max:999',
+                'p9' => 'nullable|numeric|integer|min:0|max:999',
+                'p20' => 'nullable|numeric|integer|min:0|max:999',
+                'p50' => 'nullable|numeric|integer|min:0|max:999',
+                'p100' => 'nullable|numeric|integer|min:0|max:999',
+                'sm3' => 'nullable|numeric|integer|min:0|max:999',
+                'sm6' => 'nullable|numeric|integer|min:0|max:999',
+                'sm9' => 'nullable|numeric|integer|min:0|max:999',
+                'sm50' => 'nullable|numeric|integer|min:0|max:999',
+                'sm100' => 'nullable|numeric|integer|min:0|max:999',
+                'g2' => 'nullable|numeric|integer|min:0|max:999',
+                'g5' => 'nullable|numeric|integer|min:0|max:999',
                 'stingatoare_expirare' => 'nullable|date',
-                'hidranti' => 'nullable|numeric|integer|min:0|max:65000',
+                'hidranti' => 'nullable|numeric|integer|min:0|max:999',
                 'hidranti_expirare' => 'nullable|date',
                 'observatii' => 'nullable|max:2000',
                 'user_id' => 'required',

@@ -5,12 +5,12 @@
         <div class="row card-header align-items-center" style="border-radius: 40px 40px 0px 0px;">
             <div class="col-lg-3">
                 <h4 class="mb-0">
-                    <a href="/firme/stingatoare"><i class="fas fa-fire-extinguisher me-1"></i></a>
-                    <a href="/firme/stingatoare">Stingătoare</a>
+                    <a href="stingatoare"><i class="fas fa-fire-extinguisher me-1"></i></a>
+                    <a href="stingatoare">Stingătoare</a>
                 </h4>
             </div>
             <div class="col-lg-6" id="app">
-                <form class="needs-validation" novalidate method="GET" action="/firme/stingatoare">
+                <form class="needs-validation" novalidate method="GET" action="stingatoare">
                     @csrf
                     <div class="row mb-1 input-group custom-search-form justify-content-center">
                         <input type="text" class="form-control form-control-sm col-md-4 me-1 border rounded-3" id="search_nume" name="search_nume" placeholder="Firma" autofocus
@@ -20,14 +20,14 @@
                         <button class="btn btn-sm btn-primary text-white col-md-4 me-3 border border-dark rounded-3" type="submit">
                             <i class="fas fa-search text-white me-1"></i>Caută
                         </button>
-                        <a class="btn btn-sm bg-secondary text-white col-md-4 border border-dark rounded-3" href="/firme/stingatoare" role="button">
+                        <a class="btn btn-sm bg-secondary text-white col-md-4 border border-dark rounded-3" href="stingatoare" role="button">
                             <i class="far fa-trash-alt text-white me-1"></i>Resetează căutarea
                         </a>
                     </div>
                 </form>
             </div>
             <div class="col-lg-3 text-end">
-                <a class="btn btn-sm bg-success text-white border border-dark rounded-3 col-md-8" href="/firme/stingatoare/adauga" role="button">
+                <a class="btn btn-sm bg-success text-white border border-dark rounded-3 col-md-8" href="stingatoare/adauga" role="button">
                     <i class="fas fa-plus-square text-white me-1"></i>Adaugă stingătoare
                 </a>
             </div>
@@ -56,9 +56,6 @@
                                 </td>
                                 <td>
                                     <b>
-                                        @if ($stingator->firma->parohie === 1)
-                                            Parohia
-                                        @endif
                                         {{ $stingator->firma->nume ?? '' }}
                                     </b>
                                 </td>

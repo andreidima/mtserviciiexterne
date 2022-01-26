@@ -12,6 +12,7 @@ use App\Http\Controllers\ObservatieController;
 use App\Http\Controllers\ObservatiePozaController;
 use App\Http\Controllers\RaportController;
 use App\Http\Controllers\ImportInitialFisierExcelController;
+use App\Http\Controllers\ImportInitialStingatoareFisierExcelController;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,9 +33,8 @@ Route::redirect('/', '/acasa');
 Route::group(['middleware' => 'auth'], function () {
     Route::view('/acasa', 'acasa');
 
-
     Route::resource('/firme/salariati', FirmaSalariatController::class,  ['parameters' => ['salariati' => 'salariat']]);
-    Route::resource('/firme/stingatoare', FirmaStingatorController::class,  ['parameters' => ['stingatoare' => 'stingator']]);
+    // Route::resource('/firme/stingatoare', FirmaStingatorController::class,  ['parameters' => ['stingatoare' => 'stingator']]);
 
     Route::get('/firme/trasee/adauga-firma', [FirmaTraseuController::class, 'traseuAdaugaFirma']);
     Route::resource('/firme/trasee', FirmaTraseuController::class,  ['parameters' => ['trasee' => 'traseu']]);
@@ -61,10 +61,20 @@ Route::group(['middleware' => 'auth'], function () {
     Route::patch('/observatii/{observatie}/trimite-email', [ObservatieController::class, 'trimiteEmail']);
     Route::resource('/observatii', ObservatieController::class,  ['parameters' => ['observatii' => 'observatie']]);
 
+
     Route::get('/rapoarte/stingatoare', [RaportController::class, 'stingatoare']);
     Route::get('/rapoarte/stingatoare/{search_data}/{view_type}', [RaportController::class, 'stingatoareExportPDF']);
+    Route::get('/rapoarte/hidranti', [RaportController::class, 'hidranti']);
+    Route::get('/rapoarte/hidranti/{search_data}/{view_type}', [RaportController::class, 'hidrantiExportPDF']);
     Route::get('/rapoarte/instructaj', [RaportController::class, 'instructaj']);
     Route::get('/rapoarte/medicina-muncii', [RaportController::class, 'medicinaMuncii']);
+
+
+    // Reconstructie totala a rutelor - firme separate pentru SSM, Medicina muncii, Stingatoare
+    Route::resource('/{serviciu}/firme/{firma}/salariati', FirmaSalariatController::class,  ['parameters' => ['salariati' => 'salariat']]);
+    Route::resource('/{serviciu}/firme/{firma}/stingatoare', FirmaStingatorController::class,  ['parameters' => ['stingatoare' => 'stingator']]);
+    Route::resource('/{serviciu}/firme', FirmaController::class,  ['parameters' => ['firme' => 'firma']]);
+
 
     Route::get('teste', function(){
         // if (\App\Models\Firma::whereDoesntHave('stingator')->inRandomOrder()->first()){
@@ -77,11 +87,11 @@ Route::group(['middleware' => 'auth'], function () {
     // Import
     Route::get('/import/import-firme', [ImportInitialFisierExcelController::class, 'importFirme']);
     Route::get('/import/import-salariati', [ImportInitialFisierExcelController::class, 'importSalariati']);
-    Route::get('/import/import-stingatoare', [ImportInitialFisierExcelController::class, 'importStingatoare']);
+    Route::get('/import/import-stingatoare', [ImportInitialStingatoareFisierExcelController::class, 'importStingatoare']);
 
     // Erori dupa import
-    Route::get('/total-incorect', [ImportInitialFisierExcelController::class, 'totalIncorect']);
+    Route::get('/total-incorect', [ImportInitialStingatoareFisierExcelController::class, 'totalIncorect']);
 
     // Erori dupa import
-    Route::get('/firme-duplicat', [ImportInitialFisierExcelController::class, 'firmeDuplicat']);
+    Route::get('/firme-duplicat', [ImportInitialStingatoareFisierExcelController::class, 'firmeDuplicat']);
 });

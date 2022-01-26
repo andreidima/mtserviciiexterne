@@ -39,12 +39,12 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li class="nav-item me-3">
+                        {{-- <li class="nav-item me-3">
                             <a class="nav-link active" href="/firme">
                                 <i class="fas fa-building "></i>
                                 Firme
                             </a>
-                        </li>
+                        </li> --}}
                         <li class="nav-item me-3">
                             <a class="nav-link active" href="/firme/trasee">
                                 <i class="fas fa-route "></i>
@@ -57,11 +57,61 @@
                                 Salariați
                             </a>
                         </li>
-                        <li class="nav-item me-3">
+                        {{-- <li class="nav-item me-3">
                             <a class="nav-link active" href="/firme/stingatoare">
                                 <i class="fas fa-fire-extinguisher "></i>
                                 Stingătoare
                             </a>
+                        </li> --}}
+                        <li class="nav-item me-3 dropdown">
+                            <a class="nav-link active dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="fas fa-fire-extinguisher me-1"></i>
+                                Stingătoare și hidranți
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li>
+                                    <a class="dropdown-item" href="/stingatoare/firme">
+                                        Administrare
+                                    </a>
+                                </li>
+                                <li><hr class="dropdown-divider"></li>
+                                {{-- <li>
+                                    <a class="dropdown-item" href="/stingatoare">
+                                        Stingătoare și hidranți
+                                    </a>
+                                </li>
+                                <li><hr class="dropdown-divider"></li> --}}
+                                <li>
+                                    <a class="dropdown-item" href="/rapoarte/stingatoare">
+                                        Raport stingătoare
+                                    </a>
+                                </li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li>
+                                    <a class="dropdown-item" href="/rapoarte/hidranti">
+                                        Raport hidranți
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nav-item me-3 dropdown">
+                            <a class="nav-link active dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="fas fa-clinic-medical me-1"></i>
+                                Medicina muncii
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li>
+                                    <a class="dropdown-item" href="/medicina-muncii/firme">
+                                        Administrare
+                                    </a>
+                                </li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li>
+                                    <a class="dropdown-item" href="">
+                                        Salariați
+                                    </a>
+                                </li>
+                            </ul>
                         </li>
                         <li class="nav-item me-3 dropdown">
                             <a class="nav-link active dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">

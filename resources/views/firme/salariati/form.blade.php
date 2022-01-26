@@ -4,7 +4,7 @@
     <div class="col-lg-12 mb-0">
 
         <div class="row mb-0">
-            <div class="col-lg-3 mb-5 mx-auto">
+            <div class="col-lg-4 mb-5">
                 <label for="nume" class="mb-0 ps-3">Nume<span class="text-danger">*</span></label>
                 <input
                     type="text"
@@ -14,7 +14,7 @@
                     value="{{ old('nume', $salariat->nume) }}"
                     required>
             </div>
-            <div class="col-lg-3 mb-5 mx-auto">
+            {{-- <div class="col-lg-3 mb-5">
                 <label for="firma_id" class="mb-0 ps-3">Firma</label>
                 <select name="firma_id"
                     class="form-select bg-white rounded-3 {{ $errors->has('firma_id') ? 'is-invalid' : '' }}"
@@ -27,8 +27,10 @@
                         >{{ $firma->nume }} </option>
                     @endforeach
                 </select>
-            </div>
-            <div class="col-lg-3 mb-5 mx-auto">
+            </div> --}}
+            <input type="hidden" name="firma_id" value="{{ $firma->id }}">
+
+            <div class="col-lg-4 mb-5">
                 <label for="cnp" class="mb-0 ps-3">CNP</label>
                 <input
                     type="text"
@@ -37,7 +39,7 @@
                     placeholder=""
                     value="{{ old('cnp', $salariat->cnp) }}">
             </div>
-            <div class="col-lg-3 mb-5 mx-auto">
+            <div class="col-lg-4 mb-5">
                 <label for="functie" class="mb-0 ps-3">Funcția</label>
                 <input
                     type="text"
@@ -46,29 +48,63 @@
                     placeholder=""
                     value="{{ old('functie', $salariat->functie) }}">
             </div>
-            <div class="col-lg-2 mb-5 mx-auto">
-                <label for="data_angajare" class="mb-0 ps-xxl-3">Dată Angajare</label>
-                <vue2-datepicker
-                    data-veche="{{ old('data_angajare', ($salariat->data_angajare ?? '')) }}"
-                    nume-camp-db="data_angajare"
-                    tip="date"
-                    value-type="YYYY-MM-DD"
-                    format="DD-MM-YYYY"
-                    :latime="{ width: '125px' }"
-                ></vue2-datepicker>
+            <div class="col-lg-3 mb-5 d-flex justify-content-center">
+                <div>
+                    <label for="data_angajare" class="mb-0 ps-xxl-3">Dată Angajare</label>
+                    <vue2-datepicker
+                        data-veche="{{ old('data_angajare', ($salariat->data_angajare ?? '')) }}"
+                        nume-camp-db="data_angajare"
+                        tip="date"
+                        value-type="YYYY-MM-DD"
+                        format="DD-MM-YYYY"
+                        :latime="{ width: '125px' }"
+                    ></vue2-datepicker>
+                </div>
             </div>
-            <div class="col-lg-2 mb-5 mx-auto">
-                <label for="data_incetare" class="mb-0 ps-xxl-3">Dată Încetare</label>
-                <vue2-datepicker
-                    data-veche="{{ old('data_incetare', ($salariat->data_incetare ?? '')) }}"
-                    nume-camp-db="data_incetare"
-                    tip="date"
-                    value-type="YYYY-MM-DD"
-                    format="DD-MM-YYYY"
-                    :latime="{ width: '125px' }"
-                ></vue2-datepicker>
+            <div class="col-lg-3 mb-5 d-flex justify-content-center">
+                <div>
+                    <label for="data_incetare" class="mb-0 ps-xxl-3">Dată Încetare</label>
+                    <vue2-datepicker
+                        data-veche="{{ old('data_incetare', ($salariat->data_incetare ?? '')) }}"
+                        nume-camp-db="data_incetare"
+                        tip="date"
+                        value-type="YYYY-MM-DD"
+                        format="DD-MM-YYYY"
+                        :latime="{ width: '125px' }"
+                    ></vue2-datepicker>
+                </div>
             </div>
-            <div class="col-lg-2 mb-5 mx-auto">
+        @if($serviciu == "medicina-muncii")
+            <div class="col-lg-3 mb-5 d-flex justify-content-center">
+                <div>
+                    <label for="medicina_muncii_examinare" class="mb-0 ps-xxl-3"><small>Medicina muncii</small></label>
+                    <vue2-datepicker
+                        data-veche="{{ old('medicina_muncii_examinare', ($salariat->medicina_muncii_examinare ?? '')) }}"
+                        nume-camp-db="medicina_muncii_examinare"
+                        tip="date"
+                        value-type="YYYY-MM-DD"
+                        format="DD-MM-YYYY"
+                        :latime="{ width: '125px' }"
+                    ></vue2-datepicker>
+                    <small class="ps-3">*data examinare</small>
+                </div>
+            </div>
+            <div class="col-lg-3 mb-5 d-flex justify-content-center">
+                <div>
+                    <label for="medicina_muncii_expirare" class="mb-0 ps-xxl-3"><small>Medicina muncii</small></label>
+                    <vue2-datepicker
+                        data-veche="{{ old('medicina_muncii_expirare', ($salariat->medicina_muncii_expirare ?? '')) }}"
+                        nume-camp-db="medicina_muncii_expirare"
+                        tip="date"
+                        value-type="YYYY-MM-DD"
+                        format="DD-MM-YYYY"
+                        :latime="{ width: '125px' }"
+                    ></vue2-datepicker>
+                    <small class="ps-3">*data expirării</small>
+                </div>
+            </div>
+        @elseif($serviciu == "ssm")
+            <div class="col-lg-2 mb-5">
                 <label for="instructaj_la_nr_luni" class="mb-0 ps-3">Instructaj la</label>
                 <input
                     type="text"
@@ -78,7 +114,7 @@
                     value="{{ old('instructaj_la_nr_luni', $salariat->instructaj_la_nr_luni) }}">
                 <small class="ps-3">*nr. de luni</small>
             </div>
-            <div class="col-lg-2 mb-5 mx-auto">
+            <div class="col-lg-2 mb-5">
                 <label for="data_instructaj" class="mb-0 ps-xxl-3">Dată Instructaj</label>
                 <vue2-datepicker
                     data-veche="{{ old('data_instructaj', ($salariat->data_instructaj ?? '')) }}"
@@ -89,19 +125,7 @@
                     :latime="{ width: '125px' }"
                 ></vue2-datepicker>
             </div>
-            <div class="col-lg-2 mb-5 mx-auto">
-                <label for="medicina_muncii_expirare" class="mb-0 ps-xxl-3"><small>Medicina muncii</small></label>
-                <vue2-datepicker
-                    data-veche="{{ old('medicina_muncii_expirare', ($salariat->medicina_muncii_expirare ?? '')) }}"
-                    nume-camp-db="medicina_muncii_expirare"
-                    tip="date"
-                    value-type="YYYY-MM-DD"
-                    format="DD-MM-YYYY"
-                    :latime="{ width: '125px' }"
-                ></vue2-datepicker>
-                <small class="ps-3">*data expirării</small>
-            </div>
-            <div class="col-lg-3 mb-5 ps-5 mx-auto d-flex align-items-center">
+            <div class="col-lg-3 mb-5 ps-5 d-flex align-items-center">
                 <div class="form-check">
                     <input class="form-check-input" type="hidden" name="anexa_ssm" value="0" />
                     <input class="form-check-input" type="checkbox" value="1" name="anexa_ssm" id="anexa_ssm"
@@ -111,7 +135,7 @@
                     </label>
                 </div>
             </div>
-            <div class="col-lg-3 mb-5 ps-5 mx-auto d-flex align-items-center">
+            <div class="col-lg-3 mb-5 ps-5 d-flex align-items-center">
                 <div class="form-check">
                     <input class="form-check-input" type="hidden" name="lista_eip" value="0" />
                     <input class="form-check-input" type="checkbox" value="1" name="lista_eip" id="lista_eip"
@@ -121,7 +145,7 @@
                     </label>
                 </div>
             </div>
-            <div class="col-lg-3 mb-5 mx-auto">
+            <div class="col-lg-3 mb-5">
                 <label for="locatie_fisa_ssm" class="mb-0 ps-3">Locație fișă SSM:</label>
                 <select name="locatie_fisa_ssm"
                     class="form-select bg-white rounded-3 {{ $errors->has('locatie_fisa_ssm') ? 'is-invalid' : '' }}"
@@ -137,7 +161,7 @@
                     >la ei</option>
                 </select>
             </div>
-            <div class="col-lg-3 mb-5 mx-auto">
+            <div class="col-lg-3 mb-5">
                 <label for="locatie_fisa_su" class="mb-0 ps-3">Locație fisă SU:</label>
                 <select name="locatie_fisa_su"
                     class="form-select bg-white rounded-3 {{ $errors->has('locatie_fisa_su') ? 'is-invalid' : '' }}"
@@ -153,7 +177,8 @@
                     >la ei</option>
                 </select>
             </div>
-            <div class="col-lg-12 mb-5 mx-auto">
+        @endif
+            <div class="col-lg-12 mb-5">
                 <label for="observatii" class="form-label mb-0 ps-3">Observații</label>
                 <textarea class="form-control bg-white {{ $errors->has('observatii') ? 'is-invalid' : '' }}"
                     name="observatii" rows="2">{{ old('observatii', $salariat->observatii) }}</textarea>
@@ -163,7 +188,7 @@
         <div class="row">
             <div class="col-lg-12 mb-2 d-flex justify-content-center">
                 <button type="submit" class="btn btn-primary text-white me-3 rounded-3">{{ $buttonText }}</button>
-                <a class="btn btn-secondary rounded-3" href="/firme/salariati">Renunță</a>
+                <a class="btn btn-secondary rounded-3" href="/{{ $serviciu }}/firme">Renunță</a>
             </div>
         </div>
     </div>

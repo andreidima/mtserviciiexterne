@@ -8,7 +8,7 @@
                 <div class="border border-secondary p-2" style="border-radius: 40px 40px 0px 0px; background-color:#e66800">
                     <h6 class="ms-3 my-0" style="color:white">
                         <i class="fas fa-fire-extinguisher me-1"></i>
-                        Stingătoare
+                        {{ $firma->nume }} / Stingătoare
                     </h6>
                 </div>
 
@@ -17,7 +17,7 @@
                 <div class="card-body py-2 border border-secondary"
                     style="border-radius: 0px 0px 40px 40px;"
                 >
-                    <form  class="needs-validation" novalidate method="POST" action="{{ $stingator->path() }}">
+                    <form  class="needs-validation" novalidate method="POST" action="/{{ $serviciu }}/firme/{{ $firma->id }}/stingatoare/{{ $stingator->id }}">
                         @method('PATCH')
 
                                 @include ('firme.stingatoare.form', [

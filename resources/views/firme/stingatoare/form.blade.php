@@ -4,7 +4,7 @@
     <div class="col-lg-12 mb-0">
 
         <div class="row mb-0">
-            <div class="col-lg-4 mb-5">
+            {{-- <div class="col-lg-4 mb-5">
                 <label for="firma_id" class="mb-0 ps-3">Firma<span class="text-danger">*</span></label>
                 <select name="firma_id"
                     class="form-select bg-white rounded-3 {{ $errors->has('firma_id') ? 'is-invalid' : '' }}"
@@ -17,7 +17,9 @@
                         >{{ $firma->nume }} </option>
                     @endforeach
                 </select>
-            </div>
+            </div> --}}
+            <input type="hidden" name="firma_id" value="{{ $firma->id }}">
+
             <div class="col-lg-2 mb-5">
                 <label for="p1" class="mb-0 ps-3">P1</label>
                 <input
@@ -214,7 +216,7 @@
         <div class="row">
             <div class="col-lg-12 mb-2 d-flex justify-content-center">
                 <button type="submit" class="btn btn-primary text-white me-3 rounded-3">{{ $buttonText }}</button>
-                <a class="btn btn-secondary rounded-3" href="/firme/stingatoare">Renunță</a>
+                <a class="btn btn-secondary rounded-3" href="/{{ $serviciu }}/firme">Renunță</a>
             </div>
         </div>
     </div>

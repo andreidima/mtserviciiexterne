@@ -72,13 +72,8 @@ class RaportController extends Controller
             :
             (Carbon::today()->startOfMonth());
 
-        // dd($search_data->month);
-
         $stingatoare = FirmaStingator::
-            with('firma')
-            ->with(['firma.traseu' => function ($q){
-                        $q->orderBy('nume');
-                    }])
+            with('firma', 'firma.traseu')
             ->leftJoin('firme', 'firme.id', '=', 'firme_stingatoare.firma_id')
             ->leftJoin('firme_trasee', 'firme_trasee.id', '=', 'firme.traseu_id')
             ->select(
@@ -87,7 +82,6 @@ class RaportController extends Controller
             )
             ->whereMonth('stingatoare_expirare', $search_data->month)
             ->whereYear('stingatoare_expirare', $search_data->year)
-            // ->take(10)
             ->orderBy('traseu_nume', 'asc')
             ->get();
 
@@ -96,12 +90,9 @@ class RaportController extends Controller
             with('firma', 'firma.traseu')
             ->whereMonth('stingatoare_expirare', $search_data_luna_precedenta->month)
             ->whereYear('stingatoare_expirare', $search_data_luna_precedenta->year)
-            // ->take(10)
             ->get();
 
-            // dd($stingatoare);
-
-        return view('rapoarte.stingatoare', compact('stingatoare', 'search_data', 'stingatoare_luna_precedenta', 'search_data_luna_precedenta'));
+        return view('rapoarte.stingatoare.stingatoare', compact('stingatoare', 'search_data', 'stingatoare_luna_precedenta', 'search_data_luna_precedenta'));
     }
 
     public function stingatoareExportPDF(Request $request, $search_data = null, $view_type = null)
@@ -109,10 +100,7 @@ class RaportController extends Controller
         $search_data = Carbon::parse($search_data);
 
         $stingatoare = FirmaStingator::
-            with('firma')
-            ->with(['firma.traseu' => function ($q){
-                        $q->orderBy('nume');
-                    }])
+            with('firma', 'firma.traseu')
             ->leftJoin('firme', 'firme.id', '=', 'firme_stingatoare.firma_id')
             ->leftJoin('firme_trasee', 'firme_trasee.id', '=', 'firme.traseu_id')
             ->select(
@@ -121,7 +109,6 @@ class RaportController extends Controller
             )
             ->whereMonth('stingatoare_expirare', $search_data->month)
             ->whereYear('stingatoare_expirare', $search_data->year)
-            // ->take(10)
             ->orderBy('traseu_nume', 'asc')
             ->get();
 
@@ -132,6 +119,64 @@ class RaportController extends Controller
                 ->setPaper('a4', 'portrait');
             $pdf->getDomPDF()->set_option("enable_php", true);
             return $pdf->download('Raport stingatoare pe luna ' . \Carbon\Carbon::parse($search_data)->isoFormat('MM.YYYY') . '.pdf');
+            // return $pdf->stream();
+        }
+    }
+
+    public function hidranti()
+    {
+        $search_data = \Request::get('search_data') ?
+            (Carbon::parse(\Request::get('search_data'))->startOfMonth())
+            :
+            (Carbon::today()->startOfMonth());
+
+        $hidranti = FirmaStingator::
+            with('firma', 'firma.traseu')
+            ->leftJoin('firme', 'firme.id', '=', 'firme_stingatoare.firma_id')
+            ->leftJoin('firme_trasee', 'firme_trasee.id', '=', 'firme.traseu_id')
+            ->select(
+                'firme_stingatoare.*',
+                'firme_trasee.nume as traseu_nume',
+            )
+            ->whereMonth('hidranti_expirare', $search_data->month)
+            ->whereYear('hidranti_expirare', $search_data->year)
+            ->orderBy('traseu_nume', 'asc')
+            ->get();
+
+        $search_data_luna_precedenta = Carbon::parse($search_data)->subMonth();
+        $hidranti_luna_precedenta = FirmaStingator::
+            with('firma', 'firma.traseu')
+            ->whereMonth('hidranti_expirare', $search_data_luna_precedenta->month)
+            ->whereYear('hidranti_expirare', $search_data_luna_precedenta->year)
+            ->get();
+
+        return view('rapoarte.hidranti.hidranti', compact('hidranti', 'search_data', 'hidranti_luna_precedenta', 'search_data_luna_precedenta'));
+    }
+
+    public function hidrantiExportPDF(Request $request, $search_data = null, $view_type = null)
+    {
+        $search_data = Carbon::parse($search_data);
+
+        $hidranti = FirmaStingator::
+            with('firma', 'firma.traseu')
+            ->leftJoin('firme', 'firme.id', '=', 'firme_stingatoare.firma_id')
+            ->leftJoin('firme_trasee', 'firme_trasee.id', '=', 'firme.traseu_id')
+            ->select(
+                'firme_stingatoare.*',
+                'firme_trasee.nume as traseu_nume',
+            )
+            ->whereMonth('hidranti_expirare', $search_data->month)
+            ->whereYear('hidranti_expirare', $search_data->year)
+            ->orderBy('traseu_nume', 'asc')
+            ->get();
+
+        if ($request->view_type === 'export-html') {
+            return view('rapoarte.hidranti.export.hidrantiPdf', compact('hidranti', 'search_data'));
+        } elseif ($request->view_type === 'export-pdf') {
+            $pdf = \PDF::loadView('rapoarte.hidranti.export.hidrantiPdf', compact('hidranti', 'search_data'))
+                ->setPaper('a4', 'portrait');
+            $pdf->getDomPDF()->set_option("enable_php", true);
+            return $pdf->download('Raport hidranti pe luna ' . \Carbon\Carbon::parse($search_data)->isoFormat('MM.YYYY') . '.pdf');
             // return $pdf->stream();
         }
     }

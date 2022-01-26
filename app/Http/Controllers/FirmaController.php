@@ -18,12 +18,37 @@ class FirmaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($serviciu = null)
     {
         $search_nume = \Request::get('search_nume');
         $search_cod_fiscal = \Request::get('search_cod_fiscal');
 
-        $firme = Firma::with('stingator')
+        $firme = Firma::
+            where (function($query) use ($serviciu) {
+                switch ($serviciu) {
+                    case 'ssm':
+                        $query
+                            ->where('ssm_serviciu', 1)
+                            ->where('medicina_muncii_serviciu', 0)
+                            ->where('stingatoare_serviciu', 0);
+                        break;
+                    case 'medicina-muncii':
+                        $query
+                            ->where('ssm_serviciu', 0)
+                            ->where('medicina_muncii_serviciu', 1)
+                            ->where('stingatoare_serviciu', 0);
+                        break;
+                    case 'stingatoare':
+                        $query->with('stingator')
+                            ->where('ssm_serviciu', 0)
+                            ->where('medicina_muncii_serviciu', 0)
+                            ->where('stingatoare_serviciu', 1);
+                        break;
+                    default:
+                        # code...
+                        break;
+                }
+            })
             ->when($search_nume, function ($query, $search_nume) {
                 return $query->where('nume', 'like', '%' . $search_nume . '%');
             })
@@ -33,7 +58,7 @@ class FirmaController extends Controller
             ->latest()
             ->simplePaginate(25);
 
-        return view('firme.index', compact('firme', 'search_nume', 'search_cod_fiscal'));
+        return view('firme.index', compact('firme', 'search_nume', 'search_cod_fiscal', 'serviciu'));
     }
 
     /**
@@ -41,12 +66,12 @@ class FirmaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($serviciu = null)
     {
         $domenii_de_activitate = FirmaDomeniuDeActivitate::orderBy('nume')->get();
         $trasee = FirmaTraseu::orderBy('nume')->get();
 
-        return view('firme.create', compact('domenii_de_activitate', 'trasee'));
+        return view('firme.create', compact('domenii_de_activitate', 'trasee', 'serviciu'));
     }
 
     /**
@@ -55,12 +80,12 @@ class FirmaController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, $serviciu = null)
     {
         $request->request->add(['user_id' => $request->user()->id]);
-        $firma = Firma::create($this->validateRequest($request));
+        $firma = Firma::create($this->validateRequest($request, $serviciu));
 
-        return redirect('/firme')->with('status', 'Firma „' . ($firma->nume ?? '') . '” a fost adăugată cu succes!');
+        return redirect('/' . $serviciu . '/firme')->with('status', 'Firma „' . ($firma->nume ?? '') . '” a fost adăugată cu succes!');
     }
 
     /**
@@ -69,9 +94,9 @@ class FirmaController extends Controller
      * @param  \App\Firma  $firma
      * @return \Illuminate\Http\Response
      */
-    public function show(Firma $firma)
+    public function show($serviciu = null, Firma $firma)
     {
-        return view('firme.show', compact('firma'));
+        return view('firme.show', compact('firma', 'serviciu'));
     }
 
     /**
@@ -80,12 +105,12 @@ class FirmaController extends Controller
      * @param  \App\Firma  $firma
      * @return \Illuminate\Http\Response
      */
-    public function edit(Firma $firma)
+    public function edit($serviciu = null, Firma $firma)
     {
         $domenii_de_activitate = FirmaDomeniuDeActivitate::orderBy('nume')->get();
         $trasee = FirmaTraseu::orderBy('nume')->get();
 
-        return view('firme.edit', compact('firma', 'domenii_de_activitate', 'trasee'));
+        return view('firme.edit', compact('firma', 'domenii_de_activitate', 'trasee', 'serviciu'));
     }
 
     /**
@@ -95,12 +120,12 @@ class FirmaController extends Controller
      * @param  \App\Firma  $firma
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Firma $firma)
+    public function update(Request $request, $serviciu = null, Firma $firma)
     {
         $request->request->add(['user_id' => $request->user()->id]);
-        $firma->update($this->validateRequest($request));
+        $firma->update($this->validateRequest($request, $serviciu));
 
-        return redirect('/firme')->with('status', 'Firma „' . ($firma->nume ?? '') . '” a fost modificată cu succes!');
+        return redirect('/' . $serviciu . '/firme')->with('status', 'Firma „' . ($firma->nume ?? '') . '” a fost modificată cu succes!');
     }
 
     /**
@@ -109,7 +134,7 @@ class FirmaController extends Controller
      * @param  \App\Firma  $firma
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Firma $firma)
+    public function destroy($serviciu = null, Firma $firma)
     {
         if (count($firma->salariati)){
             return back()->with('error', 'Firma „' . ($firma->nume ?? '') . '” nu poate fi ștearsă pentru că are salariați adăugați. Ștergeți mai întâi salariații firmei');
@@ -119,7 +144,7 @@ class FirmaController extends Controller
 
         $firma->delete();
 
-        return redirect('/firme')->with('status', 'Firma „' . ($firma->nume ?? '') . '” a fost ștearsă cu succes!');
+        return redirect('/' . $serviciu . '/firme')->with('status', 'Firma „' . ($firma->nume ?? '') . '” a fost ștearsă cu succes!');
     }
 
     /**
@@ -127,8 +152,23 @@ class FirmaController extends Controller
      *
      * @return array
      */
-    protected function validateRequest(Request $request)
+    protected function validateRequest(Request $request, $serviciu = null)
     {
+        switch ($serviciu) {
+            case 'ssm':
+                $request->request->add(['ssm_serviciu' => 1]);
+                break;
+            case 'medicina-muncii':
+                $request->request->add(['medicina_muncii_serviciu' => 1]);
+                break;
+            case 'stingatoare':
+                $request->request->add(['stingatoare_serviciu' => 1]);
+                break;
+            default:
+                # code...
+                break;
+            }
+
         return $request->validate(
             [
                 'nume' => 'required|max:500',
@@ -147,7 +187,10 @@ class FirmaController extends Controller
                 'observatii' => 'nullable|max:2000',
                 'user_id' => 'nullable',
                 'traseu_id' => 'nullable|numeric|integer',
-                'traseu_ordine' => 'nullable|numeric|integer'
+                'traseu_ordine' => 'nullable|numeric|integer',
+                'ssm_serviciu' => '',
+                'medicina_muncii_serviciu' => '',
+                'stingatoare_serviciu' => ''
             ],
             [
 
