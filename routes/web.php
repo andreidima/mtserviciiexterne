@@ -13,6 +13,7 @@ use App\Http\Controllers\ObservatiePozaController;
 use App\Http\Controllers\RaportController;
 use App\Http\Controllers\ImportInitialFisierExcelController;
 use App\Http\Controllers\ImportInitialStingatoareFisierExcelController;
+use App\Http\Controllers\ImportInitialMedicinaMunciiFisierExcelController;
 
 /*
 |--------------------------------------------------------------------------
@@ -84,14 +85,17 @@ Route::group(['middleware' => 'auth'], function () {
     });
 
 
-    // Import
+    // Import initial SSM
     Route::get('/import/import-firme', [ImportInitialFisierExcelController::class, 'importFirme']);
     Route::get('/import/import-salariati', [ImportInitialFisierExcelController::class, 'importSalariati']);
-    Route::get('/import/import-stingatoare', [ImportInitialStingatoareFisierExcelController::class, 'importStingatoare']);
 
+    // Import Medicina Muncii
+    Route::get('/import/import-medicina-muncii', [ImportInitialMedicinaMunciiFisierExcelController::class, 'importMedicinaMuncii']);
+
+    // Import stingatoare
+    Route::get('/import/import-stingatoare', [ImportInitialStingatoareFisierExcelController::class, 'importStingatoare']);
     // Erori dupa import
     Route::get('/total-incorect', [ImportInitialStingatoareFisierExcelController::class, 'totalIncorect']);
-
     // Erori dupa import
     Route::get('/firme-duplicat', [ImportInitialStingatoareFisierExcelController::class, 'firmeDuplicat']);
 });

@@ -26,7 +26,7 @@
                 <form class="needs-validation" novalidate method="GET" action="/{{ $serviciu }}/firme">
                     @csrf
                     <div class="row mb-1 input-group custom-search-form justify-content-center">
-                        <input type="text" class="form-control form-control-sm col-md-4 me-3 rounded-3" id="search_nume" name="search_nume" placeholder="Nume" autofocus
+                        <input type="text" class="form-control form-control-sm col-md-4 me-3 rounded-3" id="search_nume" name="search_nume" placeholder="Firma" autofocus
                                 value="{{ $search_nume }}">
                         <input type="text" class="form-control form-control-sm col-md-4 rounded-3" id="search_cod_fiscal" name="search_cod_fiscal" placeholder="Cod fiscal" autofocus
                                 value="{{ $search_cod_fiscal }}">
@@ -57,7 +57,7 @@
                     <thead class="text-white rounded" style="background-color:#e66800;">
                         <tr class="" style="padding:2rem">
                             <th>#</th>
-                            <th>Nume</th>
+                            <th>Firma</th>
                             <th>Telefon</th>
                             {{-- <th>Angajat desemnat</th> --}}
                             <th>Localitate</th>
@@ -67,7 +67,7 @@
                                         Salariați
                                         @break
                                     @case('medicina-muncii')
-                                        Salariați
+                                        Salariați - următoarea examinare
                                         @break
                                     @case('stingatoare')
                                         Stingătoare
@@ -107,13 +107,17 @@
                                             @break
                                         @case('medicina-muncii')
                                             <div class="table-responsive rounded">
-                                                <table class="table table-striped table-hover rounded">
+                                                <table class="table table-sm table-hover rounded border border-1">
                                                     @forelse ($firma->salariati as $salariat)
-                                                        <tr>
-                                                            <td>
+                                                        <tr style="background-color:wheat">
+                                                            <td class="text-start w-50">
                                                                 {{ $salariat->nume }}
                                                             </td>
-                                                            <td>
+                                                            <td class="text-center w-25">
+                                                                {{ $salariat->medicina_muncii_expirare ?
+                                                                    \Carbon\Carbon::parse($salariat->medicina_muncii_expirare)->isoFormat('DD.MM.YYYY') : '' }}
+                                                            </td>
+                                                            <td class="w-25">
                                                                 <div class="d-flex justify-content-end">
                                                                     <a href="/{{ $serviciu }}/firme/{{ $firma->id }}/salariati/{{ $salariat->id }}/modifica" class="flex me-1">
                                                                         <span class="badge bg-primary">Modifică</span>
@@ -133,11 +137,15 @@
                                                         </tr>
                                                     @empty
                                                     @endforelse
+                                                        <tr>
+                                                            <td colspan="3">
+                                                                <a href="/{{ $serviciu}}/{{ $firma->path() }}/salariati/adauga" class="flex me-1">
+                                                                    <span class="badge bg-success">Adaugă salariat nou</span>
+                                                                </a>
+                                                            </td>
+                                                        </tr>
                                                 </table>
                                             </div>
-                                            <a href="/{{ $serviciu}}/{{ $firma->path() }}/salariati/adauga" class="flex me-1">
-                                                <span class="badge bg-success">Adaugă nou</span>
-                                            </a>
                                             @break
                                         @case('stingatoare')
                                             @if (!$firma->stingator)
