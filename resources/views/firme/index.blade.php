@@ -26,11 +26,25 @@
                 <form class="needs-validation" novalidate method="GET" action="/{{ $serviciu }}/firme">
                     @csrf
                     <div class="row mb-1 input-group custom-search-form justify-content-center">
-                        <input type="text" class="form-control form-control-sm col-md-4 me-3 rounded-3" id="search_nume" name="search_nume" placeholder="Firma" autofocus
-                                value="{{ $search_nume }}">
-                        <input type="text" class="form-control form-control-sm col-md-4 rounded-3" id="search_cod_fiscal" name="search_cod_fiscal" placeholder="Cod fiscal" autofocus
+                        <input type="text" class="form-control col-md-3 mx-1 rounded-3" id="search_firma" name="search_firma" placeholder="Firma" autofocus
+                                value="{{ $search_firma }}">
+                        <input type="text" class="form-control col-md-3 mx-1 rounded-3" id="search_cod_fiscal" name="search_cod_fiscal" placeholder="Cod fiscal" autofocus
                                 value="{{ $search_cod_fiscal }}">
                     </div>
+                    @switch($serviciu)
+                        @case('ssm')
+                        @case('medicina-muncii')
+                            <div class="row mb-1 input-group custom-search-form justify-content-center">
+                                <input type="text" class="form-control col-md-3 mx-1 rounded-3" id="search_salariat_nume" name="search_salariat_nume" placeholder="Salariat" autofocus
+                                        value="{{ $search_salariat_nume }}">
+                                <input type="text" class="form-control col-md-3 mx-1 rounded-3" id="search_salariat_cnp" name="search_salariat_cnp" placeholder="CNP" autofocus
+                                        value="{{ $search_salariat_cnp }}">
+                            </div>
+                            @break
+                        @case('stingatoare')
+                            @break
+                        @default
+                    @endswitch
                     <div class="row input-group custom-search-form justify-content-center">
                         <button class="btn btn-sm btn-primary text-white col-md-4 me-3 border border-dark rounded-3" type="submit">
                             <i class="fas fa-search text-white me-1"></i>Caută
@@ -60,7 +74,7 @@
                             <th>Firma</th>
                             <th>Telefon</th>
                             {{-- <th>Angajat desemnat</th> --}}
-                            <th>Localitate</th>
+                            {{-- <th>Localitate</th> --}}
                             <th class="text-center">
                                 @switch($serviciu)
                                     @case('ssm')
@@ -70,7 +84,7 @@
                                         Salariați - următoarea examinare
                                         @break
                                     @case('stingatoare')
-                                        Stingătoare
+                                        Stingătoare / Hidranți
                                         @break
                                     @default
                                 @endswitch
@@ -93,9 +107,9 @@
                                 {{-- <td>
                                     <b>{{ $firma->angajat_desemnat ?? '' }}</b>
                                 </td> --}}
-                                <td>
+                                {{-- <td>
                                     <b>{{ $firma->localitate ?? '' }}</b>
-                                </td>
+                                </td> --}}
                                 <td class="text-center">
                                     @switch($serviciu)
                                         @case('ssm')
@@ -108,7 +122,23 @@
                                         @case('medicina-muncii')
                                             <div class="table-responsive rounded">
                                                 <table class="table table-sm table-hover rounded border border-1">
-                                                    @forelse ($firma->salariati as $salariat)
+                                                    @php
+                                                            $salariati = $firma->salariati;
+
+                                                            $salariati = $salariati->when($search_salariat_nume, function ($salariati) use ($search_salariat_nume) {
+                                                                return $salariati->filter(function($item) use ($search_salariat_nume) {
+                                                                    return stripos($item['nume'],$search_salariat_nume) !== false;
+                                                                });
+                                                            });
+
+                                                            $salariati = $salariati->when($search_salariat_cnp, function ($salariati) use ($search_salariat_cnp) {
+                                                                return $salariati->filter(function($item) use ($search_salariat_cnp) {
+                                                                    return stripos($item['cnp'],$search_salariat_cnp) !== false;
+                                                                });
+                                                            });
+
+                                                    @endphp
+                                                    @forelse ($salariati as $salariat)
                                                         <tr style="background-color:wheat">
                                                             <td class="text-start w-50">
                                                                 {{ $salariat->nume }}
@@ -148,27 +178,45 @@
                                             </div>
                                             @break
                                         @case('stingatoare')
-                                            @if (!$firma->stingator)
-                                                <a href="/{{ $serviciu}}/{{ $firma->path() }}/stingatoare/adauga" class="flex me-1">
-                                                    <span class="badge bg-success">Adaugă</span>
-                                                </a>
-                                            @else
-                                                <div class="d-flex justify-content-center">
-                                                    <a href="/{{ $serviciu}}/firme/{{ $firma->id }}/stingatoare/{{ $firma->stingator->id }}/modifica" class="flex me-1">
-                                                        <span class="badge bg-primary">Modifică</span>
+                                            <div class="px-2" style="background-color:wheat">
+                                                @if (!$firma->stingator)
+                                                    <a href="/{{ $serviciu}}/{{ $firma->path() }}/stingatoare/adauga" class="flex me-1">
+                                                        <span class="badge bg-success">Adaugă</span>
                                                     </a>
-                                                    <div style="flex" class="">
-                                                        <a
-                                                            href="#"
-                                                            data-bs-toggle="modal"
-                                                            data-bs-target="#stergeStingator{{ $firma->stingator->id }}"
-                                                            title="Șterge Stingator"
-                                                            >
-                                                            <span class="badge bg-danger">Șterge</span>
-                                                        </a>
+                                                @else
+                                                    <div class="d-flex justify-content-between">
+                                                        <div>
+                                                            Sting
+                                                            <span class="badge bg-success">
+                                                                {{
+                                                                    $firma->stingator->p1 + $firma->stingator->p2 + $firma->stingator->p3 + $firma->stingator->p4 + $firma->stingator->p5 + $firma->stingator->p6 + $firma->stingator->p9 + $firma->stingator->p20 + $firma->stingator->p50 +
+                                                                    $firma->stingator->p100 + $firma->stingator->sm3 + $firma->stingator->sm6 + $firma->stingator->sm9 + $firma->stingator->sm50 + $firma->stingator->sm100 + $firma->stingator->g2 + $firma->stingator->g5;
+                                                                }}
+                                                            </span>
+                                                            /
+                                                            Hidr
+                                                            <span class="badge bg-success">
+                                                                {{ $firma->stingator->hidranti + 0 }}
+                                                            </span>
+                                                        </div>
+                                                        <div class="d-flex">
+                                                            <a href="/{{ $serviciu}}/firme/{{ $firma->id }}/stingatoare/{{ $firma->stingator->id }}/modifica" class="flex me-1">
+                                                                <span class="badge bg-primary">Modifică</span>
+                                                            </a>
+                                                            <div style="flex" class="">
+                                                                <a
+                                                                    href="#"
+                                                                    data-bs-toggle="modal"
+                                                                    data-bs-target="#stergeStingator{{ $firma->stingator->id }}"
+                                                                    title="Șterge Stingator"
+                                                                    >
+                                                                    <span class="badge bg-danger">Șterge</span>
+                                                                </a>
+                                                            </div>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                            @endif
+                                                @endif
+                                            </div>
                                             @break
                                         @default
                                     @endswitch

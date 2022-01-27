@@ -201,7 +201,7 @@
 
                     <div class="form-row mb-2 px-2">
                         <div class="col-lg-12 d-flex justify-content-center">
-                            <a class="btn btn-primary text-white rounded-3" href="/stingatoare">Pagină Stingătoare</a>
+                            <a class="btn btn-primary text-white rounded-3" href="{{ Session::get('stingatoare_return_url') }}">Înapoi</a>
                         </div>
                     </div>
 

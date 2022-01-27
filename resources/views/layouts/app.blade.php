@@ -45,18 +45,12 @@
                                 Firme
                             </a>
                         </li> --}}
-                        <li class="nav-item me-3">
-                            <a class="nav-link active" href="/firme/trasee">
-                                <i class="fas fa-route "></i>
-                                Trasee
-                            </a>
-                        </li>
-                        <li class="nav-item me-3">
+                        {{-- <li class="nav-item me-3">
                             <a class="nav-link active" href="/firme/salariati">
                                 <i class="fas fa-users "></i>
                                 Salariați
                             </a>
-                        </li>
+                        </li> --}}
                         {{-- <li class="nav-item me-3">
                             <a class="nav-link active" href="/firme/stingatoare">
                                 <i class="fas fa-fire-extinguisher "></i>
@@ -107,11 +101,17 @@
                                 </li>
                                 <li><hr class="dropdown-divider"></li>
                                 <li>
-                                    <a class="dropdown-item" href="">
-                                        Salariați
+                                    <a class="dropdown-item" href="/rapoarte/medicina-muncii">
+                                        Raport
                                     </a>
                                 </li>
                             </ul>
+                        </li>
+                        <li class="nav-item me-3">
+                            <a class="nav-link active" href="/firme/trasee">
+                                <i class="fas fa-route "></i>
+                                Trasee
+                            </a>
                         </li>
                         <li class="nav-item me-3 dropdown">
                             <a class="nav-link active dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -144,7 +144,7 @@
                                 Observații
                             </a>
                         </li>
-                        <li class="nav-item me-3 dropdown">
+                        {{-- <li class="nav-item me-3 dropdown">
                             <a class="nav-link active dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 <i class="fas fa-file-alt me-1"></i>
                                 Rapoarte
@@ -168,7 +168,7 @@
                                     </a>
                                 </li>
                             </ul>
-                        </li>
+                        </li> --}}
                     </ul>
 
                     <!-- Right Side Of Navbar -->

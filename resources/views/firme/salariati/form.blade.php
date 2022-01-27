@@ -188,7 +188,7 @@
         <div class="row">
             <div class="col-lg-12 mb-2 d-flex justify-content-center">
                 <button type="submit" class="btn btn-primary text-white me-3 rounded-3">{{ $buttonText }}</button>
-                <a class="btn btn-secondary rounded-3" href="/{{ $serviciu }}/firme">Renunță</a>
+                <a class="btn btn-secondary rounded-3" href="{{ Session::get('salariat_return_url') }}">Renunță</a>
             </div>
         </div>
     </div>

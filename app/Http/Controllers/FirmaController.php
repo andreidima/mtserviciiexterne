@@ -11,6 +11,8 @@ use App\Models\FirmaStingator;
 use App\Models\FirmaTraseu;
 use App\Models\FirmaDomeniuDeActivitate;
 
+use Illuminate\Database\Eloquent\Builder;
+
 class FirmaController extends Controller
 {
     /**
@@ -20,20 +22,22 @@ class FirmaController extends Controller
      */
     public function index($serviciu = null)
     {
-        $search_nume = \Request::get('search_nume');
+        $search_firma = \Request::get('search_firma');
         $search_cod_fiscal = \Request::get('search_cod_fiscal');
+        $search_salariat_nume = \Request::get('search_salariat_nume');
+        $search_salariat_cnp = \Request::get('search_salariat_cnp');
 
         $firme = Firma::
             where (function($query) use ($serviciu) {
                 switch ($serviciu) {
                     case 'ssm':
-                        $query
+                        $query->with('salariati')
                             ->where('ssm_serviciu', 1)
                             ->where('medicina_muncii_serviciu', 0)
                             ->where('stingatoare_serviciu', 0);
                         break;
                     case 'medicina-muncii':
-                        $query
+                        $query->with('salariati')
                             ->where('ssm_serviciu', 0)
                             ->where('medicina_muncii_serviciu', 1)
                             ->where('stingatoare_serviciu', 0);
@@ -49,16 +53,26 @@ class FirmaController extends Controller
                         break;
                 }
             })
-            ->when($search_nume, function ($query, $search_nume) {
-                return $query->where('nume', 'like', '%' . $search_nume . '%');
+            ->when($search_firma, function ($query, $search_firma) {
+                return $query->where('nume', 'like', '%' . $search_firma . '%');
             })
             ->when($search_cod_fiscal, function ($query, $search_cod_fiscal) {
                 return $query->where('cod_fiscal', 'like', '%' . $search_cod_fiscal . '%');
             })
+            ->when($search_salariat_nume, function ($query, $search_salariat_nume) {
+                $query->whereHas('salariati', function (Builder $query) use ($search_salariat_nume) {
+                    $query->where('nume', 'like', '%' . $search_salariat_nume . '%');
+                });
+            })
+            ->when($search_salariat_cnp, function ($query, $search_salariat_cnp) {
+                $query->whereHas('salariati', function (Builder $query) use ($search_salariat_cnp) {
+                    $query->where('cnp', 'like', '%' . $search_salariat_cnp . '%');
+                });
+            })
             ->latest()
             ->simplePaginate(25);
 
-        return view('firme.index', compact('firme', 'search_nume', 'search_cod_fiscal', 'serviciu'));
+        return view('firme.index', compact('serviciu', 'firme', 'search_firma', 'search_cod_fiscal', 'search_salariat_nume', 'search_salariat_cnp'));
     }
 
     /**
@@ -66,8 +80,10 @@ class FirmaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create($serviciu = null)
+    public function create(Request $request, $serviciu = null)
     {
+        $request->session()->put('firma_return_url', url()->previous());
+
         $domenii_de_activitate = FirmaDomeniuDeActivitate::orderBy('nume')->get();
         $trasee = FirmaTraseu::orderBy('nume')->get();
 
@@ -94,8 +110,10 @@ class FirmaController extends Controller
      * @param  \App\Firma  $firma
      * @return \Illuminate\Http\Response
      */
-    public function show($serviciu = null, Firma $firma)
+    public function show(Request $request, $serviciu = null, Firma $firma)
     {
+        $request->session()->put('firma_return_url', url()->previous());
+
         return view('firme.show', compact('firma', 'serviciu'));
     }
 
@@ -105,8 +123,10 @@ class FirmaController extends Controller
      * @param  \App\Firma  $firma
      * @return \Illuminate\Http\Response
      */
-    public function edit($serviciu = null, Firma $firma)
+    public function edit(Request $request, $serviciu = null, Firma $firma)
     {
+        $request->session()->put('firma_return_url', url()->previous());
+
         $domenii_de_activitate = FirmaDomeniuDeActivitate::orderBy('nume')->get();
         $trasee = FirmaTraseu::orderBy('nume')->get();
 
@@ -125,7 +145,7 @@ class FirmaController extends Controller
         $request->request->add(['user_id' => $request->user()->id]);
         $firma->update($this->validateRequest($request, $serviciu));
 
-        return redirect('/' . $serviciu . '/firme')->with('status', 'Firma „' . ($firma->nume ?? '') . '” a fost modificată cu succes!');
+        return redirect($request->session()->get('firma_return_url'))->with('status', 'Firma „' . ($firma->nume ?? '') . '” a fost modificată cu succes!');
     }
 
     /**
@@ -144,7 +164,7 @@ class FirmaController extends Controller
 
         $firma->delete();
 
-        return redirect('/' . $serviciu . '/firme')->with('status', 'Firma „' . ($firma->nume ?? '') . '” a fost ștearsă cu succes!');
+        return back()->with('status', 'Firma „' . ($firma->nume ?? '') . '” a fost ștearsă cu succes!');
     }
 
     /**

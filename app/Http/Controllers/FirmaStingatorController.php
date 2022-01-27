@@ -38,8 +38,10 @@ class FirmaStingatorController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create($serviciu = null, Firma $firma)
+    public function create(Request $request, $serviciu = null, Firma $firma)
     {
+        $request->session()->put('stingatoare_return_url', url()->previous());
+
         return view('firme.stingatoare.create', compact('serviciu', 'firma'));
     }
 
@@ -54,7 +56,7 @@ class FirmaStingatorController extends Controller
         $request->request->add(['user_id' => $request->user()->id]);
         $stingator = FirmaStingator::create($this->validateRequest($request));
 
-        return redirect('/' . $serviciu . '/firme')->with('status', 'Stingătoarele pentru firma „' . ($stingator->firma->nume ?? '') . '” au fost adăugate cu succes!');
+        return redirect($request->session()->get('stingatoare_return_url'))->with('status', 'Stingătoarele pentru firma „' . ($stingator->firma->nume ?? '') . '” au fost adăugate cu succes!');
     }
 
     /**
@@ -63,8 +65,10 @@ class FirmaStingatorController extends Controller
      * @param  \App\FirmaStingator  $stingator
      * @return \Illuminate\Http\Response
      */
-    public function show($serviciu = null, FirmaStingator $stingator)
+    public function show(Request $request, $serviciu = null, FirmaStingator $stingator)
     {
+        $request->session()->put('stingatoare_return_url', url()->previous());
+
         return view('firme.stingatoare.show', compact('stingator'));
     }
 
@@ -74,8 +78,10 @@ class FirmaStingatorController extends Controller
      * @param  \App\FirmaStingator  $stingator
      * @return \Illuminate\Http\Response
      */
-    public function edit($serviciu = null, Firma $firma, FirmaStingator $stingator)
+    public function edit(Request $request, $serviciu = null, Firma $firma, FirmaStingator $stingator)
     {
+        $request->session()->put('stingatoare_return_url', url()->previous());
+
         return view('firme.stingatoare.edit', compact('serviciu', 'stingator', 'firma'));
     }
 
@@ -91,7 +97,7 @@ class FirmaStingatorController extends Controller
         $request->request->add(['user_id' => $request->user()->id]);
         $stingator->update($this->validateRequest($request));
 
-        return redirect('/' . $serviciu . '/firme')->with('status', 'Stingătoarele pentru firma „' . ($stingator->firma->nume ?? '') . '” au fost modificate cu succes!');
+        return redirect($request->session()->get('stingatoare_return_url'))->with('status', 'Stingătoarele pentru firma „' . ($stingator->firma->nume ?? '') . '” au fost modificate cu succes!');
     }
 
     /**
@@ -100,11 +106,11 @@ class FirmaStingatorController extends Controller
      * @param  \App\FirmaStingator  $stingator
      * @return \Illuminate\Http\Response
      */
-    public function destroy($serviciu = null, Firma $firma, FirmaStingator $stingator)
+    public function destroy(Request $request, $serviciu = null, Firma $firma, FirmaStingator $stingator)
     {
         $stingator->delete();
 
-        return redirect('/' . $serviciu . '/firme')->with('status', 'Stingătoarele pentru firma „' . ($stingator->firma->nume ?? '') . '” au fost șterse cu succes!');
+        return back()->with('status', 'Stingătoarele pentru firma „' . ($stingator->firma->nume ?? '') . '” au fost șterse cu succes!');
     }
 
     /**

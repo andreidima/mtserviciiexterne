@@ -218,8 +218,10 @@ class RaportController extends Controller
 
     public function medicinaMuncii()
     {
-        $search_data_inceput = \Request::get('search_data_inceput') ?? Carbon::today();
-        $search_data_sfarsit = \Request::get('search_data_sfarsit') ?? Carbon::today()->addDays(5);
+        $search_data = \Request::get('search_data') ?
+            (Carbon::parse(\Request::get('search_data'))->startOfMonth())
+            :
+            (Carbon::today()->startOfMonth());
 
         $salariati = FirmaSalariat::
             with('firma:id,nume,traseu_id', 'firma.traseu')
@@ -231,20 +233,54 @@ class RaportController extends Controller
                 'firme_salariati.medicina_muncii_expirare',
                 'firme.traseu_id as traseu_id',
             )
-            ->whereBetween('medicina_muncii_expirare', [$search_data_inceput, $search_data_sfarsit])
+            ->whereMonth('medicina_muncii_expirare', $search_data->month)
+            ->whereYear('medicina_muncii_expirare', $search_data->year)
             ->get();
 
-        // foreach ($salariati as $salariat){
-        //     echo $salariat->nume;
-        //     echo '<br>';
-        //     echo $salariat->data_instructaj;
-        //     echo '<br>';
-        //     echo $salariat->instructaj_la_nr_luni;
-        //     echo '<br>';
-        //     echo $salariat->data_expirare;
-        //     echo '<br><br><br>';
-        // }
+        $search_data_luna_precedenta = Carbon::parse($search_data)->subMonth();
+        $salariati_luna_precedenta = FirmaSalariat::
+            with('firma:id,nume,traseu_id', 'firma.traseu')
+            ->join('firme', 'firme_salariati.firma_id', '=', 'firme.id')
+            ->select(
+                'firme_salariati.id',
+                'firme_salariati.firma_id',
+                'firme_salariati.nume',
+                'firme_salariati.medicina_muncii_expirare',
+                'firme.traseu_id as traseu_id',
+            )
+            ->whereMonth('medicina_muncii_expirare', $search_data_luna_precedenta->month)
+            ->whereYear('medicina_muncii_expirare', $search_data_luna_precedenta->year)
+            ->get();
 
-        return view('rapoarte.medicinaMuncii', compact('salariati', 'search_data_inceput', 'search_data_sfarsit'));
+        return view('rapoarte.medicinaMuncii.medicinaMuncii', compact('salariati', 'salariati_luna_precedenta', 'search_data', 'search_data_luna_precedenta'));
+    }
+
+    public function medicinaMunciiExportPDF(Request $request, $search_data = null, $view_type = null)
+    {
+        $search_data = Carbon::parse($search_data);
+
+        $salariati = FirmaSalariat::
+            with('firma:id,nume,traseu_id', 'firma.traseu')
+            // ->join('firme', 'firme_salariati.firma_id', '=', 'firme.id')
+            // ->select(
+            //     'firme_salariati.id',
+            //     'firme_salariati.firma_id',
+            //     'firme_salariati.nume',
+            //     'firme_salariati.medicina_muncii_expirare',
+            //     'firme.traseu_id as traseu_id',
+            // )
+            ->whereMonth('medicina_muncii_expirare', $search_data->month)
+            ->whereYear('medicina_muncii_expirare', $search_data->year)
+            ->get();
+
+        if ($request->view_type === 'export-html') {
+            return view('rapoarte.medicinaMuncii.export.medicinaMunciiPdf', compact('salariati', 'search_data'));
+        } elseif ($request->view_type === 'export-pdf') {
+            $pdf = \PDF::loadView('rapoarte.medicinaMuncii.export.medicinaMunciiPdf', compact('salariati', 'search_data'))
+                ->setPaper('a4', 'portrait');
+            $pdf->getDomPDF()->set_option("enable_php", true);
+            // return $pdf->download('Raport Medicina Muncii pe luna ' . \Carbon\Carbon::parse($search_data)->isoFormat('MM.YYYY') . '.pdf');
+            return $pdf->stream();
+        }
     }
 }

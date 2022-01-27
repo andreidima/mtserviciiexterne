@@ -63,12 +63,13 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('/observatii', ObservatieController::class,  ['parameters' => ['observatii' => 'observatie']]);
 
 
+    Route::get('/rapoarte/medicina-muncii', [RaportController::class, 'medicinaMuncii']);
+    Route::get('/rapoarte/medicina-muncii/{search_data}/{view_type}', [RaportController::class, 'medicinaMunciiExportPDF']);
     Route::get('/rapoarte/stingatoare', [RaportController::class, 'stingatoare']);
     Route::get('/rapoarte/stingatoare/{search_data}/{view_type}', [RaportController::class, 'stingatoareExportPDF']);
     Route::get('/rapoarte/hidranti', [RaportController::class, 'hidranti']);
     Route::get('/rapoarte/hidranti/{search_data}/{view_type}', [RaportController::class, 'hidrantiExportPDF']);
     Route::get('/rapoarte/instructaj', [RaportController::class, 'instructaj']);
-    Route::get('/rapoarte/medicina-muncii', [RaportController::class, 'medicinaMuncii']);
 
 
     // Reconstructie totala a rutelor - firme separate pentru SSM, Medicina muncii, Stingatoare

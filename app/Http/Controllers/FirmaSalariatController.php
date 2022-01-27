@@ -42,8 +42,10 @@ class FirmaSalariatController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create($serviciu = null, Firma $firma)
+    public function create(Request $request, $serviciu = null, Firma $firma)
     {
+        $request->session()->put('salariat_return_url', url()->previous());
+
         return view('firme.salariati.create', compact('serviciu', 'firma'));
     }
 
@@ -58,7 +60,7 @@ class FirmaSalariatController extends Controller
         $request->request->add(['user_id' => $request->user()->id]);
         $salariat = FirmaSalariat::create($this->validateRequest($request));
 
-        return redirect('/' . $serviciu . '/firme')->with('status', 'Salariatul „' . ($salariat->nume ?? '') . '” a fost adăugat cu succes!');
+        return redirect($request->session()->get('salariat_return_url'))->with('status', 'Salariatul „' . ($salariat->nume ?? '') . '” a fost adăugat cu succes!');
     }
 
     /**
@@ -67,8 +69,10 @@ class FirmaSalariatController extends Controller
      * @param  \App\FirmaSalariat  $salariat
      * @return \Illuminate\Http\Response
      */
-    public function show(FirmaSalariat $salariat)
+    public function show(Request $request, FirmaSalariat $salariat)
     {
+        $request->session()->put('salariat_return_url', url()->previous());
+
         return view('firme.salariati.show', compact('salariat'));
     }
 
@@ -78,8 +82,10 @@ class FirmaSalariatController extends Controller
      * @param  \App\FirmaSalariat  $salariat
      * @return \Illuminate\Http\Response
      */
-    public function edit($serviciu = null, Firma $firma, FirmaSalariat $salariat)
+    public function edit(Request $request, $serviciu = null, Firma $firma, FirmaSalariat $salariat)
     {
+        $request->session()->put('salariat_return_url', url()->previous());
+
         $firme = Firma::orderBy('nume')->get();
 
         return view('firme.salariati.edit', compact('serviciu', 'firma', 'salariat'));
@@ -97,7 +103,7 @@ class FirmaSalariatController extends Controller
         $request->request->add(['user_id' => $request->user()->id]);
         $salariat->update($this->validateRequest($request));
 
-        return redirect('/' . $serviciu . '/firme')->with('status', 'Salariatul „' . ($salariat->nume ?? '') . '” a fost modificat cu succes!');
+        return redirect($request->session()->get('salariat_return_url'))->with('status', 'Salariatul „' . ($salariat->nume ?? '') . '” a fost modificat cu succes!');
     }
 
     /**
@@ -110,7 +116,7 @@ class FirmaSalariatController extends Controller
     {
         $salariat->delete();
 
-        return redirect('/' . $serviciu . '/firme')->with('status', 'Salariatul „' . ($salariat->nume ?? '') . '” a fost șters cu succes!');
+        return back()->with('status', 'Salariatul „' . ($salariat->nume ?? '') . '” a fost șters cu succes!');
     }
 
     /**
