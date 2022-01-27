@@ -279,8 +279,8 @@ class RaportController extends Controller
             $pdf = \PDF::loadView('rapoarte.medicinaMuncii.export.medicinaMunciiPdf', compact('salariati', 'search_data'))
                 ->setPaper('a4', 'portrait');
             $pdf->getDomPDF()->set_option("enable_php", true);
-            // return $pdf->download('Raport Medicina Muncii pe luna ' . \Carbon\Carbon::parse($search_data)->isoFormat('MM.YYYY') . '.pdf');
-            return $pdf->stream();
+            return $pdf->download('Raport Medicina Muncii pe luna ' . \Carbon\Carbon::parse($search_data)->isoFormat('MM.YYYY') . '.pdf');
+            // return $pdf->stream();
         }
     }
 }
