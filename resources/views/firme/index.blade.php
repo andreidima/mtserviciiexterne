@@ -26,18 +26,18 @@
                 <form class="needs-validation" novalidate method="GET" action="/{{ $serviciu }}/firme">
                     @csrf
                     <div class="row mb-1 input-group custom-search-form justify-content-center">
-                        <input type="text" class="form-control col-md-3 mx-1 rounded-3" id="search_firma" name="search_firma" placeholder="Firma" autofocus
+                        <input type="text" class="form-control col-md-3 mx-1 rounded-3" id="search_firma" name="search_firma" placeholder="Firma"
                                 value="{{ $search_firma }}">
-                        <input type="text" class="form-control col-md-3 mx-1 rounded-3" id="search_cod_fiscal" name="search_cod_fiscal" placeholder="Cod fiscal" autofocus
+                        <input type="text" class="form-control col-md-3 mx-1 rounded-3" id="search_cod_fiscal" name="search_cod_fiscal" placeholder="Cod fiscal"
                                 value="{{ $search_cod_fiscal }}">
                     </div>
                     @switch($serviciu)
                         @case('ssm')
                         @case('medicina-muncii')
                             <div class="row mb-1 input-group custom-search-form justify-content-center">
-                                <input type="text" class="form-control col-md-3 mx-1 rounded-3" id="search_salariat_nume" name="search_salariat_nume" placeholder="Salariat" autofocus
+                                <input type="text" class="form-control col-md-3 mx-1 rounded-3" id="search_salariat_nume" name="search_salariat_nume" placeholder="Salariat"
                                         value="{{ $search_salariat_nume }}">
-                                <input type="text" class="form-control col-md-3 mx-1 rounded-3" id="search_salariat_cnp" name="search_salariat_cnp" placeholder="CNP" autofocus
+                                <input type="text" class="form-control col-md-3 mx-1 rounded-3" id="search_salariat_cnp" name="search_salariat_cnp" placeholder="CNP"
                                         value="{{ $search_salariat_cnp }}">
                             </div>
                             @break

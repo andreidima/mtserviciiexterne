@@ -20,7 +20,7 @@ class FirmaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($serviciu = null)
+    public function index(Request $request, $serviciu = null)
     {
         $search_firma = \Request::get('search_firma');
         $search_cod_fiscal = \Request::get('search_cod_fiscal');
@@ -72,6 +72,8 @@ class FirmaController extends Controller
             ->latest()
             ->simplePaginate(25);
 
+        $request->session()->forget('firma_return_url');
+
         return view('firme.index', compact('serviciu', 'firme', 'search_firma', 'search_cod_fiscal', 'search_salariat_nume', 'search_salariat_cnp'));
     }
 
@@ -82,10 +84,10 @@ class FirmaController extends Controller
      */
     public function create(Request $request, $serviciu = null)
     {
-        $request->session()->put('firma_return_url', url()->previous());
-
         $domenii_de_activitate = FirmaDomeniuDeActivitate::orderBy('nume')->get();
         $trasee = FirmaTraseu::orderBy('nume')->get();
+
+        $request->session()->get('firma_return_url') ?? $request->session()->put('firma_return_url', url()->previous());
 
         return view('firme.create', compact('domenii_de_activitate', 'trasee', 'serviciu'));
     }
@@ -101,7 +103,8 @@ class FirmaController extends Controller
         $request->request->add(['user_id' => $request->user()->id]);
         $firma = Firma::create($this->validateRequest($request, $serviciu));
 
-        return redirect('/' . $serviciu . '/firme')->with('status', 'Firma „' . ($firma->nume ?? '') . '” a fost adăugată cu succes!');
+        return redirect($request->session()->get('firma_return_url') ?? ('/' . $serviciu . '/firme'))
+            ->with('status', 'Firma „' . ($firma->nume ?? '') . '” a fost adăugată cu succes!');
     }
 
     /**
@@ -112,7 +115,7 @@ class FirmaController extends Controller
      */
     public function show(Request $request, $serviciu = null, Firma $firma)
     {
-        $request->session()->put('firma_return_url', url()->previous());
+        $request->session()->get('firma_return_url') ?? $request->session()->put('firma_return_url', url()->previous());
 
         return view('firme.show', compact('firma', 'serviciu'));
     }
@@ -125,10 +128,10 @@ class FirmaController extends Controller
      */
     public function edit(Request $request, $serviciu = null, Firma $firma)
     {
-        $request->session()->put('firma_return_url', url()->previous());
-
         $domenii_de_activitate = FirmaDomeniuDeActivitate::orderBy('nume')->get();
         $trasee = FirmaTraseu::orderBy('nume')->get();
+
+        $request->session()->get('firma_return_url') ?? $request->session()->put('firma_return_url', url()->previous());
 
         return view('firme.edit', compact('firma', 'domenii_de_activitate', 'trasee', 'serviciu'));
     }
@@ -145,7 +148,8 @@ class FirmaController extends Controller
         $request->request->add(['user_id' => $request->user()->id]);
         $firma->update($this->validateRequest($request, $serviciu));
 
-        return redirect($request->session()->get('firma_return_url'))->with('status', 'Firma „' . ($firma->nume ?? '') . '” a fost modificată cu succes!');
+        return redirect($request->session()->get('firma_return_url') ?? ('/' . $serviciu . '/firme'))
+            ->with('status', 'Firma „' . ($firma->nume ?? '') . '” a fost modificată cu succes!');
     }
 
     /**

@@ -30,6 +30,8 @@ class FirmaStingatorController extends Controller
             ->latest()
             ->simplePaginate(25);
 
+        $request->session()->forget('stingatoare_return_url');
+
         return view('firme.stingatoare.index', compact('stingatoare', 'search_nume'));
     }
 
@@ -40,7 +42,7 @@ class FirmaStingatorController extends Controller
      */
     public function create(Request $request, $serviciu = null, Firma $firma)
     {
-        $request->session()->put('stingatoare_return_url', url()->previous());
+        $request->session()->get('stingatoare_return_url') ?? $request->session()->put('stingatoare_return_url', url()->previous());
 
         return view('firme.stingatoare.create', compact('serviciu', 'firma'));
     }
@@ -56,7 +58,8 @@ class FirmaStingatorController extends Controller
         $request->request->add(['user_id' => $request->user()->id]);
         $stingator = FirmaStingator::create($this->validateRequest($request));
 
-        return redirect($request->session()->get('stingatoare_return_url'))->with('status', 'Stingătoarele pentru firma „' . ($stingator->firma->nume ?? '') . '” au fost adăugate cu succes!');
+        return redirect($request->session()->get('stingatoare_return_url') ?? ('/' . $serviciu . '/firme'))
+            ->with('status', 'Stingătoarele pentru firma „' . ($stingator->firma->nume ?? '') . '” au fost adăugate cu succes!');
     }
 
     /**
@@ -67,7 +70,7 @@ class FirmaStingatorController extends Controller
      */
     public function show(Request $request, $serviciu = null, FirmaStingator $stingator)
     {
-        $request->session()->put('stingatoare_return_url', url()->previous());
+        $request->session()->get('stingatoare_return_url') ?? $request->session()->put('stingatoare_return_url', url()->previous());
 
         return view('firme.stingatoare.show', compact('stingator'));
     }
@@ -80,7 +83,7 @@ class FirmaStingatorController extends Controller
      */
     public function edit(Request $request, $serviciu = null, Firma $firma, FirmaStingator $stingator)
     {
-        $request->session()->put('stingatoare_return_url', url()->previous());
+        $request->session()->get('stingatoare_return_url') ?? $request->session()->put('stingatoare_return_url', url()->previous());
 
         return view('firme.stingatoare.edit', compact('serviciu', 'stingator', 'firma'));
     }
@@ -97,7 +100,8 @@ class FirmaStingatorController extends Controller
         $request->request->add(['user_id' => $request->user()->id]);
         $stingator->update($this->validateRequest($request));
 
-        return redirect($request->session()->get('stingatoare_return_url'))->with('status', 'Stingătoarele pentru firma „' . ($stingator->firma->nume ?? '') . '” au fost modificate cu succes!');
+        return redirect($request->session()->get('stingatoare_return_url') ?? ('/' . $serviciu . '/firme'))
+            ->with('status', 'Stingătoarele pentru firma „' . ($stingator->firma->nume ?? '') . '” au fost modificate cu succes!');
     }
 
     /**
