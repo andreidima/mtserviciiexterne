@@ -73,6 +73,8 @@ class FirmaController extends Controller
             ->simplePaginate(25);
 
         $request->session()->forget('firma_return_url');
+        $request->session()->forget('stingatoare_return_url');
+        $request->session()->forget('salariat_return_url');
 
         return view('firme.index', compact('serviciu', 'firme', 'search_firma', 'search_cod_fiscal', 'search_salariat_nume', 'search_salariat_cnp'));
     }
