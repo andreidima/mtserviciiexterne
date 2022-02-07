@@ -74,7 +74,21 @@
                     ></vue2-datepicker>
                 </div>
             </div>
+        </div>
         @if($serviciu == "medicina-muncii")
+        <div class="row mb-0">
+            <div class="col-lg-3 mb-5 d-flex justify-content-center">
+                <div>
+                    <label for="medicina_muncii_nr_inregistrare" class="mb-0 ps-xxl-3"><small>Medicina muncii</small></label>
+                    <input
+                        type="text"
+                        class="form-control bg-white rounded-3 {{ $errors->has('medicina_muncii_nr_inregistrare') ? 'is-invalid' : '' }}"
+                        name="medicina_muncii_nr_inregistrare"
+                        placeholder=""
+                        value="{{ old('medicina_muncii_nr_inregistrare', $salariat->medicina_muncii_nr_inregistrare) }}">
+                    <small class="ps-3">*nr inregistrare</small>
+                </div>
+            </div>
             <div class="col-lg-3 mb-5 d-flex justify-content-center">
                 <div>
                     <label for="medicina_muncii_examinare" class="mb-0 ps-xxl-3"><small>Medicina muncii</small></label>
@@ -103,7 +117,9 @@
                     <small class="ps-3">*data expirării</small>
                 </div>
             </div>
+        </div>
         @elseif($serviciu == "ssm")
+        <div class="row mb-0">
             <div class="col-lg-2 mb-5">
                 <label for="instructaj_la_nr_luni" class="mb-0 ps-3">Instructaj la</label>
                 <input
@@ -177,7 +193,9 @@
                     >la ei</option>
                 </select>
             </div>
+        </div>
         @endif
+        <div class="row mb-0">
             <div class="col-lg-12 mb-5">
                 <label for="observatii" class="form-label mb-0 ps-3">Observații</label>
                 <textarea class="form-control bg-white {{ $errors->has('observatii') ? 'is-invalid' : '' }}"

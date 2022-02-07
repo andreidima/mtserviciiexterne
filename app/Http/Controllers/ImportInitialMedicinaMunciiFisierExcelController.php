@@ -38,6 +38,7 @@ class ImportInitialMedicinaMunciiFisierExcelController extends Controller
             }
 
             $salariat->firma_id = $firma->id;
+            $salariat->medicina_muncii_nr_inregistrare = $salariat_import->{'NR'};
             $salariat->nume = $salariat_import->{'NUME PACIENT'};
             $salariat->cnp = $salariat_import->{'CNP'};
             $salariat->functie = $salariat_import->{'OBSERVATII'};

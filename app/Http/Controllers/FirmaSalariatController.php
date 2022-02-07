@@ -142,6 +142,7 @@ class FirmaSalariatController extends Controller
                 'data_instructaj' => 'nullable|max:500',
                 'anexa_ssm' => 'nullable',
                 'lista_eip' => 'nullable',
+                'medicina_muncii_nr_inregistrare' => 'nullable',
                 'medicina_muncii_examinare' => 'nullable|date',
                 'medicina_muncii_expirare' => 'nullable|date',
                 'locatie_fisa_ssm' => 'nullable|max:500',
