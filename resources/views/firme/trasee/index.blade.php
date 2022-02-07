@@ -62,6 +62,9 @@
                                     <div>
                                         @foreach ($traseu->firme as $firma)
                                             {{ $firma->nume }}
+                                            @if (!$loop->last)
+                                                <br>
+                                            @endif
                                             {{-- {{ $firma->nume }} - {{ $firma->traseu_ordine }}
                                             @if (!$loop->last)
                                                 <br>
