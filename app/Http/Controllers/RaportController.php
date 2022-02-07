@@ -224,32 +224,38 @@ class RaportController extends Controller
             (Carbon::today()->startOfMonth());
 
         $salariati = FirmaSalariat::
-            with('firma:id,nume,traseu_id', 'firma.traseu')
+            with('firma:id,nume,telefon,actionar', 'firma.traseu')
             ->join('firme', 'firme_salariati.firma_id', '=', 'firme.id')
             ->select(
                 'firme_salariati.id',
                 'firme_salariati.firma_id',
                 'firme_salariati.nume',
+                'firme_salariati.medicina_muncii_nr_inregistrare',
+                'firme_salariati.medicina_muncii_examinare',
                 'firme_salariati.medicina_muncii_expirare',
                 'firme.traseu_id as traseu_id',
             )
             ->whereMonth('medicina_muncii_expirare', $search_data->month)
             ->whereYear('medicina_muncii_expirare', $search_data->year)
+            ->orderby('firme.nume')
             ->get();
 
         $search_data_luna_precedenta = Carbon::parse($search_data)->subMonth();
         $salariati_luna_precedenta = FirmaSalariat::
-            with('firma:id,nume,traseu_id', 'firma.traseu')
+            with('firma:id,nume,telefon,actionar', 'firma.traseu')
             ->join('firme', 'firme_salariati.firma_id', '=', 'firme.id')
             ->select(
                 'firme_salariati.id',
                 'firme_salariati.firma_id',
                 'firme_salariati.nume',
+                'firme_salariati.medicina_muncii_nr_inregistrare',
+                'firme_salariati.medicina_muncii_examinare',
                 'firme_salariati.medicina_muncii_expirare',
                 'firme.traseu_id as traseu_id',
             )
             ->whereMonth('medicina_muncii_expirare', $search_data_luna_precedenta->month)
             ->whereYear('medicina_muncii_expirare', $search_data_luna_precedenta->year)
+            ->orderby('firme.nume')
             ->get();
 
         return view('rapoarte.medicinaMuncii.medicinaMuncii', compact('salariati', 'salariati_luna_precedenta', 'search_data', 'search_data_luna_precedenta'));

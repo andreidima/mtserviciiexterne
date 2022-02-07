@@ -62,13 +62,13 @@
                             </th>
                         </tr>
                         <tr class="" style="padding:2rem">
-                            <th width="5%">#</th>
-                            <th width="30%">Firma</th>
-                            <th width="15%">Telefon</th>
-                            <th width="50%">
+                            {{-- <th width="5%">#</th> --}}
+                            <th width="30%">Firma/ Telefon/ Acționar/ Salariați</th>
+                            {{-- <th width="15%">Telefon</th> --}}
+                            <th width="70%">
                                 <div class="d-flex justify-content-between align-items-end">
                                     <div>
-                                        Salariați - următoarea examinare
+                                        Nr. inregistrare / Nume / Data examinare / Următoarea examinare
                                     </div>
                                     <div>
                                         <a class="btn btn-sm btn-primary border border-light rounded-3"
@@ -97,12 +97,18 @@
                             </tr> --}}
                             @forelse ($salariati->groupBy('firma_id') as $salariati_per_firma)
                                 <tr>
-                                    <td align="">
+                                    {{-- <td align="">
                                         {{ $loop->iteration }}
-                                    </td>
+                                    </td> --}}
                                     <td>
                                         <b>
+                                            {{ $loop->iteration }}
+                                            .
                                             {{ $salariati_per_firma->first()->firma->nume ?? '' }}
+                                            /
+                                            {{ $salariati_per_firma->first()->firma->telefon ?? '' }}
+                                            /
+                                            {{ $salariati_per_firma->first()->firma->actionar ?? '' }}
                                             /
                                             Salariați =
                                             <span class="badge bg-success fs-6">
@@ -110,15 +116,15 @@
                                             </span>
                                         </b>
                                     </td>
-                                    <td>
+                                    {{-- <td>
                                         {{ $salariati_per_firma->first()->firma->telefon ?? '' }}
-                                    </td>
+                                    </td> --}}
                                     <td>
                                         <div class="table-responsive rounded">
                                             <table class="table table-sm table-hover rounded border border-1">
                                                 @forelse ($salariati_per_firma as $salariat)
                                                     <tr style="background-color:wheat">
-                                                        <td width="10%" class="text-start border border-light">
+                                                        {{-- <td width="10%" class="text-start border border-light">
                                                             {{ $loop->iteration }}
                                                         </td>
                                                         <td width="65%" class="text-start border border-light">
@@ -127,6 +133,33 @@
                                                         <td width="25%" class="text-center border border-light">
                                                             {{ $salariat->medicina_muncii_expirare ?
                                                                 \Carbon\Carbon::parse($salariat->medicina_muncii_expirare)->isoFormat('DD.MM.YYYY') : '' }}
+                                                        </td> --}}
+                                                        <td class="text-start" style="width: 45%">
+                                                            {{ $salariat->medicina_muncii_nr_inregistrare }} / {{ $salariat->nume }}
+                                                        </td>
+                                                        <td class="text-center" style="width: 37%">
+                                                            {{ $salariat->medicina_muncii_examinare ?
+                                                                \Carbon\Carbon::parse($salariat->medicina_muncii_examinare)->isoFormat('DD.MM.YYYY') : '' }}
+                                                            /
+                                                            {{ $salariat->medicina_muncii_expirare ?
+                                                                \Carbon\Carbon::parse($salariat->medicina_muncii_expirare)->isoFormat('DD.MM.YYYY') : '' }}
+                                                        </td>
+                                                        <td class="" style="width: 18%">
+                                                            <div class="d-flex justify-content-end">
+                                                                <a href="/medicina-muncii/firme/{{ $salariat->firma->id }}/salariati/{{ $salariat->id }}/modifica" class="flex me-1">
+                                                                    <span class="badge bg-primary">Modifică</span>
+                                                                </a>
+                                                                {{-- <div style="flex" class="">
+                                                                    <a
+                                                                        href="#"
+                                                                        data-bs-toggle="modal"
+                                                                        data-bs-target="#stergeSalariat{{ $salariat->id }}"
+                                                                        title="Șterge Salariat"
+                                                                        >
+                                                                        <span class="badge bg-danger">Șterge</span>
+                                                                    </a>
+                                                                </div> --}}
+                                                            </div>
                                                         </td>
                                                     </tr>
                                                 @empty
@@ -161,13 +194,13 @@
                             </th>
                         </tr>
                         <tr class="" style="padding:2rem">
-                            <th width="5%">#</th>
-                            <th width="30%">Firma</th>
-                            <th width="15%">Telefon</th>
-                            <th width="50%">
+                            {{-- <th width="5%">#</th> --}}
+                            <th width="30%">Firma/ Telefon/ Acționar/ Salariați</th>
+                            {{-- <th width="15%">Telefon</th> --}}
+                            <th width="70%">
                                 <div class="d-flex justify-content-between align-items-end">
                                     <div>
-                                        Salariați - următoarea examinare
+                                        Nr. inregistrare / Nume / Data examinare / Următoarea examinare
                                     </div>
                                     <div>
                                         <a class="btn btn-sm btn-primary border border-light rounded-3"
@@ -194,14 +227,20 @@
                                     </span>
                                 </td>
                             </tr> --}}
-                            @forelse ($salariati->groupBy('firma_id') as $salariati_per_firma)
+                            @forelse ($salariati_luna_precedenta->groupBy('firma_id') as $salariati_per_firma)
                                 <tr>
-                                    <td align="">
+                                    {{-- <td align="">
                                         {{ $loop->iteration }}
-                                    </td>
+                                    </td> --}}
                                     <td>
                                         <b>
+                                            {{ $loop->iteration }}
+                                            .
                                             {{ $salariati_per_firma->first()->firma->nume ?? '' }}
+                                            /
+                                            {{ $salariati_per_firma->first()->firma->telefon ?? '' }}
+                                            /
+                                            {{ $salariati_per_firma->first()->firma->actionar ?? '' }}
                                             /
                                             Salariați =
                                             <span class="badge bg-success fs-6">
@@ -209,15 +248,15 @@
                                             </span>
                                         </b>
                                     </td>
-                                    <td>
+                                    {{-- <td>
                                         {{ $salariati_per_firma->first()->firma->telefon ?? '' }}
-                                    </td>
+                                    </td> --}}
                                     <td>
                                         <div class="table-responsive rounded">
                                             <table class="table table-sm table-hover rounded border border-1">
                                                 @forelse ($salariati_per_firma as $salariat)
                                                     <tr style="background-color:wheat">
-                                                        <td width="10%" class="text-start border border-light">
+                                                        {{-- <td width="10%" class="text-start border border-light">
                                                             {{ $loop->iteration }}
                                                         </td>
                                                         <td width="65%" class="text-start border border-light">
@@ -226,6 +265,33 @@
                                                         <td width="25%" class="text-center border border-light">
                                                             {{ $salariat->medicina_muncii_expirare ?
                                                                 \Carbon\Carbon::parse($salariat->medicina_muncii_expirare)->isoFormat('DD.MM.YYYY') : '' }}
+                                                        </td> --}}
+                                                        <td class="text-start" style="width: 45%">
+                                                            {{ $salariat->medicina_muncii_nr_inregistrare }} / {{ $salariat->nume }}
+                                                        </td>
+                                                        <td class="text-center" style="width: 37%">
+                                                            {{ $salariat->medicina_muncii_examinare ?
+                                                                \Carbon\Carbon::parse($salariat->medicina_muncii_examinare)->isoFormat('DD.MM.YYYY') : '' }}
+                                                            /
+                                                            {{ $salariat->medicina_muncii_expirare ?
+                                                                \Carbon\Carbon::parse($salariat->medicina_muncii_expirare)->isoFormat('DD.MM.YYYY') : '' }}
+                                                        </td>
+                                                        <td class="" style="width: 18%">
+                                                            <div class="d-flex justify-content-end">
+                                                                <a href="/medicina-muncii/firme/{{ $salariat->firma->id }}/salariati/{{ $salariat->id }}/modifica" class="flex me-1">
+                                                                    <span class="badge bg-primary">Modifică</span>
+                                                                </a>
+                                                                {{-- <div style="flex" class="">
+                                                                    <a
+                                                                        href="#"
+                                                                        data-bs-toggle="modal"
+                                                                        data-bs-target="#stergeSalariat{{ $salariat->id }}"
+                                                                        title="Șterge Salariat"
+                                                                        >
+                                                                        <span class="badge bg-danger">Șterge</span>
+                                                                    </a>
+                                                                </div> --}}
+                                                            </div>
                                                         </td>
                                                     </tr>
                                                 @empty

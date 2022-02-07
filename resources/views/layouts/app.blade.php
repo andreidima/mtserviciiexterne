@@ -58,6 +58,12 @@
                                             Raport
                                         </a>
                                     </li>
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li>
+                                        <a class="dropdown-item" href="/medicina-muncii/nr-de-inregistrare">
+                                            Nr de înregistrare
+                                        </a>
+                                    </li>
                                 </ul>
                             </li>
                             <li class="nav-item me-3 dropdown">

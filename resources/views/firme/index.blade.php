@@ -81,7 +81,7 @@
                                         Salariați
                                         @break
                                     @case('medicina-muncii')
-                                        Salariați - următoarea examinare
+                                        Nr. inregistrare | Nume | Data examinare | Următoarea examinare
                                         @break
                                     @case('stingatoare')
                                         Stingătoare / Hidranți
@@ -140,14 +140,24 @@
                                                     @endphp
                                                     @forelse ($salariati as $salariat)
                                                         <tr style="background-color:wheat">
-                                                            <td class="text-start w-50">
-                                                                {{ $salariat->nume }}
+                                                            {{-- <td class="text-start w-25">
+                                                                {{ $salariat->medicina_muncii_nr_inregistrare }}
+                                                            </td> --}}
+                                                            <td class="text-start" style="width: 45%">
+                                                                {{ $salariat->medicina_muncii_nr_inregistrare }} | {{ $salariat->nume }}
                                                             </td>
-                                                            <td class="text-center w-25">
+                                                            {{-- <td class="text-center w-25">
+                                                                {{ $salariat->medicina_muncii_examinare ?
+                                                                    \Carbon\Carbon::parse($salariat->medicina_muncii_examinare)->isoFormat('DD.MM.YYYY') : '' }}
+                                                            </td> --}}
+                                                            <td class="text-center" style="width: 37%">
+                                                                {{ $salariat->medicina_muncii_examinare ?
+                                                                    \Carbon\Carbon::parse($salariat->medicina_muncii_examinare)->isoFormat('DD.MM.YYYY') : '' }}
+                                                                |
                                                                 {{ $salariat->medicina_muncii_expirare ?
                                                                     \Carbon\Carbon::parse($salariat->medicina_muncii_expirare)->isoFormat('DD.MM.YYYY') : '' }}
                                                             </td>
-                                                            <td class="w-25">
+                                                            <td class="" style="width: 18%">
                                                                 <div class="d-flex justify-content-end">
                                                                     <a href="/{{ $serviciu }}/firme/{{ $firma->id }}/salariati/{{ $salariat->id }}/modifica" class="flex me-1">
                                                                         <span class="badge bg-primary">Modifică</span>

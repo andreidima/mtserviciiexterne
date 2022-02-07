@@ -11,10 +11,12 @@ use App\Http\Controllers\TematicaFisierController;
 use App\Http\Controllers\ObservatieController;
 use App\Http\Controllers\ObservatiePozaController;
 use App\Http\Controllers\RaportController;
+
+use App\Http\Controllers\MedicinaMunciiController;
+
 use App\Http\Controllers\ImportInitialFisierExcelController;
 use App\Http\Controllers\ImportInitialStingatoareFisierExcelController;
 use App\Http\Controllers\ImportInitialMedicinaMunciiFisierExcelController;
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -72,11 +74,12 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/rapoarte/instructaj', [RaportController::class, 'instructaj']);
 
 
+    Route::get('/medicina-muncii/nr-de-inregistrare', [MedicinaMunciiController::class, 'numarInregistare']);
+
     // Reconstructie totala a rutelor - firme separate pentru SSM, Medicina muncii, Stingatoare
     Route::resource('/{serviciu}/firme/{firma}/salariati', FirmaSalariatController::class,  ['parameters' => ['salariati' => 'salariat']]);
     Route::resource('/{serviciu}/firme/{firma}/stingatoare', FirmaStingatorController::class,  ['parameters' => ['stingatoare' => 'stingator']]);
     Route::resource('/{serviciu}/firme', FirmaController::class,  ['parameters' => ['firme' => 'firma']]);
-
 
     Route::get('teste', function(){
         // if (\App\Models\Firma::whereDoesntHave('stingator')->inRandomOrder()->first()){
@@ -87,16 +90,16 @@ Route::group(['middleware' => 'auth'], function () {
 
 
     // Import initial SSM
-    Route::get('/import/import-firme', [ImportInitialFisierExcelController::class, 'importFirme']);
-    Route::get('/import/import-salariati', [ImportInitialFisierExcelController::class, 'importSalariati']);
+    // Route::get('/import/import-firme', [ImportInitialFisierExcelController::class, 'importFirme']);
+    // Route::get('/import/import-salariati', [ImportInitialFisierExcelController::class, 'importSalariati']);
 
     // Import Medicina Muncii
-    Route::get('/import/import-medicina-muncii', [ImportInitialMedicinaMunciiFisierExcelController::class, 'importMedicinaMuncii']);
+    // Route::get('/import/import-medicina-muncii', [ImportInitialMedicinaMunciiFisierExcelController::class, 'importMedicinaMuncii']);
 
     // Import stingatoare
-    Route::get('/import/import-stingatoare', [ImportInitialStingatoareFisierExcelController::class, 'importStingatoare']);
+    // Route::get('/import/import-stingatoare', [ImportInitialStingatoareFisierExcelController::class, 'importStingatoare']);
     // Erori dupa import
-    Route::get('/total-incorect', [ImportInitialStingatoareFisierExcelController::class, 'totalIncorect']);
+    // Route::get('/total-incorect', [ImportInitialStingatoareFisierExcelController::class, 'totalIncorect']);
     // Erori dupa import
-    Route::get('/firme-duplicat', [ImportInitialStingatoareFisierExcelController::class, 'firmeDuplicat']);
+    // Route::get('/firme-duplicat', [ImportInitialStingatoareFisierExcelController::class, 'firmeDuplicat']);
 });

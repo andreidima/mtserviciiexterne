@@ -128,6 +128,15 @@
                     name="iscir_descriere" rows="2">{{ old('iscir_descriere', $firma->iscir_descriere) }}</textarea>
             </div>
             <div class="col-lg-3 mb-5 mx-auto">
+                <label for="actionar" class="mb-0 ps-3">Acționar</label>
+                <input
+                    type="text"
+                    class="form-control bg-white rounded-3 {{ $errors->has('actionar') ? 'is-invalid' : '' }}"
+                    name="actionar"
+                    placeholder=""
+                    value="{{ old('actionar', $firma->actionar) }}">
+            </div>
+            <div class="col-lg-3 mb-5 mx-auto">
                 <label for="traseu_id" class="mb-0 ps-3">Traseu</label>
                 <select name="traseu_id"
                     class="form-select bg-white rounded-3 {{ $errors->has('traseu_id') ? 'is-invalid' : '' }}"
@@ -141,7 +150,7 @@
                     @endforeach
                 </select>
             </div>
-            <div class="col-lg-3 mb-5 mx-auto">
+            {{-- <div class="col-lg-3 mb-5 mx-auto">
                 <label for="traseu_ordine" class="mb-0 ps-3">Ordine în traseu</label>
                 <input
                     type="text"
@@ -149,7 +158,7 @@
                     name="traseu_ordine"
                     placeholder=""
                     value="{{ old('traseu_ordine', $firma->traseu_ordine) }}">
-            </div>
+            </div> --}}
             <div class="col-lg-6 mb-5 mx-auto">
                 <label for="observatii" class="form-label mb-0 ps-3">Observații</label>
                 <textarea class="form-control bg-white {{ $errors->has('observatii') ? 'is-invalid' : '' }}"

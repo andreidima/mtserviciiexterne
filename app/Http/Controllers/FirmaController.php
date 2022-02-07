@@ -212,8 +212,9 @@ class FirmaController extends Controller
                 'iscir_descriere' => 'nullable|max:2000',
                 'observatii' => 'nullable|max:2000',
                 'user_id' => 'nullable',
+                'actionar' => 'nullable',
                 'traseu_id' => 'nullable|numeric|integer',
-                'traseu_ordine' => 'nullable|numeric|integer',
+                // 'traseu_ordine' => 'nullable|numeric|integer',
                 'ssm_serviciu' => '',
                 'medicina_muncii_serviciu' => '',
                 'stingatoare_serviciu' => ''
