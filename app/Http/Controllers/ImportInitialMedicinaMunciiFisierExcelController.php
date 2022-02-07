@@ -27,6 +27,7 @@ class ImportInitialMedicinaMunciiFisierExcelController extends Controller
                 $firma = Firma::firstOrCreate(
                     [
                         'nume' => $salariat_import->{'ANGAJATOR'},
+                        'medicina_muncii_serviciu' => 1,
                     ],
                 );
                 if (!isset($firma->localitate)){

@@ -36,139 +36,121 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
+
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        {{-- <li class="nav-item me-3">
-                            <a class="nav-link active" href="/firme">
-                                <i class="fas fa-building "></i>
-                                Firme
-                            </a>
-                        </li> --}}
-                        {{-- <li class="nav-item me-3">
-                            <a class="nav-link active" href="/firme/salariati">
-                                <i class="fas fa-users "></i>
-                                Salariați
-                            </a>
-                        </li> --}}
-                        {{-- <li class="nav-item me-3">
-                            <a class="nav-link active" href="/firme/stingatoare">
-                                <i class="fas fa-fire-extinguisher "></i>
-                                Stingătoare
-                            </a>
-                        </li> --}}
-                        <li class="nav-item me-3 dropdown">
-                            <a class="nav-link active dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                <i class="fas fa-fire-extinguisher me-1"></i>
-                                Stingătoare și hidranți
-                            </a>
-                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li>
-                                    <a class="dropdown-item" href="/stingatoare/firme">
-                                        Administrare
-                                    </a>
-                                </li>
-                                <li><hr class="dropdown-divider"></li>
-                                {{-- <li>
-                                    <a class="dropdown-item" href="/stingatoare">
-                                        Stingătoare și hidranți
-                                    </a>
-                                </li>
-                                <li><hr class="dropdown-divider"></li> --}}
-                                <li>
-                                    <a class="dropdown-item" href="/rapoarte/stingatoare">
-                                        Raport stingătoare
-                                    </a>
-                                </li>
-                                <li><hr class="dropdown-divider"></li>
-                                <li>
-                                    <a class="dropdown-item" href="/rapoarte/hidranti">
-                                        Raport hidranți
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="nav-item me-3 dropdown">
-                            <a class="nav-link active dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                <i class="fas fa-clinic-medical me-1"></i>
-                                Medicina muncii
-                            </a>
-                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li>
-                                    <a class="dropdown-item" href="/medicina-muncii/firme">
-                                        Administrare
-                                    </a>
-                                </li>
-                                <li><hr class="dropdown-divider"></li>
-                                <li>
-                                    <a class="dropdown-item" href="/rapoarte/medicina-muncii">
-                                        Raport
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="nav-item me-3">
-                            <a class="nav-link active" href="/firme/trasee">
-                                <i class="fas fa-route "></i>
-                                Trasee
-                            </a>
-                        </li>
-                        <li class="nav-item me-3 dropdown">
-                            <a class="nav-link active dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                <i class="fas fa-file-pdf me-1"></i>
-                                Tematici
-                            </a>
-                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li>
-                                    <a class="dropdown-item" href="/tematici">
-                                        Lista de tematici
-                                    </a>
-                                </li>
-                                <li><hr class="dropdown-divider"></li>
-                                <li>
-                                    <a class="dropdown-item" href="/tematici/firme-tematici">
-                                        Firme - tematici
-                                    </a>
-                                </li>
-                                <li><hr class="dropdown-divider"></li>
-                                <li>
-                                    <a class="dropdown-item" href="/tematici/salariati-tematici">
-                                        Salariați - tematici
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="nav-item me-3">
-                            <a class="nav-link active" href="/observatii">
-                                <i class="fas fa-comments"></i>
-                                Observații
-                            </a>
-                        </li>
-                        {{-- <li class="nav-item me-3 dropdown">
-                            <a class="nav-link active dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                <i class="fas fa-file-alt me-1"></i>
-                                Rapoarte
-                            </a>
-                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li>
-                                    <a class="dropdown-item" href="/rapoarte/stingatoare">
-                                        Stingătoare
-                                    </a>
-                                </li>
-                                <li><hr class="dropdown-divider"></li>
-                                <li>
-                                    <a class="dropdown-item" href="/rapoarte/instructaj">
-                                        Salariați instructaj
-                                    </a>
-                                </li>
-                                <li><hr class="dropdown-divider"></li>
-                                <li>
-                                    <a class="dropdown-item" href="/rapoarte/medicina-muncii">
-                                        Salariați medicina muncii
-                                    </a>
-                                </li>
-                            </ul>
-                        </li> --}}
+                        @if (auth()->user()->name === "Andrei Dima" || auth()->user()->name === "MT Servicii Externe")
+                            <li class="nav-item me-3 dropdown">
+                                <a class="nav-link active dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="fas fa-clinic-medical me-1"></i>
+                                    Medicina muncii
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <li>
+                                        <a class="dropdown-item" href="/medicina-muncii/firme">
+                                            Administrare
+                                        </a>
+                                    </li>
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li>
+                                        <a class="dropdown-item" href="/rapoarte/medicina-muncii">
+                                            Raport
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="nav-item me-3 dropdown">
+                                <a class="nav-link active dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="fas fa-fire-extinguisher me-1"></i>
+                                    Stingătoare și hidranți
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <li>
+                                        <a class="dropdown-item" href="/stingatoare/firme">
+                                            Administrare
+                                        </a>
+                                    </li>
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li>
+                                        <a class="dropdown-item" href="/rapoarte/stingatoare">
+                                            Raport stingătoare
+                                        </a>
+                                    </li>
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li>
+                                        <a class="dropdown-item" href="/rapoarte/hidranti">
+                                            Raport hidranți
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="nav-item me-3">
+                                <a class="nav-link active" href="/firme/trasee">
+                                    <i class="fas fa-route "></i>
+                                    Trasee
+                                </a>
+                            </li>
+                            <li class="nav-item me-3 dropdown">
+                                <a class="nav-link active dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="fas fa-file-pdf me-1"></i>
+                                    Tematici
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <li>
+                                        <a class="dropdown-item" href="/tematici">
+                                            Lista de tematici
+                                        </a>
+                                    </li>
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li>
+                                        <a class="dropdown-item" href="/tematici/firme-tematici">
+                                            Firme - tematici
+                                        </a>
+                                    </li>
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li>
+                                        <a class="dropdown-item" href="/tematici/salariati-tematici">
+                                            Salariați - tematici
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="nav-item me-3">
+                                <a class="nav-link active" href="/observatii">
+                                    <i class="fas fa-comments"></i>
+                                    Observații
+                                </a>
+                            </li>
+                        @elseif (auth()->user()->name === "Medicina Muncii")
+                            <li class="nav-item me-3">
+                                <a class="nav-link active" href="/medicina-muncii/firme">
+                                    Administrare
+                                </a>
+                            </li>
+                            <li class="nav-item me-3">
+                                <a class="nav-link active" href="/rapoarte/medicina-muncii">
+                                    Raport
+                                </a>
+                            </li>
+                        @elseif (auth()->user()->name === "Stingatoare")
+                            <li class="nav-item me-3">
+                                <a class="nav-link active" href="/stingatoare/firme">
+                                    Administrare
+                                </a>
+                            </li>
+                            <li class="nav-item me-3">
+                                <a class="nav-link active" href="/rapoarte/stingatoare">
+                                    Raport stingătoare
+                                </a>
+                            </li>
+                            <li class="nav-item me-3">
+                                <a class="nav-link active" href="/rapoarte/hidranti">
+                                    Raport hidranți
+                                </a>
+                            </li>
+                        @endif
+                    </ul>
                     </ul>
 
                     <!-- Right Side Of Navbar -->
