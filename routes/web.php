@@ -77,7 +77,7 @@ Route::group(['middleware' => 'auth'], function () {
 
 
     // Reconstructie totala a rutelor - firme separate pentru SSM, Medicina muncii, Stingatoare
-    Route::resource('/{serviciu}/firme/{firma}/salariati', FirmaSalariatController::class,  ['parameters' => ['salariati' => 'salariat']]);
+    Route::resource('/{serviciu}/firme/{firma_curenta}/salariati', FirmaSalariatController::class,  ['parameters' => ['salariati' => 'salariat']]);
     Route::resource('/{serviciu}/firme/{firma}/stingatoare', FirmaStingatorController::class,  ['parameters' => ['stingatoare' => 'stingator']]);
     Route::resource('/{serviciu}/firme', FirmaController::class,  ['parameters' => ['firme' => 'firma']]);
 

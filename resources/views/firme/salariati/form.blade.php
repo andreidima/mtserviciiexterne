@@ -14,7 +14,7 @@
                     value="{{ old('nume', $salariat->nume) }}"
                     required>
             </div>
-            {{-- <div class="col-lg-3 mb-5">
+            <div class="col-lg-4 mb-5">
                 <label for="firma_id" class="mb-0 ps-3">Firma</label>
                 <select name="firma_id"
                     class="form-select bg-white rounded-3 {{ $errors->has('firma_id') ? 'is-invalid' : '' }}"
@@ -23,12 +23,12 @@
                     @foreach ($firme as $firma)
                         <option
                             value='{{ $firma->id }}'
-                            {{ ($firma->id == old('firma_id', ($salariat->firma->id ?? ''))) ? 'selected' : '' }}
+                            {{ ($firma->id == old('firma_id', ($salariat->firma->id ?? $firma_curenta->id ?? ''))) ? 'selected' : '' }}
                         >{{ $firma->nume }} </option>
                     @endforeach
                 </select>
-            </div> --}}
-            <input type="hidden" name="firma_id" value="{{ $firma->id }}">
+            </div>
+            {{-- <input type="hidden" name="firma_id" value="{{ $firma->id }}"> --}}
 
             <div class="col-lg-4 mb-5">
                 <label for="cnp" class="mb-0 ps-3">CNP</label>

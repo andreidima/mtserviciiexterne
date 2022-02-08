@@ -216,7 +216,7 @@ class RaportController extends Controller
         return view('rapoarte.instructaj', compact('salariati', 'search_data_inceput', 'search_data_sfarsit'));
     }
 
-    public function medicinaMuncii()
+    public function medicinaMuncii(Request $request)
     {
         $search_data = \Request::get('search_data') ?
             (Carbon::parse(\Request::get('search_data'))->startOfMonth())
@@ -257,6 +257,8 @@ class RaportController extends Controller
             ->whereYear('medicina_muncii_expirare', $search_data_luna_precedenta->year)
             ->orderby('firme.nume')
             ->get();
+
+        $request->session()->forget('salariat_return_url');
 
         return view('rapoarte.medicinaMuncii.medicinaMuncii', compact('salariati', 'salariati_luna_precedenta', 'search_data', 'search_data_luna_precedenta'));
     }

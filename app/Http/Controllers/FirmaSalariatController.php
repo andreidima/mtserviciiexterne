@@ -44,11 +44,15 @@ class FirmaSalariatController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Request $request, $serviciu = null, Firma $firma)
+    public function create(Request $request, $serviciu = null, Firma $firma_curenta)
     {
+        $firme = Firma::where('medicina_muncii_serviciu', (($serviciu === "medicina-muncii") ? 1 : 0))
+            ->orderBy('nume')
+            ->get();
+
         $request->session()->get('salariat_return_url') ?? $request->session()->put('salariat_return_url', url()->previous());
 
-        return view('firme.salariati.create', compact('serviciu', 'firma'));
+        return view('firme.salariati.create', compact('serviciu', 'firme', 'firma_curenta'));
     }
 
     /**
@@ -85,13 +89,15 @@ class FirmaSalariatController extends Controller
      * @param  \App\FirmaSalariat  $salariat
      * @return \Illuminate\Http\Response
      */
-    public function edit(Request $request, $serviciu = null, Firma $firma, FirmaSalariat $salariat)
+    public function edit(Request $request, $serviciu = null, Firma $firma_curenta, FirmaSalariat $salariat)
     {
-        $firme = Firma::orderBy('nume')->get();
+        $firme = Firma::where('medicina_muncii_serviciu', (($serviciu === "medicina-muncii") ? 1 : 0))
+            ->orderBy('nume')
+            ->get();
 
         $request->session()->get('salariat_return_url') ?? $request->session()->put('salariat_return_url', url()->previous());
 
-        return view('firme.salariati.edit', compact('serviciu', 'firma', 'salariat'));
+        return view('firme.salariati.edit', compact('serviciu', 'firme', 'firma_curenta', 'salariat'));
     }
 
     /**
@@ -101,7 +107,7 @@ class FirmaSalariatController extends Controller
      * @param  \App\FirmaSalariat  $salariat
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $serviciu = null, Firma $firma, FirmaSalariat $salariat)
+    public function update(Request $request, $serviciu = null, Firma $firma_curenta, FirmaSalariat $salariat)
     {
         $request->request->add(['user_id' => $request->user()->id]);
         $salariat->update($this->validateRequest($request));
@@ -116,7 +122,7 @@ class FirmaSalariatController extends Controller
      * @param  \App\FirmaSalariat  $salariat
      * @return \Illuminate\Http\Response
      */
-    public function destroy($serviciu = null, Firma $firma, FirmaSalariat $salariat)
+    public function destroy($serviciu = null, Firma $firma_curenta, FirmaSalariat $salariat)
     {
         $salariat->delete();
 
