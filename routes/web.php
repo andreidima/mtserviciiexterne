@@ -66,6 +66,7 @@ Route::group(['middleware' => 'auth'], function () {
 
 
     Route::get('/rapoarte/medicina-muncii', [RaportController::class, 'medicinaMuncii']);
+    Route::get('/rapoarte/medicina-muncii/nr-de-inregistrare', [MedicinaMunciiController::class, 'numarInregistare']);
     Route::get('/rapoarte/medicina-muncii/{search_data}/{view_type}', [RaportController::class, 'medicinaMunciiExportPDF']);
     Route::get('/rapoarte/stingatoare', [RaportController::class, 'stingatoare']);
     Route::get('/rapoarte/stingatoare/{search_data}/{view_type}', [RaportController::class, 'stingatoareExportPDF']);
@@ -74,7 +75,6 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/rapoarte/instructaj', [RaportController::class, 'instructaj']);
 
 
-    Route::get('/medicina-muncii/nr-de-inregistrare', [MedicinaMunciiController::class, 'numarInregistare']);
 
     // Reconstructie totala a rutelor - firme separate pentru SSM, Medicina muncii, Stingatoare
     Route::resource('/{serviciu}/firme/{firma}/salariati', FirmaSalariatController::class,  ['parameters' => ['salariati' => 'salariat']]);

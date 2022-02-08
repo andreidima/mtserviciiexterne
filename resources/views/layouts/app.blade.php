@@ -60,7 +60,7 @@
                                     </li>
                                     <li><hr class="dropdown-divider"></li>
                                     <li>
-                                        <a class="dropdown-item" href="/medicina-muncii/nr-de-inregistrare">
+                                        <a class="dropdown-item" href="/rapoarte/medicina-muncii/nr-de-inregistrare">
                                             Nr de înregistrare
                                         </a>
                                     </li>
@@ -137,6 +137,11 @@
                             <li class="nav-item me-3">
                                 <a class="nav-link active" href="/rapoarte/medicina-muncii">
                                     Raport
+                                </a>
+                            </li>
+                            <li class="nav-item me-3">
+                                <a class="nav-link active" href="/rapoarte/medicina-muncii/nr-de-inregistrare">
+                                    Nr de înregistrare
                                 </a>
                             </li>
                         @elseif (auth()->user()->name === "Stingatoare")
