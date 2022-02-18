@@ -46,7 +46,32 @@ class FirmaSalariatController extends Controller
      */
     public function create(Request $request, $serviciu = null, Firma $firma_curenta)
     {
-        $firme = Firma::where('medicina_muncii_serviciu', (($serviciu === "medicina-muncii") ? 1 : 0))
+        $firme = Firma::
+            where (function($query) use ($serviciu) {
+                switch ($serviciu) {
+                    case 'ssm':
+                        $query
+                            ->where('ssm_serviciu', 1)
+                            ->where('medicina_muncii_serviciu', 0)
+                            ->where('stingatoare_serviciu', 0);
+                        break;
+                    case 'medicina-muncii':
+                        $query
+                            ->where('ssm_serviciu', 0)
+                            ->where('medicina_muncii_serviciu', 1)
+                            ->where('stingatoare_serviciu', 0);
+                        break;
+                    case 'stingatoare':
+                        $query
+                            ->where('ssm_serviciu', 0)
+                            ->where('medicina_muncii_serviciu', 0)
+                            ->where('stingatoare_serviciu', 1);
+                        break;
+                    default:
+                        # code...
+                        break;
+                }
+            })
             ->orderBy('nume')
             ->get();
 
@@ -91,7 +116,32 @@ class FirmaSalariatController extends Controller
      */
     public function edit(Request $request, $serviciu = null, Firma $firma_curenta, FirmaSalariat $salariat)
     {
-        $firme = Firma::where('medicina_muncii_serviciu', (($serviciu === "medicina-muncii") ? 1 : 0))
+        $firme = Firma::
+            where (function($query) use ($serviciu) {
+                switch ($serviciu) {
+                    case 'ssm':
+                        $query
+                            ->where('ssm_serviciu', 1)
+                            ->where('medicina_muncii_serviciu', 0)
+                            ->where('stingatoare_serviciu', 0);
+                        break;
+                    case 'medicina-muncii':
+                        $query
+                            ->where('ssm_serviciu', 0)
+                            ->where('medicina_muncii_serviciu', 1)
+                            ->where('stingatoare_serviciu', 0);
+                        break;
+                    case 'stingatoare':
+                        $query
+                            ->where('ssm_serviciu', 0)
+                            ->where('medicina_muncii_serviciu', 0)
+                            ->where('stingatoare_serviciu', 1);
+                        break;
+                    default:
+                        # code...
+                        break;
+                }
+            })
             ->orderBy('nume')
             ->get();
 

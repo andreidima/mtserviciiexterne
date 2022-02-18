@@ -113,11 +113,72 @@
                                 <td class="text-center">
                                     @switch($serviciu)
                                         @case('ssm')
-                                            @if (!$firma->salariati)
-                                                Adauga
-                                            @else
-                                                Modifică
-                                            @endif
+                                            <div class="table-responsive rounded">
+                                                <table class="table table-sm table-hover rounded border border-1">
+                                                    @php
+                                                            $salariati = $firma->salariati;
+
+                                                            $salariati = $salariati->when($search_salariat_nume, function ($salariati) use ($search_salariat_nume) {
+                                                                return $salariati->filter(function($item) use ($search_salariat_nume) {
+                                                                    return stripos($item['nume'],$search_salariat_nume) !== false;
+                                                                });
+                                                            });
+
+                                                            $salariati = $salariati->when($search_salariat_cnp, function ($salariati) use ($search_salariat_cnp) {
+                                                                return $salariati->filter(function($item) use ($search_salariat_cnp) {
+                                                                    return stripos($item['cnp'],$search_salariat_cnp) !== false;
+                                                                });
+                                                            });
+
+                                                    @endphp
+                                                    @forelse ($salariati as $salariat)
+                                                        <tr style="background-color:wheat">
+                                                            {{-- <td class="text-start w-25">
+                                                                {{ $salariat->medicina_muncii_nr_inregistrare }}
+                                                            </td> --}}
+                                                            <td class="text-start" style="width: 45%">
+                                                                {{ $salariat->medicina_muncii_nr_inregistrare }} | {{ $salariat->nume }}
+                                                            </td>
+                                                            {{-- <td class="text-center w-25">
+                                                                {{ $salariat->medicina_muncii_examinare ?
+                                                                    \Carbon\Carbon::parse($salariat->medicina_muncii_examinare)->isoFormat('DD.MM.YYYY') : '' }}
+                                                            </td> --}}
+                                                            <td class="text-center" style="width: 37%">
+                                                                {{ $salariat->medicina_muncii_examinare ?
+                                                                    \Carbon\Carbon::parse($salariat->medicina_muncii_examinare)->isoFormat('DD.MM.YYYY') : '' }}
+                                                                |
+                                                                {{ $salariat->medicina_muncii_expirare ?
+                                                                    \Carbon\Carbon::parse($salariat->medicina_muncii_expirare)->isoFormat('DD.MM.YYYY') : '' }}
+                                                            </td>
+                                                            <td class="" style="width: 18%">
+                                                                <div class="d-flex justify-content-end">
+                                                                    <a href="/{{ $serviciu }}/firme/{{ $firma->id }}/salariati/{{ $salariat->id }}/modifica" class="flex me-1">
+                                                                        <span class="badge bg-primary">Modifică</span>
+                                                                    </a>
+                                                                    <div style="flex" class="">
+                                                                        <a
+                                                                            href="#"
+                                                                            data-bs-toggle="modal"
+                                                                            data-bs-target="#stergeSalariat{{ $salariat->id }}"
+                                                                            title="Șterge Salariat"
+                                                                            >
+                                                                            <span class="badge bg-danger">Șterge</span>
+                                                                        </a>
+                                                                    </div>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    @empty
+                                                    @endforelse
+                                                        <tr>
+                                                            <td colspan="3">
+                                                                <a href="/{{ $serviciu}}/{{ $firma->path() }}/salariati/adauga" class="flex me-1">
+                                                                    <span class="badge bg-success">Adaugă salariat nou</span>
+                                                                </a>
+                                                            </td>
+                                                        </tr>
+                                                </table>
+                                            </div>
                                             @break
                                         @case('medicina-muncii')
                                             <div class="table-responsive rounded">
@@ -307,8 +368,6 @@
 
     @switch($serviciu)
         @case('ssm')
-            SSM
-            @break
         @case('medicina-muncii')
             {{-- Modalele pentru stergere salariati --}}
             @foreach ($firme as $firma)

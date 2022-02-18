@@ -43,6 +43,25 @@
                         @if (auth()->user()->name === "Andrei Dima" || auth()->user()->name === "MT Servicii Externe")
                             <li class="nav-item me-3 dropdown">
                                 <a class="nav-link active dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="fas fa-file-alt me-1"></i>
+                                    SSM
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <li>
+                                        <a class="dropdown-item" href="/ssm/firme">
+                                            Administrare
+                                        </a>
+                                    </li>
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li>
+                                        <a class="dropdown-item" href="/rapoarte/ssm">
+                                            Raport
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="nav-item me-3 dropdown">
+                                <a class="nav-link active dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     <i class="fas fa-clinic-medical me-1"></i>
                                     Medicina muncii
                                 </a>
