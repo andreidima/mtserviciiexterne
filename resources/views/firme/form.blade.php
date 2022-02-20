@@ -129,12 +129,13 @@
             </div>
             <div class="col-lg-3 mb-5 mx-auto">
                 <label for="actionar" class="mb-0 ps-3">Acționar</label>
-                <input
-                    type="text"
-                    class="form-control bg-white rounded-3 {{ $errors->has('actionar') ? 'is-invalid' : '' }}"
-                    name="actionar"
-                    placeholder=""
-                    value="{{ old('actionar', $firma->actionar) }}">
+                <select name="actionar"
+                    class="form-select bg-white rounded-3 {{ $errors->has('actionar') ? 'is-invalid' : '' }}"
+                >
+                    <option value='' selected>Selectează</option>
+                    <option value='2' {{ (old('actionar', $firma->actionar) == 2) ? 'selected' : '' }}> Catalin </option>
+                    <option value='1' {{ (old('actionar', $firma->actionar) == 1) ? 'selected' : '' }}> Ionut </option>
+                </select>
             </div>
             <div class="col-lg-3 mb-5 mx-auto">
                 <label for="traseu_id" class="mb-0 ps-3">Traseu</label>
