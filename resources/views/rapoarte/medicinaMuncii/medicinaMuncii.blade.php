@@ -102,18 +102,25 @@
                                     </td> --}}
                                     <td>
                                         <b>
-                                            {{ $loop->iteration }}
-                                            .
-                                            {{ $salariati_per_firma->first()->firma->nume ?? '' }}
-                                            /
-                                            {{ $salariati_per_firma->first()->firma->telefon ?? '' }}
-                                            /
-                                            {{ $salariati_per_firma->first()->firma->actionar ?? '' }}
-                                            /
-                                            Salariați =
-                                            <span class="badge bg-success fs-6">
-                                                {{ $salariati_per_firma->count() }}
-                                            </span>
+                                            <form class="needs-validation" novalidate method="GET" action="/medicina-muncii/firme">
+                                                {{ $loop->iteration }}
+                                                .
+                                                    @csrf
+                                                    <input type="hidden" class="form-control col-md-3 mx-1 rounded-3" id="search_firma" name="search_firma" placeholder="Firma"
+                                                                value="{{ $salariati_per_firma->first()->firma->nume ?? '' }}">
+                                                    <button class="btn btn-link p-0" type="submit">
+                                                        <b>{{ $salariati_per_firma->first()->firma->nume ?? '' }}</b>
+                                                    </button>
+                                                /
+                                                {{ $salariati_per_firma->first()->firma->telefon ?? '' }}
+                                                /
+                                                {{ $salariati_per_firma->first()->firma->actionar ?? '' }}
+                                                /
+                                                Salariați =
+                                                <span class="badge bg-success fs-6">
+                                                    {{ $salariati_per_firma->count() }}
+                                                </span>
+                                            </form>
                                         </b>
                                     </td>
                                     {{-- <td>
@@ -122,7 +129,7 @@
                                     <td>
                                         <div class="table-responsive rounded">
                                             <table class="table table-sm table-hover rounded border border-1">
-                                                @forelse ($salariati_per_firma as $salariat)
+                                                @forelse ($salariati_per_firma->sortBy('medicina_muncii_nr_inregistrare') as $salariat)
                                                     <tr style="background-color:wheat">
                                                         {{-- <td width="10%" class="text-start border border-light">
                                                             {{ $loop->iteration }}
@@ -234,18 +241,25 @@
                                     </td> --}}
                                     <td>
                                         <b>
-                                            {{ $loop->iteration }}
-                                            .
-                                            {{ $salariati_per_firma->first()->firma->nume ?? '' }}
-                                            /
-                                            {{ $salariati_per_firma->first()->firma->telefon ?? '' }}
-                                            /
-                                            {{ $salariati_per_firma->first()->firma->actionar ?? '' }}
-                                            /
-                                            Salariați =
-                                            <span class="badge bg-success fs-6">
-                                                {{ $salariati_per_firma->count() }}
-                                            </span>
+                                            <form class="needs-validation" novalidate method="GET" action="/medicina-muncii/firme">
+                                                {{ $loop->iteration }}
+                                                .
+                                                    @csrf
+                                                    <input type="hidden" class="form-control col-md-3 mx-1 rounded-3" id="search_firma" name="search_firma" placeholder="Firma"
+                                                                value="{{ $salariati_per_firma->first()->firma->nume ?? '' }}">
+                                                    <button class="btn btn-link p-0" type="submit">
+                                                        <b>{{ $salariati_per_firma->first()->firma->nume ?? '' }}</b>
+                                                    </button>
+                                                /
+                                                {{ $salariati_per_firma->first()->firma->telefon ?? '' }}
+                                                /
+                                                {{ $salariati_per_firma->first()->firma->actionar ?? '' }}
+                                                /
+                                                Salariați =
+                                                <span class="badge bg-success fs-6">
+                                                    {{ $salariati_per_firma->count() }}
+                                                </span>
+                                            </form>
                                         </b>
                                     </td>
                                     {{-- <td>

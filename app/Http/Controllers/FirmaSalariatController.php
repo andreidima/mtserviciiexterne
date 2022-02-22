@@ -203,6 +203,7 @@ class FirmaSalariatController extends Controller
                 'medicina_muncii_expirare' => 'nullable|date',
                 'locatie_fisa_ssm' => 'nullable|max:500',
                 'locatie_fisa_su' => 'nullable|max:500',
+                'activ' => '',
                 'observatii' => 'nullable|max:2000',
                 'user_id' => 'nullable',
             ],

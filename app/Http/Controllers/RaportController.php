@@ -237,7 +237,9 @@ class RaportController extends Controller
             )
             ->whereMonth('medicina_muncii_expirare', $search_data->month)
             ->whereYear('medicina_muncii_expirare', $search_data->year)
-            ->orderby('firme.nume')
+            ->where('activ', 1)
+            // ->orderby('firme.nume')
+            ->orderby('medicina_muncii_expirare')
             ->get();
 
         $search_data_luna_precedenta = Carbon::parse($search_data)->subMonth();
@@ -255,7 +257,9 @@ class RaportController extends Controller
             )
             ->whereMonth('medicina_muncii_expirare', $search_data_luna_precedenta->month)
             ->whereYear('medicina_muncii_expirare', $search_data_luna_precedenta->year)
-            ->orderby('firme.nume')
+            ->where('activ', 1)
+            // ->orderby('firme.nume')
+            ->orderby('medicina_muncii_expirare')
             ->get();
 
         $request->session()->forget('salariat_return_url');
@@ -279,6 +283,8 @@ class RaportController extends Controller
             // )
             ->whereMonth('medicina_muncii_expirare', $search_data->month)
             ->whereYear('medicina_muncii_expirare', $search_data->year)
+            ->where('activ', 1)
+            ->orderby('medicina_muncii_expirare')
             ->get();
 
         if ($request->view_type === 'export-html') {

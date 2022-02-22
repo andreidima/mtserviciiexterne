@@ -199,11 +199,61 @@
                                                             });
 
                                                     @endphp
-                                                    @forelse ($salariati as $salariat)
+                                                    @forelse ($salariati->where('activ', 1)->sortBy('medicina_muncii_nr_inregistrare') as $salariat)
                                                         <tr style="background-color:wheat">
                                                             {{-- <td class="text-start w-25">
                                                                 {{ $salariat->medicina_muncii_nr_inregistrare }}
                                                             </td> --}}
+                                                            <td class="text-start" style="width: 45%">
+                                                                {{ $salariat->medicina_muncii_nr_inregistrare }} | {{ $salariat->nume }}
+                                                            </td>
+                                                            {{-- <td class="text-center w-25">
+                                                                {{ $salariat->medicina_muncii_examinare ?
+                                                                    \Carbon\Carbon::parse($salariat->medicina_muncii_examinare)->isoFormat('DD.MM.YYYY') : '' }}
+                                                            </td> --}}
+                                                            <td class="text-center" style="width: 37%">
+                                                                {{ $salariat->medicina_muncii_examinare ?
+                                                                    \Carbon\Carbon::parse($salariat->medicina_muncii_examinare)->isoFormat('DD.MM.YYYY') : '' }}
+                                                                |
+                                                                {{ $salariat->medicina_muncii_expirare ?
+                                                                    \Carbon\Carbon::parse($salariat->medicina_muncii_expirare)->isoFormat('DD.MM.YYYY') : '' }}
+                                                            </td>
+                                                            <td class="" style="width: 18%">
+                                                                <div class="d-flex justify-content-end">
+                                                                    <a href="/{{ $serviciu }}/firme/{{ $firma->id }}/salariati/{{ $salariat->id }}/modifica" class="flex me-1">
+                                                                        <span class="badge bg-primary">Modifică</span>
+                                                                    </a>
+                                                                    <div style="" class="">
+                                                                        <a
+                                                                            href="#"
+                                                                            data-bs-toggle="modal"
+                                                                            data-bs-target="#stergeSalariat{{ $salariat->id }}"
+                                                                            title="Șterge Salariat"
+                                                                            >
+                                                                            <span class="badge bg-danger">Șterge</span>
+                                                                        </a>
+                                                                    </div>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    @empty
+                                                    @endforelse
+                                                        <tr>
+                                                            <td colspan="3">
+                                                                <a href="/{{ $serviciu}}/{{ $firma->path() }}/salariati/adauga" class="flex me-1">
+                                                                    <span class="badge bg-success">Adaugă salariat nou</span>
+                                                                </a>
+                                                            </td>
+                                                        </tr>
+                                                    @forelse ($salariati->where('activ', 0)->sortBy('medicina_muncii_nr_inregistrare') as $salariat)
+                                                        @if ($loop->iteration === 1)
+                                                            <tr style="background-color:rgb(211, 191, 153)">
+                                                                <td colspan="4">
+                                                                    INACTIVI
+                                                                </td>
+                                                            </tr>
+                                                        @endif
+                                                        <tr style="background-color:rgb(211, 191, 153)">
                                                             <td class="text-start" style="width: 45%">
                                                                 {{ $salariat->medicina_muncii_nr_inregistrare }} | {{ $salariat->nume }}
                                                             </td>
@@ -238,13 +288,6 @@
                                                         </tr>
                                                     @empty
                                                     @endforelse
-                                                        <tr>
-                                                            <td colspan="3">
-                                                                <a href="/{{ $serviciu}}/{{ $firma->path() }}/salariati/adauga" class="flex me-1">
-                                                                    <span class="badge bg-success">Adaugă salariat nou</span>
-                                                                </a>
-                                                            </td>
-                                                        </tr>
                                                 </table>
                                             </div>
                                             @break

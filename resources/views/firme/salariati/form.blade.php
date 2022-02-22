@@ -117,6 +117,16 @@
                     <small class="ps-3">*data expirării</small>
                 </div>
             </div>
+            <div class="col-lg-3 mb-5 ps-5 d-flex align-items-center">
+                <div class="form-check">
+                    <input class="form-check-input" type="hidden" name="activ" value="0" />
+                    <input class="form-check-input" type="checkbox" value="1" name="activ" id="activ"
+                        {{ (old('activ', $salariat->activ) ?? 1) == '1' ? 'checked' : '' }}>
+                    <label class="form-check-label" for="activ">
+                        Activ
+                    </label>
+                </div>
+            </div>
         </div>
         @elseif($serviciu == "ssm")
         <div class="row mb-0">
