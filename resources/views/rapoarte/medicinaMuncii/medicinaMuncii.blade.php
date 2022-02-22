@@ -114,7 +114,17 @@
                                                 /
                                                 {{ $salariati_per_firma->first()->firma->telefon ?? '' }}
                                                 /
-                                                {{ $salariati_per_firma->first()->firma->actionar ?? '' }}
+                                                {{-- {{ $salariati_per_firma->first()->firma->actionar ?? '' }} --}}
+                                                @switch($salariati_per_firma->first()->firma->actionar)
+                                                    @case(1)
+                                                        Ionuț
+                                                        @break
+                                                    @case(2)
+                                                        Cătălin
+                                                        @break
+                                                    @default
+
+                                                @endswitch
                                                 /
                                                 Salariați =
                                                 <span class="badge bg-success fs-6">
@@ -253,7 +263,17 @@
                                                 /
                                                 {{ $salariati_per_firma->first()->firma->telefon ?? '' }}
                                                 /
-                                                {{ $salariati_per_firma->first()->firma->actionar ?? '' }}
+                                                {{-- {{ $salariati_per_firma->first()->firma->actionar ?? '' }} --}}
+                                                @switch($salariati_per_firma->first()->firma->actionar)
+                                                    @case(1)
+                                                        Ionuț
+                                                        @break
+                                                    @case(2)
+                                                        Cătălin
+                                                        @break
+                                                    @default
+
+                                                @endswitch
                                                 /
                                                 Salariați =
                                                 <span class="badge bg-success fs-6">
