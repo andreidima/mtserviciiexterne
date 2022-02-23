@@ -110,11 +110,23 @@
                                     </li>
                                 </ul>
                             </li>
-                            <li class="nav-item me-3">
-                                <a class="nav-link active" href="/firme/trasee">
-                                    <i class="fas fa-route "></i>
+                            <li class="nav-item me-3 dropdown">
+                                <a class="nav-link active dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="fas fa-route me-1"></i>
                                     Trasee
                                 </a>
+                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <li>
+                                        <a class="dropdown-item" href="/ssm/firme/trasee">
+                                            Trasee SSM
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" href="/stingatoare/firme/trasee">
+                                            Trasee stingătoare
+                                        </a>
+                                    </li>
+                                </ul>
                             </li>
                             <li class="nav-item me-3 dropdown">
                                 <a class="nav-link active dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -180,8 +192,8 @@
                                 </a>
                             </li>
                             <li class="nav-item me-3">
-                                <a class="nav-link active" href="/firme/trasee">
-                                    <i class="fas fa-route "></i>
+                                <a class="nav-link active" href="/stingatoare/firme/trasee">
+                                    <i class="fas fa-route"></i>
                                     Trasee
                                 </a>
                             </li>

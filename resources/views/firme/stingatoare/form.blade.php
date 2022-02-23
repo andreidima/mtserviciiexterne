@@ -3,7 +3,7 @@
 <div class="row mb-0 p-3 d-flex border-radius: 0px 0px 40px 40px" id="app">
     <div class="col-lg-12 mb-0">
 
-                {{ Session::get('stingatoare_return_url') }}
+                {{-- {{ Session::get('stingatoare_return_url') }} --}}
         <div class="row mb-0">
             {{-- <div class="col-lg-4 mb-5">
                 <label for="firma_id" class="mb-0 ps-3">Firma<span class="text-danger">*</span></label>

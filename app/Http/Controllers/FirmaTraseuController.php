@@ -17,7 +17,7 @@ class FirmaTraseuController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request, $serviciu = null)
     {
         $search_nume = \Request::get('search_nume');
         $search_firma = \Request::get('search_firma');
