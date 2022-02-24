@@ -14,7 +14,7 @@ class FirmaTraseu extends Model
 
     public function path()
     {
-        return "/firme/trasee/{$this->id}";
+        return "firme/trasee/{$this->id}";
     }
 
     /**

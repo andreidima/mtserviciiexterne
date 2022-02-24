@@ -5,12 +5,22 @@
         <div class="row card-header align-items-center" style="border-radius: 40px 40px 0px 0px;">
             <div class="col-lg-3">
                 <h4 class="mb-0">
-                    <a href="/firme/trasee"><i class="fas fa-route me-1"></i></a>
-                    <a href="/firme/trasee">Trasee</a>
+                    <a href="/{{ $serviciu }}/firme/trasee">
+                        <i class="fas fa-route me-1"></i>
+                        @switch($serviciu)
+                            @case('ssm')
+                                Trasee SSM
+                                @break
+                            @case('stingatoare')
+                                Trasee Stingătoare
+                                @break
+                            @default
+                        @endswitch
+                    </a>
                 </h4>
             </div>
             <div class="col-lg-6" id="app">
-                <form class="needs-validation" novalidate method="GET" action="/firme/trasee">
+                <form class="needs-validation" novalidate method="GET" action="/{{ $serviciu }}/firme/trasee">
                     @csrf
                     <div class="row mb-1 input-group custom-search-form justify-content-center">
                         <input type="text" class="form-control form-control-sm col-md-4 me-3 rounded-3" id="search_nume" name="search_nume" placeholder="Nume" autofocus
@@ -22,14 +32,14 @@
                         <button class="btn btn-sm btn-primary text-white col-md-4 me-3 border border-dark rounded-3" type="submit">
                             <i class="fas fa-search text-white me-1"></i>Caută
                         </button>
-                        <a class="btn btn-sm bg-secondary text-white col-md-4 border border-dark rounded-3" href="/firme/trasee" role="button">
+                        <a class="btn btn-sm bg-secondary text-white col-md-4 border border-dark rounded-3" href="/{{ $serviciu }}/firme/trasee" role="button">
                             <i class="far fa-trash-alt text-white me-1"></i>Resetează căutarea
                         </a>
                     </div>
                 </form>
             </div>
             <div class="col-lg-3 text-end">
-                <a class="btn btn-sm bg-success text-white border border-dark rounded-3 col-md-8" href="/firme/trasee/adauga" role="button">
+                <a class="btn btn-sm bg-success text-white border border-dark rounded-3 col-md-8" href="/{{ $serviciu }}/firme/trasee/adauga" role="button">
                     <i class="fas fa-plus-square text-white me-1"></i>Adaugă traseu
                 </a>
             </div>
@@ -74,12 +84,12 @@
                                 </td>
                                 <td>
                                     <div class="d-flex justify-content-end">
-                                        <a href="{{ $traseu->path() }}"
+                                        <a href="/{{ $serviciu }}/{{ $traseu->path() }}"
                                             class="me-1"
                                         >
                                             <span class="badge bg-success">Vizualizează</span>
                                         </a>
-                                        <a href="{{ $traseu->path() }}/modifica"
+                                        <a href="/{{ $serviciu }}/firme/trasee/{{ $traseu->id }}/modifica"
                                             class="me-1"
                                         >
                                             <span class="badge bg-primary">Modifică</span>
@@ -126,7 +136,7 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Renunță</button>
 
-                    <form method="POST" action="{{ $traseu->path() }}">
+                    <form method="POST" action="/{{ $serviciu }}/{{ $traseu->path() }}">
                         @method('DELETE')
                         @csrf
                         <button

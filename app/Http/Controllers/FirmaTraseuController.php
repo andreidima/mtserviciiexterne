@@ -23,9 +23,20 @@ class FirmaTraseuController extends Controller
         $search_firma = \Request::get('search_firma');
 
         $trasee = FirmaTraseu::
-            with(['firme' => function ($query) {
-                $query->orderBy('traseu_ordine');
-            }])
+            where (function($query) use ($serviciu) {
+                switch ($serviciu) {
+                    case 'ssm':
+                        $query->where('serviciu', 1);
+                        break;
+                    case 'stingatoare':
+                        $query->where('serviciu', 2);
+                        break;
+                    default:
+                        # code...
+                        break;
+                }
+            })
+            ->with('firme')
             ->when($search_nume, function ($query, $search_nume) {
                 return $query->where('nume', 'like', '%' . $search_nume . '%');
             })
@@ -37,7 +48,9 @@ class FirmaTraseuController extends Controller
             ->latest()
             ->simplePaginate(25);
 
-        return view('firme.trasee.index', compact('trasee', 'search_nume', 'search_firma'));
+        $request->session()->forget('traseu_return_url');
+
+        return view('firme.trasee.index', compact('serviciu', 'trasee', 'search_nume', 'search_firma'));
     }
 
     /**
@@ -45,9 +58,11 @@ class FirmaTraseuController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request, $serviciu = null)
     {
-        return view('firme.trasee.create');
+        $request->session()->get('traseu_return_url') ?? $request->session()->put('traseu_return_url', url()->previous());
+
+        return view('firme.trasee.create', compact('serviciu'));
     }
 
     /**
@@ -56,12 +71,13 @@ class FirmaTraseuController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, $serviciu = null)
     {
         $request->request->add(['user_id' => $request->user()->id]);
-        $traseu = FirmaTraseu::create($this->validateRequest($request));
+        $traseu = FirmaTraseu::create($this->validateRequest($request, $serviciu));
 
-        return redirect('/firme/trasee')->with('status', 'Traseul „' . ($traseu->nume ?? '') . '” a fost adăugat cu succes!');
+        return redirect($request->session()->get('traseu_return_url') ?? ('/' . $serviciu . '/firme/trasee'))
+            ->with('status', 'Traseul „' . ($traseu->nume ?? '') . '” a fost adăugat cu succes!');
     }
 
     /**
@@ -70,9 +86,11 @@ class FirmaTraseuController extends Controller
      * @param  \App\FirmaTraseu  $traseu
      * @return \Illuminate\Http\Response
      */
-    public function show(FirmaTraseu $traseu)
+    public function show(Request $request, $serviciu = null, FirmaTraseu $traseu)
     {
-        return view('firme.trasee.show', compact('traseu'));
+        $request->session()->get('traseu_return_url') ?? $request->session()->put('traseu_return_url', url()->previous());
+
+        return view('firme.trasee.show', compact('traseu', 'serviciu'));
     }
 
     /**
@@ -81,9 +99,11 @@ class FirmaTraseuController extends Controller
      * @param  \App\FirmaTraseu  $traseu
      * @return \Illuminate\Http\Response
      */
-    public function edit(FirmaTraseu $traseu)
+    public function edit(Request $request, $serviciu = null, FirmaTraseu $traseu)
     {
-        return view('firme.trasee.edit', compact('traseu'));
+        $request->session()->get('traseu_return_url') ?? $request->session()->put('traseu_return_url', url()->previous());
+
+        return view('firme.trasee.edit', compact('traseu', 'serviciu'));
     }
 
     /**
@@ -93,12 +113,13 @@ class FirmaTraseuController extends Controller
      * @param  \App\FirmaTraseu  $traseu
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, FirmaTraseu $traseu)
+    public function update(Request $request, $serviciu = null, FirmaTraseu $traseu)
     {
         $request->request->add(['user_id' => $request->user()->id]);
         $traseu->update($this->validateRequest($request));
 
-        return redirect('/firme/trasee')->with('status', 'Traseul „' . ($traseu->nume ?? '') . '” a fost modificat cu succes!');
+        return redirect($request->session()->get('traseu_return_url') ?? ('/' . $serviciu . '/firme/trasee'))
+            ->with('status', 'Traseul „' . ($traseu->nume ?? '') . '” a fost modificat cu succes!');
     }
 
     /**
@@ -107,7 +128,7 @@ class FirmaTraseuController extends Controller
      * @param  \App\FirmaTraseu  $traseu
      * @return \Illuminate\Http\Response
      */
-    public function destroy(FirmaTraseu $traseu)
+    public function destroy($serviciu = null, FirmaTraseu $traseu)
     {
         if (count($traseu->firme)){
             return back()->with('error', 'Traseul „' . ($traseu->nume ?? '') . '” nu poate fi șters pentru că are firme adăugate. Scoateți mai întâi firmele de pe acest traseu');
@@ -115,7 +136,8 @@ class FirmaTraseuController extends Controller
 
         $traseu->delete();
 
-        return redirect('/firme/trasee')->with('status', 'Traseul „' . ($traseu->nume ?? '') . '” a fost șters cu succes!');
+        // return redirect('/firme/trasee')->with('status', 'Traseul „' . ($traseu->nume ?? '') . '” a fost șters cu succes!');
+        return back()->with('status', 'Traseul „' . ($traseu->nume ?? '') . '” a fost șters cu succes!');
     }
 
     /**
@@ -123,12 +145,25 @@ class FirmaTraseuController extends Controller
      *
      * @return array
      */
-    protected function validateRequest(Request $request)
+    protected function validateRequest(Request $request, $serviciu = null)
     {
+        switch ($serviciu) {
+            case 'ssm':
+                $request->request->add(['serviciu' => 1]);
+                break;
+            case 'stingatoare':
+                $request->request->add(['serviciu' => 2]);
+                break;
+            default:
+                # code...
+                break;
+            }
+
         return $request->validate(
             [
                 'nume' => 'required|max:500',
                 'observatii' => 'nullable|max:2000',
+                'serviciu' => '',
                 'user_id' => 'required',
             ],
             [

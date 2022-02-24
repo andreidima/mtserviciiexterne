@@ -8,7 +8,16 @@
                 <div class="border border-secondary p-2" style="border-radius: 40px 40px 0px 0px; background-color:#e66800">
                     <h6 class="ms-2 my-0" style="color:white">
                         <i class="fas fa-route me-1"></i>
-                        Trasee / {{ $traseu->nume ?? '' }}</h6>
+                        @switch($serviciu)
+                            @case('ssm')
+                                Trasee SSM
+                                @break
+                            @case('stingatoare')
+                                Trasee Stingătoare
+                                @break
+                            @default
+                        @endswitch
+                        / {{ $traseu->nume ?? '' }}</h6>
                 </div>
 
                 <div class="card-body py-2 border border-secondary"
@@ -41,7 +50,7 @@
 
                     <div class="form-row mb-2 px-2">
                         <div class="col-lg-12 d-flex justify-content-center">
-                            <a class="btn btn-primary text-white rounded-3" href="/firme/trasee">Pagină Trasee</a>
+                            <a class="btn btn-primary text-white rounded-3" href="{{ Session::get('traseu_return_url') }}">Pagină Trasee</a>
                         </div>
                     </div>
 
