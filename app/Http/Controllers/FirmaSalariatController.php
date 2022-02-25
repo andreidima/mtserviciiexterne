@@ -200,7 +200,7 @@ class FirmaSalariatController extends Controller
                 'psi_instructaj_la_nr_luni' => 'nullable|numeric|integer|between:1,12',
                 'anexa_ssm' => 'nullable',
                 'lista_eip' => 'nullable',
-                'medicina_muncii_nr_inregistrare' => 'nullable',
+                'medicina_muncii_nr_inregistrare' => 'nullable|numeric|integer',
                 'medicina_muncii_examinare' => 'nullable|date',
                 'medicina_muncii_expirare' => 'nullable|date',
                 'locatie_fisa_ssm' => 'nullable|max:500',
