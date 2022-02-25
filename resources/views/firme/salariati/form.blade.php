@@ -131,25 +131,46 @@
         @elseif($serviciu == "ssm")
         <div class="row mb-0">
             <div class="col-lg-2 mb-5">
-                <label for="instructaj_la_nr_luni" class="mb-0 ps-3">Instructaj la</label>
-                <input
-                    type="text"
-                    class="form-control bg-white rounded-3 {{ $errors->has('instructaj_la_nr_luni') ? 'is-invalid' : '' }}"
-                    name="instructaj_la_nr_luni"
-                    placeholder=""
-                    value="{{ old('instructaj_la_nr_luni', $salariat->instructaj_la_nr_luni) }}">
-                <small class="ps-3">*nr. de luni</small>
-            </div>
-            <div class="col-lg-2 mb-5">
-                <label for="data_instructaj" class="mb-0 ps-xxl-3">Dată Instructaj</label>
+                <label for="ssm_data_instructaj" class="mb-0 ps-xxl-3">SSM Dată Instructaj</label>
                 <vue2-datepicker
-                    data-veche="{{ old('data_instructaj', ($salariat->data_instructaj ?? '')) }}"
-                    nume-camp-db="data_instructaj"
+                    data-veche="{{ old('ssm_data_instructaj', ($salariat->ssm_data_instructaj ?? '')) }}"
+                    nume-camp-db="ssm_data_instructaj"
                     tip="date"
                     value-type="YYYY-MM-DD"
                     format="DD-MM-YYYY"
                     :latime="{ width: '125px' }"
                 ></vue2-datepicker>
+            </div>
+            <div class="col-lg-2 mb-5">
+                <label for="ssm_instructaj_la_nr_luni" class="mb-0 ps-3">SSM Instructaj la</label>
+                <input
+                    type="text"
+                    class="form-control bg-white rounded-3 {{ $errors->has('ssm_instructaj_la_nr_luni') ? 'is-invalid' : '' }}"
+                    name="ssm_instructaj_la_nr_luni"
+                    placeholder=""
+                    value="{{ old('ssm_instructaj_la_nr_luni', $salariat->ssm_instructaj_la_nr_luni) }}">
+                <small class="ps-3">*nr. de luni</small>
+            </div>
+            <div class="col-lg-2 mb-5">
+                <label for="psi_data_instructaj" class="mb-0 ps-xxl-3">PSI Dată Instructaj</label>
+                <vue2-datepicker
+                    data-veche="{{ old('psi_data_instructaj', ($salariat->psi_data_instructaj ?? '')) }}"
+                    nume-camp-db="psi_data_instructaj"
+                    tip="date"
+                    value-type="YYYY-MM-DD"
+                    format="DD-MM-YYYY"
+                    :latime="{ width: '125px' }"
+                ></vue2-datepicker>
+            </div>
+            <div class="col-lg-2 mb-5">
+                <label for="psi_instructaj_la_nr_luni" class="mb-0 ps-3">PSI Instructaj la</label>
+                <input
+                    type="text"
+                    class="form-control bg-white rounded-3 {{ $errors->has('psi_instructaj_la_nr_luni') ? 'is-invalid' : '' }}"
+                    name="psi_instructaj_la_nr_luni"
+                    placeholder=""
+                    value="{{ old('psi_instructaj_la_nr_luni', $salariat->psi_instructaj_la_nr_luni) }}">
+                <small class="ps-3">*nr. de luni</small>
             </div>
             <div class="col-lg-3 mb-5 ps-5 d-flex align-items-center">
                 <div class="form-check">
@@ -202,6 +223,16 @@
                         {{ (old('locatie_fisa_su', $salariat->locatie_fisa_su) == '0') ? 'selected' : '' }}
                     >la ei</option>
                 </select>
+            </div>
+            <div class="col-lg-3 mb-5 ps-5 d-flex align-items-center">
+                <div class="form-check">
+                    <input class="form-check-input" type="hidden" name="suspendat" value="0" />
+                    <input class="form-check-input" type="checkbox" value="1" name="suspendat" id="suspendat"
+                        {{ (old('suspendat', $salariat->suspendat) == '1') ? 'checked' : '' }}>
+                    <label class="form-check-label" for="suspendat">
+                        Suspendat
+                    </label>
+                </div>
             </div>
         </div>
         @endif
