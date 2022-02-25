@@ -166,6 +166,42 @@
                     name="observatii" rows="2">{{ old('observatii', $firma->observatii) }}</textarea>
             </div>
         </div>
+        @if($serviciu == "ssm")
+            <div class="row mb-0">
+                <div class="col-lg-3 mb-5 mx-auto">
+                    <label for="contract_firma" class="mb-0 ps-3">Contract firma</label>
+                    <input
+                        type="text"
+                        class="form-control bg-white rounded-3 {{ $errors->has('contract_firma') ? 'is-invalid' : '' }}"
+                        name="contract_firma"
+                        placeholder=""
+                        value="{{ old('contract_firma', $firma->contract_firma) }}">
+                </div>
+                <div class="col-lg-3 mb-5 mx-auto">
+                    <label for="contract_numar" class="mb-0 ps-3">Contract număr</label>
+                    <input
+                        type="text"
+                        class="form-control bg-white rounded-3 {{ $errors->has('contract_numar') ? 'is-invalid' : '' }}"
+                        name="contract_numar"
+                        placeholder=""
+                        value="{{ old('contract_numar', $firma->contract_numar) }}">
+                </div>
+                <div class="col-lg-3 mb-5 mx-auto">
+                    <label for="contract_valoare" class="mb-0 ps-3">Contract valoare</label>
+                    <input
+                        type="text"
+                        class="form-control bg-white rounded-3 {{ $errors->has('contract_valoare') ? 'is-invalid' : '' }}"
+                        name="contract_valoare"
+                        placeholder=""
+                        value="{{ old('contract_valoare', $firma->contract_valoare) }}">
+                </div>
+                <div class="col-lg-3 mb-5 mx-auto">
+                    <label for="documentatie" class="form-label mb-0 ps-3">Documentație</label>
+                    <textarea class="form-control bg-white {{ $errors->has('documentatie') ? 'is-invalid' : '' }}"
+                        name="documentatie" rows="2">{{ old('documentatie', $firma->documentatie) }}</textarea>
+                </div>
+            </div>
+        @endif
 
         <div class="row">
             <div class="col-lg-12 mb-2 d-flex justify-content-center">

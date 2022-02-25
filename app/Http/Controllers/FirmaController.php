@@ -87,7 +87,21 @@ class FirmaController extends Controller
     public function create(Request $request, $serviciu = null)
     {
         $domenii_de_activitate = FirmaDomeniuDeActivitate::orderBy('nume')->get();
-        $trasee = FirmaTraseu::orderBy('nume')->get();
+        $trasee = FirmaTraseu::
+            where (function($query) use ($serviciu) {
+                switch ($serviciu) {
+                    case 'ssm':
+                        $query->where('serviciu', 1);
+                        break;
+                    case 'stingatoare':
+                        $query->where('serviciu', 2);
+                        break;
+                    default:
+                        # code...
+                        break;
+                }
+            })
+            ->orderBy('nume')->get();
 
         $request->session()->get('firma_return_url') ?? $request->session()->put('firma_return_url', url()->previous());
 
@@ -131,7 +145,21 @@ class FirmaController extends Controller
     public function edit(Request $request, $serviciu = null, Firma $firma)
     {
         $domenii_de_activitate = FirmaDomeniuDeActivitate::orderBy('nume')->get();
-        $trasee = FirmaTraseu::orderBy('nume')->get();
+        $trasee = FirmaTraseu::
+            where (function($query) use ($serviciu) {
+                switch ($serviciu) {
+                    case 'ssm':
+                        $query->where('serviciu', 1);
+                        break;
+                    case 'stingatoare':
+                        $query->where('serviciu', 2);
+                        break;
+                    default:
+                        # code...
+                        break;
+                }
+            })
+            ->orderBy('nume')->get();
 
         $request->session()->get('firma_return_url') ?? $request->session()->put('firma_return_url', url()->previous());
 
@@ -210,6 +238,10 @@ class FirmaController extends Controller
                 'angajat_desemnat' => 'nullable|max:500',
                 'iscir' => 'nullable',
                 'iscir_descriere' => 'nullable|max:2000',
+                'contract_firma' => 'nullable|max:500',
+                'contract_numar' => 'nullable|max:500',
+                'contract_valoare' => 'nullable|max:500',
+                'documentatie' => 'nullable|max:2000',
                 'observatii' => 'nullable|max:2000',
                 'user_id' => 'nullable',
                 'actionar' => 'nullable',

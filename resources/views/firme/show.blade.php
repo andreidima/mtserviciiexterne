@@ -160,6 +160,40 @@
                                     {{ $firma->observatii }}
                                 </td>
                             </tr>
+                            @if($serviciu == "ssm")
+                            <tr>
+                                <td class="pe-4">
+                                    Contract firma
+                                </td>
+                                <td>
+                                    {{ $firma->contract_firma }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="pe-4">
+                                    Contract număr
+                                </td>
+                                <td>
+                                    {{ $firma->contract_numar }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="pe-4">
+                                    Contract valoare
+                                </td>
+                                <td>
+                                    {{ $firma->contract_valoare }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="pe-4">
+                                    Documentație
+                                </td>
+                                <td>
+                                    {{ $firma->documentatie }}
+                                </td>
+                            </tr>
+                            @endif
                         </table>
                     </div>
 
