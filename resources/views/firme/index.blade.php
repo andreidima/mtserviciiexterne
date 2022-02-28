@@ -71,8 +71,8 @@
                     <thead class="text-white rounded" style="background-color:#e66800;">
                         <tr class="" style="padding:2rem">
                             <th>#</th>
-                            <th>Firma</th>
-                            <th>Telefon</th>
+                            <th>Firma / Telefon</th>
+                            {{-- <th>Telefon</th> --}}
                             {{-- <th>Angajat desemnat</th> --}}
                             {{-- <th>Localitate</th> --}}
                             <th class="text-center">
@@ -89,7 +89,7 @@
                                     @default
                                 @endswitch
                             </th>
-                            <th class="text-end">Acțiuni Firmă</th>
+                            {{-- <th class="text-end">Acțiuni Firmă</th> --}}
                         </tr>
                     </thead>
                     <tbody>
@@ -99,11 +99,37 @@
                                     {{ ($firme ->currentpage()-1) * $firme ->perpage() + $loop->index + 1 }}
                                 </td>
                                 <td>
-                                    <b>{{ $firma->nume ?? '' }}</b>
+                                    <b>
+                                        {{ $firma->nume ?? '' }}
+                                        {{ $firma->telefon ? ('/ ' . $firma->telefon) : '' }}
+                                    </b>
+
+                                    <div class="d-flex justify-content-start">
+                                        <a href="{{ $firma->path() }}"
+                                            class="flex me-1"
+                                        >
+                                            <span class="badge bg-success">Vizualizează</span>
+                                        </a>
+                                        <a href="/{{ $serviciu}}/{{ $firma->path() }}/modifica"
+                                            class="flex me-1"
+                                        >
+                                            <span class="badge bg-primary">Modifică</span>
+                                        </a>
+                                        <div style="flex" class="">
+                                            <a
+                                                href="#"
+                                                data-bs-toggle="modal"
+                                                data-bs-target="#stergeFirma{{ $firma->id }}"
+                                                title="Șterge Firma"
+                                                >
+                                                <span class="badge bg-danger">Șterge</span>
+                                            </a>
+                                        </div>
+                                    </div>
                                 </td>
-                                <td>
+                                {{-- <td>
                                     <b>{{ $firma->telefon ?? '' }}</b>
-                                </td>
+                                </td> --}}
                                 {{-- <td>
                                     <b>{{ $firma->angajat_desemnat ?? '' }}</b>
                                 </td> --}}
@@ -133,25 +159,43 @@
                                                     @endphp
                                                     @forelse ($salariati as $salariat)
                                                         <tr style="background-color:wheat">
-                                                            {{-- <td class="text-start w-25">
-                                                                {{ $salariat->medicina_muncii_nr_inregistrare }}
-                                                            </td> --}}
                                                             <td class="text-start" style="width: 45%">
-                                                                {{ $salariat->medicina_muncii_nr_inregistrare }} | {{ $salariat->nume }}
+                                                                {{ $salariat->nume }}
+                                                                @if (isset($salariat->ssm_instructaj_la_nr_luni) && ($salariat->ssm_instructaj_la_nr_luni < 12))
+                                                                    <span class="text-danger">
+                                                                        {{ $salariat->ssm_instructaj_la_nr_luni }} LUNI
+                                                                    </span>
+                                                                @endif
                                                             </td>
-                                                            {{-- <td class="text-center w-25">
-                                                                {{ $salariat->medicina_muncii_examinare ?
-                                                                    \Carbon\Carbon::parse($salariat->medicina_muncii_examinare)->isoFormat('DD.MM.YYYY') : '' }}
-                                                            </td> --}}
                                                             <td class="text-center" style="width: 37%">
-                                                                {{ $salariat->medicina_muncii_examinare ?
-                                                                    \Carbon\Carbon::parse($salariat->medicina_muncii_examinare)->isoFormat('DD.MM.YYYY') : '' }}
-                                                                |
-                                                                {{ $salariat->medicina_muncii_expirare ?
-                                                                    \Carbon\Carbon::parse($salariat->medicina_muncii_expirare)->isoFormat('DD.MM.YYYY') : '' }}
+                                                                {{ $salariat->ssm_data_instructaj ? \Carbon\Carbon::parse($salariat->ssm_data_instructaj)->isoFormat('MM') : '' }}
+                                                                {{ $salariat->psi_data_instructaj ? ('/ ' . \Carbon\Carbon::parse($salariat->ssm_data_instructaj)->isoFormat('MM')) : '' }}
+                                                            </td>
+                                                            <td class="text-center " style="width: 37%">
+                                                                @switch($salariat->anexa_ssm)
+                                                                    @case(1)
+                                                                        <span class="text-danger">de s</span>
+                                                                        @break
+                                                                    @case(2)
+                                                                        sem
+                                                                        @break
+                                                                    @default
+                                                                        -
+                                                                @endswitch
+                                                                @switch($salariat->lista_eip)
+                                                                    @case(1)
+                                                                        / <span class="text-danger">de s</span>
+                                                                        @break
+                                                                    @case(2)
+                                                                        / sem
+                                                                        @break
+                                                                    @default
+                                                                        / -
+                                                                @endswitch
                                                             </td>
                                                             <td class="" style="width: 18%">
                                                                 <div class="d-flex justify-content-end">
+                                                                    <i class="fas fa-eye" data-bs-toggle="tooltip" data-bs-placement="top" title="CNP: {{ $salariat->cnp }}"></i>
                                                                     <a href="/{{ $serviciu }}/firme/{{ $firma->id }}/salariati/{{ $salariat->id }}/modifica" class="flex me-1">
                                                                         <span class="badge bg-primary">Modifică</span>
                                                                     </a>
@@ -335,7 +379,7 @@
                                         @default
                                     @endswitch
                                 </td>
-                                <td>
+                                {{-- <td>
                                     <div class="d-flex justify-content-end">
                                         <a href="{{ $firma->path() }}"
                                             class="flex me-1"
@@ -358,7 +402,7 @@
                                             </a>
                                         </div>
                                     </div>
-                                </td>
+                                </td> --}}
                             </tr>
                         @empty
                             {{-- <div>Nu s-au gasit rezervări în baza de date. Încearcă alte date de căutare</div> --}}

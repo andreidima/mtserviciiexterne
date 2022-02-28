@@ -131,7 +131,7 @@
         @elseif($serviciu == "ssm")
         <div class="row mb-0">
             <div class="col-lg-2 mb-5">
-                <label for="ssm_data_instructaj" class="mb-0 ps-xxl-3">SSM Dată Instructaj</label>
+                <label for="ssm_data_instructaj" class="mb-0 ps-3">SSM</label>
                 <vue2-datepicker
                     data-veche="{{ old('ssm_data_instructaj', ($salariat->ssm_data_instructaj ?? '')) }}"
                     nume-camp-db="ssm_data_instructaj"
@@ -140,9 +140,10 @@
                     format="DD-MM-YYYY"
                     :latime="{ width: '125px' }"
                 ></vue2-datepicker>
+                <small class="ps-3">*dată instructaj</small>
             </div>
             <div class="col-lg-2 mb-5">
-                <label for="ssm_instructaj_la_nr_luni" class="mb-0 ps-3">SSM Instructaj la</label>
+                <label for="ssm_instructaj_la_nr_luni" class="mb-0 ps-2">SSM <small>Instructaj la</small></label>
                 <input
                     type="text"
                     class="form-control bg-white rounded-3 {{ $errors->has('ssm_instructaj_la_nr_luni') ? 'is-invalid' : '' }}"
@@ -152,7 +153,7 @@
                 <small class="ps-3">*nr. de luni</small>
             </div>
             <div class="col-lg-2 mb-5">
-                <label for="psi_data_instructaj" class="mb-0 ps-xxl-3">PSI Dată Instructaj</label>
+                <label for="psi_data_instructaj" class="mb-0 ps-3">PSI</label>
                 <vue2-datepicker
                     data-veche="{{ old('psi_data_instructaj', ($salariat->psi_data_instructaj ?? '')) }}"
                     nume-camp-db="psi_data_instructaj"
@@ -161,9 +162,10 @@
                     format="DD-MM-YYYY"
                     :latime="{ width: '125px' }"
                 ></vue2-datepicker>
+                <small class="ps-3">*dată instructaj</small>
             </div>
             <div class="col-lg-2 mb-5">
-                <label for="psi_instructaj_la_nr_luni" class="mb-0 ps-3">PSI Instructaj la</label>
+                <label for="psi_instructaj_la_nr_luni" class="mb-0 ps-2">PSI Instructaj la</label>
                 <input
                     type="text"
                     class="form-control bg-white rounded-3 {{ $errors->has('psi_instructaj_la_nr_luni') ? 'is-invalid' : '' }}"
@@ -172,25 +174,37 @@
                     value="{{ old('psi_instructaj_la_nr_luni', $salariat->psi_instructaj_la_nr_luni) }}">
                 <small class="ps-3">*nr. de luni</small>
             </div>
-            <div class="col-lg-3 mb-5 ps-5 d-flex align-items-center">
-                <div class="form-check">
-                    <input class="form-check-input" type="hidden" name="anexa_ssm" value="0" />
-                    <input class="form-check-input" type="checkbox" value="1" name="anexa_ssm" id="anexa_ssm"
-                        {{ old('anexa_ssm', $salariat->anexa_ssm) == '1' ? 'checked' : '' }}>
-                    <label class="form-check-label" for="anexa_ssm">
-                        Anexa SSM
-                    </label>
-                </div>
+            <div class="col-lg-3 mb-5">
+                <label for="anexa_ssm" class="mb-0 ps-3">Anexă SSM</label>
+                <select name="anexa_ssm"
+                    class="form-select bg-white rounded-3 {{ $errors->has('anexa_ssm') ? 'is-invalid' : '' }}"
+                >
+                    <option value='' selected>Selectează</option>
+                    <option
+                        value='1'
+                        {{ (old('anexa_ssm', $salariat->anexa_ssm) == '1') ? 'selected' : '' }}
+                    >Are Anexă</option>
+                    <option
+                        value='2'
+                        {{ (old('anexa_ssm', $salariat->anexa_ssm) == '2') ? 'selected' : '' }}
+                    >Are Anexă și este semnată</option>
+                </select>
             </div>
-            <div class="col-lg-3 mb-5 ps-5 d-flex align-items-center">
-                <div class="form-check">
-                    <input class="form-check-input" type="hidden" name="lista_eip" value="0" />
-                    <input class="form-check-input" type="checkbox" value="1" name="lista_eip" id="lista_eip"
-                        {{ old('lista_eip', $salariat->lista_eip) == '1' ? 'checked' : '' }}>
-                    <label class="form-check-label" for="lista_eip">
-                        Lista EIP
-                    </label>
-                </div>
+            <div class="col-lg-3 mb-5">
+                <label for="lista_eip" class="mb-0 ps-3">Listă EIP</label>
+                <select name="lista_eip"
+                    class="form-select bg-white rounded-3 {{ $errors->has('lista_eip') ? 'is-invalid' : '' }}"
+                >
+                    <option value='' selected>Selectează</option>
+                    <option
+                        value='1'
+                        {{ (old('lista_eip', $salariat->lista_eip) == '1') ? 'selected' : '' }}
+                    >Are Anexă</option>
+                    <option
+                        value='2'
+                        {{ (old('lista_eip', $salariat->lista_eip) == '2') ? 'selected' : '' }}
+                    >Are Anexă și este semnată</option>
+                </select>
             </div>
             <div class="col-lg-3 mb-5">
                 <label for="locatie_fisa_ssm" class="mb-0 ps-3">Locație fișă SSM:</label>
@@ -201,11 +215,19 @@
                     <option
                         value='1'
                         {{ (old('locatie_fisa_ssm', $salariat->locatie_fisa_ssm) == '1') ? 'selected' : '' }}
-                    >la noi</option>
+                    >La noi semnată</option>
                     <option
-                        value='0'
-                        {{ (old('locatie_fisa_ssm', $salariat->locatie_fisa_ssm) == '0') ? 'selected' : '' }}
-                    >la ei</option>
+                        value='2'
+                        {{ (old('locatie_fisa_ssm', $salariat->locatie_fisa_ssm) == '2') ? 'selected' : '' }}
+                    >La noi de semnat</option>
+                    <option
+                        value='3'
+                        {{ (old('locatie_fisa_ssm', $salariat->locatie_fisa_ssm) == '3') ? 'selected' : '' }}
+                    >La client de semnat</option>
+                    <option
+                        value='4'
+                        {{ (old('locatie_fisa_ssm', $salariat->locatie_fisa_ssm) == '4') ? 'selected' : '' }}
+                    >CCC</option>
                 </select>
             </div>
             <div class="col-lg-3 mb-5">

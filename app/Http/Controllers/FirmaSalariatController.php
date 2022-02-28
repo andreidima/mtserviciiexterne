@@ -188,16 +188,16 @@ class FirmaSalariatController extends Controller
     {
         return $request->validate(
             [
-                'firma_id' => 'nullable|numeric|integer',
+                'firma_id' => 'nullable|integer',
                 'nume' => 'required|max:500',
-                'cnp' => 'nullable|numeric|integer|digits:13',
+                'cnp' => 'nullable|integer|digits_between:1,13',
                 'functie' => 'nullable|max:500',
                 'data_angajare' => 'nullable|date',
                 'data_incetare' => 'nullable|date',
                 'ssm_data_instructaj' => 'nullable|max:500',
-                'ssm_instructaj_la_nr_luni' => 'nullable|numeric|integer|between:1,12',
+                'ssm_instructaj_la_nr_luni' => 'nullable|integer|between:1,12',
                 'psi_data_instructaj' => 'nullable|max:500',
-                'psi_instructaj_la_nr_luni' => 'nullable|numeric|integer|between:1,12',
+                'psi_instructaj_la_nr_luni' => 'nullable|integer|between:1,12',
                 'anexa_ssm' => 'nullable',
                 'lista_eip' => 'nullable',
                 'medicina_muncii_nr_inregistrare' => 'nullable|integer|max:99999999',
