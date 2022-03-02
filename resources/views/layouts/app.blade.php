@@ -166,7 +166,7 @@
                                     Administrare
                                 </a>
                             </li>
-                            <li class="nav-item me-3">
+                            {{-- <li class="nav-item me-3">
                                 <a class="nav-link active" href="/rapoarte/ssm">
                                     <i class="fas fa-file-alt me-1"></i>
                                     Raport
@@ -177,7 +177,7 @@
                                     <i class="fas fa-route"></i>
                                     Trasee
                                 </a>
-                            </li>
+                            </li> --}}
                         @elseif (auth()->user()->name === "Medicina Muncii")
                             <li class="nav-item me-3">
                                 <a class="nav-link active" href="/medicina-muncii/firme">
