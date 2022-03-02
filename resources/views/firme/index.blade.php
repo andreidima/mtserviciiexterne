@@ -66,45 +66,38 @@
 
             @include ('errors')
 
+        @switch($serviciu)
+            @case('ssm')
             <div class="table-responsive rounded">
-                <table class="table table-striped table-hover rounded">
+                <table class="table table-hover table-borderless rounded-3">
                     <thead class="text-white rounded" style="background-color:#e66800;">
                         <tr class="" style="padding:2rem">
                             <th>#</th>
                             <th>Firma / Telefon</th>
-                            {{-- <th>Telefon</th> --}}
-                            {{-- <th>Angajat desemnat</th> --}}
-                            {{-- <th>Localitate</th> --}}
-                            <th class="text-center">
-                                @switch($serviciu)
-                                    @case('ssm')
-                                        Salariați
-                                        @break
-                                    @case('medicina-muncii')
-                                        Nr. inregistrare | Nume | Data examinare | Următoarea examinare
-                                        @break
-                                    @case('stingatoare')
-                                        Stingătoare / Hidranți
-                                        @break
-                                    @default
-                                @endswitch
-                            </th>
-                            {{-- <th class="text-end">Acțiuni Firmă</th> --}}
+                            <th>Telefon</th>
+                            <th>Traseu</th>
+                            <th class="text-end">Acțiuni Firmă</th>
                         </tr>
                     </thead>
                     <tbody>
                         @forelse ($firme as $firma)
-                            <tr>
+                            <tr style="background-color:rgb(202, 202, 202); color:rgb(0, 0, 0)">
                                 <td align="">
                                     {{ ($firme ->currentpage()-1) * $firme ->perpage() + $loop->index + 1 }}
                                 </td>
                                 <td>
                                     <b>
                                         {{ $firma->nume ?? '' }}
-                                        {{ $firma->telefon ? ('/ ' . $firma->telefon) : '' }}
                                     </b>
-
-                                    <div class="d-flex justify-content-start">
+                                </td>
+                                <td>
+                                    {{ $firma->telefon ?? '' }}
+                                </td>
+                                <td>
+                                    {{ $firma->traseu->nume ?? '' }}
+                                </td>
+                                <td class="">
+                                    <div class="d-flex justify-content-end">
                                         <a href="{{ $firma->path() }}"
                                             class="flex me-1"
                                         >
@@ -127,20 +120,24 @@
                                         </div>
                                     </div>
                                 </td>
-                                {{-- <td>
-                                    <b>{{ $firma->telefon ?? '' }}</b>
-                                </td> --}}
-                                {{-- <td>
-                                    <b>{{ $firma->angajat_desemnat ?? '' }}</b>
-                                </td> --}}
-                                {{-- <td>
-                                    <b>{{ $firma->localitate ?? '' }}</b>
-                                </td> --}}
-                                <td class="text-center">
+                            </tr>
+                            <tr>
+                                <td colspan="5" class="text-center">
                                     @switch($serviciu)
                                         @case('ssm')
-                                            <div class="table-responsive rounded">
+                                            <div class="table-responsive rounded text-center mx-auto" style="max-width:100%">
                                                 <table class="table table-sm table-hover rounded border border-1">
+                                                    {{-- <thead class="text-black rounded" style="background-color:#cecece;"> --}}
+                                                        <tr class="" style="padding:2rem">
+                                                            <th style="width: 1%; border:#000000 1px solid">#</th>
+                                                            <th style="width: 20%; border:#000000 1px solid">Salariat</th>
+                                                            <th style="width: 5%; border:#000000 1px solid">SSM/PSI</th>
+                                                            <th style="width: 7%; border:#000000 1px solid">Anexa/EIP</th>
+                                                            <th style="width: 12%; border:#000000 1px solid">CNP</th>
+                                                            <th style="width: 15%; border:#000000 1px solid">Funcție</th>
+                                                            <th class="text-end" style="width: 8%; border:#000000 1px solid">Acțiuni</th>
+                                                        </tr>
+                                                    {{-- </thead> --}}
                                                     @php
                                                             $salariati = $firma->salariati;
 
@@ -155,11 +152,15 @@
                                                                     return stripos($item['cnp'],$search_salariat_cnp) !== false;
                                                                 });
                                                             });
-
                                                     @endphp
+                                                    <tbody>
                                                     @forelse ($salariati as $salariat)
-                                                        <tr style="background-color:wheat">
-                                                            <td class="text-start" style="width: 45%">
+                                                        {{-- <tr style="background-color:wheat"> --}}
+                                                        <tr>
+                                                            <td class="text-start" style="width: 1%; border:#000000 1px solid">
+                                                                {{ $loop->iteration }}
+                                                            </td>
+                                                            <td class="text-start" style="width: 20%; border:#000000 1px solid">
                                                                 {{ $salariat->nume }}
                                                                 @if (isset($salariat->ssm_instructaj_la_nr_luni) && ($salariat->ssm_instructaj_la_nr_luni < 12))
                                                                     <span class="text-danger">
@@ -167,11 +168,11 @@
                                                                     </span>
                                                                 @endif
                                                             </td>
-                                                            <td class="text-center" style="width: 37%">
+                                                            <td class="text-center" style="width: 5%; border:#000000 1px solid">
                                                                 {{ $salariat->ssm_data_instructaj ? \Carbon\Carbon::parse($salariat->ssm_data_instructaj)->isoFormat('MM') : '' }}
                                                                 {{ $salariat->psi_data_instructaj ? ('/ ' . \Carbon\Carbon::parse($salariat->ssm_data_instructaj)->isoFormat('MM')) : '' }}
                                                             </td>
-                                                            <td class="text-center " style="width: 37%">
+                                                            <td class="text-center " style="width: 7%; border:#000000 1px solid">
                                                                 @switch($salariat->anexa_ssm)
                                                                     @case(1)
                                                                         <span class="text-danger">de s</span>
@@ -193,9 +194,15 @@
                                                                         / -
                                                                 @endswitch
                                                             </td>
-                                                            <td class="" style="width: 18%">
+                                                            <td class="text-start" style="width: 12%;  border:#000000 1px solid">
+                                                                {{ $salariat->cnp }}
+                                                            </td>
+                                                            <td class="text-start" style="width: 15%;  border:#000000 1px solid">
+                                                                {{ $salariat->functie }}
+                                                            </td>
+                                                            <td class="" style="width: 8%;  border:#000000 1px solid">
                                                                 <div class="d-flex justify-content-end">
-                                                                    <i class="fas fa-eye" data-bs-toggle="tooltip" data-bs-placement="top" title="CNP: {{ $salariat->cnp }}"></i>
+                                                                    {{-- <i class="fas fa-eye" data-bs-toggle="tooltip" data-bs-placement="top" title="CNP: {{ $salariat->cnp }}"></i> --}}
                                                                     <a href="/{{ $serviciu }}/firme/{{ $firma->id }}/salariati/{{ $salariat->id }}/modifica" class="flex me-1">
                                                                         <span class="badge bg-primary">Modifică</span>
                                                                     </a>
@@ -215,12 +222,13 @@
                                                     @empty
                                                     @endforelse
                                                         <tr>
-                                                            <td colspan="3">
+                                                            <td colspan="7">
                                                                 <a href="/{{ $serviciu}}/{{ $firma->path() }}/salariati/adauga" class="flex me-1">
                                                                     <span class="badge bg-success">Adaugă salariat nou</span>
                                                                 </a>
                                                             </td>
                                                         </tr>
+                                                    </tbody>
                                                 </table>
                                             </div>
                                             @break
@@ -378,6 +386,7 @@
                                             @break
                                         @default
                                     @endswitch
+                                    <br>
                                 </td>
                                 {{-- <td>
                                     <div class="d-flex justify-content-end">
@@ -404,12 +413,281 @@
                                     </div>
                                 </td> --}}
                             </tr>
+                            {{-- <tr></tr> --}}
                         @empty
                             {{-- <div>Nu s-au gasit rezervări în baza de date. Încearcă alte date de căutare</div> --}}
                         @endforelse
                         </tbody>
                 </table>
             </div>
+            @break
+        @case('medicina-muncii')
+            <div class="table-responsive rounded">
+                <table class="table table-striped table-hover rounded">
+                    <thead class="text-white rounded" style="background-color:#e66800;">
+                        <tr class="" style="padding:2rem">
+                            <th>#</th>
+                            <th>Firma</th>
+                            <th>Telefon</th>
+                            <th class="text-center">Nr. inregistrare | Nume | Data examinare | Următoarea examinare</th>
+                            <th class="text-end">Acțiuni Firmă</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @forelse ($firme as $firma)
+                            <tr>
+                                <td align="">
+                                    {{ ($firme ->currentpage()-1) * $firme ->perpage() + $loop->index + 1 }}
+                                </td>
+                                <td>
+                                    <b>{{ $firma->nume ?? '' }}</b>
+                                </td>
+                                <td>
+                                    <b>{{ $firma->telefon ?? '' }}</b>
+                                </td>
+                                <td class="text-center">
+                                    <div class="table-responsive rounded">
+                                        <table class="table table-sm table-hover rounded border border-1">
+                                            @php
+                                                    $salariati = $firma->salariati;
+
+                                                    $salariati = $salariati->when($search_salariat_nume, function ($salariati) use ($search_salariat_nume) {
+                                                        return $salariati->filter(function($item) use ($search_salariat_nume) {
+                                                            return stripos($item['nume'],$search_salariat_nume) !== false;
+                                                        });
+                                                    });
+
+                                                    $salariati = $salariati->when($search_salariat_cnp, function ($salariati) use ($search_salariat_cnp) {
+                                                        return $salariati->filter(function($item) use ($search_salariat_cnp) {
+                                                            return stripos($item['cnp'],$search_salariat_cnp) !== false;
+                                                        });
+                                                    });
+
+                                            @endphp
+                                            @forelse ($salariati->where('activ', 1)->sortBy('medicina_muncii_nr_inregistrare') as $salariat)
+                                                <tr style="background-color:wheat">
+                                                    {{-- <td class="text-start w-25">
+                                                        {{ $salariat->medicina_muncii_nr_inregistrare }}
+                                                    </td> --}}
+                                                    <td class="text-start" style="width: 45%">
+                                                        {{ $salariat->medicina_muncii_nr_inregistrare }} | {{ $salariat->nume }}
+                                                    </td>
+                                                    {{-- <td class="text-center w-25">
+                                                        {{ $salariat->medicina_muncii_examinare ?
+                                                            \Carbon\Carbon::parse($salariat->medicina_muncii_examinare)->isoFormat('DD.MM.YYYY') : '' }}
+                                                    </td> --}}
+                                                    <td class="text-center" style="width: 37%">
+                                                        {{ $salariat->medicina_muncii_examinare ?
+                                                            \Carbon\Carbon::parse($salariat->medicina_muncii_examinare)->isoFormat('DD.MM.YYYY') : '' }}
+                                                        |
+                                                        {{ $salariat->medicina_muncii_expirare ?
+                                                            \Carbon\Carbon::parse($salariat->medicina_muncii_expirare)->isoFormat('DD.MM.YYYY') : '' }}
+                                                    </td>
+                                                    <td class="" style="width: 18%">
+                                                        <div class="d-flex justify-content-end">
+                                                            <a href="/{{ $serviciu }}/firme/{{ $firma->id }}/salariati/{{ $salariat->id }}/modifica" class="flex me-1">
+                                                                <span class="badge bg-primary">Modifică</span>
+                                                            </a>
+                                                            <div style="" class="">
+                                                                <a
+                                                                    href="#"
+                                                                    data-bs-toggle="modal"
+                                                                    data-bs-target="#stergeSalariat{{ $salariat->id }}"
+                                                                    title="Șterge Salariat"
+                                                                    >
+                                                                    <span class="badge bg-danger">Șterge</span>
+                                                                </a>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            @empty
+                                            @endforelse
+                                                <tr>
+                                                    <td colspan="3">
+                                                        <a href="/{{ $serviciu}}/{{ $firma->path() }}/salariati/adauga" class="flex me-1">
+                                                            <span class="badge bg-success">Adaugă salariat nou</span>
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                            @forelse ($salariati->where('activ', 0)->sortBy('medicina_muncii_nr_inregistrare') as $salariat)
+                                                @if ($loop->iteration === 1)
+                                                    <tr style="background-color:rgb(211, 191, 153)">
+                                                        <td colspan="4">
+                                                            INACTIVI
+                                                        </td>
+                                                    </tr>
+                                                @endif
+                                                <tr style="background-color:rgb(211, 191, 153)">
+                                                    <td class="text-start" style="width: 45%">
+                                                        {{ $salariat->medicina_muncii_nr_inregistrare }} | {{ $salariat->nume }}
+                                                    </td>
+                                                    {{-- <td class="text-center w-25">
+                                                        {{ $salariat->medicina_muncii_examinare ?
+                                                            \Carbon\Carbon::parse($salariat->medicina_muncii_examinare)->isoFormat('DD.MM.YYYY') : '' }}
+                                                    </td> --}}
+                                                    <td class="text-center" style="width: 37%">
+                                                        {{ $salariat->medicina_muncii_examinare ?
+                                                            \Carbon\Carbon::parse($salariat->medicina_muncii_examinare)->isoFormat('DD.MM.YYYY') : '' }}
+                                                        |
+                                                        {{ $salariat->medicina_muncii_expirare ?
+                                                            \Carbon\Carbon::parse($salariat->medicina_muncii_expirare)->isoFormat('DD.MM.YYYY') : '' }}
+                                                    </td>
+                                                    <td class="" style="width: 18%">
+                                                        <div class="d-flex justify-content-end">
+                                                            <a href="/{{ $serviciu }}/firme/{{ $firma->id }}/salariati/{{ $salariat->id }}/modifica" class="flex me-1">
+                                                                <span class="badge bg-primary">Modifică</span>
+                                                            </a>
+                                                            <div style="flex" class="">
+                                                                <a
+                                                                    href="#"
+                                                                    data-bs-toggle="modal"
+                                                                    data-bs-target="#stergeSalariat{{ $salariat->id }}"
+                                                                    title="Șterge Salariat"
+                                                                    >
+                                                                    <span class="badge bg-danger">Șterge</span>
+                                                                </a>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            @empty
+                                            @endforelse
+                                        </table>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="d-flex justify-content-end">
+                                        <a href="{{ $firma->path() }}"
+                                            class="flex me-1"
+                                        >
+                                            <span class="badge bg-success">Vizualizează</span>
+                                        </a>
+                                        <a href="/{{ $serviciu}}/{{ $firma->path() }}/modifica"
+                                            class="flex me-1"
+                                        >
+                                            <span class="badge bg-primary">Modifică</span>
+                                        </a>
+                                        <div style="flex" class="">
+                                            <a
+                                                href="#"
+                                                data-bs-toggle="modal"
+                                                data-bs-target="#stergeFirma{{ $firma->id }}"
+                                                title="Șterge Firma"
+                                                >
+                                                <span class="badge bg-danger">Șterge</span>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        @empty
+                            {{-- <div>Nu s-au gasit rezervări în baza de date. Încearcă alte date de căutare</div> --}}
+                        @endforelse
+                        </tbody>
+                </table>
+            </div>
+            @break
+        @case('stingatoare')
+            <div class="table-responsive rounded">
+                <table class="table table-striped table-hover table-borderless rounded-3">
+                    <thead class="text-white rounded" style="background-color:#e66800;">
+                        <tr class="" style="padding:2rem">
+                            <th>#</th>
+                            <th>Firma / Telefon</th>
+                            <th class="text-center">Stingătoare/ Hidranți</th>
+                            <th class="text-end">Acțiuni Firmă</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @forelse ($firme as $firma)
+                            <tr style="">
+                                <td align="">
+                                    {{ ($firme ->currentpage()-1) * $firme ->perpage() + $loop->index + 1 }}
+                                </td>
+                                <td>
+                                    <b>
+                                        {{ $firma->nume ?? '' }}
+                                        {{ $firma->telefon ? ('/ ' . $firma->telefon) : '' }}
+                                    </b>
+                                </td>
+                                <td class="text-center">
+                                    {{-- <div class="table-responsive rounded text-center mx-auto" style="max-width:90%">
+                                        <table class="table table-sm table-hover rounded border border-1"> --}}
+                                            <div class="px-2" style="background-color:wheat">
+                                                @if (!$firma->stingator)
+                                                    <a href="/{{ $serviciu}}/{{ $firma->path() }}/stingatoare/adauga" class="flex me-1">
+                                                        <span class="badge bg-success">Adaugă</span>
+                                                    </a>
+                                                @else
+                                                    <div class="d-flex justify-content-between">
+                                                        <div>
+                                                            Sting
+                                                            <span class="badge bg-success">
+                                                                {{
+                                                                    $firma->stingator->p1 + $firma->stingator->p2 + $firma->stingator->p3 + $firma->stingator->p4 + $firma->stingator->p5 + $firma->stingator->p6 + $firma->stingator->p9 + $firma->stingator->p20 + $firma->stingator->p50 +
+                                                                    $firma->stingator->p100 + $firma->stingator->sm3 + $firma->stingator->sm6 + $firma->stingator->sm9 + $firma->stingator->sm50 + $firma->stingator->sm100 + $firma->stingator->g2 + $firma->stingator->g5;
+                                                                }}
+                                                            </span>
+                                                            /
+                                                            Hidr
+                                                            <span class="badge bg-success">
+                                                                {{ $firma->stingator->hidranti + 0 }}
+                                                            </span>
+                                                        </div>
+                                                        <div class="d-flex">
+                                                            <a href="/{{ $serviciu}}/firme/{{ $firma->id }}/stingatoare/{{ $firma->stingator->id }}/modifica" class="flex me-1">
+                                                                <span class="badge bg-primary">Modifică</span>
+                                                            </a>
+                                                            <div style="flex" class="">
+                                                                <a
+                                                                    href="#"
+                                                                    data-bs-toggle="modal"
+                                                                    data-bs-target="#stergeStingator{{ $firma->stingator->id }}"
+                                                                    title="Șterge Stingator"
+                                                                    >
+                                                                    <span class="badge bg-danger">Șterge</span>
+                                                                </a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                @endif
+                                            </div>
+                                </td>
+                                <td class="">
+                                    <div class="d-flex justify-content-end">
+                                        <a href="{{ $firma->path() }}"
+                                            class="flex me-1"
+                                        >
+                                            <span class="badge bg-success">Vizualizează</span>
+                                        </a>
+                                        <a href="/{{ $serviciu}}/{{ $firma->path() }}/modifica"
+                                            class="flex me-1"
+                                        >
+                                            <span class="badge bg-primary">Modifică</span>
+                                        </a>
+                                        <div style="flex" class="">
+                                            <a
+                                                href="#"
+                                                data-bs-toggle="modal"
+                                                data-bs-target="#stergeFirma{{ $firma->id }}"
+                                                title="Șterge Firma"
+                                                >
+                                                <span class="badge bg-danger">Șterge</span>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        @empty
+                            {{-- <div>Nu s-au gasit rezervări în baza de date. Încearcă alte date de căutare</div> --}}
+                        @endforelse
+                        </tbody>
+                </table>
+            </div>
+            @break
+            @default
+        @endswitch
 
                 <nav>
                     <ul class="pagination justify-content-center">
