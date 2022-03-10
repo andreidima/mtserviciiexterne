@@ -67,12 +67,15 @@
             @include ('errors')
 
         <div class="table-responsive rounded">
-            <table class="table table-hover table-bordered rounded-3">
-                <thead class="text-white rounded" style="background-color:#e66800;">
-                    <tr class="" style="padding:2rem">
+            <table class="table table-striped table-hover table-bordered rounded-3">
+                <thead class="text-white rounded" style="background-color:#e66800; font-size: 5px">
+                    <tr class="" style="padding:2rem; font-size: 5px">
                         <th rowspan="2">#</th>
                         <th rowspan="2">Firma</th>
                         <th rowspan="2">Adresa</th>
+                        <th rowspan="2">Doc</th>
+                        <th rowspan="2"></th>
+                        <th rowspan="2"></th>
                         <th colspan="2" class="text-center">Luna</th>
                         <th colspan="2" class="text-center">Stare fișe</th>
                         <th rowspan="2" class="text-end">Acțiuni Firmă</th>
@@ -104,7 +107,16 @@
                                 </b>
                             </td>
                             <td>
-                                {{ $firma->adresa ?? '' }}
+                                {{ $firma->adresa }}
+                            </td>
+                            <td>
+                                {{ $firma->doc }}
+                            </td>
+                            <td>
+                                {{ $firma->perioada }}
+                            </td>
+                            <td>
+                                {{ $firma->actionar }}
                             </td>
                             <td>
                                 {{ $firma->ssm_luna }}

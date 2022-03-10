@@ -49,13 +49,13 @@
                                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                     <li>
                                         <a class="dropdown-item" href="/ssm/firme">
-                                            Administrare
+                                            Firme
                                         </a>
                                     </li>
                                     <li><hr class="dropdown-divider"></li>
                                     <li>
-                                        <a class="dropdown-item" href="/rapoarte/ssm">
-                                            Raport
+                                        <a class="dropdown-item" href="/ssm/salariati">
+                                            Salariați
                                         </a>
                                     </li>
                                 </ul>
