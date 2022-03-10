@@ -17,6 +17,8 @@ use App\Http\Controllers\MedicinaMunciiController;
 use App\Http\Controllers\ImportInitialFisierExcelController;
 use App\Http\Controllers\ImportInitialStingatoareFisierExcelController;
 use App\Http\Controllers\ImportInitialMedicinaMunciiFisierExcelController;
+
+use App\Http\Controllers\SsmFirmaController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -75,6 +77,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/rapoarte/instructaj', [RaportController::class, 'instructaj']);
 
 
+    Route::resource('/ssm/firme', SsmFirmaController::class,  ['parameters' => ['firme' => 'firma']]);
+
 
     // Reconstructie totala a rutelor - firme separate pentru SSM, Medicina muncii, Stingatoare
     Route::resource('/{serviciu}/firme/trasee', FirmaTraseuController::class,  ['parameters' => ['trasee' => 'traseu']]);
@@ -93,8 +97,11 @@ Route::group(['middleware' => 'auth'], function () {
 
 
     // Import initial SSM
-    // Route::get('/import/import-firme', [ImportInitialFisierExcelController::class, 'importFirme']);
+    // Route::get('/import/verificare-salariati-firme-dupa-cnp', [ImportInitialFisierExcelController::class, 'importFirmeVerificaDupaCNP']);
     // Route::get('/import/import-salariati', [ImportInitialFisierExcelController::class, 'importSalariati']);
+
+
+    // Route::get('/import/import-firme', [ImportInitialFisierExcelController::class, 'importFirme']);
 
     // Import Medicina Muncii
     // Route::get('/import/import-medicina-muncii', [ImportInitialMedicinaMunciiFisierExcelController::class, 'importMedicinaMuncii']);
