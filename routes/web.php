@@ -19,6 +19,7 @@ use App\Http\Controllers\ImportInitialStingatoareFisierExcelController;
 use App\Http\Controllers\ImportInitialMedicinaMunciiFisierExcelController;
 
 use App\Http\Controllers\SsmFirmaController;
+use App\Http\Controllers\SsmSalariatController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -78,6 +79,7 @@ Route::group(['middleware' => 'auth'], function () {
 
 
     Route::resource('/ssm/firme', SsmFirmaController::class,  ['parameters' => ['firme' => 'firma']]);
+    Route::resource('/ssm/salariati', SsmSalariatController::class,  ['parameters' => ['salariati' => 'salariat']]);
 
 
     // Reconstructie totala a rutelor - firme separate pentru SSM, Medicina muncii, Stingatoare

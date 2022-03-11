@@ -3,26 +3,37 @@
 @section('content')
 <div class="container card" style="border-radius: 40px 40px 40px 40px;">
         <div class="row card-header align-items-center" style="border-radius: 40px 40px 0px 0px;">
-            <div class="col-lg-2">
+            {{-- <div class="col-lg-2">
                 <h4 class="mb-0">
                     <a href="/ssm/firme">
                         <i class="fas fa-building me-1"></i>Firme
                     </a>
                 </h4>
-            </div>
-            <div class="col-lg-7" id="app">
+            </div> --}}
+            <div class="col-lg-10" id="app">
                 <form class="needs-validation" novalidate method="GET" action="/ssm/firme">
                     @csrf
                     <div class="row mb-1 input-group custom-search-form justify-content-center">
-                        <div class="col-md-4">
-                            <input type="text" class="form-control form-control-sm rounded-3" id="search_firma" name="search_firma" placeholder="Firma"
+                        <div class="col-md-3">
+                            <input type="text" class="form-control form-control-sm rounded-3" id="search_firma" name="search_firma" placeholder="Firma, CUI, J/Seap,Fact."
                                     value="{{ $search_firma }}">
                         </div>
                         <div class="col-md-2">
-                            <input type="text" class="form-control form-control-sm rounded-3" id="search_cod_fiscal" name="search_cod_fiscal" placeholder="Cod fiscal"
-                                    value="{{ $search_cod_fiscal }}">
+                            <input type="text" class="form-control form-control-sm rounded-3" id="search_adresa" name="search_adresa" placeholder="Adresa, Traseu"
+                                    value="{{ $search_adresa}}">
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-2">
+                            <select class="form-select form-select-sm mb-1" id="search_actionar" name="search_actionar" >
+                                    <option value="" selected>Alege Acționar</option>
+                                @foreach ($lista_actionar as $actionar)
+                                    <option value="{{ $actionar->actionar }}"
+                                        {{ isset($actionar->actionar) ? ($actionar->actionar === $search_actionar ? 'selected' : '') : '' }}
+                                    >
+                                    {{ $actionar->actionar }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="col-md-2">
                             <select class="form-select form-select-sm mb-1" id="search_ssm_luna" name="search_ssm_luna" >
                                     <option value="" selected>Alege Luna SSM</option>
                                 @foreach ($lista_ssm_luna as $ssm_luna)
@@ -33,7 +44,7 @@
                                 @endforeach
                             </select>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-2">
                             <select class="form-select form-select-sm mb-1" id="search_psi_luna" name="search_psi_luna">
                                     <option value="" selected>Alege Luna PSI</option>
                                 @foreach ($lista_psi_luna as $psi_luna)
@@ -43,6 +54,25 @@
                                     {{ $psi_luna->psi_luna }}</option>
                                 @endforeach
                             </select>
+                        </div>
+                        <div class="col-md-3">
+                            <input type="text" class="form-control form-control-sm rounded-3" id="search_administrator" name="search_administrator" placeholder="Administrator, Pers. desem."
+                                    value="{{ $search_administrator}}">
+                        </div>
+                        <div class="col-md-2">
+                            <select class="form-select form-select-sm mb-1" id="search_contract_firma" name="search_contract_firma">
+                                    <option value="" selected>Alege Contract</option>
+                                @foreach ($lista_contract_firma as $contract_firma)
+                                    <option value="{{ $contract_firma->contract_firma }}"
+                                        {{ isset($contract_firma->contract_firma) ?  ($contract_firma->contract_firma === $search_contract_firma ? 'selected' : '') : '' }}
+                                    >
+                                    {{ $contract_firma->contract_firma }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <input type="text" class="form-control form-control-sm rounded-3" id="search_contract_numar" name="search_contract_numar" placeholder="Contract număr"
+                                    value="{{ $search_contract_numar}}">
                         </div>
                     </div>
                     <div class="row input-group custom-search-form justify-content-center">
@@ -55,7 +85,7 @@
                     </div>
                 </form>
             </div>
-            <div class="col-lg-3 text-end">
+            <div class="col-lg-2 text-end">
                 {{-- <a class="btn btn-sm bg-success text-white border border-dark rounded-3 col-md-8" href="/ssm/firme/adauga" role="button"> --}}
                 <a class="btn btn-sm bg-success text-white border border-dark rounded-3 col-md-8" href="#" role="button">
                     <i class="fas fa-plus-square text-white me-1"></i>Adaugă firmă
@@ -72,18 +102,35 @@
                 <thead class="text-white rounded" style="background-color:#e66800; font-size: 5px !important">
 
                     <tr class="" style="padding:2rem; font-size: 5px">
-                        <th rowspan="2" style="font-size: 14px; padding:1px;">#</th>
-                        <th rowspan="2" style="font-size: 14px; padding:1px;">Firma</th>
-                        <th rowspan="2" style="font-size: 14px; padding:1px;">Adresa</th>
-                        <th rowspan="2" style="font-size: 14px; padding:1px;">Doc</th>
-                        <th rowspan="2" style="font-size: 14px; padding:1px;"></th>
-                        <th rowspan="2" style="font-size: 14px; padding:1px;"></th>
+                        <th rowspan="2" class="text-center" style="font-size: 14px; padding:1px;">#</th>
+                        <th rowspan="2" class="text-center" style="font-size: 14px; padding:1px;">
+                            Firma
+                            <br>
+                            CUI; J/Seap,Fact.
+                        </th>
+                        <th rowspan="2" class="text-center" style="font-size: 14px; padding:1px;">
+                            Adresa
+                            <br>
+                            Traseu
+                        </th>
+                        <th rowspan="2" class="text-center" style="font-size: 14px; padding:1px;">Doc</th>
+                        <th rowspan="2" class="text-center" style="font-size: 14px; padding:1px;"></th>
+                        <th rowspan="2" class="text-center" style="font-size: 14px; padding:1px;"></th>
                         <th colspan="2" class="text-center" style=" font-size: 14px; padding:1px;">Luna</th>
                         <th colspan="2" class="text-center" style=" font-size: 14px; padding:1px;">Stare fișe</th>
-                        <th rowspan="2" style="font-size: 14px; padding:1px;">Traseu</th>
-                        <th rowspan="2" style="font-size: 14px; padding:1px;"></th>
-                        <th rowspan="2" style="font-size: 14px; padding:1px;">Observații</th>
-                        <th rowspan="2" class="text-end" style=" font-size: 14px; padding:1px;">Acțiuni Firmă</th>
+                        <th rowspan="2" class="text-center" style="font-size: 14px; padding:1px;">
+                            Administrator
+                            <br>
+                            Pers. desem.
+                        </th>
+                        <th rowspan="2" class="text-center" style="font-size: 14px; padding:1px;">
+                            Dom. activ.
+                            <br>
+                            PRAM
+                        </th>
+                        <th rowspan="2" class="text-center" style="font-size: 14px; padding:1px;">Contract</th>
+                        <th rowspan="2" class="text-center" style="font-size: 14px; padding:1px;">Observații</th>
+                        <th rowspan="2" class="text-center" style=" font-size: 14px; padding:1px;">Acțiuni Firmă</th>
                     </tr>
                     <tr class="">
                         <th class="text-center" style="font-size: 14px; padding:1px;">
@@ -108,9 +155,13 @@
                             </td>
                             <td style="font-size: 14px; padding:1px;">
                                 {{ $firma->nume ?? '' }}
+                                <br>
+                                {{ $firma->cui }}; {{ $firma->j_seap_fact }}
                             </td>
                             <td style="font-size: 14px; padding:1px;">
                                 {{ $firma->adresa }}
+                                <br>
+                                {{ $firma->traseu }}
                             </td>
                             <td style="font-size: 14px; padding:1px;">
                                 {{ $firma->doc }}
@@ -134,10 +185,23 @@
                                  {{ $firma->psi_stare_fise }}
                             </td>
                             <td style="font-size: 14px; padding:1px;">
-                                 {{ $firma->traseu }}
+                                 {{ $firma->administrator }}
+                                 <br>
+                                 {{ $firma->persoana_desemnata }}
+                            </td>
+                            <td class="text-center" style="font-size: 14px; padding:1px;">
+                                 {{ $firma->domeniu_de_activitate }}
+                                 <br>
+                                 {{ $firma->pram_zi }}
+                                 .
+                                 {{ $firma->pram_luna }}
+                                 .
+                                 {{ $firma->pram_an }}
                             </td>
                             <td style="font-size: 14px; padding:1px;" class="text-center">
-                                 {{ $firma->firma_mt }}
+                                 {{ $firma->contract_firma }}
+                                 <br>
+                                 {{ $firma->contract_numar }}
                             </td>
                             <td style="font-size: 14px; padding:1px;">
                                 {{ $firma->observatii_1 ? ($firma->observatii_1 . '.') : ''}}
@@ -145,8 +209,8 @@
                                 {{ $firma->observatii_3 ? ($firma->observatii_3 . '.') : ''}}
                                 {{ $firma->observatii_4 ? ($firma->observatii_4 . '') : ''}}
                             </td>
-                            <td class="p-0">
-                                <div class="d-flex justify-content-end">
+                            <td class="p-0 text-center">
+                                {{-- <div class="d-flex justify-content-end"> --}}
                                     {{-- <a href="{{ $firma->path() }}"
                                         class="flex me-1"
                                     >
@@ -154,11 +218,11 @@
                                     </a> --}}
                                     {{-- <a href="{{ $firma->path() }}/modifica" --}}
                                     <a href="#"
-                                        class="flex me-1"
+                                        {{-- class="flex" --}}
                                     >
                                         <span class="badge bg-primary">Modifică</span>
                                     </a>
-                                    <div style="flex" class="">
+                                    {{-- <div style="flex" class=""> --}}
                                         <a
                                             href="#"
                                             {{-- data-bs-toggle="modal"
@@ -167,8 +231,8 @@
                                             >
                                             <span class="badge bg-danger">Șterge</span>
                                         </a>
-                                    </div>
-                                </div>
+                                    {{-- </div> --}}
+                                {{-- </div> --}}
                             </td>
                         </tr>
                     @empty

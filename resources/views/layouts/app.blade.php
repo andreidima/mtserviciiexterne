@@ -166,6 +166,12 @@
                                     Firme
                                 </a>
                             </li>
+                            <li class="nav-item me-3">
+                                <a class="nav-link active" href="/ssm/salariati">
+                                    <i class="fas fa-users me-1"></i>
+                                    Salariați
+                                </a>
+                            </li>
                             {{-- <li class="nav-item me-3">
                                 <a class="nav-link active" href="/rapoarte/ssm">
                                     <i class="fas fa-file-alt me-1"></i>

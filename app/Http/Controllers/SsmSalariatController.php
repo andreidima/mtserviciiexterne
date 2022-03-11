@@ -5,79 +5,53 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 
-use App\Models\Firma;
-use App\Models\FirmaSalariat;
-use App\Models\FirmaStingator;
-use App\Models\FirmaTraseu;
-use App\Models\FirmaDomeniuDeActivitate;
+use App\Models\SsmSalariat;
 
 use Illuminate\Database\Eloquent\Builder;
 
-class FirmaController extends Controller
+class SsmSalariatController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request, $serviciu = null)
+    public function index(Request $request)
     {
         $search_firma = \Request::get('search_firma');
-        // $search_cod_fiscal = \Request::get('search_cod_fiscal');
-        $search_salariat_nume = \Request::get('search_salariat_nume');
-        $search_salariat_cnp = \Request::get('search_salariat_cnp');
+        $search_firma_nume = \Request::get('search_firma_nume');
+        $search_salariat = \Request::get('search_salariat');
+        $search_cnp = \Request::get('search_cnp');
 
-        $firme = Firma::
-            where (function($query) use ($serviciu) {
-                switch ($serviciu) {
-                    case 'ssm':
-                        $query->with('salariati')
-                            ->where('ssm_serviciu', 1)
-                            ->where('medicina_muncii_serviciu', 0)
-                            ->where('stingatoare_serviciu', 0);
-                        break;
-                    case 'medicina-muncii':
-                        $query->with('salariati')
-                            ->where('ssm_serviciu', 0)
-                            ->where('medicina_muncii_serviciu', 1)
-                            ->where('stingatoare_serviciu', 0);
-                        break;
-                    case 'stingatoare':
-                        $query->with('stingator')
-                            ->where('ssm_serviciu', 0)
-                            ->where('medicina_muncii_serviciu', 0)
-                            ->where('stingatoare_serviciu', 1);
-                        break;
-                    default:
-                        # code...
-                        break;
-                }
-            })
-            ->when($search_firma, function ($query, $search_firma) {
-                return $query->where('nume', 'like', '%' . $search_firma . '%')
-                            ->orwhere('cod_fiscal', 'like', '%' . $search_firma . '%');
-            })
-            // ->when($search_cod_fiscal, function ($query, $search_cod_fiscal) {
-            //     return $query->where('cod_fiscal', 'like', '%' . $search_cod_fiscal . '%');
-            // })
-            ->when($search_salariat_nume, function ($query, $search_salariat_nume) {
-                $query->whereHas('salariati', function (Builder $query) use ($search_salariat_nume) {
-                    $query->where('nume', 'like', '%' . $search_salariat_nume . '%');
-                });
-            })
-            ->when($search_salariat_cnp, function ($query, $search_salariat_cnp) {
-                $query->whereHas('salariati', function (Builder $query) use ($search_salariat_cnp) {
-                    $query->where('cnp', 'like', '%' . $search_salariat_cnp . '%');
-                });
-            })
-            ->latest()
-            ->simplePaginate(25);
+        // if ($search_firma && $search_salariat && $search_cnp){
+            $salariati = SsmSalariat::
+                when($search_firma, function ($query, $search_firma) {
+                    return $query->where('nume_client', 'like', '%' . $search_firma . '%');
+                })
+                ->when($search_firma_nume, function ($query, $search_firma_nume) {
+                    return $query->where('nume_client', 'like', '%' . $search_firma_nume . '%');
+                })
+                ->when($search_salariat, function ($query, $search_salariat) {
+                    return $query->where('salariat', 'like', '%' . $search_salariat . '%');
+                })
+                ->when($search_cnp, function ($query, $search_cnp) {
+                    return $query->where('cnp', 'like', '%' . $search_cnp . '%');
+                })
+                // ->when(!($search_firma || $search_firma_nume || $search_salariat || $search_cnp), function ($query) {
+                //     return $query->where('id', -1);
+                // })
+                ->orderBy('nume_client')
+                ->simplePaginate(100);
+        // } else{
+        //     $salariati = SsmSalariat::find(1)->get();
+        // }
+        // dd($salariati);
+
+        $lista_firma = SsmSalariat::select('nume_client')->groupBy('nume_client')->get();
 
         $request->session()->forget('firma_return_url');
-        $request->session()->forget('stingatoare_return_url');
-        $request->session()->forget('salariat_return_url');
 
-        return view('firme.index', compact('serviciu', 'firme', 'search_firma', 'search_salariat_nume', 'search_salariat_cnp'));
+        return view('ssm.salariati.index', compact('salariati', 'search_firma', 'search_firma_nume', 'search_salariat', 'search_cnp', 'lista_firma'));
     }
 
     /**
