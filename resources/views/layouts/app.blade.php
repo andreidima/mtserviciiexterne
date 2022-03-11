@@ -116,11 +116,11 @@
                                     Trasee
                                 </a>
                                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <li>
+                                    {{-- <li>
                                         <a class="dropdown-item" href="/ssm/firme/trasee">
                                             Trasee SSM
                                         </a>
-                                    </li>
+                                    </li> --}}
                                     <li>
                                         <a class="dropdown-item" href="/stingatoare/firme/trasee">
                                             Trasee stingătoare
