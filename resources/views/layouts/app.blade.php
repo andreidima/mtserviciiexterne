@@ -163,7 +163,7 @@
                             <li class="nav-item me-3">
                                 <a class="nav-link active" href="/ssm/firme">
                                     <i class="fas fa-building me-1"></i>
-                                    Administrare
+                                    Firme
                                 </a>
                             </li>
                             {{-- <li class="nav-item me-3">

@@ -56,7 +56,8 @@
                 </form>
             </div>
             <div class="col-lg-3 text-end">
-                <a class="btn btn-sm bg-success text-white border border-dark rounded-3 col-md-8" href="/ssm/firme/adauga" role="button">
+                {{-- <a class="btn btn-sm bg-success text-white border border-dark rounded-3 col-md-8" href="/ssm/firme/adauga" role="button"> --}}
+                <a class="btn btn-sm bg-success text-white border border-dark rounded-3 col-md-8" href="#" role="button">
                     <i class="fas fa-plus-square text-white me-1"></i>Adaugă firmă
                 </a>
             </div>
@@ -67,30 +68,34 @@
             @include ('errors')
 
         <div class="table-responsive rounded">
-            <table class="table table-striped table-hover table-bordered rounded-3">
-                <thead class="text-white rounded" style="background-color:#e66800; font-size: 5px">
+            <table class="table table-striped table-hover table-bordered border-secondary rounded-3" style=" font-size: 5px !important">
+                <thead class="text-white rounded" style="background-color:#e66800; font-size: 5px !important">
+
                     <tr class="" style="padding:2rem; font-size: 5px">
-                        <th rowspan="2">#</th>
-                        <th rowspan="2">Firma</th>
-                        <th rowspan="2">Adresa</th>
-                        <th rowspan="2">Doc</th>
-                        <th rowspan="2"></th>
-                        <th rowspan="2"></th>
-                        <th colspan="2" class="text-center">Luna</th>
-                        <th colspan="2" class="text-center">Stare fișe</th>
-                        <th rowspan="2" class="text-end">Acțiuni Firmă</th>
+                        <th rowspan="2" style="font-size: 14px; padding:1px;">#</th>
+                        <th rowspan="2" style="font-size: 14px; padding:1px;">Firma</th>
+                        <th rowspan="2" style="font-size: 14px; padding:1px;">Adresa</th>
+                        <th rowspan="2" style="font-size: 14px; padding:1px;">Doc</th>
+                        <th rowspan="2" style="font-size: 14px; padding:1px;"></th>
+                        <th rowspan="2" style="font-size: 14px; padding:1px;"></th>
+                        <th colspan="2" class="text-center" style=" font-size: 14px; padding:1px;">Luna</th>
+                        <th colspan="2" class="text-center" style=" font-size: 14px; padding:1px;">Stare fișe</th>
+                        <th rowspan="2" style="font-size: 14px; padding:1px;">Traseu</th>
+                        <th rowspan="2" style="font-size: 14px; padding:1px;"></th>
+                        <th rowspan="2" style="font-size: 14px; padding:1px;">Observații</th>
+                        <th rowspan="2" class="text-end" style=" font-size: 14px; padding:1px;">Acțiuni Firmă</th>
                     </tr>
-                    <tr class="" style="padding:2rem">
-                        <th class="text-center">
+                    <tr class="">
+                        <th class="text-center" style="font-size: 14px; padding:1px;">
                             SSM
                         </th>
-                        <th class="text-center">
+                        <th class="text-center" style="font-size: 14px; padding:1px;">
                             PSI
                         </th>
-                        <th class="text-center">
+                        <th class="text-center" style="font-size: 14px; padding:1px;">
                             SSM
                         </th>
-                        <th class="text-center">
+                        <th class="text-center" style="font-size: 14px; padding:1px;">
                             PSI
                         </th>
                     </tr>
@@ -98,46 +103,57 @@
                 <tbody>
                     @forelse ($firme as $firma)
                         <tr style="">
-                            <td align="">
+                            <td style="font-size: 14px; padding:1px;">
                                 {{ ($firme ->currentpage()-1) * $firme ->perpage() + $loop->index + 1 }}
                             </td>
-                            <td>
-                                <b>
-                                    {{ $firma->nume ?? '' }}
-                                </b>
+                            <td style="font-size: 14px; padding:1px;">
+                                {{ $firma->nume ?? '' }}
                             </td>
-                            <td>
+                            <td style="font-size: 14px; padding:1px;">
                                 {{ $firma->adresa }}
                             </td>
-                            <td>
+                            <td style="font-size: 14px; padding:1px;">
                                 {{ $firma->doc }}
                             </td>
-                            <td>
+                            <td style="font-size: 14px; padding:1px;" class="text-center">
                                 {{ $firma->perioada }}
                             </td>
-                            <td>
+                            <td style="font-size: 14px; padding:1px;" class="text-center">
                                 {{ $firma->actionar }}
                             </td>
-                            <td>
+                            <td style="font-size: 14px; padding:1px; font-weight:bold" class="text-center">
                                 {{ $firma->ssm_luna }}
                             </td>
-                            <td>
-                                 {{ $firma->psi_luna }}
+                            <td style="font-size: 14px; padding:1px; font-weight:bold" class="text-center">
+                                {{ $firma->psi_luna }}
                             </td>
-                            <td>
+                            <td style="font-size: 14px; padding:1px;">
                                 {{ $firma->ssm_stare_fise }}
                             </td>
-                            <td>
+                            <td style="font-size: 14px; padding:1px;">
                                  {{ $firma->psi_stare_fise }}
                             </td>
-                            <td class="">
+                            <td style="font-size: 14px; padding:1px;">
+                                 {{ $firma->traseu }}
+                            </td>
+                            <td style="font-size: 14px; padding:1px;" class="text-center">
+                                 {{ $firma->firma_mt }}
+                            </td>
+                            <td style="font-size: 14px; padding:1px;">
+                                {{ $firma->observatii_1 ? ($firma->observatii_1 . '.') : ''}}
+                                {{ $firma->observatii_2 ? ($firma->observatii_2 . '.') : ''}}
+                                {{ $firma->observatii_3 ? ($firma->observatii_3 . '.') : ''}}
+                                {{ $firma->observatii_4 ? ($firma->observatii_4 . '') : ''}}
+                            </td>
+                            <td class="p-0">
                                 <div class="d-flex justify-content-end">
                                     {{-- <a href="{{ $firma->path() }}"
                                         class="flex me-1"
                                     >
                                         <span class="badge bg-success">Vizualizează</span>
                                     </a> --}}
-                                    <a href="{{ $firma->path() }}/modifica"
+                                    {{-- <a href="{{ $firma->path() }}/modifica" --}}
+                                    <a href="#"
                                         class="flex me-1"
                                     >
                                         <span class="badge bg-primary">Modifică</span>
@@ -145,8 +161,8 @@
                                     <div style="flex" class="">
                                         <a
                                             href="#"
-                                            data-bs-toggle="modal"
-                                            data-bs-target="#stergeFirma{{ $firma->id }}"
+                                            {{-- data-bs-toggle="modal"
+                                            data-bs-target="#stergeFirma{{ $firma->id }}" --}}
                                             title="Șterge Firma"
                                             >
                                             <span class="badge bg-danger">Șterge</span>
