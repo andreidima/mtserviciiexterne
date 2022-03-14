@@ -16,7 +16,7 @@ class SsmFirma extends Model
 
     public function path()
     {
-        return "ssm/firme/{$this->id}";
+        return "/ssm/firme/{$this->id}";
     }
 
     /**

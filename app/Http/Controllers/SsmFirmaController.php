@@ -27,23 +27,30 @@ class SsmFirmaController extends Controller
         $search_psi_luna = \Request::get('search_psi_luna');
         $search_contract_firma = \Request::get('search_contract_firma');
         $search_contract_numar = \Request::get('search_contract_numar');
+        $search_observatii = \Request::get('search_observatii');
 
         $firme = SsmFirma::
             when($search_firma, function ($query, $search_firma) {
-                return $query->where('nume', 'like', '%' . $search_firma . '%')
+                return $query->where(function ($query) use ($search_firma) {
+                    $query->where('nume', 'like', '%' . $search_firma . '%')
                             ->orwhere('cui', 'like', '%' . $search_firma . '%')
                             ->orwhere('j_seap_fact', 'like', '%' . $search_firma . '%');
+                });
             })
             ->when($search_adresa, function ($query, $search_adresa) {
-                return $query->where('adresa', 'like', '%' . $search_adresa . '%')
+                return $query->where(function ($query) use ($search_adresa) {
+                    $query->where('adresa', 'like', '%' . $search_adresa . '%')
                             ->orwhere('traseu', 'like', '%' . $search_adresa . '%');
+                });
             })
             ->when($search_administrator, function ($query, $search_administrator) {
-                return $query->where('administrator', 'like', '%' . $search_administrator . '%')
+                return $query->where(function ($query) use ($search_administrator) {
+                    $query->where('administrator', 'like', '%' . $search_administrator . '%')
                             ->orwhere('persoana_desemnata', 'like', '%' . $search_administrator . '%');
+                });
             })
             ->when($search_actionar, function ($query, $search_actionar) {
-                return $query->where('actionar', 'like', '%' . $search_actionar . '%');
+                return $query->where('actionar', $search_actionar);
             })
             ->when($search_ssm_luna, function ($query, $search_ssm_luna) {
                 return $query->where('ssm_luna', 'like', '%' . $search_ssm_luna . '%');
@@ -57,8 +64,15 @@ class SsmFirmaController extends Controller
             ->when($search_contract_numar, function ($query, $search_contract_numar) {
                 return $query->where('contract_numar', 'like', '%' . $search_contract_numar . '%');
             })
+            ->when($search_observatii, function ($query, $search_observatii) {
+                return $query->where(function ($query) use ($search_observatii) {
+                    $query->where('observatii_1', 'like', '%' . $search_observatii . '%')
+                            ->orwhere('observatii_2', 'like', '%' . $search_observatii . '%')
+                            ->orwhere('observatii_3', 'like', '%' . $search_observatii . '%');
+                });
+            })
             ->latest()
-            ->simplePaginate(100);
+            ->simplePaginate(25);
 
         $lista_actionar = SsmFirma::select('actionar')->groupBy('actionar')->get();
         $lista_ssm_luna = SsmFirma::select('ssm_luna')->groupBy('ssm_luna')->get();
@@ -68,7 +82,7 @@ class SsmFirmaController extends Controller
         $request->session()->forget('firma_return_url');
 
         return view('ssm.firme.index', compact('firme', 'search_firma', 'search_adresa', 'search_administrator', 'search_actionar', 'search_ssm_luna', 'search_psi_luna',
-            'search_contract_firma', 'search_contract_numar',
+            'search_contract_firma', 'search_contract_numar', 'search_observatii',
             'lista_actionar', 'lista_ssm_luna', 'lista_psi_luna', 'lista_contract_firma'
         ));
     }
@@ -78,28 +92,11 @@ class SsmFirmaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Request $request, $serviciu = null)
+    public function create(Request $request)
     {
-        $domenii_de_activitate = FirmaDomeniuDeActivitate::orderBy('nume')->get();
-        $trasee = FirmaTraseu::
-            where (function($query) use ($serviciu) {
-                switch ($serviciu) {
-                    case 'ssm':
-                        $query->where('serviciu', 1);
-                        break;
-                    case 'stingatoare':
-                        $query->where('serviciu', 2);
-                        break;
-                    default:
-                        # code...
-                        break;
-                }
-            })
-            ->orderBy('nume')->get();
-
         $request->session()->get('firma_return_url') ?? $request->session()->put('firma_return_url', url()->previous());
 
-        return view('firme.create', compact('domenii_de_activitate', 'trasee', 'serviciu'));
+        return view('ssm.firme.create');
     }
 
     /**
@@ -108,69 +105,50 @@ class SsmFirmaController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, $serviciu = null)
+    public function store(Request $request)
     {
-        $request->request->add(['user_id' => $request->user()->id]);
-        $firma = Firma::create($this->validateRequest($request, $serviciu));
+        $firma = SsmFirma::create($this->validateRequest($request));
 
-        return redirect($request->session()->get('firma_return_url') ?? ('/' . $serviciu . '/firme'))
+        return redirect($request->session()->get('firma_return_url') ?? ('/ssm/firme'))
             ->with('status', 'Firma „' . ($firma->nume ?? '') . '” a fost adăugată cu succes!');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Firma  $firma
+     * @param  \App\SsmFirma  $firma
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $request, $serviciu = null, Firma $firma)
+    public function show(Request $request, SsmFirma $firma)
     {
         $request->session()->get('firma_return_url') ?? $request->session()->put('firma_return_url', url()->previous());
 
-        return view('firme.show', compact('firma', 'serviciu'));
+        return view('ssm.firme.show', compact('firma'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Firma  $firma
+     * @param  \App\SsmFirma  $firma
      * @return \Illuminate\Http\Response
      */
-    public function edit(Request $request, $serviciu = null, Firma $firma)
+    public function edit(Request $request, SsmFirma $firma)
     {
-        $domenii_de_activitate = FirmaDomeniuDeActivitate::orderBy('nume')->get();
-        $trasee = FirmaTraseu::
-            where (function($query) use ($serviciu) {
-                switch ($serviciu) {
-                    case 'ssm':
-                        $query->where('serviciu', 1);
-                        break;
-                    case 'stingatoare':
-                        $query->where('serviciu', 2);
-                        break;
-                    default:
-                        # code...
-                        break;
-                }
-            })
-            ->orderBy('nume')->get();
-
         $request->session()->get('firma_return_url') ?? $request->session()->put('firma_return_url', url()->previous());
 
-        return view('firme.edit', compact('firma', 'domenii_de_activitate', 'trasee', 'serviciu'));
+        return view('ssm.firme.edit', compact('firma'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Firma  $firma
+     * @param  \App\SsmFirma  $firma
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $serviciu = null, Firma $firma)
+    public function update(Request $request, SsmFirma $firma)
     {
-        $request->request->add(['user_id' => $request->user()->id]);
-        $firma->update($this->validateRequest($request, $serviciu));
+        $firma->update($this->validateRequest($request));
 
         return redirect($request->session()->get('firma_return_url') ?? ('/' . $serviciu . '/firme'))
             ->with('status', 'Firma „' . ($firma->nume ?? '') . '” a fost modificată cu succes!');
@@ -179,17 +157,11 @@ class SsmFirmaController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Firma  $firma
+     * @param  \App\SsmFirma  $firma
      * @return \Illuminate\Http\Response
      */
-    public function destroy($serviciu = null, Firma $firma)
+    public function destroy(SsmFirma $firma)
     {
-        if (count($firma->salariati)){
-            return back()->with('error', 'Firma „' . ($firma->nume ?? '') . '” nu poate fi ștearsă pentru că are salariați adăugați. Ștergeți mai întâi salariații firmei');
-        } else if ($firma->stingator){
-            return back()->with('error', 'Firma „' . ($firma->nume ?? '') . '” nu poate fi ștearsă pentru că are stingătoare adăugate. Ștergeți mai întâi stingătoarele firmei');
-        }
-
         $firma->delete();
 
         return back()->with('status', 'Firma „' . ($firma->nume ?? '') . '” a fost ștearsă cu succes!');
@@ -202,48 +174,33 @@ class SsmFirmaController extends Controller
      */
     protected function validateRequest(Request $request, $serviciu = null)
     {
-        switch ($serviciu) {
-            case 'ssm':
-                $request->request->add(['ssm_serviciu' => 1]);
-                break;
-            case 'medicina-muncii':
-                $request->request->add(['medicina_muncii_serviciu' => 1]);
-                break;
-            case 'stingatoare':
-                $request->request->add(['stingatoare_serviciu' => 1]);
-                break;
-            default:
-                # code...
-                break;
-            }
-
         return $request->validate(
             [
-                'nume' => 'required|max:500',
-                'cod_fiscal' => 'nullable|max:500',
-                'domeniu_de_activitate_id' => 'nullable|numeric|integer',
-                'telefon' => 'nullable|max:500',
-                'adresa' => 'nullable|max:500',
-                'localitate' => 'nullable|max:500',
-                'judet' => 'nullable|max:500',
-                'email' => 'nullable|max:500|email:rfc,dns',
-                'buletin_pram_expirare' => 'nullable|date',
-                'nume_administrator' => 'nullable|max:500',
-                'angajat_desemnat' => 'nullable|max:500',
-                'iscir' => 'nullable',
-                'iscir_descriere' => 'nullable|max:2000',
-                'contract_firma' => 'nullable|max:500',
-                'contract_numar' => 'nullable|max:500',
-                'contract_valoare' => 'nullable|max:500',
-                'documentatie' => 'nullable|max:2000',
-                'observatii' => 'nullable|max:2000',
-                'user_id' => 'nullable',
-                'actionar' => 'nullable',
-                'traseu_id' => 'nullable|numeric|integer',
-                // 'traseu_ordine' => 'nullable|numeric|integer',
-                'ssm_serviciu' => '',
-                'medicina_muncii_serviciu' => '',
-                'stingatoare_serviciu' => ''
+                'nume' => 'required|max:200',
+                'cui' => 'nullable|max:200',
+                'j_seap_fact' => 'nullable|max:200',
+                'adresa' => 'nullable|max:200',
+                'doc' => 'nullable|max:200',
+                'perioada' => 'nullable|max:200',
+                'actionar' => 'nullable|max:200',
+                'ssm_luna' => 'nullable|max:200',
+                'psi_luna' => 'nullable|max:200',
+                'ssm_stare_fise' => 'nullable|max:200',
+                'psi_stare_fise' => 'nullable|max:200',
+                'administrator' => 'nullable|max:200',
+                'persoana_desemnata' => 'nullable|max:200',
+                'traseu' => 'nullable|max:200',
+                'domeniu_de_activitate' => 'nullable|max:200',
+                'pram_zi' => 'nullable|max:200',
+                'pram_luna' => 'nullable|max:200',
+                'pram_an' => 'nullable|max:200',
+                'contract_firma' => 'nullable|max:200',
+                'contract_numar' => 'nullable|max:200',
+                'contract_semnat' => 'nullable|max:200',
+                'observatii_1' => 'nullable|max:1000',
+                'observatii_2' => 'nullable|max:1000',
+                'observatii_3' => 'nullable|max:1000',
+                'observatii_4' => 'nullable|max:1000',
             ],
             [
 

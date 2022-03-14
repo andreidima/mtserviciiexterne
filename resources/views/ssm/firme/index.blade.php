@@ -74,6 +74,10 @@
                             <input type="text" class="form-control form-control-sm rounded-3" id="search_contract_numar" name="search_contract_numar" placeholder="Contract număr"
                                     value="{{ $search_contract_numar}}">
                         </div>
+                        <div class="col-md-3">
+                            <input type="text" class="form-control form-control-sm rounded-3" id="search_observatii" name="search_observatii" placeholder="Observații"
+                                    value="{{ $search_observatii}}">
+                        </div>
                     </div>
                     <div class="row input-group custom-search-form justify-content-center">
                         <button class="btn btn-sm btn-primary text-white col-md-4 me-3 border border-dark rounded-3" type="submit">
@@ -86,8 +90,8 @@
                 </form>
             </div>
             <div class="col-lg-2 text-end">
-                {{-- <a class="btn btn-sm bg-success text-white border border-dark rounded-3 col-md-8" href="/ssm/firme/adauga" role="button"> --}}
-                <a class="btn btn-sm bg-success text-white border border-dark rounded-3 col-md-8" href="#" role="button">
+                <a class="btn btn-sm bg-success text-white border border-dark rounded-3 col-md-8" href="/ssm/firme/adauga" role="button">
+                {{-- <a class="btn btn-sm bg-success text-white border border-dark rounded-3 col-md-8" href="#" role="button"> --}}
                     <i class="fas fa-plus-square text-white me-1"></i>Adaugă firmă
                 </a>
             </div>
@@ -113,8 +117,8 @@
                             <br>
                             Traseu
                         </th>
-                        <th rowspan="2" class="text-center" style="font-size: 14px; padding:1px;">Doc</th>
-                        <th rowspan="2" class="text-center" style="font-size: 14px; padding:1px;"></th>
+                        {{-- <th rowspan="2" class="text-center" style="font-size: 14px; padding:1px;">Doc</th> --}}
+                        {{-- <th rowspan="2" class="text-center" style="font-size: 14px; padding:1px;"></th> --}}
                         <th rowspan="2" class="text-center" style="font-size: 14px; padding:1px;"></th>
                         <th colspan="2" class="text-center" style=" font-size: 14px; padding:1px;">Luna</th>
                         <th colspan="2" class="text-center" style=" font-size: 14px; padding:1px;">Stare fișe</th>
@@ -163,12 +167,12 @@
                                 <br>
                                 {{ $firma->traseu }}
                             </td>
-                            <td style="font-size: 14px; padding:1px;">
+                            {{-- <td style="font-size: 14px; padding:1px;">
                                 {{ $firma->doc }}
-                            </td>
-                            <td style="font-size: 14px; padding:1px;" class="text-center">
+                            </td> --}}
+                            {{-- <td style="font-size: 14px; padding:1px;" class="text-center">
                                 {{ $firma->perioada }}
-                            </td>
+                            </td> --}}
                             <td style="font-size: 14px; padding:1px;" class="text-center">
                                 {{ $firma->actionar }}
                             </td>
@@ -179,10 +183,50 @@
                                 {{ $firma->psi_luna }}
                             </td>
                             <td style="font-size: 14px; padding:1px;">
-                                {{ $firma->ssm_stare_fise }}
+                                @if ((strpos($firma->ssm_stare_fise, 'noi.p;de s.p') !== false) ||
+                                        (strpos($firma->ssm_stare_fise, 'noi.p;de s') !== false) ||
+                                        (strpos($firma->ssm_stare_fise, 'noi;de s') !== false))
+                                    <span style="color:blueviolet">
+                                @elseif ((strpos($firma->ssm_stare_fise, 'comp.la cl.') !== false))
+                                    <span style="color:rgb(0, 145, 77)">
+                                @elseif ((strpos($firma->ssm_stare_fise, 'cl;de s') !== false) ||
+                                        (strpos($firma->ssm_stare_fise, 'cl.p;de s') !== false) ||
+                                        (strpos($firma->ssm_stare_fise, 'Fișe-C') !== false) ||
+                                        (strpos($firma->ssm_stare_fise, 'cl;control') !== false))
+                                    <span style="color:rgb(0, 96, 175)">
+                                @elseif ((strpos($firma->ssm_stare_fise, 'cl;de adus') !== false))
+                                    <span style="color:rgb(204, 0, 0)">
+                                @elseif ((strpos($firma->ssm_stare_fise, 'La anulate') !== false))
+                                    <span style="color:rgb(94, 94, 94)">
+                                @else
+                                    <span>
+                                @endif
+                                    {{ $firma->ssm_stare_fise }}
+                                    </span>
+                                {{-- {{ $firma->ssm_stare_fise }} --}}
                             </td>
                             <td style="font-size: 14px; padding:1px;">
-                                 {{ $firma->psi_stare_fise }}
+                                @if ((strpos($firma->psi_stare_fise, 'noi.p;de s.p') !== false) ||
+                                        (strpos($firma->psi_stare_fise, 'noi.p;de s') !== false) ||
+                                        (strpos($firma->psi_stare_fise, 'noi;de s') !== false))
+                                    <span style="color:blueviolet">
+                                @elseif ((strpos($firma->psi_stare_fise, 'comp.la cl.') !== false))
+                                    <span style="color:rgb(0, 145, 77)">
+                                @elseif ((strpos($firma->psi_stare_fise, 'cl;de s') !== false) ||
+                                        (strpos($firma->psi_stare_fise, 'cl.p;de s') !== false) ||
+                                        (strpos($firma->psi_stare_fise, 'Fișe-C') !== false) ||
+                                        (strpos($firma->psi_stare_fise, 'cl;control') !== false))
+                                    <span style="color:rgb(0, 96, 175)">
+                                @elseif ((strpos($firma->psi_stare_fise, 'cl;de adus') !== false))
+                                    <span style="color:rgb(204, 0, 0)">
+                                @elseif ((strpos($firma->psi_stare_fise, 'La anulate') !== false))
+                                    <span style="color:rgb(94, 94, 94)">
+                                @else
+                                    <span>
+                                @endif
+                                    {{ $firma->psi_stare_fise }}
+                                    </span>
+                                 {{-- {{ $firma->psi_stare_fise }} --}}
                             </td>
                             <td style="font-size: 14px; padding:1px;">
                                  {{ $firma->administrator }}
@@ -199,15 +243,19 @@
                                  {{ $firma->pram_an }}
                             </td>
                             <td style="font-size: 14px; padding:1px;" class="text-center">
-                                 {{ $firma->contract_firma }}
-                                 <br>
-                                 {{ $firma->contract_numar }}
+                                {{ $firma->contract_firma }}
+                                <br>
+                                @if ($firma->contract_semnat === 0)
+                                    <span style="font-size: 14px; color:red">
+                                        {{ $firma->contract_numar }}
+                                    </span>
+                                @endif
                             </td>
                             <td style="font-size: 14px; padding:1px;">
                                 {{ $firma->observatii_1 ? ($firma->observatii_1 . '.') : ''}}
                                 {{ $firma->observatii_2 ? ($firma->observatii_2 . '.') : ''}}
                                 {{ $firma->observatii_3 ? ($firma->observatii_3 . '.') : ''}}
-                                {{ $firma->observatii_4 ? ($firma->observatii_4 . '') : ''}}
+                                {{-- {{ $firma->observatii_4 ? ($firma->observatii_4 . '') : ''}} --}}
                             </td>
                             <td class="p-0 text-center">
                                 {{-- <div class="d-flex justify-content-end"> --}}
@@ -216,17 +264,17 @@
                                     >
                                         <span class="badge bg-success">Vizualizează</span>
                                     </a> --}}
-                                    {{-- <a href="{{ $firma->path() }}/modifica" --}}
+                                    <a href="{{ $firma->path() }}/modifica"
                                     <a href="#"
                                         {{-- class="flex" --}}
                                     >
                                         <span class="badge bg-primary">Modifică</span>
                                     </a>
-                                    {{-- <div style="flex" class=""> --}}
+                                    <div style="flex" class="">
                                         <a
                                             href="#"
-                                            {{-- data-bs-toggle="modal"
-                                            data-bs-target="#stergeFirma{{ $firma->id }}" --}}
+                                            data-bs-toggle="modal"
+                                            data-bs-target="#stergeFirma{{ $firma->id }}"
                                             title="Șterge Firma"
                                             >
                                             <span class="badge bg-danger">Șterge</span>
