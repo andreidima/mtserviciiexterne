@@ -194,7 +194,7 @@
                                         (strpos($firma->ssm_stare_fise, 'Fișe-C') !== false) ||
                                         (strpos($firma->ssm_stare_fise, 'cl;control') !== false))
                                     <span style="font-size: 14px; color:rgb(0, 96, 175)">
-                                @elseif ((strpos($firma->ssm_stare_fise, 'cl;de adus') !== false))
+                                @elseif ((strpos($firma->ssm_stare_fise, 'de adus') !== false))
                                     <span style="font-size: 14px; color:rgb(204, 0, 0)">
                                 @elseif ((strpos($firma->ssm_stare_fise, 'La anulate') !== false))
                                     <span style="font-size: 14px; color:rgb(94, 94, 94)">
@@ -217,7 +217,7 @@
                                         (strpos($firma->psi_stare_fise, 'Fișe-C') !== false) ||
                                         (strpos($firma->psi_stare_fise, 'cl;control') !== false))
                                     <span style="font-size: 14px; color:rgb(0, 96, 175)">
-                                @elseif ((strpos($firma->psi_stare_fise, 'cl;de adus') !== false))
+                                @elseif ((strpos($firma->psi_stare_fise, 'de adus') !== false))
                                     <span style="font-size: 14px; color:rgb(204, 0, 0)">
                                 @elseif ((strpos($firma->psi_stare_fise, 'La anulate') !== false))
                                     <span style="font-size: 14px; color:rgb(94, 94, 94)">
