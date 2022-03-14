@@ -148,6 +148,7 @@ class SsmFirmaController extends Controller
      */
     public function update(Request $request, SsmFirma $firma)
     {
+        // dd($request);
         $firma->update($this->validateRequest($request));
 
         return redirect($request->session()->get('firma_return_url') ?? ('/' . $serviciu . '/firme'))
