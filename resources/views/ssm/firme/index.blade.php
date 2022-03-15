@@ -159,7 +159,12 @@
                 </thead>
                 <tbody>
                     @forelse ($firme as $firma)
-                        <tr style="">
+                        @if ((strpos($firma->nume, 'incetat') !== false))
+                            <tr style="opacity: 0.5;">
+                        @else
+                            <tr style="">
+                        @endif
+                        {{-- <tr style=""> --}}
                             <td style="font-size: 14px; padding:1px;">
                                 {{ ($firme ->currentpage()-1) * $firme ->perpage() + $loop->index + 1 }}
                             </td>

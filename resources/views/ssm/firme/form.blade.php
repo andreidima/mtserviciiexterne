@@ -274,7 +274,7 @@
         </div>
         <div class="row mb-2">
             <div class="col-lg-3 mb-3">
-                <label for="observatii_1" class="mb-0 ps-3">Observații 1</label>
+                <label for="observatii_1" class="mb-0 ps-3">Tarif</label>
                 <input
                     type="text"
                     class="form-control bg-white rounded-3 {{ $errors->has('observatii_1') ? 'is-invalid' : '' }}"
@@ -283,7 +283,7 @@
                     value="{{ old('observatii_1', $firma->observatii_1) }}">
             </div>
             <div class="col-lg-3 mb-3">
-                <label for="observatii_2" class="mb-0 ps-3">Observații 2</label>
+                <label for="observatii_2" class="mb-0 ps-3">Mail</label>
                 <input
                     type="text"
                     class="form-control bg-white rounded-3 {{ $errors->has('observatii_2') ? 'is-invalid' : '' }}"
@@ -292,7 +292,7 @@
                     value="{{ old('observatii_2', $firma->observatii_2) }}">
             </div>
             <div class="col-lg-3 mb-3">
-                <label for="observatii_3" class="mb-0 ps-3">Observații 3</label>
+                <label for="observatii_3" class="mb-0 ps-3">Telefon</label>
                 <input
                     type="text"
                     class="form-control bg-white rounded-3 {{ $errors->has('observatii_3') ? 'is-invalid' : '' }}"
