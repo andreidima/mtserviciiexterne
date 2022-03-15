@@ -20,7 +20,7 @@ class SsmFirmaController extends Controller
     public function index(Request $request)
     {
         $search_firma = \Request::get('search_firma');
-        $search_adresa = \Request::get('search_adresa');
+        $search_traseu = \Request::get('search_traseu');
         $search_administrator = \Request::get('search_administrator');
         $search_actionar = \Request::get('search_actionar');
         $search_ssm_luna = \Request::get('search_ssm_luna');
@@ -34,14 +34,15 @@ class SsmFirmaController extends Controller
                 return $query->where(function ($query) use ($search_firma) {
                     $query->where('nume', 'like', '%' . $search_firma . '%')
                             ->orwhere('cui', 'like', '%' . $search_firma . '%')
-                            ->orwhere('j_seap_fact', 'like', '%' . $search_firma . '%');
+                            ->orwhere('adresa', 'like', '%' . $search_firma . '%')
+                            ->orwhere('observatii_1', 'like', '%' . $search_firma . '%')
+                            ->orwhere('observatii_2', 'like', '%' . $search_firma . '%')
+                            ->orwhere('observatii_3', 'like', '%' . $search_firma . '%');
+                            // ->orwhere('j_seap_fact', 'like', '%' . $search_firma . '%');
                 });
             })
-            ->when($search_adresa, function ($query, $search_adresa) {
-                return $query->where(function ($query) use ($search_adresa) {
-                    $query->where('adresa', 'like', '%' . $search_adresa . '%')
-                            ->orwhere('traseu', 'like', '%' . $search_adresa . '%');
-                });
+            ->when($search_traseu, function ($query, $search_traseu) {
+                return $query->where('traseu', $search_traseu);
             })
             ->when($search_administrator, function ($query, $search_administrator) {
                 return $query->where(function ($query) use ($search_administrator) {
@@ -71,9 +72,10 @@ class SsmFirmaController extends Controller
                             ->orwhere('observatii_3', 'like', '%' . $search_observatii . '%');
                 });
             })
-            ->latest()
+            ->orderBy('nume')
             ->simplePaginate(25);
 
+        $lista_traseu = SsmFirma::select('traseu')->groupBy('traseu')->get();
         $lista_actionar = SsmFirma::select('actionar')->groupBy('actionar')->get();
         $lista_ssm_luna = SsmFirma::select('ssm_luna')->groupBy('ssm_luna')->get();
         $lista_psi_luna = SsmFirma::select('psi_luna')->groupBy('psi_luna')->get();
@@ -81,9 +83,9 @@ class SsmFirmaController extends Controller
 
         $request->session()->forget('firma_return_url');
 
-        return view('ssm.firme.index', compact('firme', 'search_firma', 'search_adresa', 'search_administrator', 'search_actionar', 'search_ssm_luna', 'search_psi_luna',
+        return view('ssm.firme.index', compact('firme', 'search_firma', 'search_traseu', 'search_administrator', 'search_actionar', 'search_ssm_luna', 'search_psi_luna',
             'search_contract_firma', 'search_contract_numar', 'search_observatii',
-            'lista_actionar', 'lista_ssm_luna', 'lista_psi_luna', 'lista_contract_firma'
+            'lista_traseu', 'lista_actionar', 'lista_ssm_luna', 'lista_psi_luna', 'lista_contract_firma'
         ));
     }
 

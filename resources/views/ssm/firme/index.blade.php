@@ -15,16 +15,23 @@
                     @csrf
                     <div class="row mb-1 input-group custom-search-form justify-content-center">
                         <div class="col-md-3">
-                            <input type="text" class="form-control form-control-sm rounded-3" id="search_firma" name="search_firma" placeholder="Firma, CUI, J/Seap,Fact."
+                            <input type="text" class="form-control form-control-sm rounded-3" id="search_firma" name="search_firma" placeholder="Firma, CUI, Adresa, Observații"
                                     value="{{ $search_firma }}">
                         </div>
                         <div class="col-md-2">
-                            <input type="text" class="form-control form-control-sm rounded-3" id="search_adresa" name="search_adresa" placeholder="Adresa, Traseu"
-                                    value="{{ $search_adresa}}">
+                            <select class="form-select form-select-sm mb-1" id="search_traseu" name="search_traseu" >
+                                    <option value="" selected>Traseu</option>
+                                @foreach ($lista_traseu as $traseu)
+                                    <option value="{{ $traseu->traseu }}"
+                                        {{ isset($traseu->traseu) ? ($traseu->traseu === $search_traseu ? 'selected' : '') : '' }}
+                                    >
+                                    {{ $traseu->traseu }}</option>
+                                @endforeach
+                            </select>
                         </div>
                         <div class="col-md-2">
                             <select class="form-select form-select-sm mb-1" id="search_actionar" name="search_actionar" >
-                                    <option value="" selected>Alege Acționar</option>
+                                    <option value="" selected>Acționar</option>
                                 @foreach ($lista_actionar as $actionar)
                                     <option value="{{ $actionar->actionar }}"
                                         {{ isset($actionar->actionar) ? ($actionar->actionar === $search_actionar ? 'selected' : '') : '' }}
@@ -35,7 +42,7 @@
                         </div>
                         <div class="col-md-2">
                             <select class="form-select form-select-sm mb-1" id="search_ssm_luna" name="search_ssm_luna" >
-                                    <option value="" selected>Alege Luna SSM</option>
+                                    <option value="" selected>Luna SSM</option>
                                 @foreach ($lista_ssm_luna as $ssm_luna)
                                     <option value="{{ $ssm_luna->ssm_luna }}"
                                         {{ isset($ssm_luna->ssm_luna) ? ($ssm_luna->ssm_luna === $search_ssm_luna ? 'selected' : '') : '' }}
@@ -46,7 +53,7 @@
                         </div>
                         <div class="col-md-2">
                             <select class="form-select form-select-sm mb-1" id="search_psi_luna" name="search_psi_luna">
-                                    <option value="" selected>Alege Luna PSI</option>
+                                    <option value="" selected>Luna PSI</option>
                                 @foreach ($lista_psi_luna as $psi_luna)
                                     <option value="{{ $psi_luna->psi_luna }}"
                                         {{ isset($psi_luna->psi_luna) ?  ($psi_luna->psi_luna === $search_psi_luna ? 'selected' : '') : '' }}
@@ -61,7 +68,7 @@
                         </div>
                         <div class="col-md-2">
                             <select class="form-select form-select-sm mb-1" id="search_contract_firma" name="search_contract_firma">
-                                    <option value="" selected>Alege Contract</option>
+                                    <option value="" selected>Contract</option>
                                 @foreach ($lista_contract_firma as $contract_firma)
                                     <option value="{{ $contract_firma->contract_firma }}"
                                         {{ isset($contract_firma->contract_firma) ?  ($contract_firma->contract_firma === $search_contract_firma ? 'selected' : '') : '' }}
@@ -110,7 +117,7 @@
                         <th rowspan="2" class="text-center" style="font-size: 14px; padding:1px;">
                             Firma
                             <br>
-                            CUI; J/Seap,Fact.
+                            CUI
                         </th>
                         <th rowspan="2" class="text-center" style="font-size: 14px; padding:1px;">
                             Adresa
@@ -160,7 +167,7 @@
                             <td style="font-size: 14px; padding:1px;">
                                 {{ $firma->nume ?? '' }}
                                 <br>
-                                {{ $firma->cui }}; {{ $firma->j_seap_fact }}
+                                {{ $firma->cui }}
                             </td>
                             <td style="font-size: 14px; padding:1px;">
                                 {{ $firma->adresa }}
