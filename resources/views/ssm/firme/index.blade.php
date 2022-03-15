@@ -98,7 +98,6 @@
             </div>
             <div class="col-lg-2 text-end">
                 <a class="btn btn-sm bg-success text-white border border-dark rounded-3 col-md-8" href="/ssm/firme/adauga" role="button">
-                {{-- <a class="btn btn-sm bg-success text-white border border-dark rounded-3 col-md-8" href="#" role="button"> --}}
                     <i class="fas fa-plus-square text-white me-1"></i>Adaugă firmă
                 </a>
             </div>
