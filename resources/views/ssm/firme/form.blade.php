@@ -109,6 +109,7 @@
                     <option value="de adus" style="color:rgb(204, 0, 0)" {{ old('ssm_stare_fise', $firma->ssm_stare_fise) === 'de adus' ? 'selected' : ''}}>de adus</option>
                     <option value="La anulate" style="color:rgb(94, 94, 94)" {{ old('ssm_stare_fise', $firma->ssm_stare_fise) === 'La anulate' ? 'selected' : ''}}>La anulate</option>
                     @if (
+                        (old('ssm_stare_fise', $firma->ssm_stare_fise) !== '-') &&
                         (old('ssm_stare_fise', $firma->ssm_stare_fise) !== 'noi.p;de s.p') &&
                         (old('ssm_stare_fise', $firma->ssm_stare_fise) !== 'noi.p;de s') &&
                         (old('ssm_stare_fise', $firma->ssm_stare_fise) !== 'noi;de s') &&
@@ -151,6 +152,7 @@
                     <option value="de adus" style="color:rgb(204, 0, 0)" {{ old('psi_stare_fise', $firma->psi_stare_fise) === 'de adus' ? 'selected' : ''}}>de adus</option>
                     <option value="La anulate" style="color:rgb(94, 94, 94)" {{ old('psi_stare_fise', $firma->psi_stare_fise) === 'La anulate' ? 'selected' : ''}}>La anulate</option>
                     @if (
+                        (old('ssm_stare_fise', $firma->psi_stare_fise) !== '-') &&
                         (old('psi_stare_fise', $firma->psi_stare_fise) !== 'noi.p;de s.p') &&
                         (old('psi_stare_fise', $firma->psi_stare_fise) !== 'noi.p;de s') &&
                         (old('psi_stare_fise', $firma->psi_stare_fise) !== 'noi;de s') &&
