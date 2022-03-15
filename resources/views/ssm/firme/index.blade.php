@@ -254,7 +254,7 @@
                                 @if ($firma->contract_semnat === 0)
                                     <span style="font-size: 14px; color:red">
                                 @else
-                                    <span>
+                                    <span style="font-size: 14px;">
                                 @endif
                                         {{ $firma->contract_numar }}
                                     </span>
