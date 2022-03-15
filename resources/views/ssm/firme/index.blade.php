@@ -193,20 +193,20 @@
                                 @if ((strpos($firma->ssm_stare_fise, 'noi.p;de s.p') !== false) ||
                                         (strpos($firma->ssm_stare_fise, 'noi.p;de s') !== false) ||
                                         (strpos($firma->ssm_stare_fise, 'noi;de s') !== false))
-                                    <span style="color:blueviolet">
+                                    <span style="font-size: 14px; color:blueviolet">
                                 @elseif ((strpos($firma->ssm_stare_fise, 'comp.la cl.') !== false))
-                                    <span style="color:rgb(0, 145, 77)">
+                                    <span style="font-size: 14px; color:rgb(0, 145, 77)">
                                 @elseif ((strpos($firma->ssm_stare_fise, 'cl;de s') !== false) ||
                                         (strpos($firma->ssm_stare_fise, 'cl.p;de s') !== false) ||
                                         (strpos($firma->ssm_stare_fise, 'Fișe-C') !== false) ||
                                         (strpos($firma->ssm_stare_fise, 'cl;control') !== false))
-                                    <span style="color:rgb(0, 96, 175)">
-                                @elseif ((strpos($firma->ssm_stare_fise, 'cl;de adus') !== false))
-                                    <span style="color:rgb(204, 0, 0)">
+                                    <span style="font-size: 14px; color:rgb(0, 96, 175)">
+                                @elseif ((strpos($firma->ssm_stare_fise, 'de adus') !== false))
+                                    <span style="font-size: 14px; color:rgb(204, 0, 0)">
                                 @elseif ((strpos($firma->ssm_stare_fise, 'La anulate') !== false))
-                                    <span style="color:rgb(94, 94, 94)">
+                                    <span style="font-size: 14px; color:rgb(94, 94, 94)">
                                 @else
-                                    <span>
+                                    <span style="font-size: 14px;">
                                 @endif
                                     {{ $firma->ssm_stare_fise }}
                                     </span>
@@ -216,20 +216,20 @@
                                 @if ((strpos($firma->psi_stare_fise, 'noi.p;de s.p') !== false) ||
                                         (strpos($firma->psi_stare_fise, 'noi.p;de s') !== false) ||
                                         (strpos($firma->psi_stare_fise, 'noi;de s') !== false))
-                                    <span style="color:blueviolet">
+                                    <span style="font-size: 14px; color:blueviolet">
                                 @elseif ((strpos($firma->psi_stare_fise, 'comp.la cl.') !== false))
-                                    <span style="color:rgb(0, 145, 77)">
+                                    <span style="font-size: 14px; color:rgb(0, 145, 77)">
                                 @elseif ((strpos($firma->psi_stare_fise, 'cl;de s') !== false) ||
                                         (strpos($firma->psi_stare_fise, 'cl.p;de s') !== false) ||
                                         (strpos($firma->psi_stare_fise, 'Fișe-C') !== false) ||
                                         (strpos($firma->psi_stare_fise, 'cl;control') !== false))
-                                    <span style="color:rgb(0, 96, 175)">
-                                @elseif ((strpos($firma->psi_stare_fise, 'cl;de adus') !== false))
-                                    <span style="color:rgb(204, 0, 0)">
+                                    <span style="font-size: 14px; color:rgb(0, 96, 175)">
+                                @elseif ((strpos($firma->psi_stare_fise, 'de adus') !== false))
+                                    <span style="font-size: 14px; color:rgb(204, 0, 0)">
                                 @elseif ((strpos($firma->psi_stare_fise, 'La anulate') !== false))
-                                    <span style="color:rgb(94, 94, 94)">
+                                    <span style="font-size: 14px; color:rgb(94, 94, 94)">
                                 @else
-                                    <span>
+                                    <span style="font-size: 14px;">
                                 @endif
                                     {{ $firma->psi_stare_fise }}
                                     </span>
