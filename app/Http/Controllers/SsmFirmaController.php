@@ -80,7 +80,7 @@ class SsmFirmaController extends Controller
         $lista_ssm_luna = SsmFirma::select('ssm_luna')->groupBy('ssm_luna')->get();
         $lista_psi_luna = SsmFirma::select('psi_luna')->groupBy('psi_luna')->get();
         $lista_contract_firma = SsmFirma::select('contract_firma')->groupBy('contract_firma')->get();
-
+// dd($firme);
         $request->session()->forget('firma_return_url');
 
         return view('ssm.firme.index', compact('firme', 'search_firma', 'search_traseu', 'search_administrator', 'search_actionar', 'search_ssm_luna', 'search_psi_luna',

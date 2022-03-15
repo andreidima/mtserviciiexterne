@@ -253,9 +253,11 @@
                                 <br>
                                 @if ($firma->contract_semnat === 0)
                                     <span style="font-size: 14px; color:red">
+                                @else
+                                    <span>
+                                @endif
                                         {{ $firma->contract_numar }}
                                     </span>
-                                @endif
                             </td>
                             <td style="font-size: 14px; padding:1px;">
                                 {{ $firma->observatii_1 ? ($firma->observatii_1 . '.') : ''}}
