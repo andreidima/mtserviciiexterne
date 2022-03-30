@@ -49,8 +49,8 @@
                 </form>
             </div>
             <div class="col-lg-3 text-end">
-                {{-- <a class="btn btn-sm bg-success text-white border border-dark rounded-3 col-md-8" href="/ssm/salariati/adauga" role="button"> --}}
-                <a class="btn btn-sm bg-success text-white border border-dark rounded-3 col-md-8" href="#" role="button">
+                <a class="btn btn-sm bg-success text-white border border-dark rounded-3 col-md-8" href="/ssm/salariati/adauga" role="button">
+                {{-- <a class="btn btn-sm bg-success text-white border border-dark rounded-3 col-md-8 mb-2" href="#" role="button"> --}}
                     <i class="fas fa-plus-square text-white me-1"></i>Adaugă salariat
                 </a>
             </div>
@@ -73,25 +73,29 @@
                         </th>
                         <th colspan="2" class="text-center" style="font-size: 14px; padding:1px;">Semnat</th>
                         <th rowspan="2" class="text-center" style="font-size: 14px; padding:1px;">CNP</th>
-                        <th colspan="2" class="text-center" style="font-size: 14px; padding:1px;">Semnat</th>
                         <th rowspan="2" class="text-center" style="font-size: 14px; padding:1px;">Funcția</th>
                         <th rowspan="2" class="text-center" style="font-size: 14px; padding:1px;"></th>
                         <th rowspan="2" class="text-center" style=" font-size: 14px; padding:1px;">Data ang.</th>
                         <th rowspan="2" class="text-center" style=" font-size: 14px; padding:1px;">Data înc.</th>
                         <th rowspan="2" class="text-center" style="font-size: 14px; padding:1px;">Traseu</th>
                         <th rowspan="2" class="text-center" style="font-size: 14px; padding:1px;">Observații</th>
+                        <th colspan="2" class="text-center" style="font-size: 14px; padding:1px;">Semnat</th>
                         <th rowspan="2" class="text-center" style=" font-size: 14px; padding:1px;">Acțiuni</th>
                     </tr>
                     <tr class="">
-                        <th class="text-center" style="font-size: 14px; padding:1px;">Anexa</th>
-                        <th class="text-center" style="font-size: 14px; padding:1px;">E.I.P.</th>
                         <th class="text-center" style="font-size: 14px; padding:1px;">SSM</th>
                         <th class="text-center" style="font-size: 14px; padding:1px;">PSI</th>
+                        <th class="text-center" style="font-size: 14px; padding:1px;">Anexa</th>
+                        <th class="text-center" style="font-size: 14px; padding:1px;">E.I.P.</th>
                     </tr>
                 </thead>
                 <tbody>
                     @forelse ($salariati as $salariat)
-                        <tr style="">
+                        @if ((strpos($salariat->salariat, 'revisal') !== false))
+                            <tr style="background-color:rgb(169, 212, 255)">
+                        @else
+                            <tr style="">
+                        @endif
                             <td style="font-size: 14px; padding:1px;">
                                 {{ ($salariati ->currentpage()-1) * $salariati ->perpage() + $loop->index + 1 }}
                             </td>
@@ -105,19 +109,33 @@
                                 {{ $salariat->data_ssm_psi }}
                             </td>
                             <td style="font-size: 14px; padding:1px;">
-                                {{ $salariat->semnat_anexa }}
+                                @if ((strpos($salariat->semnat_ssm, 'n.de s') !== false))
+                                    <span style="font-size: 14px; color:blueviolet">
+                                        {{ $salariat->semnat_ssm }}
+                                    </span>
+                                @elseif ((strpos($salariat->semnat_ssm, 'cl.de s') !== false))
+                                    <span style="font-size: 14px; color:rgb(0, 96, 175)">
+                                        {{ $salariat->semnat_ssm }}
+                                    </span>
+                                @else
+                                    {{ $salariat->semnat_ssm }}
+                                @endif
                             </td>
                             <td style="font-size: 14px; padding:1px;">
-                                {{ $salariat->semnat_eip }}
+                                @if ((strpos($salariat->semnat_psi, 'n.de s') !== false))
+                                    <span style="font-size: 14px; color:blueviolet">
+                                        {{ $salariat->semnat_psi }}
+                                    </span>
+                                @elseif ((strpos($salariat->semnat_psi, 'cl.de s') !== false))
+                                    <span style="font-size: 14px; color:rgb(0, 96, 175)">
+                                        {{ $salariat->semnat_psi }}
+                                    </span>
+                                @else
+                                    {{ $salariat->semnat_psi }}
+                                @endif
                             </td>
                             <td style="font-size: 14px; padding:1px;">
                                 {{ $salariat->cnp }}
-                            </td>
-                            <td style="font-size: 14px; padding:1px;">
-                                {{ $salariat->semnat_ssm }}
-                            </td>
-                            <td style="font-size: 14px; padding:1px;">
-                                {{ $salariat->semnat_psi }}
                             </td>
                             <td style="font-size: 14px; padding:1px;">
                                 {{ $salariat->functia }}
@@ -126,10 +144,10 @@
                                 {{ $salariat->actionar }}
                             </td>
                             <td style="font-size: 14px; padding:1px;">
-                                {{ $salariat->data_angajarii }}
+                                {{ $salariat->data_angajare }}
                             </td>
                             <td style="font-size: 14px; padding:1px;">
-                                {{ $salariat->data_incetarii }}
+                                {{ $salariat->data_incetare }}
                             </td>
                             <td style="font-size: 14px; padding:1px;">
                                 {{ $salariat->traseu }}
@@ -139,6 +157,24 @@
                                 {{ $salariat->observatii_2 ? ($salariat->observatii_2 . '.') : ''}}
                                 {{ $salariat->observatii_3 ? ($salariat->observatii_3 . '') : ''}}
                             </td>
+                            <td style="font-size: 14px; padding:1px;">
+                                @if ((strpos($salariat->semnat_anexa, 'de s') !== false))
+                                    <span style="font-size: 14px; color:rgb(204, 0, 0)">
+                                        {{ $salariat->semnat_anexa }}
+                                    </span>
+                                @else
+                                    {{ $salariat->semnat_anexa }}
+                                @endif
+                            </td>
+                            <td style="font-size: 14px; padding:1px;">
+                                @if ((strpos($salariat->semnat_eip, 'de s') !== false))
+                                    <span style="font-size: 14px; color:rgb(204, 0, 0)">
+                                        {{ $salariat->semnat_eip }}
+                                    </span>
+                                @else
+                                    {{ $salariat->semnat_eip }}
+                                @endif
+                            </td>
                             <td class="p-0 text-center">
                                 {{-- <div class="d-flex justify-content-end"> --}}
                                     {{-- <a href="{{ $firma->path() }}"
@@ -146,8 +182,7 @@
                                     >
                                         <span class="badge bg-success">Vizualizează</span>
                                     </a> --}}
-                                    {{-- <a href="{{ $firma->path() }}/modifica" --}}
-                                    <a href="#"
+                                    <a href="{{ $salariat->path() }}/modifica"
                                         {{-- class="flex" --}}
                                     >
                                         <span class="badge bg-primary">Modifică</span>
@@ -155,9 +190,9 @@
                                     {{-- <div style="flex" class=""> --}}
                                         <a
                                             href="#"
-                                            {{-- data-bs-toggle="modal"
-                                            data-bs-target="#stergeFirma{{ $firma->id }}" --}}
-                                            title="Șterge Firma"
+                                            data-bs-toggle="modal"
+                                            data-bs-target="#stergeSalariat{{ $salariat->id }}"
+                                            title="Șterge Salariat"
                                             >
                                             <span class="badge bg-danger">Șterge</span>
                                         </a>
@@ -187,7 +222,7 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                 <div class="modal-header bg-danger">
-                    <h5 class="modal-title text-white" id="exampleModalLabel">Salariat: <b>{{ $salariat->nume ?? '' }}</b></h5>
+                    <h5 class="modal-title text-white" id="exampleModalLabel">Salariat: <b>{{ $salariat->salariat ?? '' }}</b></h5>
                     <button type="button" class="btn-close bg-white" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body" style="text-align:left;">

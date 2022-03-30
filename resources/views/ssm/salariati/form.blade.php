@@ -3,210 +3,238 @@
 <div class="row mb-0 p-3 d-flex border-radius: 0px 0px 40px 40px" id="app">
     <div class="col-lg-12 mb-0">
 
-        <div class="row mb-0">
-            <div class="col-lg-6 mb-5 mx-auto">
-                <label for="nume" class="mb-0 ps-3">Nume<span class="text-danger">*</span></label>
+        <div class="row mb-2">
+            <div class="col-lg-3 mb-2">
+                <label for="nume_client" class="mb-0 ps-3">Nume client<span class="text-danger">*</span></label>
                 <input
                     type="text"
-                    class="form-control bg-white rounded-3 {{ $errors->has('nume') ? 'is-invalid' : '' }}"
-                    name="nume"
+                    class="form-control bg-white rounded-3 {{ $errors->has('nume_client') ? 'is-invalid' : '' }}"
+                    name="nume_client"
                     placeholder=""
-                    value="{{ old('nume', $firma->nume) }}"
+                    value="{{ old('nume_client', $salariat->nume_client) }}"
                     required>
             </div>
-            <div class="col-lg-3 mb-5 mx-auto">
-                <label for="cod_fiscal" class="mb-0 ps-3">Cod fiscal</label>
+            <div class="col-lg-3 mb-2">
+                <label for="salariat" class="mb-0 ps-3">Salariat<span class="text-danger">*</span></label>
                 <input
                     type="text"
-                    class="form-control bg-white rounded-3 {{ $errors->has('cod_fiscal') ? 'is-invalid' : '' }}"
-                    name="cod_fiscal"
+                    class="form-control bg-white rounded-3 {{ $errors->has('salariat') ? 'is-invalid' : '' }}"
+                    name="salariat"
                     placeholder=""
-                    value="{{ old('cod_fiscal', $firma->cod_fiscal) }}">
+                    value="{{ old('salariat', $salariat->salariat) }}"
+                    required>
             </div>
-            <div class="col-lg-3 mb-5 mx-auto">
-                <label for="domeniu_de_activitate_id" class="mb-0 ps-3">Domeniu de activitate</label>
-                <select name="domeniu_de_activitate_id"
-                    class="form-select bg-white rounded-3 {{ $errors->has('domeniu_de_activitate_id') ? 'is-invalid' : '' }}"
-                >
-                        <option value='' selected>Selectează</option>
-                    @foreach ($domenii_de_activitate as $domeniu_de_activitate)
-                        <option
-                            value='{{ $domeniu_de_activitate->id }}'
-                            {{ ($domeniu_de_activitate->id == old('domeniu_de_activitate_id', $firma->domeniu_de_activitate->id ?? '')) ? 'selected' : '' }}
-                        >{{ $domeniu_de_activitate->nume }} </option>
-                    @endforeach
-                </select>
-            </div>
-            <div class="col-lg-6 mb-5 mx-auto">
-                <label for="adresa" class="mb-0 ps-3">Adresa</label>
+            <div class="col-lg-3 mb-2">
+                <label for="cnp" class="mb-0 ps-3">CNP</label>
                 <input
                     type="text"
-                    class="form-control bg-white rounded-3 {{ $errors->has('adresa') ? 'is-invalid' : '' }}"
-                    name="adresa"
+                    class="form-control bg-white rounded-3 {{ $errors->has('cnp') ? 'is-invalid' : '' }}"
+                    name="cnp"
                     placeholder=""
-                    value="{{ old('adresa', $firma->adresa) }}">
+                    value="{{ old('cnp', $salariat->cnp) }}"
+                    required>
             </div>
-            <div class="col-lg-3 mb-5 mx-auto">
-                <label for="localitate" class="mb-0 ps-3">Localitate</label>
+            <div class="col-lg-3 mb-2">
+                <label for="functia" class="mb-0 ps-3">Funcția</label>
                 <input
                     type="text"
-                    class="form-control bg-white rounded-3 {{ $errors->has('localitate') ? 'is-invalid' : '' }}"
-                    name="localitate"
+                    class="form-control bg-white rounded-3 {{ $errors->has('functia') ? 'is-invalid' : '' }}"
+                    name="functia"
                     placeholder=""
-                    value="{{ old('localitate', $firma->localitate) }}">
-            </div>
-            <div class="col-lg-3 mb-5 mx-auto">
-                <label for="judet" class="mb-0 ps-3">Județ</label>
-                <input
-                    type="text"
-                    class="form-control bg-white rounded-3 {{ $errors->has('judet') ? 'is-invalid' : '' }}"
-                    name="judet"
-                    placeholder=""
-                    value="{{ old('judet', $firma->judet) }}">
-            </div>
-            <div class="col-lg-3 mb-5 mx-auto">
-                <label for="telefon" class="mb-0 ps-3">Telefon</label>
-                <input
-                    type="text"
-                    class="form-control bg-white rounded-3 {{ $errors->has('telefon') ? 'is-invalid' : '' }}"
-                    name="telefon"
-                    placeholder=""
-                    value="{{ old('telefon', $firma->telefon) }}">
-            </div>
-            <div class="col-lg-3 mb-5 mx-auto">
-                <label for="email" class="mb-0 ps-3">Email</label>
-                <input
-                    type="text"
-                    class="form-control bg-white rounded-3 {{ $errors->has('email') ? 'is-invalid' : '' }}"
-                    name="email"
-                    placeholder=""
-                    value="{{ old('email', $firma->email) }}">
-            </div>
-            <div class="col-lg-3 mb-5 mx-auto">
-                <label for="nume_administrator" class="mb-0 ps-3">Nume administrator</label>
-                <input
-                    type="text"
-                    class="form-control bg-white rounded-3 {{ $errors->has('nume_administrator') ? 'is-invalid' : '' }}"
-                    name="nume_administrator"
-                    placeholder=""
-                    value="{{ old('nume_administrator', $firma->nume_administrator) }}">
-            </div>
-            <div class="col-lg-3 mb-5 mx-auto">
-                <label for="angajat_desemnat" class="mb-0 ps-3">Angajat desemnat</label>
-                <input
-                    type="text"
-                    class="form-control bg-white rounded-3 {{ $errors->has('angajat_desemnat') ? 'is-invalid' : '' }}"
-                    name="angajat_desemnat"
-                    placeholder=""
-                    value="{{ old('angajat_desemnat', $firma->angajat_desemnat) }}">
-            </div>
-            <div class="col-lg-3 mb-5 mx-auto">
-                <label for="data" class="mb-0 ps-xxl-3">Buletin pram</label>
-                    <vue2-datepicker
-                        data-veche="{{ old('buletin_pram_expirare', ($firma->buletin_pram_expirare ?? '')) }}"
-                        nume-camp-db="buletin_pram_expirare"
-                        tip="date"
-                        value-type="YYYY-MM-DD"
-                        format="DD-MM-YYYY"
-                        :latime="{ width: '125px' }"
-                    ></vue2-datepicker>
-                <small class="ps-3">*data expirare</small>
-            </div>
-            <div class="col-lg-3 mb-5 ps-5 mx-auto d-flex align-items-center">
-                <div class="form-check">
-                    <input class="form-check-input" type="hidden" name="iscir" value="0" />
-                    <input class="form-check-input" type="checkbox" value="1" name="iscir" id="iscir"
-                        {{ old('iscir', $firma->iscir) == '1' ? 'checked' : '' }}>
-                    <label class="form-check-label" for="iscir">
-                        ISCIR
-                    </label>
-                </div>
-            </div>
-            <div class="col-lg-6 mb-5 mx-auto">
-                <label for="iscir_descriere" class="form-label mb-0 ps-3">ISCIR descriere</label>
-                <textarea class="form-control bg-white {{ $errors->has('iscir_descriere') ? 'is-invalid' : '' }}"
-                    name="iscir_descriere" rows="2">{{ old('iscir_descriere', $firma->iscir_descriere) }}</textarea>
-            </div>
-            <div class="col-lg-3 mb-5 mx-auto">
-                <label for="actionar" class="mb-0 ps-3">Acționar</label>
-                <select name="actionar"
-                    class="form-select bg-white rounded-3 {{ $errors->has('actionar') ? 'is-invalid' : '' }}"
-                >
-                    <option value='' selected>Selectează</option>
-                    <option value='2' {{ (old('actionar', $firma->actionar) == 2) ? 'selected' : '' }}> Catalin </option>
-                    <option value='1' {{ (old('actionar', $firma->actionar) == 1) ? 'selected' : '' }}> Ionut </option>
-                </select>
-            </div>
-            <div class="col-lg-3 mb-5 mx-auto">
-                <label for="traseu_id" class="mb-0 ps-3">Traseu</label>
-                <select name="traseu_id"
-                    class="form-select bg-white rounded-3 {{ $errors->has('traseu_id') ? 'is-invalid' : '' }}"
-                >
-                        <option value='' selected>Selectează</option>
-                    @foreach ($trasee as $traseu)
-                        <option
-                            value='{{ $traseu->id }}'
-                            {{ ($traseu->id == old('traseu_id', $firma->traseu->id ?? '')) ? 'selected' : '' }}
-                        >{{ $traseu->nume }} </option>
-                    @endforeach
-                </select>
-            </div>
-            {{-- <div class="col-lg-3 mb-5 mx-auto">
-                <label for="traseu_ordine" class="mb-0 ps-3">Ordine în traseu</label>
-                <input
-                    type="text"
-                    class="form-control bg-white rounded-3 {{ $errors->has('traseu_ordine') ? 'is-invalid' : '' }}"
-                    name="traseu_ordine"
-                    placeholder=""
-                    value="{{ old('traseu_ordine', $firma->traseu_ordine) }}">
-            </div> --}}
-            <div class="col-lg-6 mb-5 mx-auto">
-                <label for="observatii" class="form-label mb-0 ps-3">Observații</label>
-                <textarea class="form-control bg-white {{ $errors->has('observatii') ? 'is-invalid' : '' }}"
-                    name="observatii" rows="2">{{ old('observatii', $firma->observatii) }}</textarea>
+                    value="{{ old('functia', $salariat->functia) }}"
+                    required>
             </div>
         </div>
-        @if($serviciu == "ssm")
-            <div class="row mb-0">
-                <div class="col-lg-3 mb-5 mx-auto">
-                    <label for="contract_firma" class="mb-0 ps-3">Contract firma</label>
-                    <input
-                        type="text"
-                        class="form-control bg-white rounded-3 {{ $errors->has('contract_firma') ? 'is-invalid' : '' }}"
-                        name="contract_firma"
-                        placeholder=""
-                        value="{{ old('contract_firma', $firma->contract_firma) }}">
-                </div>
-                <div class="col-lg-3 mb-5 mx-auto">
-                    <label for="contract_numar" class="mb-0 ps-3">Contract număr</label>
-                    <input
-                        type="text"
-                        class="form-control bg-white rounded-3 {{ $errors->has('contract_numar') ? 'is-invalid' : '' }}"
-                        name="contract_numar"
-                        placeholder=""
-                        value="{{ old('contract_numar', $firma->contract_numar) }}">
-                </div>
-                <div class="col-lg-3 mb-5 mx-auto">
-                    <label for="contract_valoare" class="mb-0 ps-3">Contract valoare</label>
-                    <input
-                        type="text"
-                        class="form-control bg-white rounded-3 {{ $errors->has('contract_valoare') ? 'is-invalid' : '' }}"
-                        name="contract_valoare"
-                        placeholder=""
-                        value="{{ old('contract_valoare', $firma->contract_valoare) }}">
-                </div>
-                <div class="col-lg-3 mb-5 mx-auto">
-                    <label for="documentatie" class="form-label mb-0 ps-3">Documentație</label>
-                    <textarea class="form-control bg-white {{ $errors->has('documentatie') ? 'is-invalid' : '' }}"
-                        name="documentatie" rows="2">{{ old('documentatie', $firma->documentatie) }}</textarea>
-                </div>
+        <div class="row mb-2 p-2 rounded-3" style="background-color: rgb(132, 236, 255)">
+            <div class="col-lg-2 mb-2">
+                <label for="data_ssm_psi" class="mb-0 ps-3">Data SSM/PSI</label>
+                <input
+                    type="text"
+                    class="form-control bg-white rounded-3 {{ $errors->has('data_ssm_psi') ? 'is-invalid' : '' }}"
+                    name="data_ssm_psi"
+                    placeholder=""
+                    value="{{ old('data_ssm_psi', $salariat->data_ssm_psi) }}">
             </div>
-        @endif
+            <div class="col-lg-2 mb-2">
+                <label for="semnat_anexa" class="mb-0 ps-3">Semnat Anexa</label>
+                <select name="semnat_anexa" class="form-select bg-white rounded-3 {{ $errors->has('semnat_anexa') ? 'is-invalid' : '' }}">
+                    <option value='-' selected>-</option>
+                    <option value="sem" style="" {{ old('semnat_anexa', $salariat->semnat_anexa) === 'sem' ? 'selected' : ''}}>sem</option>
+                    <option value="de s" style="color:rgb(204, 0, 0)" {{ old('semnat_anexa', $salariat->semnat_anexa) === 'de s' ? 'selected' : ''}}>de s</option>
+                    @if (
+                        (old('semnat_anexa', $salariat->semnat_anexa) !== '-') &&
+                        (old('semnat_anexa', $salariat->semnat_anexa) !== 'sem') &&
+                        (old('semnat_anexa', $salariat->semnat_anexa) !== 'de s')
+                        )
+                        <option value="{{ $salariat->semnat_anexa }}" {{ (old('semnat_anexa', $salariat->semnat_anexa) === $salariat->semnat_anexa) ? 'selected' : ''}}>{{ $salariat->semnat_anexa }}</option>
+                    @endif
+                </select>
+            </div>
+            <div class="col-lg-2 mb-2">
+                <label for="semnat_eip" class="mb-0 ps-3">Semnat E.I.P.</label>
+                <select name="semnat_eip" class="form-select bg-white rounded-3 {{ $errors->has('semnat_eip') ? 'is-invalid' : '' }}">
+                    <option value='-' selected>-</option>
+                    <option value="sem" style="" {{ old('semnat_eip', $salariat->semnat_eip) === 'sem' ? 'selected' : ''}}>sem</option>
+                    <option value="de s" style="color:rgb(204, 0, 0)" {{ old('semnat_eip', $salariat->semnat_eip) === 'de s' ? 'selected' : ''}}>de s</option>
+                    @if (
+                        (old('semnat_eip', $salariat->semnat_eip) !== '-') &&
+                        (old('semnat_eip', $salariat->semnat_eip) !== 'sem') &&
+                        (old('semnat_eip', $salariat->semnat_eip) !== 'de s')
+                        )
+                        <option value="{{ $salariat->semnat_eip }}" {{ (old('semnat_eip', $salariat->semnat_eip) === $salariat->semnat_eip) ? 'selected' : ''}}>{{ $salariat->semnat_eip }}</option>
+                    @endif
+                </select>
+            </div>
+            <div class="col-lg-2 mb-2">
+                <label for="semnat_ssm" class="mb-0 ps-3">Semnat SSM</label>
+                <select name="semnat_ssm" class="form-select bg-white rounded-3 {{ $errors->has('semnat_ssm') ? 'is-invalid' : '' }}">
+                    <option value='-' selected>-</option>
+                    <option value="n.de s" style="color:blueviolet" {{ old('semnat_ssm', $salariat->semnat_ssm) === 'n.de s' ? 'selected' : ''}}>n. de s</option>
+                    <option value="noi s." style="" {{ old('semnat_ssm', $salariat->semnat_ssm) === 'noi s.' ? 'selected' : ''}}>noi s.</option>
+                    <option value="cl.de s" style="color:rgb(0, 96, 175)" {{ old('semnat_ssm', $salariat->semnat_ssm) === 'cl.de s' ? 'selected' : ''}}>cl.de s</option>
+                    @if (
+                        (old('semnat_ssm', $salariat->semnat_ssm) !== '-') &&
+                        (old('semnat_ssm', $salariat->semnat_ssm) !== 'n.de s') &&
+                        (old('semnat_ssm', $salariat->semnat_ssm) !== 'noi s.') &&
+                        (old('semnat_ssm', $salariat->semnat_ssm) !== 'cl.de s')
+                        )
+                        <option value="{{ $salariat->semnat_ssm }}" {{ (old('semnat_ssm', $salariat->semnat_ssm) === $salariat->semnat_ssm) ? 'selected' : ''}}>{{ $salariat->semnat_ssm }}</option>
+                    @endif
+                </select>
+            </div>
+            <div class="col-lg-2 mb-2">
+                <label for="semnat_psi" class="mb-0 ps-3">Semnat PSI</label>
+                <select name="semnat_psi" class="form-select bg-white rounded-3 {{ $errors->has('semnat_psi') ? 'is-invalid' : '' }}">
+                    <option value='-' selected>-</option>
+                    <option value="n.de s" style="color:blueviolet" {{ old('semnat_psi', $salariat->semnat_psi) === 'n.de s' ? 'selected' : ''}}>n.de s</option>
+                    <option value="noi s." style="" {{ old('semnat_psi', $salariat->semnat_psi) === 'noi s.' ? 'selected' : ''}}>noi s.</option>
+                    <option value="cl.de s" style="color:rgb(0, 96, 175)" {{ old('semnat_psi', $salariat->semnat_psi) === 'cl.de s' ? 'selected' : ''}}>cl.de s</option>
+                    @if (
+                        (old('semnat_psi', $salariat->semnat_psi) !== '-') &&
+                        (old('semnat_psi', $salariat->semnat_psi) !== 'n.de s') &&
+                        (old('semnat_psi', $salariat->semnat_psi) !== 'noi s.') &&
+                        (old('semnat_psi', $salariat->semnat_psi) !== 'cl.de s')
+                        )
+                        <option value="{{ $salariat->semnat_psi }}" {{ (old('semnat_psi', $salariat->semnat_psi) === $salariat->semnat_psi) ? 'selected' : ''}}>{{ $salariat->semnat_psi }}</option>
+                    @endif
+                </select>
+            </div>
+        </div>
+        <div class="row mb-2">
+            <div class="col-lg-2 mb-3">
+                <label for="med_muncii_zi" class="mb-0 ps-3">Med. Muncii ZI</label>
+                <input
+                    type="text"
+                    class="form-control bg-white rounded-3 {{ $errors->has('med_muncii_zi') ? 'is-invalid' : '' }}"
+                    name="med_muncii_zi"
+                    placeholder=""
+                    value="{{ old('med_muncii_zi', $salariat->med_muncii_zi) }}">
+            </div>
+            <div class="col-lg-2 mb-3">
+                <label for="med_muncii_luna" class="mb-0 ps-3">Med. Muncii LUNA</label>
+                <input
+                    type="text"
+                    class="form-control bg-white rounded-3 {{ $errors->has('med_muncii_luna') ? 'is-invalid' : '' }}"
+                    name="med_muncii_luna"
+                    placeholder=""
+                    value="{{ old('med_muncii_luna', $salariat->med_muncii_luna) }}">
+            </div>
+            <div class="col-lg-2 mb-3">
+                <label for="med_muncii_an" class="mb-0 ps-3">Med. Muncii AN</label>
+                <input
+                    type="text"
+                    class="form-control bg-white rounded-3 {{ $errors->has('med_muncii_an') ? 'is-invalid' : '' }}"
+                    name="med_muncii_an"
+                    placeholder=""
+                    value="{{ old('med_muncii_an', $salariat->med_muncii_an) }}">
+            </div>
+        </div>
+        <div class="row mb-2">
+            <div class="col-lg-2 mb-3">
+                <label for="actionar" class="mb-0 ps-3">Acționar</label>
+                <input
+                    type="text"
+                    class="form-control bg-white rounded-3 {{ $errors->has('actionar') ? 'is-invalid' : '' }}"
+                    name="actionar"
+                    placeholder=""
+                    value="{{ old('actionar', $salariat->actionar) }}"
+                    required>
+            </div>
+            <div class="col-lg-2 mb-3">
+                <label for="data_angajare" class="mb-0 ps-3">Data angajare</label>
+                <input
+                    type="text"
+                    class="form-control bg-white rounded-3 {{ $errors->has('data_angajare') ? 'is-invalid' : '' }}"
+                    name="data_angajare"
+                    placeholder=""
+                    value="{{ old('data_angajare', $salariat->data_angajare) }}"
+                    required>
+            </div>
+            <div class="col-lg-2 mb-3">
+                <label for="data_incetare" class="mb-0 ps-3">Data încetare</label>
+                <input
+                    type="text"
+                    class="form-control bg-white rounded-3 {{ $errors->has('data_incetare') ? 'is-invalid' : '' }}"
+                    name="data_incetare"
+                    placeholder=""
+                    value="{{ old('data_incetare', $salariat->data_incetare) }}"
+                    required>
+            </div>
+            <div class="col-lg-2 mb-2">
+                <label for="status" class="mb-0 ps-3">Status</label>
+                <select name="status" class="form-select bg-white rounded-3 {{ $errors->has('status') ? 'is-invalid' : '' }}">
+                    <option value="activ" style="" {{ old('status', $salariat->status) === 'activ' ? 'selected' : ''}}>Activ</option>
+                    <option value="susp" style="color:blueviolet" {{ old('status', $salariat->status) === 'susp' ? 'selected' : ''}}>Susp</option>
+                    <option value="CCC" style="color:rgb(252, 73, 252)" {{ old('status', $salariat->status) === 'CCC' ? 'selected' : ''}}>CCC</option>
+                    <option value="incetat" style="color:rgb(207, 153, 2)" {{ old('status', $salariat->status) === 'incetat' ? 'selected' : ''}}>Încetat</option>
+                </select>
+            </div>
+            <div class="col-lg-2 mb-3">
+                <label for="traseu" class="mb-0 ps-3">Traseu</label>
+                <input
+                    type="text"
+                    class="form-control bg-white rounded-3 {{ $errors->has('traseu') ? 'is-invalid' : '' }}"
+                    name="traseu"
+                    placeholder=""
+                    value="{{ old('traseu', $salariat->traseu) }}"
+                    required>
+            </div>
+        </div>
+        <div class="row mb-2">
+            <div class="col-lg-3 mb-3">
+                <label for="observatii_1" class="mb-0 ps-3">Observații 1</label>
+                <input
+                    type="text"
+                    class="form-control bg-white rounded-3 {{ $errors->has('observatii_1') ? 'is-invalid' : '' }}"
+                    name="observatii_1"
+                    placeholder=""
+                    value="{{ old('observatii_1', $salariat->observatii_1) }}">
+            </div>
+            <div class="col-lg-3 mb-3">
+                <label for="observatii_2" class="mb-0 ps-3">Observații 2</label>
+                <input
+                    type="text"
+                    class="form-control bg-white rounded-3 {{ $errors->has('observatii_2') ? 'is-invalid' : '' }}"
+                    name="observatii_2"
+                    placeholder=""
+                    value="{{ old('observatii_2', $salariat->observatii_2) }}">
+            </div>
+            <div class="col-lg-3 mb-3">
+                <label for="observatii_3" class="mb-0 ps-3">Observații 3</label>
+                <input
+                    type="text"
+                    class="form-control bg-white rounded-3 {{ $errors->has('observatii_3') ? 'is-invalid' : '' }}"
+                    name="observatii_3"
+                    placeholder=""
+                    value="{{ old('observatii_3', $salariat->observatii_3) }}">
+            </div>
+
+        </div>
 
         <div class="row">
             <div class="col-lg-12 mb-2 d-flex justify-content-center">
-                <button type="submit" class="btn btn-primary text-white me-3 rounded-3">{{ $buttonText }}</button>
-                <a class="btn btn-secondary rounded-3" href="{{ Session::get('firma_return_url') }}">Renunță</a>
+                <button type="submit" class="btn btn-lg btn-primary text-white me-3 rounded-3">{{ $buttonText }}</button>
+                <a class="btn btn-lg btn-secondary rounded-3" href="{{ Session::get('salariat_return_url') }}">Renunță</a>
             </div>
         </div>
     </div>

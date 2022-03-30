@@ -90,7 +90,7 @@
             </div>
             <div class="col-lg-3 mb-2">
                 <label for="ssm_stare_fise" class="mb-0 ps-3">SSM stare fișe</label>
-                <select name="ssm_stare_fise" class="form-select bg-white rounded-3 {{ $errors->has('domeniu_de_activitate_id') ? 'is-invalid' : '' }}">
+                <select name="ssm_stare_fise" class="form-select bg-white rounded-3 {{ $errors->has('ssm_stare_fise') ? 'is-invalid' : '' }}">
                     <option value='-' selected>-</option>
                     <option value="noi.p;de s.p" style="color:blueviolet" {{ old('ssm_stare_fise', $firma->ssm_stare_fise) === 'noi.p;de s.p' ? 'selected' : ''}}>noi.p;de s.p</option>
                     <option value="noi.p;de s" style="color:blueviolet" {{ old('ssm_stare_fise', $firma->ssm_stare_fise) === 'noi.p;de s' ? 'selected' : ''}}>noi.p;de s</option>
@@ -133,7 +133,7 @@
             </div>
             <div class="col-lg-3 mb-2">
                 <label for="psi_stare_fise" class="mb-0 ps-3">PSI stare fișe</label>
-                <select name="psi_stare_fise" class="form-select bg-white rounded-3 {{ $errors->has('domeniu_de_activitate_id') ? 'is-invalid' : '' }}">
+                <select name="psi_stare_fise" class="form-select bg-white rounded-3 {{ $errors->has('psi_stare_fise') ? 'is-invalid' : '' }}">
                     <option value='-' selected>-</option>
                     <option value="noi.p;de s.p" style="color:blueviolet" style="" {{ old('psi_stare_fise', $firma->psi_stare_fise) === 'noi.p;de s.p' ? 'selected' : ''}}>noi.p;de s.p</option>
                     <option value="noi.p;de s" style="color:blueviolet" {{ old('psi_stare_fise', $firma->psi_stare_fise) === 'noi.p;de s' ? 'selected' : ''}}>noi.p;de s</option>
@@ -152,7 +152,7 @@
                     <option value="de adus" style="color:rgb(204, 0, 0)" {{ old('psi_stare_fise', $firma->psi_stare_fise) === 'de adus' ? 'selected' : ''}}>de adus</option>
                     <option value="La anulate" style="color:rgb(94, 94, 94)" {{ old('psi_stare_fise', $firma->psi_stare_fise) === 'La anulate' ? 'selected' : ''}}>La anulate</option>
                     @if (
-                        (old('ssm_stare_fise', $firma->psi_stare_fise) !== '-') &&
+                        (old('psi_stare_fise', $firma->psi_stare_fise) !== '-') &&
                         (old('psi_stare_fise', $firma->psi_stare_fise) !== 'noi.p;de s.p') &&
                         (old('psi_stare_fise', $firma->psi_stare_fise) !== 'noi.p;de s') &&
                         (old('psi_stare_fise', $firma->psi_stare_fise) !== 'noi;de s') &&

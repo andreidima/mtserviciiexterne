@@ -80,7 +80,7 @@ class SsmFirmaController extends Controller
         $lista_ssm_luna = SsmFirma::select('ssm_luna')->groupBy('ssm_luna')->get();
         $lista_psi_luna = SsmFirma::select('psi_luna')->groupBy('psi_luna')->get();
         $lista_contract_firma = SsmFirma::select('contract_firma')->groupBy('contract_firma')->get();
-// dd($firme);
+
         $request->session()->forget('firma_return_url');
 
         return view('ssm.firme.index', compact('firme', 'search_firma', 'search_traseu', 'search_administrator', 'search_actionar', 'search_ssm_luna', 'search_psi_luna',
@@ -153,7 +153,7 @@ class SsmFirmaController extends Controller
         // dd($request);
         $firma->update($this->validateRequest($request));
 
-        return redirect($request->session()->get('firma_return_url') ?? ('/' . $serviciu . '/firme'))
+        return redirect($request->session()->get('firma_return_url') ?? ('/ssm/firme'))
             ->with('status', 'Firma „' . ($firma->nume ?? '') . '” a fost modificată cu succes!');
     }
 
@@ -175,7 +175,7 @@ class SsmFirmaController extends Controller
      *
      * @return array
      */
-    protected function validateRequest(Request $request, $serviciu = null)
+    protected function validateRequest(Request $request)
     {
         return $request->validate(
             [

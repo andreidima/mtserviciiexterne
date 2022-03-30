@@ -14,6 +14,6 @@ class SsmSalariat extends Model
 
     public function path()
     {
-        return "ssm/salariati/{$this->id}";
+        return "/ssm/salariati/{$this->id}";
     }
 }
