@@ -25,6 +25,7 @@ class SsmFirmaController extends Controller
         $search_actionar = \Request::get('search_actionar');
         $search_ssm_luna = \Request::get('search_ssm_luna');
         $search_psi_luna = \Request::get('search_psi_luna');
+        $search_perioada = \Request::get('search_perioada');
         $search_contract_firma = \Request::get('search_contract_firma');
         $search_contract_numar = \Request::get('search_contract_numar');
         $search_observatii = \Request::get('search_observatii');
@@ -59,6 +60,9 @@ class SsmFirmaController extends Controller
             ->when($search_psi_luna, function ($query, $search_psi_luna) {
                 return $query->where('psi_luna', 'like', '%' . $search_psi_luna . '%');
             })
+            ->when($search_perioada, function ($query, $search_perioada) {
+                return $query->where('perioada', 'like', '%' . $search_perioada . '%');
+            })
             ->when($search_contract_firma, function ($query, $search_contract_firma) {
                 return $query->where('contract_firma', 'like', '%' . $search_contract_firma . '%');
             })
@@ -79,13 +83,14 @@ class SsmFirmaController extends Controller
         $lista_actionar = SsmFirma::select('actionar')->groupBy('actionar')->get();
         $lista_ssm_luna = SsmFirma::select('ssm_luna')->groupBy('ssm_luna')->get();
         $lista_psi_luna = SsmFirma::select('psi_luna')->groupBy('psi_luna')->get();
+        $lista_perioada = SsmFirma::select('perioada')->groupBy('perioada')->get();
         $lista_contract_firma = SsmFirma::select('contract_firma')->groupBy('contract_firma')->get();
 
         $request->session()->forget('firma_return_url');
 
-        return view('ssm.firme.index', compact('firme', 'search_firma', 'search_traseu', 'search_administrator', 'search_actionar', 'search_ssm_luna', 'search_psi_luna',
+        return view('ssm.firme.index', compact('firme', 'search_firma', 'search_traseu', 'search_administrator', 'search_actionar', 'search_ssm_luna', 'search_psi_luna', 'search_perioada',
             'search_contract_firma', 'search_contract_numar', 'search_observatii',
-            'lista_traseu', 'lista_actionar', 'lista_ssm_luna', 'lista_psi_luna', 'lista_contract_firma'
+            'lista_traseu', 'lista_actionar', 'lista_ssm_luna', 'lista_psi_luna', 'lista_perioada', 'lista_contract_firma'
         ));
     }
 

@@ -67,6 +67,17 @@
                                     value="{{ $search_administrator}}">
                         </div>
                         <div class="col-md-2">
+                            <select class="form-select form-select-sm mb-1" id="search_perioada" name="search_perioada">
+                                    <option value="" selected>Perioada</option>
+                                @foreach ($lista_perioada as $perioada)
+                                    <option value="{{ $perioada->perioada }}"
+                                        {{ isset($perioada->perioada) ?  ($perioada->perioada === $search_perioada ? 'selected' : '') : '' }}
+                                    >
+                                    {{ $perioada->perioada }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="col-md-2">
                             <select class="form-select form-select-sm mb-1" id="search_contract_firma" name="search_contract_firma">
                                     <option value="" selected>Contract</option>
                                 @foreach ($lista_contract_firma as $contract_firma)
@@ -77,11 +88,11 @@
                                 @endforeach
                             </select>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-2">
                             <input type="text" class="form-control form-control-sm rounded-3" id="search_contract_numar" name="search_contract_numar" placeholder="Contract număr"
                                     value="{{ $search_contract_numar}}">
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-2">
                             <input type="text" class="form-control form-control-sm rounded-3" id="search_observatii" name="search_observatii" placeholder="Observații"
                                     value="{{ $search_observatii}}">
                         </div>

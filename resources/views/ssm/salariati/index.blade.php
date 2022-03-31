@@ -93,6 +93,8 @@
                     @forelse ($salariati as $salariat)
                         @if ((strpos($salariat->salariat, 'revisal') !== false))
                             <tr style="background-color:rgb(169, 212, 255)">
+                        @elseif ((strpos($salariat->status, 'CCC') !== false))
+                            <tr style="background-color:rgb(255, 170, 244)">
                         @else
                             <tr style="">
                         @endif
