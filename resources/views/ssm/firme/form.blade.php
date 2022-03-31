@@ -301,7 +301,7 @@
                     value="{{ old('observatii_3', $firma->observatii_3) }}">
             </div>
             <div class="col-lg-3 mb-3">
-                <label for="observatii_4" class="mb-0 ps-3">Observații 4</label>
+                <label for="observatii_4" class="mb-0 ps-3">Observații</label>
                 <input
                     type="text"
                     class="form-control bg-white rounded-3 {{ $errors->has('observatii_4') ? 'is-invalid' : '' }}"
