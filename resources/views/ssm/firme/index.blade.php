@@ -203,6 +203,7 @@
                             </td>
                             <td style="font-size: 14px; padding:1px; font-weight:bold" class="text-center">
                                 @php
+                                    $ultimulNumarDinPerioada = null;
                                     if(preg_match_all('/\d+/', $firma->ssm_luna, $numere)){
                                         $ultimulNumarDinPerioada = (int)end($numere[0]);
                                     }
@@ -265,6 +266,7 @@
                             </td>
                             <td style="font-size: 14px; padding:1px; font-weight:bold" class="text-center">
                                 @php
+                                    $ultimulNumarDinPerioada = null;
                                     if(preg_match_all('/\d+/', $firma->psi_luna, $numere)){
                                         $ultimulNumarDinPerioada = (int)end($numere[0]);
                                     }
@@ -323,6 +325,8 @@
                                     @else
                                         {{ $firma->psi_luna }}
                                     @endif
+                                @else
+                                    {{ $firma->psi_luna }}
                                 @endisset
                             </td>
                             <td style="font-size: 14px; padding:1px;">
