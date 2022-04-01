@@ -55,13 +55,13 @@ class SsmFirmaController extends Controller
                 return $query->where('actionar', $search_actionar);
             })
             ->when($search_ssm_luna, function ($query, $search_ssm_luna) {
-                return $query->where('ssm_luna', 'like', '%' . $search_ssm_luna . '%');
+                return $query->where('ssm_luna', $search_ssm_luna);
             })
             ->when($search_psi_luna, function ($query, $search_psi_luna) {
-                return $query->where('psi_luna', 'like', '%' . $search_psi_luna . '%');
+                return $query->where('psi_luna', $search_psi_luna);
             })
             ->when($search_perioada, function ($query, $search_perioada) {
-                return $query->where('perioada', 'like', '%' . $search_perioada . '%');
+                return $query->where('perioada', $search_perioada);
             })
             ->when($search_contract_firma, function ($query, $search_contract_firma) {
                 return $query->where('contract_firma', 'like', '%' . $search_contract_firma . '%');

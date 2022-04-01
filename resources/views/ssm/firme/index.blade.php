@@ -169,6 +169,9 @@
                     </tr>
                 </thead>
                 <tbody>
+                    @php
+                        $lunaCurenta = \Carbon\Carbon::now()->month // Folosita la inrosirea textului din Luna SSM si PSI
+                    @endphp
                     @forelse ($firme as $firma)
                         @if ((strpos($firma->nume, 'incetat') !== false))
                             <tr style="opacity: 0.5;">
@@ -199,10 +202,128 @@
                                 {{ $firma->actionar }}
                             </td>
                             <td style="font-size: 14px; padding:1px; font-weight:bold" class="text-center">
-                                {{ $firma->ssm_luna }}
+                                @php
+                                    if(preg_match_all('/\d+/', $firma->ssm_luna, $numere)){
+                                        $ultimulNumarDinPerioada = (int)end($numere[0]);
+                                    }
+                                @endphp
+                                @isset ($ultimulNumarDinPerioada)
+                                    @if ($firma->perioada === 'LUNAR')
+                                        @if ($ultimulNumarDinPerioada !== $lunaCurenta)
+                                            <span class="text-danger">{{ $firma->ssm_luna }}</span>
+                                        @else
+                                            {{ $firma->ssm_luna }}
+                                        @endif
+                                    @elseif (($firma->perioada === 'TRI') || ($firma->perioada === 'TRI.'))
+                                        @if (
+                                                (
+                                                    ($ultimulNumarDinPerioada < 10) // fiind perioada TRI, se calculeaza la 3 luni
+                                                    &&
+                                                    (
+                                                        ( $ultimulNumarDinPerioada > $lunaCurenta ) // este cel putin de anul trecut
+                                                        ||
+                                                        ( ($ultimulNumarDinPerioada + 3) <= $lunaCurenta ) // au trecut minim 3 luni
+                                                    )
+                                                )
+                                                ||
+                                                (
+                                                    ($ultimulNumarDinPerioada >= 10) // fiind perioada TRI, se calculeaza la 3 luni
+                                                    &&
+                                                    ( ($ultimulNumarDinPerioada + 3)%12 <= $lunaCurenta ) // au trecut minim 3 luni
+                                                )
+                                            )
+                                            <span class="text-danger">{{ $firma->ssm_luna }}</span>
+                                        @else
+                                            {{ $firma->ssm_luna }}
+                                        @endif
+                                    @elseif (($firma->perioada === 'SEM') || ($firma->perioada === 'SEM.'))
+                                        @if (
+                                                (
+                                                    ($ultimulNumarDinPerioada < 7) // fiind perioada SEM, se calculeaza la 6 luni
+                                                    &&
+                                                    (
+                                                        ( $ultimulNumarDinPerioada > $lunaCurenta ) // este cel putin de anul trecut
+                                                        ||
+                                                        ( ($ultimulNumarDinPerioada + 6) <= $lunaCurenta ) // au trecut minim 6 luni
+                                                    )
+                                                )
+                                                ||
+                                                (
+                                                    ($ultimulNumarDinPerioada >= 7) // fiind perioada SEM, se calculeaza la 6 luni
+                                                    &&
+                                                    ( ($ultimulNumarDinPerioada + 6)%12 <= $lunaCurenta ) // au trecut minim 6 luni
+                                                )
+                                            )
+                                            <span class="text-danger">{{ $firma->ssm_luna }}</span>
+                                        @else
+                                            {{ $firma->ssm_luna }}
+                                        @endif
+                                    @else
+                                        {{ $firma->ssm_luna }}
+                                    @endif
+                                @endisset
                             </td>
                             <td style="font-size: 14px; padding:1px; font-weight:bold" class="text-center">
-                                {{ $firma->psi_luna }}
+                                @php
+                                    if(preg_match_all('/\d+/', $firma->psi_luna, $numere)){
+                                        $ultimulNumarDinPerioada = (int)end($numere[0]);
+                                    }
+                                @endphp
+                                @isset ($ultimulNumarDinPerioada)
+                                    @if ($firma->perioada === 'LUNAR')
+                                        @if ($ultimulNumarDinPerioada !== $lunaCurenta)
+                                            <span class="text-danger">{{ $firma->psi_luna }}</span>
+                                        @else
+                                            {{ $firma->psi_luna }}
+                                        @endif
+                                    @elseif (($firma->perioada === 'TRI') || ($firma->perioada === 'TRI.'))
+                                        @if (
+                                                (
+                                                    ($ultimulNumarDinPerioada < 10) // fiind perioada TRI, se calculeaza la 3 luni
+                                                    &&
+                                                    (
+                                                        ( $ultimulNumarDinPerioada > $lunaCurenta ) // este cel putin de anul trecut
+                                                        ||
+                                                        ( ($ultimulNumarDinPerioada + 3) <= $lunaCurenta ) // au trecut minim 3 luni
+                                                    )
+                                                )
+                                                ||
+                                                (
+                                                    ($ultimulNumarDinPerioada >= 10) // fiind perioada TRI, se calculeaza la 3 luni
+                                                    &&
+                                                    ( ($ultimulNumarDinPerioada + 3)%12 <= $lunaCurenta ) // au trecut minim 3 luni
+                                                )
+                                            )
+                                            <span class="text-danger">{{ $firma->psi_luna }}</span>
+                                        @else
+                                            {{ $firma->psi_luna }}
+                                        @endif
+                                    @elseif (($firma->perioada === 'SEM') || ($firma->perioada === 'SEM.'))
+                                        @if (
+                                                (
+                                                    ($ultimulNumarDinPerioada < 7) // fiind perioada SEM, se calculeaza la 6 luni
+                                                    &&
+                                                    (
+                                                        ( $ultimulNumarDinPerioada > $lunaCurenta ) // este cel putin de anul trecut
+                                                        ||
+                                                        ( ($ultimulNumarDinPerioada + 6) <= $lunaCurenta ) // au trecut minim 6 luni
+                                                    )
+                                                )
+                                                ||
+                                                (
+                                                    ($ultimulNumarDinPerioada >= 7) // fiind perioada SEM, se calculeaza la 6 luni
+                                                    &&
+                                                    ( ($ultimulNumarDinPerioada + 6)%12 <= $lunaCurenta ) // au trecut minim 6 luni
+                                                )
+                                            )
+                                            <span class="text-danger">{{ $firma->psi_luna }}</span>
+                                        @else
+                                            {{ $firma->psi_luna }}
+                                        @endif
+                                    @else
+                                        {{ $firma->psi_luna }}
+                                    @endif
+                                @endisset
                             </td>
                             <td style="font-size: 14px; padding:1px;">
                                 @if ((strpos($firma->ssm_stare_fise, 'noi.p;de s.p') !== false) ||
