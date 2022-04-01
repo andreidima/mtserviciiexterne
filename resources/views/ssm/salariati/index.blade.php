@@ -49,9 +49,15 @@
                 </form>
             </div>
             <div class="col-lg-3 text-end">
-                <a class="btn btn-sm bg-success text-white border border-dark rounded-3 col-md-8" href="/ssm/salariati/adauga" role="button">
-                {{-- <a class="btn btn-sm bg-success text-white border border-dark rounded-3 col-md-8 mb-2" href="#" role="button"> --}}
+                <a class="btn btn-sm mb-2 bg-success text-white border border-dark rounded-3 col-md-8" href="/ssm/salariati/adauga" role="button">
                     <i class="fas fa-plus-square text-white me-1"></i>Adaugă salariat
+                </a>
+<form class="needs-validation" novalidate method="GET" action="/ssm/salariati-modifica-selectati">
+<button class="btn btn-sm btn-primary text-white col-md-4 me-3 border border-dark rounded-3" type="submit">
+    <i class="fas fa-search text-white me-1"></i>Modifică selectați
+</button>
+                <a class="btn btn-sm bg-primary text-white border border-dark rounded-3 col-md-6" href="/ssm/salariati-modifica-selectati" role="button">
+                    Modifică selectați
                 </a>
             </div>
         </div>
@@ -80,6 +86,7 @@
                         <th rowspan="2" class="text-center" style="font-size: 14px; padding:1px;">Traseu</th>
                         <th rowspan="2" class="text-center" style="font-size: 14px; padding:1px;">Observații</th>
                         <th colspan="2" class="text-center" style="font-size: 14px; padding:1px;">Semnat</th>
+                        <th rowspan="2" class="text-center" style="font-size: 14px; padding:1px;"></th>
                         <th rowspan="2" class="text-center" style=" font-size: 14px; padding:1px;">Acțiuni</th>
                     </tr>
                     <tr class="">
@@ -177,6 +184,22 @@
                                     {{ $salariat->semnat_eip }}
                                 @endif
                             </td>
+                            <td style="font-size: 10px; padding:1px;">
+                                <div class="form-check text-center">
+                                    <input type="checkbox" class="form-check-input"
+                                        name="salariati_selectati[]"
+                                        value="{{ $salariat->id }}"
+                                        {{-- style="padding:20px" --}}
+                                        id="{{ $salariat->id }}"
+                                        @if (old("clienti_selectati"))
+                                            {{ in_array($client->id, old("clienti_selectati")) ? "checked":"" }}
+                                        @endif
+                                        >
+                                    {{-- <label class="form-check-label" for="{{ $salariat->id }}">
+                                        {{ $salariat->salariat }}
+                                    </label> --}}
+                                </div>
+                            </td>
                             <td class="p-0 text-center">
                                 {{-- <div class="d-flex justify-content-end"> --}}
                                     {{-- <a href="{{ $firma->path() }}"
@@ -208,7 +231,7 @@
                     </tbody>
             </table>
         </div>
-
+    </form>
                 <nav>
                     <ul class="pagination justify-content-center">
                         {{ $salariati->appends(Request::except('page'))->links() }}

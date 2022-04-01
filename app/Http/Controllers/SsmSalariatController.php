@@ -171,4 +171,14 @@ class SsmSalariatController extends Controller
             ]
         );
     }
+
+    public function modificaSelectati(Request $request)
+    {
+        if (!$request->salariati_selectati){
+            return back()->with('error', 'Nu ați selectat nici un salariat');
+        } elseif (count($request->salariati_selectati) > 100){
+            return back()->with('error', 'Nu puteți selecta mai mult de 100 de salariați');
+        }
+        dd(count($request->salariati_selectati));
+    }
 }

@@ -80,7 +80,7 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::resource('/ssm/firme', SsmFirmaController::class,  ['parameters' => ['firme' => 'firma']]);
     Route::resource('/ssm/salariati', SsmSalariatController::class,  ['parameters' => ['salariati' => 'salariat']]);
-    // Route::get('/ssm/salariati-modifica-toti', [SsmSalariatController::class, 'modificaToti']);
+    Route::get('/ssm/salariati-modifica-selectati', [SsmSalariatController::class, 'modificaSelectati']);
 
 
     // Reconstructie totala a rutelor - firme separate pentru SSM, Medicina muncii, Stingatoare
