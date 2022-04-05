@@ -174,11 +174,33 @@ class SsmSalariatController extends Controller
 
     public function modificaSelectati(Request $request)
     {
-        if (!$request->salariati_selectati){
-            return back()->with('error', 'Nu ați selectat nici un salariat');
-        } elseif (count($request->salariati_selectati) > 100){
-            return back()->with('error', 'Nu puteți selecta mai mult de 100 de salariați');
+        $request->validate(
+            [
+                'salariati_selectati' => 'required|array|between:1,100',
+                'data_ssm_psi' => 'required_without_all:semnat_ssm,semnat_psi,semnat_anexa,semnat_eip|max:200',
+                'semnat_ssm' => 'nullable|max:200',
+                'semnat_psi' => 'nullable|max:200',
+                'semnat_anexa' => 'nullable|max:200',
+                'semnat_eip' => 'nullable|max:200',
+            ],
+            [
+                'salariati_selectati.required' => 'Nu ați selectat nici un salariat!',
+                'required_without_all' => 'Nu ați ales nici un câmp de modificat!'
+            ]
+            );
+
+        $salariati = SsmSalariat::find($request->salariati_selectati);
+
+        foreach ($salariati as $salariat){
+            $request->data_ssm_psi ? $salariat->data_ssm_psi = $request->data_ssm_psi : '';
+            $request->semnat_ssm ? $salariat->semnat_ssm = $request->semnat_ssm : '';
+            $request->semnat_psi ? $salariat->semnat_psi = $request->semnat_psi : '';
+            $request->semnat_anexa ? $salariat->semnat_anexa = $request->semnat_anexa : '';
+            $request->semnat_eip ? $salariat->semnat_eip = $request->semnat_eip : '';
+
+            $salariat->save();
         }
-        dd(count($request->salariati_selectati));
+
+        return back()->with('status', 'Cei ' . count($salariati) . ' Salariații au fost modificați cu succes!');
     }
 }

@@ -1,7 +1,7 @@
 @extends ('layouts.app')
 
 @section('content')
-<div class="container card" style="border-radius: 40px 40px 40px 40px;">
+<div class="container card" style="border-radius: 40px 40px 40px 40px;" id="salariatiIndex">
         <div class="row card-header align-items-center" style="border-radius: 40px 40px 0px 0px;">
             <div class="col-lg-2">
                 <h4 class="mb-0">
@@ -10,7 +10,7 @@
                     </a>
                 </h4>
             </div>
-            <div class="col-lg-7" id="app">
+            <div class="col-lg-7">
                 <form class="needs-validation" novalidate method="GET" action="/ssm/salariati">
                     @csrf
                     <div class="row mb-1 input-group custom-search-form justify-content-center">
@@ -52,19 +52,91 @@
                 <a class="btn btn-sm mb-2 bg-success text-white border border-dark rounded-3 col-md-8" href="/ssm/salariati/adauga" role="button">
                     <i class="fas fa-plus-square text-white me-1"></i>Adaugă salariat
                 </a>
-<form class="needs-validation" novalidate method="GET" action="/ssm/salariati-modifica-selectati">
-<button class="btn btn-sm btn-primary text-white col-md-4 me-3 border border-dark rounded-3" type="submit">
-    <i class="fas fa-search text-white me-1"></i>Modifică selectați
-</button>
-                <a class="btn btn-sm bg-primary text-white border border-dark rounded-3 col-md-6" href="/ssm/salariati-modifica-selectati" role="button">
-                    Modifică selectați
-                </a>
+                <div id="salariatiIndex" v-on:click="modificari_globale = !modificari_globale">
+                    <input class="btn btn-sm btn-primary" type="button" value="Modificări globale">
+                </div>
             </div>
         </div>
 
-        <div class="card-body px-0 py-3">
+        <div class="card-body px-0 py-2">
 
             @include ('errors')
+
+
+    <form class="needs-validation" novalidate method="GET" action="/ssm/salariati-modifica-selectati">
+        <script type="application/javascript">
+            modificariGlobale = @json(old('modificariGlobale') ?? false);
+
+            salariati={!! json_encode($salariati) !!}
+            salariatiSelectati={!! json_encode(old('salariati_selectati', [])) !!}
+        </script>
+        <div v-if="modificari_globale" class="row justify-content-center">
+            <div class="col-lg-8 mb-2 rounded-3" style="background-color:lightcyan">
+                <div class="row justify-content-center">
+                    <div class="col-md-2 mb-2">
+
+                        {{-- Daca validarea da eroare, se intoarce inapoi cu modificariGlobale=true, ca sa nu fie ascunse optiunile de modificari globale --}}
+                        <input
+                            type="hidden"
+                            name="modificariGlobale"
+                            value="true">
+
+                        {{-- <label for="data_ssm_psi" class="mb-0 ps-1">Data SSM/PSI</label> --}}
+                        <small for="data_ssm_psi" class="mb-0 ps-1">Data SSM/PSI</small>
+                        <input
+                            type="text"
+                            class="form-control form-control-sm rounded-3 {{ $errors->has('data_ssm_psi') ? 'is-invalid' : '' }}"
+                            name="data_ssm_psi"
+                            value="{{ old('data_ssm_psi') }}">
+                    </div>
+                    <div class="col-lg-2 mb-2">
+                        <small for="semnat_ssm" class="mb-0 ps-1">Semnat SSM</small>
+                        <select name="semnat_ssm" class="form-select form-select-sm bg-white rounded-3 {{ $errors->has('semnat_ssm') ? 'is-invalid' : '' }}">
+                            <option value="" selected></option>
+                            <option value='-'>-</option>
+                            <option value="n.de s" style="color:blueviolet" {{ old('semnat_ssm') === 'n.de s' ? 'selected' : ''}}>n. de s</option>
+                            <option value="noi s." style="" {{ old('semnat_ssm') === 'noi s.' ? 'selected' : ''}}>noi s.</option>
+                            <option value="cl.de s" style="color:rgb(0, 96, 175)" {{ old('semnat_ssm') === 'cl.de s' ? 'selected' : ''}}>cl.de s</option>
+                        </select>
+                    </div>
+                    <div class="col-lg-2 mb-2">
+                        <small for="semnat_psi" class="mb-0 ps-1">Semnat PSI</small>
+                        <select name="semnat_psi" class="form-select form-select-sm bg-white rounded-3 {{ $errors->has('semnat_psi') ? 'is-invalid' : '' }}">
+                            <option value="" selected></option>
+                            <option value='-'>-</option>
+                            <option value="n.de s" style="color:blueviolet" {{ old('semnat_psi') === 'n.de s' ? 'selected' : ''}}>n.de s</option>
+                            <option value="noi s." style="" {{ old('semnat_psi') === 'noi s.' ? 'selected' : ''}}>noi s.</option>
+                            <option value="cl.de s" style="color:rgb(0, 96, 175)" {{ old('semnat_psi') === 'cl.de s' ? 'selected' : ''}}>cl.de s</option>
+                        </select>
+                    </div>
+                    <div class="col-lg-2 mb-2">
+                        <small for="semnat_anexa" class="mb-0 ps-1">Semnat Anexa</small>
+                        <select name="semnat_anexa" class="form-select form-select-sm bg-white rounded-3 {{ $errors->has('semnat_anexa') ? 'is-invalid' : '' }}">
+                            <option value="" selected></option>
+                            <option value='-'>-</option>
+                            <option value="sem" style="" {{ old('semnat_anexa') === 'sem' ? 'selected' : ''}}>sem</option>
+                            <option value="de s" style="color:rgb(204, 0, 0)" {{ old('semnat_anexa') === 'de s' ? 'selected' : ''}}>de s</option>
+                        </select>
+                    </div>
+                    <div class="col-lg-2 mb-2">
+                        <small for="semnat_eip" class="mb-0 ps-1">Semnat E.I.P.</small>
+                        <select name="semnat_eip" class="form-select form-select-sm bg-white rounded-3 {{ $errors->has('semnat_eip') ? 'is-invalid' : '' }}">
+                            <option value="" selected></option>
+                            <option value='-'>-</option>
+                            <option value="sem" style="" {{ old('semnat_eip') === 'sem' ? 'selected' : ''}}>sem</option>
+                            <option value="de s" style="color:rgb(204, 0, 0)" {{ old('semnat_eip') === 'de s' ? 'selected' : ''}}>de s</option>
+                        </select>
+                    </div>
+
+                    <div class="col-lg-12 mb-2 text-center">
+                        <button class="btn btn-sm btn-primary text-white me-3 border border-dark rounded-3" type="submit">
+                            Modifică toți salariații selectați
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
 
         <div class="table-responsive rounded">
             <table class="table table-striped table-hover table-bordered border-secondary rounded-3" style=" font-size: 5px !important">
@@ -86,7 +158,16 @@
                         <th rowspan="2" class="text-center" style="font-size: 14px; padding:1px;">Traseu</th>
                         <th rowspan="2" class="text-center" style="font-size: 14px; padding:1px;">Observații</th>
                         <th colspan="2" class="text-center" style="font-size: 14px; padding:1px;">Semnat</th>
-                        <th rowspan="2" class="text-center" style="font-size: 14px; padding:1px;"></th>
+                        <th rowspan="2" class="text-center" style="font-size: 14px; padding:1px;" v-if="modificari_globale">
+                            <input type="checkbox"
+                                class="form-check-input"
+                                id=""
+                                style="padding:10px"
+                                {{-- v-on:change="select({{ $categorie->id }})" --}}
+                                v-on:change="select($event)"
+                                >
+
+                        </th>
                         <th rowspan="2" class="text-center" style=" font-size: 14px; padding:1px;">Acțiuni</th>
                     </tr>
                     <tr class="">
@@ -184,16 +265,18 @@
                                     {{ $salariat->semnat_eip }}
                                 @endif
                             </td>
-                            <td style="font-size: 10px; padding:1px;">
+                            <td v-if="modificari_globale" style="font-size: 10px; padding:1px; background-color:lightcyan">
                                 <div class="form-check text-center">
-                                    <input type="checkbox" class="form-check-input"
+                                    <input type="checkbox"
+                                        class="form-check-input"
                                         name="salariati_selectati[]"
+                                        v-model="salariati_selectati"
                                         value="{{ $salariat->id }}"
-                                        {{-- style="padding:20px" --}}
+                                        style="padding:10px"
                                         id="{{ $salariat->id }}"
-                                        @if (old("clienti_selectati"))
-                                            {{ in_array($client->id, old("clienti_selectati")) ? "checked":"" }}
-                                        @endif
+                                        {{-- @if (old("salariati_selectati"))
+                                            {{ in_array($salariat->id, old("salariati_selectati")) ? "checked":"" }}
+                                        @endif --}}
                                         >
                                     {{-- <label class="form-check-label" for="{{ $salariat->id }}">
                                         {{ $salariat->salariat }}

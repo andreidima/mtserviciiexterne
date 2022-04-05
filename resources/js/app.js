@@ -34,3 +34,41 @@ if (document.querySelector('#app')) {
         el: '#app',
     });
 }
+
+if (document.querySelector('#salariatiIndex')) {
+    const app = new Vue({
+        el: '#salariatiIndex',
+        data:{
+            modificari_globale: ((typeof modificariGlobale !== 'undefined') ? ((modificariGlobale == "true") ? true : false) : false),
+
+            salariati: salariati,
+            salariati_selectati: salariatiSelectati
+        },
+        methods: {
+            select: function (event) {
+                // this.salariati_selectati = ['a'];
+                var salariati = this.salariati;
+                var salariati_selectati = this.salariati_selectati;
+
+                if (event.target.checked) {
+                    for (var i = 0; i < salariati.length; i++) {
+                            // if (!salariati_selectati.includes(salariati[i].id)) {
+                                salariati_selectati.push(salariati[i].id);
+                            // }
+                    }
+                } else {
+                    this.salariati.forEach(function (salariat) {
+                            for (var i = salariati_selectati.length - 1; i >= 0; i--) {
+                                if (salariati_selectati[i] == salariat.id) {
+                                    salariati_selectati.splice(i, 1);
+                                }
+                            }
+                    });
+                }
+
+                this.salariati_selectati = salariati_selectati;
+            }
+
+        },
+    });
+}
