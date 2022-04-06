@@ -64,10 +64,13 @@
 
 
     <form class="needs-validation" novalidate method="GET" action="/ssm/salariati-modifica-selectati">
+        @php
+            // dd($salariati, $salariati->items()->id, $salariati->toArray())
+        @endphp
         <script type="application/javascript">
             modificariGlobale = @json(old('modificariGlobale') ?? false);
 
-            salariati={!! json_encode($salariati) !!}
+            salariati={!! json_encode($salariati->items()) !!}
             salariatiSelectati={!! json_encode(old('salariati_selectati', [])) !!}
         </script>
         <div v-if="modificari_globale" class="row justify-content-center">

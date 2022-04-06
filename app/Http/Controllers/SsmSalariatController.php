@@ -201,6 +201,6 @@ class SsmSalariatController extends Controller
             $salariat->save();
         }
 
-        return back()->with('status', 'Cei ' . count($salariati) . ' Salariații au fost modificați cu succes!');
+        return back()->with('status', 'Cei ' . count($salariati) . ' Salariați au fost modificați cu succes!');
     }
 }
