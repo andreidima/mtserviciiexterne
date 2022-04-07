@@ -146,22 +146,22 @@
                 <thead class="text-white rounded" style="background-color:#e66800; font-size: 5px !important">
 
                     <tr class="" style="padding:2rem; font-size: 5px">
-                        <th rowspan="2" class="text-center" style="font-size: 14px; padding:1px;">#</th>
-                        <th rowspan="2" class="text-center" style="font-size: 14px; padding:1px;">Nume client</th>
-                        <th rowspan="2" class="text-center" style="font-size: 14px; padding:1px;">Salariat</th>
-                        <th rowspan="2" class="text-center" style="font-size: 14px; padding:1px;">
+                        <th rowspan="2" class="text-center" style="font-size: 12px; padding:1px;">#</th>
+                        <th rowspan="2" class="text-center" style="font-size: 12px; padding:1px;">Nume client</th>
+                        <th rowspan="2" class="text-center" style="font-size: 12px; padding:1px;">Salariat</th>
+                        <th rowspan="2" class="text-center" style="font-size: 12px; padding:1px;">
                             Data<br>SSM/ PSI
                         </th>
-                        <th colspan="2" class="text-center" style="font-size: 14px; padding:1px;">Semnat</th>
-                        <th rowspan="2" class="text-center" style="font-size: 14px; padding:1px;">CNP</th>
-                        <th rowspan="2" class="text-center" style="font-size: 14px; padding:1px;">Funcția</th>
-                        <th rowspan="2" class="text-center" style="font-size: 14px; padding:1px;"></th>
-                        <th rowspan="2" class="text-center" style=" font-size: 14px; padding:1px;">Data ang.</th>
-                        <th rowspan="2" class="text-center" style=" font-size: 14px; padding:1px;">Data înc.</th>
-                        <th rowspan="2" class="text-center" style="font-size: 14px; padding:1px;">Traseu</th>
-                        <th rowspan="2" class="text-center" style="font-size: 14px; padding:1px;">Observații</th>
-                        <th colspan="2" class="text-center" style="font-size: 14px; padding:1px;">Semnat</th>
-                        <th rowspan="2" class="text-center" style="font-size: 14px; padding:1px;" v-if="modificari_globale">
+                        <th colspan="2" class="text-center" style="font-size: 12px; padding:1px;">Semnat</th>
+                        <th rowspan="2" class="text-center" style="font-size: 12px; padding:1px;">CNP</th>
+                        <th rowspan="2" class="text-center" style="font-size: 12px; padding:1px;">Funcția</th>
+                        <th rowspan="2" class="text-center" style="font-size: 12px; padding:1px;"></th>
+                        <th rowspan="2" class="text-center" style=" font-size: 12px; padding:1px;">Data ang.</th>
+                        <th rowspan="2" class="text-center" style=" font-size: 12px; padding:1px;">Data înc.</th>
+                        <th rowspan="2" class="text-center" style="font-size: 12px; padding:1px;">Traseu</th>
+                        <th rowspan="2" class="text-center" style="font-size: 12px; padding:1px;">Observații</th>
+                        <th colspan="2" class="text-center" style="font-size: 12px; padding:1px;">Semnat</th>
+                        <th rowspan="2" class="text-center" style="font-size: 12px; padding:1px;" v-if="modificari_globale">
                             <input type="checkbox"
                                 class="form-check-input"
                                 id=""
@@ -171,97 +171,97 @@
                                 >
 
                         </th>
-                        <th rowspan="2" class="text-center" style=" font-size: 14px; padding:1px;">Acțiuni</th>
+                        <th rowspan="2" class="text-center" style=" font-size: 12px; padding:1px;">Acțiuni</th>
                     </tr>
                     <tr class="">
-                        <th class="text-center" style="font-size: 14px; padding:1px;">SSM</th>
-                        <th class="text-center" style="font-size: 14px; padding:1px;">PSI</th>
-                        <th class="text-center" style="font-size: 14px; padding:1px;">Anexa</th>
-                        <th class="text-center" style="font-size: 14px; padding:1px;">E.I.P.</th>
+                        <th class="text-center" style="font-size: 12px; padding:1px;">SSM</th>
+                        <th class="text-center" style="font-size: 12px; padding:1px;">PSI</th>
+                        <th class="text-center" style="font-size: 12px; padding:1px;">Anexa</th>
+                        <th class="text-center" style="font-size: 12px; padding:1px;">E.I.P.</th>
                     </tr>
                 </thead>
                 <tbody>
                     @forelse ($salariati as $salariat)
-                        @if ((strpos($salariat->salariat, 'revisal') !== false))
+                        @if ((stripos($salariat->salariat, 'revisal') !== false) || (stripos($salariat->salariat, 'Situatie') !== false))
                             <tr style="background-color:rgb(169, 212, 255)">
-                        @elseif ((strpos($salariat->status, 'CCC') !== false))
+                        @elseif ((stripos($salariat->status, 'CCC') !== false))
                             <tr style="background-color:rgb(255, 170, 244)">
                         @else
                             <tr style="">
                         @endif
-                            <td style="font-size: 14px; padding:1px;">
+                            <td style="font-size: 12px; padding:1px;">
                                 {{ ($salariati ->currentpage()-1) * $salariati ->perpage() + $loop->index + 1 }}
                             </td>
-                            <td style="font-size: 14px; padding:1px;">
+                            <td style="font-size: 12px; padding:1px;">
                                 {{ $salariat->nume_client }}
                             </td>
-                            <td style="font-size: 14px; padding:1px;">
+                            <td style="font-size: 12px; padding:1px;">
                                 {{ $salariat->salariat }}
                             </td>
-                            <td style="font-size: 14px; padding:1px;">
+                            <td style="font-size: 12px; padding:1px;">
                                 {{ $salariat->data_ssm_psi }}
                             </td>
-                            <td style="font-size: 14px; padding:1px;">
+                            <td style="font-size: 12px; padding:1px;">
                                 @if ((strpos($salariat->semnat_ssm, 'n.de s') !== false))
-                                    <span style="font-size: 14px; color:blueviolet">
+                                    <span style="font-size: 12px; color:blueviolet">
                                         {{ $salariat->semnat_ssm }}
                                     </span>
                                 @elseif ((strpos($salariat->semnat_ssm, 'cl.de s') !== false))
-                                    <span style="font-size: 14px; color:rgb(0, 96, 175)">
+                                    <span style="font-size: 12px; color:rgb(0, 96, 175)">
                                         {{ $salariat->semnat_ssm }}
                                     </span>
                                 @else
                                     {{ $salariat->semnat_ssm }}
                                 @endif
                             </td>
-                            <td style="font-size: 14px; padding:1px;">
+                            <td style="font-size: 12px; padding:1px;">
                                 @if ((strpos($salariat->semnat_psi, 'n.de s') !== false))
-                                    <span style="font-size: 14px; color:blueviolet">
+                                    <span style="font-size: 12px; color:blueviolet">
                                         {{ $salariat->semnat_psi }}
                                     </span>
                                 @elseif ((strpos($salariat->semnat_psi, 'cl.de s') !== false))
-                                    <span style="font-size: 14px; color:rgb(0, 96, 175)">
+                                    <span style="font-size: 12px; color:rgb(0, 96, 175)">
                                         {{ $salariat->semnat_psi }}
                                     </span>
                                 @else
                                     {{ $salariat->semnat_psi }}
                                 @endif
                             </td>
-                            <td style="font-size: 14px; padding:1px;">
+                            <td style="font-size: 12px; padding:1px;">
                                 {{ $salariat->cnp }}
                             </td>
-                            <td style="font-size: 14px; padding:1px;">
+                            <td style="font-size: 12px; padding:1px;">
                                 {{ $salariat->functia }}
                             </td>
-                            <td class="text-center" style="font-size: 14px; padding:1px;">
+                            <td class="text-center" style="font-size: 12px; padding:1px;">
                                 {{ $salariat->actionar }}
                             </td>
-                            <td style="font-size: 14px; padding:1px;">
+                            <td style="font-size: 12px; padding:1px;">
                                 {{ $salariat->data_angajare }}
                             </td>
-                            <td style="font-size: 14px; padding:1px;">
+                            <td style="font-size: 12px; padding:1px;">
                                 {{ $salariat->data_incetare }}
                             </td>
-                            <td style="font-size: 14px; padding:1px;">
+                            <td style="font-size: 12px; padding:1px;">
                                 {{ $salariat->traseu }}
                             </td>
-                            <td style="font-size: 14px; padding:1px;">
+                            <td style="font-size: 12px; padding:1px;">
                                 {{ $salariat->observatii_1 ? ($salariat->observatii_1 . '.') : ''}}
                                 {{ $salariat->observatii_2 ? ($salariat->observatii_2 . '.') : ''}}
                                 {{ $salariat->observatii_3 ? ($salariat->observatii_3 . '') : ''}}
                             </td>
-                            <td style="font-size: 14px; padding:1px;">
+                            <td style="font-size: 12px; padding:1px;">
                                 @if ((strpos($salariat->semnat_anexa, 'de s') !== false))
-                                    <span style="font-size: 14px; color:rgb(204, 0, 0)">
+                                    <span style="font-size: 12px; color:rgb(204, 0, 0)">
                                         {{ $salariat->semnat_anexa }}
                                     </span>
                                 @else
                                     {{ $salariat->semnat_anexa }}
                                 @endif
                             </td>
-                            <td style="font-size: 14px; padding:1px;">
+                            <td style="font-size: 12px; padding:1px;">
                                 @if ((strpos($salariat->semnat_eip, 'de s') !== false))
-                                    <span style="font-size: 14px; color:rgb(204, 0, 0)">
+                                    <span style="font-size: 12px; color:rgb(204, 0, 0)">
                                         {{ $salariat->semnat_eip }}
                                     </span>
                                 @else
@@ -287,16 +287,20 @@
                                 </div>
                             </td>
                             <td class="p-0 text-center">
-                                {{-- <div class="d-flex justify-content-end"> --}}
+                                <div class="d-flex justify-content-end">
                                     {{-- <a href="{{ $firma->path() }}"
                                         class="flex me-1"
                                     >
                                         <span class="badge bg-success">Vizualizează</span>
                                     </a> --}}
                                     <a href="{{ $salariat->path() }}/modifica"
+                                            class="me-1"
                                         {{-- class="flex" --}}
                                     >
-                                        <span class="badge bg-primary">Modifică</span>
+                                        <span class="badge bg-primary" style="font-size: 10px;">
+                                            {{-- Modifică --}}
+                                            <i class="fas fa-edit" style="font-size: 10px;"></i>
+                                        </span>
                                     </a>
                                     {{-- <div style="flex" class=""> --}}
                                         <a
@@ -305,10 +309,13 @@
                                             data-bs-target="#stergeSalariat{{ $salariat->id }}"
                                             title="Șterge Salariat"
                                             >
-                                            <span class="badge bg-danger">Șterge</span>
+                                            <span class="badge bg-danger" style="font-size: 10px;">
+                                                {{-- Șterge --}}
+                                                <i class="fas fa-trash" style="font-size: 10px;"></i>
+                                            </span>
                                         </a>
                                     {{-- </div> --}}
-                                {{-- </div> --}}
+                                </div>
                             </td>
                         </tr>
                     @empty

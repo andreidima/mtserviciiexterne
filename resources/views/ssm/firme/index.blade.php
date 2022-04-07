@@ -123,47 +123,47 @@
                 <thead class="text-white rounded" style="background-color:#e66800; font-size: 5px !important">
 
                     <tr class="" style="padding:2rem; font-size: 5px">
-                        <th rowspan="2" class="text-center" style="font-size: 14px; padding:1px;">#</th>
-                        <th rowspan="2" class="text-center" style="font-size: 14px; padding:1px;">
+                        <th rowspan="2" class="text-center" style="font-size: 12px; padding:1px;">#</th>
+                        <th rowspan="2" class="text-center" style="font-size: 12px; padding:1px;">
                             Firma
                             <br>
                             CUI
                         </th>
-                        <th rowspan="2" class="text-center" style="font-size: 14px; padding:1px;">
+                        <th rowspan="2" class="text-center" style="font-size: 12px; padding:1px;">
                             Adresa
                             <br>
                             Traseu
                         </th>
-                        {{-- <th rowspan="2" class="text-center" style="font-size: 14px; padding:1px;">Doc</th> --}}
-                        {{-- <th rowspan="2" class="text-center" style="font-size: 14px; padding:1px;"></th> --}}
-                        <th rowspan="2" class="text-center" style="font-size: 14px; padding:1px;"></th>
-                        <th colspan="2" class="text-center" style=" font-size: 14px; padding:1px;">Luna</th>
-                        <th colspan="2" class="text-center" style=" font-size: 14px; padding:1px;">Stare fișe</th>
-                        <th rowspan="2" class="text-center" style="font-size: 14px; padding:1px;">
+                        {{-- <th rowspan="2" class="text-center" style="font-size: 12px; padding:1px;">Doc</th> --}}
+                        {{-- <th rowspan="2" class="text-center" style="font-size: 12px; padding:1px;"></th> --}}
+                        <th rowspan="2" class="text-center" style="font-size: 12px; padding:1px;"></th>
+                        <th colspan="2" class="text-center" style=" font-size: 12px; padding:1px;">Luna</th>
+                        <th colspan="2" class="text-center" style=" font-size: 12px; padding:1px;">Stare fișe</th>
+                        <th rowspan="2" class="text-center" style="font-size: 12px; padding:1px;">
                             Administrator
                             <br>
                             Pers. desem.
                         </th>
-                        <th rowspan="2" class="text-center" style="font-size: 14px; padding:1px;">
+                        <th rowspan="2" class="text-center" style="font-size: 12px; padding:1px;">
                             Dom. activ.
                             <br>
                             PRAM
                         </th>
-                        <th rowspan="2" class="text-center" style="font-size: 14px; padding:1px;">Contract</th>
-                        <th rowspan="2" class="text-center" style="font-size: 14px; padding:1px;">Observații</th>
-                        <th rowspan="2" class="text-center" style=" font-size: 14px; padding:1px;">Acțiuni Firmă</th>
+                        <th rowspan="2" class="text-center" style="font-size: 12px; padding:1px;">Contract</th>
+                        <th rowspan="2" class="text-center" style="font-size: 12px; padding:1px;">Observații</th>
+                        <th rowspan="2" class="text-center" style=" font-size: 12px; padding:1px;">Acțiuni</th>
                     </tr>
                     <tr class="">
-                        <th class="text-center" style="font-size: 14px; padding:1px;">
+                        <th class="text-center" style="font-size: 12px; padding:1px;">
                             SSM
                         </th>
-                        <th class="text-center" style="font-size: 14px; padding:1px;">
+                        <th class="text-center" style="font-size: 12px; padding:1px;">
                             PSI
                         </th>
-                        <th class="text-center" style="font-size: 14px; padding:1px;">
+                        <th class="text-center" style="font-size: 12px; padding:1px;">
                             SSM
                         </th>
-                        <th class="text-center" style="font-size: 14px; padding:1px;">
+                        <th class="text-center" style="font-size: 12px; padding:1px;">
                             PSI
                         </th>
                     </tr>
@@ -179,29 +179,29 @@
                             <tr style="">
                         @endif
                         {{-- <tr style=""> --}}
-                            <td style="font-size: 14px; padding:1px;">
+                            <td style="font-size: 12px; padding:1px;">
                                 {{ ($firme ->currentpage()-1) * $firme ->perpage() + $loop->index + 1 }}
                             </td>
-                            <td style="font-size: 14px; padding:1px;">
+                            <td style="font-size: 12px; padding:1px;">
                                 {{ $firma->nume ?? '' }}
                                 <br>
                                 {{ $firma->cui }}
                             </td>
-                            <td style="font-size: 14px; padding:1px;">
+                            <td style="font-size: 12px; padding:1px;">
                                 {{ $firma->adresa }}
                                 <br>
                                 {{ $firma->traseu }}
                             </td>
-                            {{-- <td style="font-size: 14px; padding:1px;">
+                            {{-- <td style="font-size: 12px; padding:1px;">
                                 {{ $firma->doc }}
                             </td> --}}
-                            {{-- <td style="font-size: 14px; padding:1px;" class="text-center">
+                            {{-- <td style="font-size: 12px; padding:1px;" class="text-center">
                                 {{ $firma->perioada }}
                             </td> --}}
-                            <td style="font-size: 14px; padding:1px;" class="text-center">
+                            <td style="font-size: 12px; padding:1px;" class="text-center">
                                 {{ $firma->actionar }}
                             </td>
-                            <td style="font-size: 14px; padding:1px; font-weight:bold" class="text-center">
+                            <td style="font-size: 12px; padding:1px; font-weight:bold" class="text-center">
                                 @php
                                     $ultimulNumarDinPerioada = null;
                                     if(preg_match_all('/\d+/', $firma->ssm_luna, $numere)){
@@ -211,7 +211,7 @@
                                 @isset ($ultimulNumarDinPerioada)
                                     @if ($firma->perioada === 'LUNAR')
                                         @if ($ultimulNumarDinPerioada !== $lunaCurenta)
-                                            <span class="text-danger" style="font-size: 14px;">{{ $firma->ssm_luna }}</span>
+                                            <span class="text-danger" style="font-size: 12px;">{{ $firma->ssm_luna }}</span>
                                         @else
                                             {{ $firma->ssm_luna }}
                                         @endif
@@ -233,7 +233,7 @@
                                                     ( ($ultimulNumarDinPerioada + 3)%12 <= $lunaCurenta ) // au trecut minim 3 luni
                                                 )
                                             )
-                                            <span class="text-danger" style="font-size: 14px;">{{ $firma->ssm_luna }}</span>
+                                            <span class="text-danger" style="font-size: 12px;">{{ $firma->ssm_luna }}</span>
                                         @else
                                             {{ $firma->ssm_luna }}
                                         @endif
@@ -255,7 +255,7 @@
                                                     ( ($ultimulNumarDinPerioada + 6)%12 <= $lunaCurenta ) // au trecut minim 6 luni
                                                 )
                                             )
-                                            <span class="text-danger" style="font-size: 14px;">{{ $firma->ssm_luna }}</span>
+                                            <span class="text-danger" style="font-size: 12px;">{{ $firma->ssm_luna }}</span>
                                         @else
                                             {{ $firma->ssm_luna }}
                                         @endif
@@ -264,7 +264,7 @@
                                     @endif
                                 @endisset
                             </td>
-                            <td style="font-size: 14px; padding:1px; font-weight:bold" class="text-center">
+                            <td style="font-size: 12px; padding:1px; font-weight:bold" class="text-center">
                                 @php
                                     $ultimulNumarDinPerioada = null;
                                     if(preg_match_all('/\d+/', $firma->psi_luna, $numere)){
@@ -274,7 +274,7 @@
                                 @isset ($ultimulNumarDinPerioada)
                                     @if ($firma->perioada === 'LUNAR')
                                         @if ($ultimulNumarDinPerioada !== $lunaCurenta)
-                                            <span class="text-danger" style="font-size: 14px;">{{ $firma->psi_luna }}</span>
+                                            <span class="text-danger" style="font-size: 12px;">{{ $firma->psi_luna }}</span>
                                         @else
                                             {{ $firma->psi_luna }}
                                         @endif
@@ -296,7 +296,7 @@
                                                     ( ($ultimulNumarDinPerioada + 3)%12 <= $lunaCurenta ) // au trecut minim 3 luni
                                                 )
                                             )
-                                            <span class="text-danger" style="font-size: 14px;">{{ $firma->psi_luna }}</span>
+                                            <span class="text-danger" style="font-size: 12px;">{{ $firma->psi_luna }}</span>
                                         @else
                                             {{ $firma->psi_luna }}
                                         @endif
@@ -318,7 +318,7 @@
                                                     ( ($ultimulNumarDinPerioada + 6)%12 <= $lunaCurenta ) // au trecut minim 6 luni
                                                 )
                                             )
-                                            <span class="text-danger" style="font-size: 14px;">{{ $firma->psi_luna }}</span>
+                                            <span class="text-danger" style="font-size: 12px;">{{ $firma->psi_luna }}</span>
                                         @else
                                             {{ $firma->psi_luna }}
                                         @endif
@@ -329,58 +329,58 @@
                                     {{ $firma->psi_luna }}
                                 @endisset
                             </td>
-                            <td style="font-size: 14px; padding:1px;">
+                            <td style="font-size: 12px; padding:1px;">
                                 @if ((strpos($firma->ssm_stare_fise, 'noi.p;de s.p') !== false) ||
                                         (strpos($firma->ssm_stare_fise, 'noi.p;de s') !== false) ||
                                         (strpos($firma->ssm_stare_fise, 'noi;de s') !== false))
-                                    <span style="font-size: 14px; color:blueviolet">
+                                    <span style="font-size: 12px; color:blueviolet">
                                 @elseif ((strpos($firma->ssm_stare_fise, 'comp.la cl.') !== false))
-                                    <span style="font-size: 14px; color:rgb(0, 145, 77)">
+                                    <span style="font-size: 12px; color:rgb(0, 145, 77)">
                                 @elseif ((strpos($firma->ssm_stare_fise, 'cl;de s') !== false) ||
                                         (strpos($firma->ssm_stare_fise, 'cl.p;de s') !== false) ||
                                         (strpos($firma->ssm_stare_fise, 'Fișe-C') !== false) ||
                                         (strpos($firma->ssm_stare_fise, 'cl;control') !== false))
-                                    <span style="font-size: 14px; color:rgb(0, 96, 175)">
+                                    <span style="font-size: 12px; color:rgb(0, 96, 175)">
                                 @elseif ((strpos($firma->ssm_stare_fise, 'de adus') !== false))
-                                    <span style="font-size: 14px; color:rgb(204, 0, 0)">
+                                    <span style="font-size: 12px; color:rgb(204, 0, 0)">
                                 @elseif ((strpos($firma->ssm_stare_fise, 'La anulate') !== false))
-                                    <span style="font-size: 14px; color:rgb(94, 94, 94)">
+                                    <span style="font-size: 12px; color:rgb(94, 94, 94)">
                                 @else
-                                    <span style="font-size: 14px;">
+                                    <span style="font-size: 12px;">
                                 @endif
                                     {{ $firma->ssm_stare_fise }}
                                     </span>
                                 {{-- {{ $firma->ssm_stare_fise }} --}}
                             </td>
-                            <td style="font-size: 14px; padding:1px;">
+                            <td style="font-size: 12px; padding:1px;">
                                 @if ((strpos($firma->psi_stare_fise, 'noi.p;de s.p') !== false) ||
                                         (strpos($firma->psi_stare_fise, 'noi.p;de s') !== false) ||
                                         (strpos($firma->psi_stare_fise, 'noi;de s') !== false))
-                                    <span style="font-size: 14px; color:blueviolet">
+                                    <span style="font-size: 12px; color:blueviolet">
                                 @elseif ((strpos($firma->psi_stare_fise, 'comp.la cl.') !== false))
-                                    <span style="font-size: 14px; color:rgb(0, 145, 77)">
+                                    <span style="font-size: 12px; color:rgb(0, 145, 77)">
                                 @elseif ((strpos($firma->psi_stare_fise, 'cl;de s') !== false) ||
                                         (strpos($firma->psi_stare_fise, 'cl.p;de s') !== false) ||
                                         (strpos($firma->psi_stare_fise, 'Fișe-C') !== false) ||
                                         (strpos($firma->psi_stare_fise, 'cl;control') !== false))
-                                    <span style="font-size: 14px; color:rgb(0, 96, 175)">
+                                    <span style="font-size: 12px; color:rgb(0, 96, 175)">
                                 @elseif ((strpos($firma->psi_stare_fise, 'de adus') !== false))
-                                    <span style="font-size: 14px; color:rgb(204, 0, 0)">
+                                    <span style="font-size: 12px; color:rgb(204, 0, 0)">
                                 @elseif ((strpos($firma->psi_stare_fise, 'La anulate') !== false))
-                                    <span style="font-size: 14px; color:rgb(94, 94, 94)">
+                                    <span style="font-size: 12px; color:rgb(94, 94, 94)">
                                 @else
-                                    <span style="font-size: 14px;">
+                                    <span style="font-size: 12px;">
                                 @endif
                                     {{ $firma->psi_stare_fise }}
                                     </span>
                                  {{-- {{ $firma->psi_stare_fise }} --}}
                             </td>
-                            <td style="font-size: 14px; padding:1px;">
+                            <td style="font-size: 12px; padding:1px;">
                                  {{ $firma->administrator }}
                                  <br>
                                  {{ $firma->persoana_desemnata }}
                             </td>
-                            <td class="text-center" style="font-size: 14px; padding:1px;">
+                            <td class="text-center" style="font-size: 12px; padding:1px;">
                                  {{ $firma->domeniu_de_activitate }}
                                  <br>
                                  {{ $firma->pram_zi }}
@@ -389,47 +389,52 @@
                                  .
                                  {{ $firma->pram_an }}
                             </td>
-                            <td style="font-size: 14px; padding:1px;" class="text-center">
+                            <td style="font-size: 12px; padding:1px;" class="text-center">
                                 {{ $firma->contract_firma }}
                                 <br>
                                 @if ($firma->contract_semnat === 0)
-                                    <span style="font-size: 14px; color:red">
+                                    <span style="font-size: 12px; color:red">
                                 @else
-                                    <span style="font-size: 14px;">
+                                    <span style="font-size: 12px;">
                                 @endif
                                         {{ $firma->contract_numar }}
                                     </span>
                             </td>
-                            <td style="font-size: 14px; padding:1px;">
+                            <td style="font-size: 12px; padding:1px;">
                                 {{ $firma->observatii_1 ? ($firma->observatii_1 . '.') : ''}}
                                 {{ $firma->observatii_2 ? ($firma->observatii_2 . '.') : ''}}
                                 {{ $firma->observatii_3 ? ($firma->observatii_3 . '.') : ''}}
                                 {{-- {{ $firma->observatii_4 ? ($firma->observatii_4 . '') : ''}} --}}
                             </td>
                             <td class="p-0 text-center">
-                                {{-- <div class="d-flex justify-content-end"> --}}
+                                <div class="d-flex justify-content-end">
                                     {{-- <a href="{{ $firma->path() }}"
                                         class="flex me-1"
                                     >
                                         <span class="badge bg-success">Vizualizează</span>
                                     </a> --}}
                                     <a href="{{ $firma->path() }}/modifica"
-                                    <a href="#"
-                                        {{-- class="flex" --}}
+                                        class="me-1"
                                     >
-                                        <span class="badge bg-primary">Modifică</span>
+                                        <span class="badge bg-primary" style="font-size: 10px;">
+                                            {{-- Modifică --}}
+                                            <i class="fas fa-edit" style="font-size: 10px;"></i>
+                                        </span>
                                     </a>
-                                    <div style="flex" class="">
+                                    {{-- <div style="flex" class=""> --}}
                                         <a
                                             href="#"
                                             data-bs-toggle="modal"
                                             data-bs-target="#stergeFirma{{ $firma->id }}"
                                             title="Șterge Firma"
                                             >
-                                            <span class="badge bg-danger">Șterge</span>
+                                            <span class="badge bg-danger" style="font-size: 10px;">
+                                                {{-- Șterge --}}
+                                                <i class="fas fa-trash" style="font-size: 10px;"></i>
+                                            </span>
                                         </a>
                                     {{-- </div> --}}
-                                {{-- </div> --}}
+                                </div>
                             </td>
                         </tr>
                     @empty
