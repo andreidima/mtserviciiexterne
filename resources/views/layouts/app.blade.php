@@ -108,26 +108,32 @@
                                             Raport hidranți
                                         </a>
                                     </li>
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li>
+                                        <a class="dropdown-item" href="/stingatoare/firme/trasee">
+                                            Trasee
+                                        </a>
+                                    </li>
                                 </ul>
                             </li>
-                            <li class="nav-item me-3 dropdown">
+                            {{-- <li class="nav-item me-3 dropdown">
                                 <a class="nav-link active dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     <i class="fas fa-route me-1"></i>
                                     Trasee
                                 </a>
                                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    {{-- <li>
+                                    <li>
                                         <a class="dropdown-item" href="/ssm/firme/trasee">
                                             Trasee SSM
                                         </a>
-                                    </li> --}}
+                                    </li>
                                     <li>
                                         <a class="dropdown-item" href="/stingatoare/firme/trasee">
                                             Trasee stingătoare
                                         </a>
                                     </li>
                                 </ul>
-                            </li>
+                            </li> --}}
                             <li class="nav-item me-3 dropdown">
                                 <a class="nav-link active dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     <i class="fas fa-file-pdf me-1"></i>
