@@ -73,7 +73,7 @@
             salariati={!! json_encode($salariati->items()) !!}
             salariatiSelectati={!! json_encode(old('salariati_selectati', [])) !!}
         </script>
-        <div v-if="modificari_globale" class="row justify-content-center">
+        <div v-cloak v-if="modificari_globale" class="row justify-content-center">
             <div class="col-lg-8 mb-2 rounded-3" style="background-color:lightcyan">
                 <div class="row justify-content-center">
                     <div class="col-md-2 mb-2">
@@ -97,9 +97,16 @@
                         <select name="semnat_ssm" class="form-select form-select-sm bg-white rounded-3 {{ $errors->has('semnat_ssm') ? 'is-invalid' : '' }}">
                             <option value="" selected></option>
                             <option value='-'>-</option>
+                            <option value="client" style="color:rgb(0, 140, 255)" {{ old('semnat_ssm') === 'client' ? 'selected' : ''}}>client</option>
+                            <option value="Lipsa" style="color:rgb(255, 0, 0)" {{ old('semnat_ssm') === 'Lipsa' ? 'selected' : ''}}>Lipsa</option>
+                            <option value="comp.la cl." style="color:rgb(0, 180, 75)" {{ old('semnat_ssm') === 'comp.la cl.' ? 'selected' : ''}}>comp.la cl.</option>
                             <option value="n.de s" style="color:blueviolet" {{ old('semnat_ssm') === 'n.de s' ? 'selected' : ''}}>n. de s</option>
                             <option value="noi s." style="" {{ old('semnat_ssm') === 'noi s.' ? 'selected' : ''}}>noi s.</option>
-                            <option value="cl.de s" style="color:rgb(0, 96, 175)" {{ old('semnat_ssm') === 'cl.de s' ? 'selected' : ''}}>cl.de s</option>
+                            <option value="noi s." style="" {{ old('semnat_ssm') === 'noi' ? 'selected' : ''}}>noi</option>
+                            {{-- <option value='-'>-</option>
+                            <option value="n.de s" style="color:blueviolet" {{ old('semnat_ssm') === 'n.de s' ? 'selected' : ''}}>n. de s</option>
+                            <option value="noi s." style="" {{ old('semnat_ssm') === 'noi s.' ? 'selected' : ''}}>noi s.</option>
+                            <option value="cl.de s" style="color:rgb(0, 96, 175)" {{ old('semnat_ssm') === 'cl.de s' ? 'selected' : ''}}>cl.de s</option> --}}
                         </select>
                     </div>
                     <div class="col-lg-2 mb-2">
@@ -107,9 +114,16 @@
                         <select name="semnat_psi" class="form-select form-select-sm bg-white rounded-3 {{ $errors->has('semnat_psi') ? 'is-invalid' : '' }}">
                             <option value="" selected></option>
                             <option value='-'>-</option>
+                            <option value="client" style="color:rgb(0, 140, 255)" {{ old('semnat_psi') === 'client' ? 'selected' : ''}}>client</option>
+                            <option value="Lipsa" style="color:rgb(255, 0, 0)" {{ old('semnat_psi') === 'Lipsa' ? 'selected' : ''}}>Lipsa</option>
+                            <option value="comp.la cl." style="color:rgb(0, 180, 75)" {{ old('semnat_psi') === 'comp.la cl.' ? 'selected' : ''}}>comp.la cl.</option>
+                            <option value="n.de s" style="color:blueviolet" {{ old('semnat_psi') === 'n.de s' ? 'selected' : ''}}>n. de s</option>
+                            <option value="noi s." style="" {{ old('semnat_psi') === 'noi s.' ? 'selected' : ''}}>noi s.</option>
+                            <option value="noi s." style="" {{ old('semnat_psi') === 'noi' ? 'selected' : ''}}>noi</option>
+                            {{-- <option value='-'>-</option>
                             <option value="n.de s" style="color:blueviolet" {{ old('semnat_psi') === 'n.de s' ? 'selected' : ''}}>n.de s</option>
                             <option value="noi s." style="" {{ old('semnat_psi') === 'noi s.' ? 'selected' : ''}}>noi s.</option>
-                            <option value="cl.de s" style="color:rgb(0, 96, 175)" {{ old('semnat_psi') === 'cl.de s' ? 'selected' : ''}}>cl.de s</option>
+                            <option value="cl.de s" style="color:rgb(0, 96, 175)" {{ old('semnat_psi') === 'cl.de s' ? 'selected' : ''}}>cl.de s</option> --}}
                         </select>
                     </div>
                     <div class="col-lg-2 mb-2">
@@ -161,7 +175,7 @@
                         <th rowspan="2" class="text-center" style="font-size: 12px; padding:1px;">Traseu</th>
                         <th rowspan="2" class="text-center" style="font-size: 12px; padding:1px;">Observații</th>
                         <th colspan="2" class="text-center" style="font-size: 12px; padding:1px;">Semnat</th>
-                        <th rowspan="2" class="text-center" style="font-size: 12px; padding:1px;" v-if="modificari_globale">
+                        <th rowspan="2" class="text-center" style="font-size: 12px; padding:1px;" v-cloak v-if="modificari_globale">
                             <input type="checkbox"
                                 class="form-check-input"
                                 id=""
@@ -184,8 +198,14 @@
                     @forelse ($salariati as $salariat)
                         @if ((stripos($salariat->salariat, 'revisal') !== false) || (stripos($salariat->salariat, 'Situatie') !== false))
                             <tr style="background-color:rgb(169, 212, 255)">
-                        @elseif ((stripos($salariat->status, 'CCC') !== false))
-                            <tr style="background-color:rgb(255, 170, 244)">
+                        @elseif (stripos($salariat->status, 'CCC') !== false)
+                            <tr style="background-color:rgb(255, 184, 245)">
+                        @elseif (stripos($salariat->data_incetare, 'c.c.c') !== false)
+                            <tr style="background-color:rgb(255, 184, 245)">
+                        @elseif ((stripos($salariat->data_incetare, 'înc') !== false) || (stripos($salariat->data_incetare, 'lip') !== false))
+                            <tr style="opacity: 0.5;">
+                        @elseif (stripos($salariat->data_incetare, 'susp') !== false)
+                            <tr style="background-color:rgb(214, 167, 253)">
                         @else
                             <tr style="">
                         @endif
@@ -196,26 +216,53 @@
                                 {{ $salariat->nume_client }}
                             </td>
                             <td style="font-size: 12px; padding:1px;">
-                                {{ $salariat->salariat }}
+                                @if (stripos($salariat->salariat, '3 luni') !== false)
+                                    @php
+                                        $salariat_nume_colorat = str_replace("3 luni", "<span class='text-danger' style='font-size: 12px;'>3 luni</span>", $salariat->salariat);
+                                    @endphp
+                                    {!! $salariat_nume_colorat !!}
+                                @elseif (stripos($salariat->salariat, '6 luni') !== false)
+                                    @php
+                                        $salariat_nume_colorat = str_replace("6 luni", "<span class='text-danger' style='font-size: 12px;'>6 luni</span>", $salariat->salariat);
+                                    @endphp
+                                    {!! $salariat_nume_colorat !!}
+                                @else
+                                    {!! $salariat->salariat !!}
+                                @endif
                             </td>
                             <td style="font-size: 12px; padding:1px;">
                                 {{ $salariat->data_ssm_psi }}
                             </td>
                             <td style="font-size: 12px; padding:1px;">
-                                @if ((strpos($salariat->semnat_ssm, 'n.de s') !== false))
+                                @if (stripos($salariat->semnat_ssm, 'client') !== false)
+                                    <span style="font-size: 12px; color:rgb(0, 140, 255)">
+                                @elseif (stripos($salariat->semnat_ssm, 'Lipsa') !== false)
+                                    <span style="font-size: 12px; color:rgb(255, 0, 0)">
+                                @elseif (stripos($salariat->semnat_ssm, 'comp.la cl.') !== false)
+                                    <span style="font-size: 12px; color:rgb(0, 180, 75)">
+                                @elseif (stripos($salariat->semnat_ssm, 'n.de s') !== false)
                                     <span style="font-size: 12px; color:blueviolet">
-                                        {{ $salariat->semnat_ssm }}
-                                    </span>
-                                @elseif ((strpos($salariat->semnat_ssm, 'cl.de s') !== false))
-                                    <span style="font-size: 12px; color:rgb(0, 96, 175)">
-                                        {{ $salariat->semnat_ssm }}
-                                    </span>
                                 @else
-                                    {{ $salariat->semnat_ssm }}
+                                    <span style="font-size: 12px; color:rgb(0, 0, 0)">
                                 @endif
+                                        {{ $salariat->semnat_ssm }}
+                                    </span>
                             </td>
                             <td style="font-size: 12px; padding:1px;">
-                                @if ((strpos($salariat->semnat_psi, 'n.de s') !== false))
+                                @if (stripos($salariat->semnat_psi, 'client') !== false)
+                                    <span style="font-size: 12px; color:rgb(0, 140, 255)">
+                                @elseif (stripos($salariat->semnat_psi, 'Lipsa') !== false)
+                                    <span style="font-size: 12px; color:rgb(255, 0, 0)">
+                                @elseif (stripos($salariat->semnat_psi, 'comp.la cl.') !== false)
+                                    <span style="font-size: 12px; color:rgb(0, 180, 75)">
+                                @elseif (stripos($salariat->semnat_psi, 'n.de s') !== false)
+                                    <span style="font-size: 12px; color:blueviolet">
+                                @else
+                                    <span style="font-size: 12px; color:rgb(0, 0, 0)">
+                                @endif
+                                        {{ $salariat->semnat_psi }}
+                                    </span>
+                                {{-- @if ((strpos($salariat->semnat_psi, 'n.de s') !== false))
                                     <span style="font-size: 12px; color:blueviolet">
                                         {{ $salariat->semnat_psi }}
                                     </span>
@@ -225,7 +272,7 @@
                                     </span>
                                 @else
                                     {{ $salariat->semnat_psi }}
-                                @endif
+                                @endif --}}
                             </td>
                             <td style="font-size: 12px; padding:1px;">
                                 {{ $salariat->cnp }}
@@ -268,7 +315,7 @@
                                     {{ $salariat->semnat_eip }}
                                 @endif
                             </td>
-                            <td v-if="modificari_globale" style="font-size: 10px; padding:1px; background-color:lightcyan">
+                            <td v-cloak v-if="modificari_globale" style="font-size: 10px; padding:1px; background-color:lightcyan">
                                 <div class="form-check text-center">
                                     <input type="checkbox"
                                         class="form-check-input"

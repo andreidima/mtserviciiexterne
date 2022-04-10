@@ -27,7 +27,7 @@ class SsmSalariatController extends Controller
         // if ($search_firma && $search_salariat && $search_cnp){
             $salariati = SsmSalariat::
                 when($search_firma, function ($query, $search_firma) {
-                    return $query->where('nume_client', 'like', '%' . $search_firma . '%');
+                    return $query->where('nume_client', $search_firma);
                 })
                 ->when($search_firma_nume, function ($query, $search_firma_nume) {
                     return $query->where('nume_client', 'like', '%' . $search_firma_nume . '%');
@@ -43,7 +43,21 @@ class SsmSalariatController extends Controller
                 // })
                 ->orderBy('nume_client')
                 ->orderByRaw(DB::raw("FIELD(status, 'activ', 'susp', 'CCC', 'incetat') ASC"))
+                ->orderByRaw(DB::raw("
+                        case when salariat like '%revisal%' then 0 else 1 end ASC,
+                        case when salariat like '%situatie%' then 0 else 1 end ASC,
+                        case when salariat like '%3 luni%' then 0 else 1 end ASC,
+                        case when salariat like '%6 luni%' then 0 else 1 end ASC,
+                        case when data_incetare like '%înc%' then 0 else 1 end DESC,
+                        case when data_incetare like '%lip%' then 0 else 1 end DESC,
+                        case when data_incetare like '%susp%' then 0 else 1 end DESC,
+                        case when data_incetare like '%c.c.c%' then 0 else 1 end DESC
+                    "))
                 ->simplePaginate(100);
+                        // case when data_incetare not like '%înc%' then 0 else 1 end ASC,
+                        // case when data_incetare not like '%lip%' then 0 else 1 end ASC,
+                        // case when data_incetare not like '%c.c.c%' then 0 else 1 end ASC,
+                        // case when data_incetare not like '%susp%' then 0 else 1 end ASC,
         // } else{
         //     $salariati = SsmSalariat::find(1)->get();
         // }

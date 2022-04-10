@@ -56,6 +56,52 @@
                     value="{{ old('data_ssm_psi', $salariat->data_ssm_psi) }}">
             </div>
             <div class="col-lg-2 mb-2">
+                <label for="semnat_ssm" class="mb-0 ps-3">Semnat SSM</label>
+                <select name="semnat_ssm" class="form-select bg-white rounded-3 {{ $errors->has('semnat_ssm') ? 'is-invalid' : '' }}">
+                    <option value='-' selected>-</option>
+                    <option value="client" style="color:rgb(0, 140, 255)" {{ old('semnat_ssm', $salariat->semnat_ssm) === 'client' ? 'selected' : ''}}>client</option>
+                    <option value="Lipsa" style="color:rgb(255, 0, 0)" {{ old('semnat_ssm', $salariat->semnat_ssm) === 'Lipsa' ? 'selected' : ''}}>Lipsa</option>
+                    <option value="comp.la cl." style="color:rgb(0, 180, 75)" {{ old('semnat_ssm', $salariat->semnat_ssm) === 'comp.la cl.' ? 'selected' : ''}}>comp.la cl.</option>
+                    <option value="n.de s" style="color:blueviolet" {{ old('semnat_ssm', $salariat->semnat_ssm) === 'n.de s' ? 'selected' : ''}}>n. de s</option>
+                    <option value="noi s." style="" {{ old('semnat_ssm', $salariat->semnat_ssm) === 'noi s.' ? 'selected' : ''}}>noi s.</option>
+                    <option value="noi s." style="" {{ old('semnat_ssm', $salariat->semnat_ssm) === 'noi' ? 'selected' : ''}}>noi</option>
+                    @if (
+                        (old('semnat_ssm', $salariat->semnat_ssm) !== '-') &&
+                        (old('semnat_ssm', $salariat->semnat_ssm) !== 'client') &&
+                        (old('semnat_ssm', $salariat->semnat_ssm) !== 'Lipsa') &&
+                        (old('semnat_ssm', $salariat->semnat_ssm) !== 'comp.la cl.') &&
+                        (old('semnat_ssm', $salariat->semnat_ssm) !== 'n.de s') &&
+                        (old('semnat_ssm', $salariat->semnat_ssm) !== 'noi s.') &&
+                        (old('semnat_ssm', $salariat->semnat_ssm) !== 'noi')
+                        )
+                        <option value="{{ $salariat->semnat_ssm }}" {{ (old('semnat_ssm', $salariat->semnat_ssm) === $salariat->semnat_ssm) ? 'selected' : ''}}>{{ $salariat->semnat_ssm }}</option>
+                    @endif
+                </select>
+            </div>
+            <div class="col-lg-2 mb-2">
+                <label for="semnat_psi" class="mb-0 ps-3">Semnat PSI</label>
+                <select name="semnat_psi" class="form-select bg-white rounded-3 {{ $errors->has('semnat_psi') ? 'is-invalid' : '' }}">
+                    <option value='-' selected>-</option>
+                    <option value="client" style="color:rgb(0, 140, 255)" {{ old('semnat_psi', $salariat->semnat_psi) === 'client' ? 'selected' : ''}}>client</option>
+                    <option value="Lipsa" style="color:rgb(255, 0, 0)" {{ old('semnat_psi', $salariat->semnat_psi) === 'Lipsa' ? 'selected' : ''}}>Lipsa</option>
+                    <option value="comp.la cl." style="color:rgb(0, 180, 75)" {{ old('semnat_psi', $salariat->semnat_psi) === 'comp.la cl.' ? 'selected' : ''}}>comp.la cl.</option>
+                    <option value="n.de s" style="color:blueviolet" {{ old('semnat_psi', $salariat->semnat_psi) === 'n.de s' ? 'selected' : ''}}>n. de s</option>
+                    <option value="noi s." style="" {{ old('semnat_psi', $salariat->semnat_psi) === 'noi s.' ? 'selected' : ''}}>noi s.</option>
+                    <option value="noi s." style="" {{ old('semnat_psi', $salariat->semnat_psi) === 'noi' ? 'selected' : ''}}>noi</option>
+                    @if (
+                        (old('semnat_psi', $salariat->semnat_psi) !== '-') &&
+                        (old('semnat_psi', $salariat->semnat_psi) !== 'client') &&
+                        (old('semnat_psi', $salariat->semnat_psi) !== 'Lipsa') &&
+                        (old('semnat_psi', $salariat->semnat_psi) !== 'comp.la cl.') &&
+                        (old('semnat_psi', $salariat->semnat_psi) !== 'n.de s') &&
+                        (old('semnat_psi', $salariat->semnat_psi) !== 'noi s.') &&
+                        (old('semnat_psi', $salariat->semnat_psi) !== 'noi')
+                        )
+                        <option value="{{ $salariat->semnat_psi }}" {{ (old('semnat_psi', $salariat->semnat_psi) === $salariat->semnat_psi) ? 'selected' : ''}}>{{ $salariat->semnat_psi }}</option>
+                    @endif
+                </select>
+            </div>
+            <div class="col-lg-2 mb-2">
                 <label for="semnat_anexa" class="mb-0 ps-3">Semnat Anexa</label>
                 <select name="semnat_anexa" class="form-select bg-white rounded-3 {{ $errors->has('semnat_anexa') ? 'is-invalid' : '' }}">
                     <option value='-' selected>-</option>
@@ -85,24 +131,7 @@
                     @endif
                 </select>
             </div>
-            <div class="col-lg-2 mb-2">
-                <label for="semnat_ssm" class="mb-0 ps-3">Semnat SSM</label>
-                <select name="semnat_ssm" class="form-select bg-white rounded-3 {{ $errors->has('semnat_ssm') ? 'is-invalid' : '' }}">
-                    <option value='-' selected>-</option>
-                    <option value="n.de s" style="color:blueviolet" {{ old('semnat_ssm', $salariat->semnat_ssm) === 'n.de s' ? 'selected' : ''}}>n. de s</option>
-                    <option value="noi s." style="" {{ old('semnat_ssm', $salariat->semnat_ssm) === 'noi s.' ? 'selected' : ''}}>noi s.</option>
-                    <option value="cl.de s" style="color:rgb(0, 96, 175)" {{ old('semnat_ssm', $salariat->semnat_ssm) === 'cl.de s' ? 'selected' : ''}}>cl.de s</option>
-                    @if (
-                        (old('semnat_ssm', $salariat->semnat_ssm) !== '-') &&
-                        (old('semnat_ssm', $salariat->semnat_ssm) !== 'n.de s') &&
-                        (old('semnat_ssm', $salariat->semnat_ssm) !== 'noi s.') &&
-                        (old('semnat_ssm', $salariat->semnat_ssm) !== 'cl.de s')
-                        )
-                        <option value="{{ $salariat->semnat_ssm }}" {{ (old('semnat_ssm', $salariat->semnat_ssm) === $salariat->semnat_ssm) ? 'selected' : ''}}>{{ $salariat->semnat_ssm }}</option>
-                    @endif
-                </select>
-            </div>
-            <div class="col-lg-2 mb-2">
+            {{-- <div class="col-lg-2 mb-2">
                 <label for="semnat_psi" class="mb-0 ps-3">Semnat PSI</label>
                 <select name="semnat_psi" class="form-select bg-white rounded-3 {{ $errors->has('semnat_psi') ? 'is-invalid' : '' }}">
                     <option value='-' selected>-</option>
@@ -118,7 +147,7 @@
                         <option value="{{ $salariat->semnat_psi }}" {{ (old('semnat_psi', $salariat->semnat_psi) === $salariat->semnat_psi) ? 'selected' : ''}}>{{ $salariat->semnat_psi }}</option>
                     @endif
                 </select>
-            </div>
+            </div> --}}
         </div>
         <div class="row mb-2">
             <div class="col-lg-2 mb-3">
