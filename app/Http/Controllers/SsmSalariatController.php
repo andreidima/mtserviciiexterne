@@ -53,7 +53,7 @@ class SsmSalariatController extends Controller
                         case when data_incetare like '%susp%' then 0 else 1 end DESC,
                         case when data_incetare like '%c.c.c%' then 0 else 1 end DESC
                     "))
-                ->simplePaginate(100);
+                ->simplePaginate(50);
                         // case when data_incetare not like '%înc%' then 0 else 1 end ASC,
                         // case when data_incetare not like '%lip%' then 0 else 1 end ASC,
                         // case when data_incetare not like '%c.c.c%' then 0 else 1 end ASC,
