@@ -42,7 +42,7 @@ class SsmSalariatController extends Controller
                 //     return $query->where('id', -1);
                 // })
                 ->orderBy('nume_client')
-                ->orderByRaw(DB::raw("FIELD(status, 'activ', 'susp', 'CCC', 'incetat') ASC"))
+                // ->orderByRaw(DB::raw("FIELD(status, 'activ', 'susp', 'CCC', 'incetat') ASC"))
                 ->orderByRaw(DB::raw("
                         case when salariat like '%revisal%' then 0 else 1 end ASC,
                         case when salariat like '%situatie%' then 0 else 1 end ASC,
