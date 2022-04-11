@@ -54,6 +54,7 @@ class SsmSalariatController extends Controller
                         case when data_incetare like '%susp%' then 0 else 1 end DESC,
                         case when data_incetare like '%c.c.c%' then 0 else 1 end DESC
                     "))
+                ->orderBy('salariat')
                 // ->orderByRaw(DB::raw("FIELD(status, 'activ', 'susp', 'CCC', 'incetat') ASC"))
                 ->simplePaginate(50);
                         // case when data_incetare not like '%înc%' then 0 else 1 end ASC,
