@@ -201,7 +201,7 @@
                         @elseif (($salariat->status === "CCC") || (stripos($salariat->data_incetare, 'c.c.c') !== false))
                             <tr style="background-color:rgb(255, 184, 245)">
                         @elseif ((stripos($salariat->data_incetare, 'susp') !== false))
-                            <tr style="background-color:rgb(203, 126, 255)">
+                            <tr style="background-color:rgb(165, 144, 179)">
                         @elseif (($salariat->status === "incetat") || ($salariat->status === "lipsa") || (stripos($salariat->data_incetare, 'înc') !== false) || (stripos($salariat->data_incetare, 'lip') !== false))
                             <tr style="opacity: 0.5;">
                         @else
