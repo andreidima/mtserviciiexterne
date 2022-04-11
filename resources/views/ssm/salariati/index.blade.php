@@ -301,7 +301,7 @@
                             <td style="font-size: 12px; padding:1px;">
                                 {{ $salariat->observatii_1 ? ($salariat->observatii_1 . '.') : ''}}
                                 {{ $salariat->observatii_2 ? ($salariat->observatii_2 . '.') : ''}}
-                                {{ $salariat->observatii_3 ? ($salariat->observatii_3 . '') : ''}}
+                                {{-- {{ $salariat->observatii_3 ? ($salariat->observatii_3 . '') : ''}} --}}
                             </td>
                             <td style="font-size: 12px; padding:1px;">
                                 @if ((strpos($salariat->semnat_anexa, 'de s') !== false))

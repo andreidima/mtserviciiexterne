@@ -249,7 +249,7 @@
                     placeholder=""
                     value="{{ old('observatii_2', $salariat->observatii_2) }}">
             </div>
-            <div class="col-lg-3 mb-3">
+            {{-- <div class="col-lg-3 mb-3">
                 <label for="observatii_3" class="mb-0 ps-3">Observații 3</label>
                 <input
                     type="text"
@@ -257,7 +257,7 @@
                     name="observatii_3"
                     placeholder=""
                     value="{{ old('observatii_3', $salariat->observatii_3) }}">
-            </div>
+            </div> --}}
 
         </div>
 

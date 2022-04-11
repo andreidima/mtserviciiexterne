@@ -180,8 +180,7 @@ class SsmSalariatController extends Controller
                 'status' => 'nullable|max:200',
                 'traseu' => 'nullable|max:200',
                 'observatii_1' => 'nullable|max:2000',
-                'observatii_2' => 'nullable|max:2000',
-                'observatii_3' => 'nullable|max:2000',
+                'observatii_2' => 'nullable|max:2000'
             ],
             [
 
