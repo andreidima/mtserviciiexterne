@@ -214,12 +214,22 @@
                             <td style="font-size: 12px; padding:1px;">
                                 @if (stripos($salariat->salariat, '3 luni') !== false)
                                     @php
-                                        $salariat_nume_colorat = str_replace("3 luni", "<span class='text-danger' style='font-size: 12px;'>3 luni</span>", $salariat->salariat);
+                                        $salariat_nume_colorat = str_replace("3 luni", "<span class='text-primary' style='font-size: 12px;'>3 luni</span>", $salariat->salariat);
+                                    @endphp
+                                    {!! $salariat_nume_colorat !!}
+                                @elseif (stripos($salariat->salariat, '3luni') !== false)
+                                    @php
+                                        $salariat_nume_colorat = str_replace("3luni", "<span class='text-primary' style='font-size: 12px;'>3luni</span>", $salariat->salariat);
                                     @endphp
                                     {!! $salariat_nume_colorat !!}
                                 @elseif (stripos($salariat->salariat, '6 luni') !== false)
                                     @php
-                                        $salariat_nume_colorat = str_replace("6 luni", "<span class='text-danger' style='font-size: 12px;'>6 luni</span>", $salariat->salariat);
+                                        $salariat_nume_colorat = str_replace("6 luni", "<span class='text-primary' style='font-size: 12px;'>6 luni</span>", $salariat->salariat);
+                                    @endphp
+                                    {!! $salariat_nume_colorat !!}
+                                @elseif (stripos($salariat->salariat, '6luni') !== false)
+                                    @php
+                                        $salariat_nume_colorat = str_replace("6luni", "<span class='text-primary' style='font-size: 12px;'>6luni</span>", $salariat->salariat);
                                     @endphp
                                     {!! $salariat_nume_colorat !!}
                                 @else
