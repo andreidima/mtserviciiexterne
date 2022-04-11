@@ -198,14 +198,10 @@
                     @forelse ($salariati as $salariat)
                         @if ((stripos($salariat->salariat, 'revisal') !== false) || (stripos($salariat->salariat, 'Situatie') !== false))
                             <tr style="background-color:rgb(169, 212, 255)">
-                        @elseif (stripos($salariat->status, 'CCC') !== false)
+                        @elseif (($salariat->status === "CCC") || (stripos($salariat->data_incetare, 'c.c.c') !== false))
                             <tr style="background-color:rgb(255, 184, 245)">
-                        @elseif (stripos($salariat->data_incetare, 'c.c.c') !== false)
-                            <tr style="background-color:rgb(255, 184, 245)">
-                        @elseif ((stripos($salariat->data_incetare, 'înc') !== false) || (stripos($salariat->data_incetare, 'lip') !== false))
+                        @elseif (($salariat->status === "incetat") || ($salariat->status === "lipsa") || (stripos($salariat->data_incetare, 'înc') !== false) || (stripos($salariat->data_incetare, 'lip') !== false))
                             <tr style="opacity: 0.5;">
-                        @elseif (stripos($salariat->data_incetare, 'susp') !== false)
-                            <tr style="background-color:rgb(214, 167, 253)">
                         @else
                             <tr style="">
                         @endif

@@ -209,15 +209,16 @@
                     value="{{ old('data_incetare', $salariat->data_incetare) }}"
                     required>
             </div>
-            <div class="col-lg-2 mb-2">
+            {{-- <div class="col-lg-2 mb-2">
                 <label for="status" class="mb-0 ps-3">Status</label>
                 <select name="status" class="form-select bg-white rounded-3 {{ $errors->has('status') ? 'is-invalid' : '' }}">
                     <option value="activ" style="" {{ old('status', $salariat->status) === 'activ' ? 'selected' : ''}}>Activ</option>
                     <option value="susp" style="color:blueviolet" {{ old('status', $salariat->status) === 'susp' ? 'selected' : ''}}>Susp</option>
                     <option value="CCC" style="color:rgb(252, 73, 252)" {{ old('status', $salariat->status) === 'CCC' ? 'selected' : ''}}>CCC</option>
                     <option value="incetat" style="color:rgb(207, 153, 2)" {{ old('status', $salariat->status) === 'incetat' ? 'selected' : ''}}>Încetat</option>
+                    <option value="lipsa" style="color:rgb(207, 153, 2)" {{ old('status', $salariat->status) === 'lipsa' ? 'selected' : ''}}>Lipsă</option>
                 </select>
-            </div>
+            </div> --}}
             <div class="col-lg-2 mb-3">
                 <label for="traseu" class="mb-0 ps-3">Traseu</label>
                 <input
