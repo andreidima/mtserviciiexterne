@@ -14,9 +14,13 @@
                 <form class="needs-validation" novalidate method="GET" action="/ssm/firme">
                     @csrf
                     <div class="row mb-1 input-group custom-search-form justify-content-center">
-                        <div class="col-md-3">
-                            <input type="text" class="form-control form-control-sm rounded-3" id="search_firma" name="search_firma" placeholder="Firma, CUI, Adresa, Observații"
-                                    value="{{ $search_firma }}">
+                        <div class="col-md-2">
+                            <input type="text" class="form-control form-control-sm rounded-3" id="search_firma_si_cui" name="search_firma_si_cui" placeholder="Firma, CUI"
+                                    value="{{ $search_firma_si_cui }}">
+                        </div>
+                        <div class="col-md-2">
+                            <input type="text" class="form-control form-control-sm rounded-3" id="search_adresa_observatii" name="search_adresa_si_observatii" placeholder="Adresa, Observații"
+                                    value="{{ $search_adresa_si_observatii }}">
                         </div>
                         <div class="col-md-2">
                             <select class="form-select form-select-sm mb-1" id="search_traseu" name="search_traseu" >
@@ -62,9 +66,13 @@
                                 @endforeach
                             </select>
                         </div>
-                        <div class="col-md-3">
-                            <input type="text" class="form-control form-control-sm rounded-3" id="search_administrator" name="search_administrator" placeholder="Administrator, Pers. desem."
-                                    value="{{ $search_administrator}}">
+                        <div class="col-md-2">
+                            <input type="text" class="form-control form-control-sm rounded-3" id="search_administrator_si_pers_desemnata" name="search_administrator_si_pers_desemnata" placeholder="Adm., Pers. desem."
+                                    value="{{ $search_administrator_si_pers_desemnata}}">
+                        </div>
+                        <div class="col-md-2">
+                            <input type="text" class="form-control form-control-sm rounded-3" id="search_domeniu_de_activitate" name="search_domeniu_de_activitate" placeholder="Domeniu activitate"
+                                    value="{{ $search_domeniu_de_activitate}}">
                         </div>
                         <div class="col-md-2">
                             <select class="form-select form-select-sm mb-1" id="search_perioada" name="search_perioada">

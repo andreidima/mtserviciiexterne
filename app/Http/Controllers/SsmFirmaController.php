@@ -19,9 +19,11 @@ class SsmFirmaController extends Controller
      */
     public function index(Request $request)
     {
-        $search_firma = \Request::get('search_firma');
+        $search_firma_si_cui = \Request::get('search_firma_si_cui');
+        $search_adresa_si_observatii = \Request::get('search_adresa_si_observatii');
         $search_traseu = \Request::get('search_traseu');
-        $search_administrator = \Request::get('search_administrator');
+        $search_administrator_si_pers_desemnata = \Request::get('search_administrator_si_pers_desemnata');
+        $search_domeniu_de_activitate = \Request::get('search_domeniu_de_activitate');
         $search_actionar = \Request::get('search_actionar');
         $search_ssm_luna = \Request::get('search_ssm_luna');
         $search_psi_luna = \Request::get('search_psi_luna');
@@ -31,25 +33,31 @@ class SsmFirmaController extends Controller
         $search_observatii = \Request::get('search_observatii');
 
         $firme = SsmFirma::
-            when($search_firma, function ($query, $search_firma) {
-                return $query->where(function ($query) use ($search_firma) {
-                    $query->where('nume', 'like', '%' . $search_firma . '%')
-                            ->orwhere('cui', 'like', '%' . $search_firma . '%')
-                            ->orwhere('adresa', 'like', '%' . $search_firma . '%')
-                            ->orwhere('observatii_1', 'like', '%' . $search_firma . '%')
-                            ->orwhere('observatii_2', 'like', '%' . $search_firma . '%')
-                            ->orwhere('observatii_3', 'like', '%' . $search_firma . '%');
-                            // ->orwhere('j_seap_fact', 'like', '%' . $search_firma . '%');
+            when($search_firma_si_cui, function ($query, $search_firma_si_cui) {
+                return $query->where(function ($query) use ($search_firma_si_cui) {
+                    $query->where('nume', 'like', '%' . $search_firma_si_cui . '%')
+                            ->orwhere('cui', 'like', '%' . $search_firma_si_cui . '%');
+                });
+            })
+            ->when($search_adresa_si_observatii, function ($query, $search_adresa_si_observatii) {
+                return $query->where(function ($query) use ($search_adresa_si_observatii) {
+                    $query->where('adresa', 'like', '%' . $search_adresa_si_observatii . '%')
+                            ->orwhere('observatii_1', 'like', '%' . $search_adresa_si_observatii . '%')
+                            ->orwhere('observatii_2', 'like', '%' . $search_adresa_si_observatii . '%')
+                            ->orwhere('observatii_3', 'like', '%' . $search_adresa_si_observatii . '%');
                 });
             })
             ->when($search_traseu, function ($query, $search_traseu) {
                 return $query->where('traseu', $search_traseu);
             })
-            ->when($search_administrator, function ($query, $search_administrator) {
-                return $query->where(function ($query) use ($search_administrator) {
-                    $query->where('administrator', 'like', '%' . $search_administrator . '%')
-                            ->orwhere('persoana_desemnata', 'like', '%' . $search_administrator . '%');
+            ->when($search_administrator_si_pers_desemnata, function ($query, $search_administrator_si_pers_desemnata) {
+                return $query->where(function ($query) use ($search_administrator_si_pers_desemnata) {
+                    $query->where('administrator', 'like', '%' . $search_administrator_si_pers_desemnata . '%')
+                            ->orwhere('persoana_desemnata', 'like', '%' . $search_administrator_si_pers_desemnata . '%');
                 });
+            })
+            ->when($search_domeniu_de_activitate, function ($query, $search_domeniu_de_activitate) {
+                return $query->where('domeniu_de_activitate', 'like', '%' . $search_domeniu_de_activitate . '%');
             })
             ->when($search_actionar, function ($query, $search_actionar) {
                 return $query->where('actionar', $search_actionar);
@@ -88,7 +96,8 @@ class SsmFirmaController extends Controller
 
         $request->session()->forget('firma_return_url');
 
-        return view('ssm.firme.index', compact('firme', 'search_firma', 'search_traseu', 'search_administrator', 'search_actionar', 'search_ssm_luna', 'search_psi_luna', 'search_perioada',
+        return view('ssm.firme.index', compact('firme', 'search_firma_si_cui', 'search_adresa_si_observatii', 'search_traseu', 'search_administrator_si_pers_desemnata', 'search_domeniu_de_activitate',
+            'search_actionar', 'search_ssm_luna', 'search_psi_luna', 'search_perioada',
             'search_contract_firma', 'search_contract_numar', 'search_observatii',
             'lista_traseu', 'lista_actionar', 'lista_ssm_luna', 'lista_psi_luna', 'lista_perioada', 'lista_contract_firma'
         ));
