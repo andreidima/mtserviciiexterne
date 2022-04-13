@@ -64,7 +64,7 @@
                     <option value="comp.la cl." style="color:rgb(0, 180, 75)" {{ old('semnat_ssm', $salariat->semnat_ssm) === 'comp.la cl.' ? 'selected' : ''}}>comp.la cl.</option>
                     <option value="n.de s" style="color:blueviolet" {{ old('semnat_ssm', $salariat->semnat_ssm) === 'n.de s' ? 'selected' : ''}}>n. de s</option>
                     <option value="noi s." style="" {{ old('semnat_ssm', $salariat->semnat_ssm) === 'noi s.' ? 'selected' : ''}}>noi s.</option>
-                    <option value="noi s." style="" {{ old('semnat_ssm', $salariat->semnat_ssm) === 'noi' ? 'selected' : ''}}>noi</option>
+                    <option value="noi" style="" {{ old('semnat_ssm', $salariat->semnat_ssm) === 'noi' ? 'selected' : ''}}>noi</option>
                     @if (
                         (old('semnat_ssm', $salariat->semnat_ssm) !== '-') &&
                         (old('semnat_ssm', $salariat->semnat_ssm) !== 'client') &&
@@ -87,7 +87,7 @@
                     <option value="comp.la cl." style="color:rgb(0, 180, 75)" {{ old('semnat_psi', $salariat->semnat_psi) === 'comp.la cl.' ? 'selected' : ''}}>comp.la cl.</option>
                     <option value="n.de s" style="color:blueviolet" {{ old('semnat_psi', $salariat->semnat_psi) === 'n.de s' ? 'selected' : ''}}>n. de s</option>
                     <option value="noi s." style="" {{ old('semnat_psi', $salariat->semnat_psi) === 'noi s.' ? 'selected' : ''}}>noi s.</option>
-                    <option value="noi s." style="" {{ old('semnat_psi', $salariat->semnat_psi) === 'noi' ? 'selected' : ''}}>noi</option>
+                    <option value="noi" style="" {{ old('semnat_psi', $salariat->semnat_psi) === 'noi' ? 'selected' : ''}}>noi</option>
                     @if (
                         (old('semnat_psi', $salariat->semnat_psi) !== '-') &&
                         (old('semnat_psi', $salariat->semnat_psi) !== 'client') &&
