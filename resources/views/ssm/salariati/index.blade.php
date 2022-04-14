@@ -216,25 +216,13 @@
                             </td>
                             <td style="font-size: 12px; padding:1px;">
                                 @if (stripos($salariat->salariat, '3 luni') !== false)
-                                    @php
-                                        $salariat_nume_colorat = str_replace("3 luni", "<span class='text-primary' style='font-size: 12px;'>3 luni</span>", $salariat->salariat);
-                                    @endphp
-                                    {!! $salariat_nume_colorat !!}
+                                    {!! str_replace("3 luni", "<span class='text-primary' style='font-size: 12px;'>3 luni</span>", $salariat->salariat) !!}
                                 @elseif (stripos($salariat->salariat, '3luni') !== false)
-                                    @php
-                                        $salariat_nume_colorat = str_replace("3luni", "<span class='text-primary' style='font-size: 12px;'>3luni</span>", $salariat->salariat);
-                                    @endphp
-                                    {!! $salariat_nume_colorat !!}
+                                    {!! str_replace("3luni", "<span class='text-primary' style='font-size: 12px;'>3luni</span>", $salariat->salariat) !!}
                                 @elseif (stripos($salariat->salariat, '6 luni') !== false)
-                                    @php
-                                        $salariat_nume_colorat = str_replace("6 luni", "<span class='text-primary' style='font-size: 12px;'>6 luni</span>", $salariat->salariat);
-                                    @endphp
-                                    {!! $salariat_nume_colorat !!}
+                                    {!! str_replace("6 luni", "<span class='text-primary' style='font-size: 12px;'>6 luni</span>", $salariat->salariat) !!}
                                 @elseif (stripos($salariat->salariat, '6luni') !== false)
-                                    @php
-                                        $salariat_nume_colorat = str_replace("6luni", "<span class='text-primary' style='font-size: 12px;'>6luni</span>", $salariat->salariat);
-                                    @endphp
-                                    {!! $salariat_nume_colorat !!}
+                                    {!! str_replace("6luni", "<span class='text-primary' style='font-size: 12px;'>6luni</span>", $salariat->salariat) !!}
                                 @else
                                     {!! $salariat->salariat !!}
                                 @endif
@@ -287,7 +275,15 @@
                                 {{ $salariat->cnp }}
                             </td>
                             <td style="font-size: 12px; padding:1px;">
-                                {{ $salariat->functia }}
+                                @php
+                                    if (stripos($salariat->functia, 'adm.') !== false){
+                                        $salariat->functia = str_replace("adm.", "<span style='font-size: 12px; color:blueviolet'>adm.</span>", $salariat->functia);
+                                    } elseif (stripos($salariat->functia, 'adm') !== false){
+                                        $salariat->functia = str_replace("adm", "<span style='font-size: 12px; color:blueviolet'>adm</span>", $salariat->functia);
+                                    }
+                                    $salariat->functia = str_replace("pers. des.", "<span style='font-size: 12px; color:blueviolet'>pers. des.</span>", $salariat->functia);
+                                @endphp
+                                {!! $salariat->functia !!}
                             </td>
                             <td class="text-center" style="font-size: 12px; padding:1px;">
                                 {{ $salariat->actionar }}
