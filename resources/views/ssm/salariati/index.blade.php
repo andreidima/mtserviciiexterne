@@ -16,7 +16,7 @@
                     <div class="row mb-1 input-group custom-search-form justify-content-center">
                         <div class="col-md-3">
                             <select class="form-select form-select-sm mb-1" id="search_firma" name="search_firma" >
-                                    <option value="" selected>Alege Firma</option>
+                                    <option value="" selected>Firma</option>
                                 @foreach ($lista_firma as $firma)
                                     <option value="{{ $firma->nume_client }}"
                                         {{ isset($firma->nume_client) ? ($firma->nume_client === $search_firma ? 'selected' : '') : '' }}
@@ -37,23 +37,48 @@
                             <input type="text" class="form-control form-control-sm rounded-3" id="search_cnp" name="search_cnp" placeholder="CNP"
                                     value="{{ $search_cnp }}">
                         </div>
-                    </div>
-                    <div class="row input-group custom-search-form justify-content-center">
-                        <button class="btn btn-sm btn-primary text-white col-md-4 me-3 border border-dark rounded-3" type="submit">
-                            <i class="fas fa-search text-white me-1"></i>Caută
-                        </button>
-                        <a class="btn btn-sm bg-secondary text-white col-md-4 border border-dark rounded-3" href="/ssm/salariati" role="button">
-                            <i class="far fa-trash-alt text-white me-1"></i>Resetează căutarea
-                        </a>
+                        <div class="col-md-3">
+                            <select class="form-select form-select-sm mb-1" id="search_traseu" name="search_traseu" >
+                                    <option value="" selected>Traseu</option>
+                                @foreach ($lista_traseu as $traseu)
+                                    <option value="{{ $traseu->traseu }}"
+                                        {{ isset($traseu->traseu) ? ($traseu->traseu === $search_traseu ? 'selected' : '') : '' }}
+                                    >
+                                    {{ $traseu->traseu }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        {{-- <div class="col-md-3">
+                        </div> --}}
+                        <div class="col-md-9">
+                            <div class="d-flex justify-content-end">
+                                <button class="btn btn-sm btn-primary text-white col-md-5 me-3 border border-dark rounded-3" type="submit">
+                                    <i class="fas fa-search text-white me-1"></i>Caută
+                                </button>
+                                <a class="btn btn-sm bg-secondary text-white col-md-5 border border-dark rounded-3" href="/ssm/salariati" role="button">
+                                    <i class="far fa-trash-alt text-white me-1"></i>Resetează căutarea
+                                </a>
+                            </div>
+                        </div>
+                        {{-- <div class="col-lg-4 d-grid gap-5">
+                            <button class="btn btn-sm btn-primary text-white border border-dark rounded-3" type="submit">
+                                <i class="fas fa-search text-white me-1"></i>Caută
+                            </button>
+                        </div>
+                        <div class="col-lg-4 d-grid gap-5">
+                            <a class="btn btn-sm bg-secondary text-white border border-dark rounded-3" href="/ssm/salariati" role="button">
+                                <i class="far fa-trash-alt text-white me-1"></i>Resetează căutarea
+                            </a>
+                        </div> --}}
                     </div>
                 </form>
             </div>
             <div class="col-lg-3 text-end">
-                <a class="btn btn-sm mb-2 bg-success text-white border border-dark rounded-3 col-md-8" href="/ssm/salariati/adauga" role="button">
+                <a class="btn btn-sm mb-1 bg-success text-white border border-dark rounded-3 col-md-8" href="/ssm/salariati/adauga" role="button">
                     <i class="fas fa-plus-square text-white me-1"></i>Adaugă salariat
                 </a>
-                <div id="salariatiIndex" v-on:click="modificari_globale = !modificari_globale">
-                    <input class="btn btn-sm btn-primary" type="button" value="Modificări globale">
+                <div id="salariatiIndex">
+                    <input class="btn btn-sm btn-primary" type="button" value="Modificări globale" v-on:click="modificari_globale = !modificari_globale">
                 </div>
             </div>
         </div>
@@ -64,9 +89,6 @@
 
 
     <form class="needs-validation" novalidate method="GET" action="/ssm/salariati-modifica-selectati">
-        @php
-            // dd($salariati, $salariati->items()->id, $salariati->toArray())
-        @endphp
         <script type="application/javascript">
             modificariGlobale = @json(old('modificariGlobale') ?? false);
 

@@ -23,6 +23,7 @@ class SsmSalariatController extends Controller
         $search_firma_nume = \Request::get('search_firma_nume');
         $search_salariat = \Request::get('search_salariat');
         $search_cnp = \Request::get('search_cnp');
+        $search_traseu = \Request::get('search_traseu');
 
         // if ($search_firma && $search_salariat && $search_cnp){
             $salariati = SsmSalariat::
@@ -37,6 +38,9 @@ class SsmSalariatController extends Controller
                 })
                 ->when($search_cnp, function ($query, $search_cnp) {
                     return $query->where('cnp', 'like', '%' . $search_cnp . '%');
+                })
+                ->when($search_traseu, function ($query, $search_traseu) {
+                    return $query->where('traseu', $search_traseu);
                 })
                 // ->when(!($search_firma || $search_firma_nume || $search_salariat || $search_cnp), function ($query) {
                 //     return $query->where('id', -1);
@@ -67,10 +71,11 @@ class SsmSalariatController extends Controller
         // dd($salariati);
 
         $lista_firma = SsmSalariat::select('nume_client')->groupBy('nume_client')->get();
+        $lista_traseu = SsmSalariat::select('traseu')->groupBy('traseu')->get();
 
         $request->session()->forget('salariat_return_url');
 
-        return view('ssm.salariati.index', compact('salariati', 'search_firma', 'search_firma_nume', 'search_salariat', 'search_cnp', 'lista_firma'));
+        return view('ssm.salariati.index', compact('salariati', 'search_firma', 'search_firma_nume', 'search_salariat', 'search_cnp', 'search_traseu', 'lista_firma', 'lista_traseu'));
     }
 
     /**
