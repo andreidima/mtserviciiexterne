@@ -91,27 +91,26 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('/{serviciu}/firme', FirmaController::class,  ['parameters' => ['firme' => 'firma']]);
 
 
-    Route::get('merge-medicina-muncii', function(){
-        \App\Models\SsmSalariat::where('id', '>' , 0)
-            ->update(['med_muncii' => NULL]);
+    // Route::get('merge-medicina-muncii', function(){
+    //     \App\Models\SsmSalariat::where('id', '>' , 0)
+    //         ->update(['med_muncii' => NULL]);
 
-        \App\Models\SsmSalariat::
-            // where('id', '<', 100)
-            where([
-                ['med_muncii_zi', '<>', NULL],
-                ['med_muncii_zi', '<>', '-']
-            ])
-            ->orwhere([
-                ['med_muncii_luna', '<>', NULL],
-                ['med_muncii_luna', '<>', '-']
-            ])
-            ->orwhere([
-                ['med_muncii_an', '<>', NULL],
-                ['med_muncii_an', '<>', '-']
-            ])
-            ->update(['med_muncii' => DB::raw("concat(med_muncii_zi, '.', med_muncii_luna, '.', med_muncii_an)")]);
-        echo 'Hi';
-    });
+    //     \App\Models\SsmSalariat::
+    //         where([
+    //             ['med_muncii_zi', '<>', NULL],
+    //             ['med_muncii_zi', '<>', '-']
+    //         ])
+    //         ->orwhere([
+    //             ['med_muncii_luna', '<>', NULL],
+    //             ['med_muncii_luna', '<>', '-']
+    //         ])
+    //         ->orwhere([
+    //             ['med_muncii_an', '<>', NULL],
+    //             ['med_muncii_an', '<>', '-']
+    //         ])
+    //         ->update(['med_muncii' => DB::raw("concat(med_muncii_zi, '.', med_muncii_luna, '.', med_muncii_an)")]);
+    //     echo 'Hi';
+    // });
 
 
     // Import initial SSM
