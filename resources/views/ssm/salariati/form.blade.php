@@ -149,7 +149,7 @@
                 </select>
             </div> --}}
         </div>
-        <div class="row mb-2">
+        {{-- <div class="row mb-2">
             <div class="col-lg-2 mb-3">
                 <label for="med_muncii_zi" class="mb-0 ps-3">Med. Muncii ZI</label>
                 <input
@@ -177,7 +177,7 @@
                     placeholder=""
                     value="{{ old('med_muncii_an', $salariat->med_muncii_an) }}">
             </div>
-        </div>
+        </div> --}}
         <div class="row mb-2">
             <div class="col-lg-2 mb-3">
                 <label for="actionar" class="mb-0 ps-3">Acționar</label>
@@ -228,6 +228,15 @@
                     placeholder=""
                     value="{{ old('traseu', $salariat->traseu) }}"
                     required>
+            </div>
+            <div class="col-lg-2 mb-3">
+                <label for="med_muncii" class="mb-0 ps-3">Med. Muncii</label>
+                <input
+                    type="text"
+                    class="form-control bg-white rounded-3 {{ $errors->has('med_muncii') ? 'is-invalid' : '' }}"
+                    name="med_muncii"
+                    placeholder=""
+                    value="{{ old('med_muncii', $salariat->med_muncii) }}">
             </div>
         </div>
         <div class="row mb-2">
