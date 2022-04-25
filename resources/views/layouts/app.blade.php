@@ -58,6 +58,17 @@
                                             Salariați
                                         </a>
                                     </li>
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li>
+                                        <a class="dropdown-item" href="/ssm/rapoarte/firme">
+                                            Raport firme
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" href="/ssm/rapoarte/salariati">
+                                            Raport salariati
+                                        </a>
+                                    </li>
                                 </ul>
                             </li>
                             <li class="nav-item me-3 dropdown">

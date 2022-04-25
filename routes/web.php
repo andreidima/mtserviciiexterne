@@ -20,6 +20,7 @@ use App\Http\Controllers\ImportInitialMedicinaMunciiFisierExcelController;
 
 use App\Http\Controllers\SsmFirmaController;
 use App\Http\Controllers\SsmSalariatController;
+use App\Http\Controllers\SsmRaportController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -78,17 +79,26 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/rapoarte/instructaj', [RaportController::class, 'instructaj']);
 
 
+    // SSM-ul construit total separat
     Route::resource('/ssm/firme', SsmFirmaController::class,  ['parameters' => ['firme' => 'firma']]);
     Route::resource('/ssm/salariati', SsmSalariatController::class,  ['parameters' => ['salariati' => 'salariat']]);
     Route::get('/ssm/salariati-modifica-selectati', [SsmSalariatController::class, 'modificaSelectati']);
 
+    Route::get('/ssm/rapoarte/firme', [SsmRaportController::class, 'firme']);
+    Route::get('/ssm/rapoarte/firme/{ssm_luna}/{psi_luna}/{view_type}', [SsmRaportController::class, 'firmeExportPDF']);
+    Route::get('/ssm/rapoarte/salariati', [SsmRaportController::class, 'salariati']);
+    Route::get('/ssm/rapoarte/salariati/{data_ssm_psi}/{semnat_ssm}/{semnat_psi}/{view_type}', [SsmRaportController::class, 'salariatiExportPDF']);
+
 
     // Reconstructie totala a rutelor - firme separate pentru SSM, Medicina muncii, Stingatoare
+    // SSM-ul a fost construit total separat pana la urma
     Route::resource('/{serviciu}/firme/trasee', FirmaTraseuController::class,  ['parameters' => ['trasee' => 'traseu']]);
 
     Route::resource('/{serviciu}/firme/{firma_curenta}/salariati', FirmaSalariatController::class,  ['parameters' => ['salariati' => 'salariat']]);
     Route::resource('/{serviciu}/firme/{firma}/stingatoare', FirmaStingatorController::class,  ['parameters' => ['stingatoare' => 'stingator']]);
     Route::resource('/{serviciu}/firme', FirmaController::class,  ['parameters' => ['firme' => 'firma']]);
+
+
 
 
     // Route::get('merge-medicina-muncii', function(){

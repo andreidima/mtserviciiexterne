@@ -15,7 +15,7 @@
                     required>
             </div>
             <div class="col-lg-3 mb-2">
-                <label for="salariat" class="mb-0 ps-3">Salariat<span class="text-danger">*</span></label>
+                <label for="salariat" class="mb-0 ps-3">Salariat</label>
                 <input
                     type="text"
                     class="form-control bg-white rounded-3 {{ $errors->has('salariat') ? 'is-invalid' : '' }}"
@@ -47,7 +47,7 @@
         </div>
         <div class="row mb-2 p-2 rounded-3" style="background-color: rgb(132, 236, 255)">
             <div class="col-lg-2 mb-2">
-                <label for="data_ssm_psi" class="mb-0 ps-3">Data SSM/PSI</label>
+                <label for="data_ssm_psi" class="mb-0 ps-3">Data SSM/PSI<span class="text-danger">*</span></label>
                 <input
                     type="text"
                     class="form-control bg-white rounded-3 {{ $errors->has('data_ssm_psi') ? 'is-invalid' : '' }}"
@@ -56,7 +56,7 @@
                     value="{{ old('data_ssm_psi', $salariat->data_ssm_psi) }}">
             </div>
             <div class="col-lg-2 mb-2">
-                <label for="semnat_ssm" class="mb-0 ps-3">Semnat SSM</label>
+                <label for="semnat_ssm" class="mb-0 ps-3">Semnat SSM<span class="text-danger">*</span></label>
                 <select name="semnat_ssm" class="form-select bg-white rounded-3 {{ $errors->has('semnat_ssm') ? 'is-invalid' : '' }}">
                     <option value='-' selected>-</option>
                     <option value="client" style="color:rgb(0, 140, 255)" {{ old('semnat_ssm', $salariat->semnat_ssm) === 'client' ? 'selected' : ''}}>client</option>
@@ -79,7 +79,7 @@
                 </select>
             </div>
             <div class="col-lg-2 mb-2">
-                <label for="semnat_psi" class="mb-0 ps-3">Semnat PSI</label>
+                <label for="semnat_psi" class="mb-0 ps-3">Semnat PSI<span class="text-danger">*</span></label>
                 <select name="semnat_psi" class="form-select bg-white rounded-3 {{ $errors->has('semnat_psi') ? 'is-invalid' : '' }}">
                     <option value='-' selected>-</option>
                     <option value="client" style="color:rgb(0, 140, 255)" {{ old('semnat_psi', $salariat->semnat_psi) === 'client' ? 'selected' : ''}}>client</option>
