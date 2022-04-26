@@ -66,7 +66,12 @@
                                     </li>
                                     <li>
                                         <a class="dropdown-item" href="/ssm/rapoarte/salariati">
-                                            Raport salariati
+                                            Raport salariați
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" href="/ssm/rapoarte/salariati/medicina-muncii">
+                                            Raport medicina muncii
                                         </a>
                                     </li>
                                 </ul>

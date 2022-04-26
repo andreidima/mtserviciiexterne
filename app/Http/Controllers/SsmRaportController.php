@@ -78,23 +78,58 @@ class SsmRaportController extends Controller
             'lista_data_ssm_psi', 'lista_semnat_ssm', 'lista_semnat_psi'));
     }
 
-    public function salariatiExportPDF(Request $request, $data_ssm_psi = null, $semnat_ssm = null)
+    public function salariatiExportPDF(Request $request, $data_ssm_psi = null, $semnat_ssm = null, $semnat_psi = null)
     {
+        ($semnat_ssm === 'search_semnat_ssm') ? ($semnat_ssm = null) : null;
+        ($semnat_psi === 'search_semnat_psi') ? ($semnat_psi = null) : null;
+
         $salariati = SsmSalariat::
             where('data_ssm_psi', $data_ssm_psi)
-            ->orwhere('semnat_ssm', $semnat_ssm)
-            ->orderBy('traseu', 'asc')
-            ->orderBy('nume')
+            ->when($semnat_ssm, function ($query, $semnat_ssm) {
+                return $query->where('semnat_ssm', $semnat_ssm);
+            })
+            ->when($semnat_psi, function ($query, $semnat_psi) {
+                return $query->where('semnat_psi', $semnat_psi);
+            })
+            ->orderBy('nume_client', 'asc')
+            ->orderBy('salariat')
             ->get();
 
         if ($request->view_type === 'export-html') {
-            return view('ssm.rapoarte.export.salariatiPdf', compact('salariati', 'data_ssm_psi', 'semnat_ssm'));
+            return view('ssm.rapoarte.export.salariatiPdf', compact('salariati', 'data_ssm_psi', 'semnat_ssm', 'semnat_psi'));
         } elseif ($request->view_type === 'export-pdf') {
-            $pdf = \PDF::loadView('ssm.rapoarte.export.salariatiPdf', compact('salariati', 'data_ssm_psi', 'semnat_ssm'))
+            $pdf = \PDF::loadView('ssm.rapoarte.export.salariatiPdf', compact('salariati', 'data_ssm_psi', 'semnat_ssm', 'semnat_psi'))
                 ->setPaper('a4', 'portrait');
             $pdf->getDomPDF()->set_option("enable_php", true);
             return $pdf->download('Raport SSM - salariati.pdf');
             // return $pdf->stream();
         }
+    }
+
+    public function salariatiMedicinaMuncii(Request $request)
+    {
+        $search_nume_client = \Request::get('search_nume_client');
+        $search_salariat = \Request::get('search_salariat');
+        $search_med_muncii = \Request::get('search_med_muncii');
+
+        $salariati = SsmSalariat::
+            when($search_nume_client, function ($query, $search_nume_client) {
+                return $query->where('nume_client', 'like', '%' . $search_nume_client . '%');
+            })
+            ->when($search_salariat, function ($query, $search_salariat) {
+                return $query->where('salariat', 'like', '%' . $search_salariat . '%');
+            })
+            ->when($search_med_muncii, function ($query, $search_med_muncii) {
+                return $query->where('med_muncii', 'like', '%' . $search_med_muncii . '%');
+            })
+            ->when(!($search_nume_client || $search_salariat || $search_med_muncii), function ($query) {
+                return $query->where('id', '-1');
+            })
+            // where('med_muncii', 'like', '%' . $search_med_muncii . '%')
+            ->orderBy('nume_client', 'asc')
+            ->orderBy('salariat')
+            ->get();
+
+        return view('ssm.rapoarte.salariatiMedicinaMuncii', compact('salariati', 'search_nume_client', 'search_salariat', 'search_med_muncii'));
     }
 }

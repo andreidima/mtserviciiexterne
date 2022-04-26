@@ -4,7 +4,7 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>Firme</title>
+    <title>Salariați</title>
     <style>
         body {
             font-family: DejaVu Sans, sans-serif;
@@ -69,73 +69,73 @@
 
 
                     <h2 style="text-align: center">
-                        Raport SSM - Firme
+                        Raport SSM - Salariați
                     </h2>
 
                     <h3 style="text-align: center">
-                        SSM luna <u>{!! $ssm_luna === 'search_ssm_luna' ? '&nbsp;&nbsp;&nbsp;&nbsp;' : $ssm_luna !!}</u> /
-                        PSI luna <u>{!! $psi_luna === 'search_psi_luna' ? '&nbsp;&nbsp;&nbsp;&nbsp;' : $psi_luna !!}</u> /
-                        Total firme =
+                        Data SSM/ PSI <u>{!! $data_ssm_psi === 'search_data_ssm_psi' ? '&nbsp;&nbsp;&nbsp;&nbsp;' : $data_ssm_psi !!}</u> /
+                        Semnat SSM <u>{!! $semnat_ssm ?? '&nbsp;&nbsp;&nbsp;&nbsp;' !!}</u> /
+                        Semnat PSI <u>{!! $semnat_psi ?? '&nbsp;&nbsp;&nbsp;&nbsp;' !!}</u> /
+                        Total salariati =
                                         <span class="badge bg-success fs-6 border border-white">
-                                            {{ $firme->count() }}
+                                            {{ $salariati->count() }}
                                         </span>
                     </h3>
                 </div>
 
                 <br><br><br><br>
 
-                @forelse ($firme->groupBy('traseu') as $firme_per_traseu)
+                @forelse ($salariati->groupBy('nume_client') as $salariati_per_firma)
 
                     <table>
                         <tr class="" style="padding:2rem; background-color:lightgrey">
                             <th colspan="7">
-                                Traseu:
+                                Firma:
                                     <span class="badge bg-dark fs-6">
-                                        {{ $firme_per_traseu->first()->traseu ?? '' }}
+                                        {{ $salariati_per_firma->first()->nume_client ?? '' }}
                                     </span>
                                     /
-                                    Firme =
+                                    Salariați =
                                     <span class="badge bg-success fs-6">
-                                        {{ $firme_per_traseu->count() }}
+                                        {{ $salariati_per_firma->count() }}
                                     </span>
                             </th>
                         </tr>
                         <tr class="" style="padding:2rem">
                             <th rowspan="2">#</th>
-                            <th rowspan="2">Firma</th>
-                            <th rowspan="2">CUI</th>
-                            <th colspan="2" class="text-center">Luna</th>
-                            <th colspan="2" class="text-center">Stare fișe</th>
+                            <th rowspan="2">Salariat</th>
+                            <th rowspan="2">Funcția</th>
+                            <th rowspan="2">Data angajării</th>
+                            <th rowspan="2">Data SSM/ PSI</th>
+                            <th colspan="2" class="text-center">Semnat</th>
                         </tr>
                         <tr>
                             <th>SSM</th>
                             <th>PSI</th>
-                            <th>SSM</th>
-                            <th>PSI</th>
                         </tr>
 
-                        @forelse ($firme_per_traseu as $firma)
+                        @forelse ($salariati_per_firma as $salariat)
                             <tr>
-                                <td align="right">
+                                <td align="">
                                     {{ $loop->iteration }}
                                 </td>
                                 <td>
-                                    {{ $firma->nume ?? '' }}
+                                    {{ $salariat->salariat ?? '' }}
                                 </td>
                                 <td>
-                                    {{ $firma->cui ?? '' }}
+                                    {{ $salariat->functia ?? '' }}
                                 </td>
                                 <td>
-                                    {{ $firma->ssm_luna ?? '' }}
+                                    {{ $salariat->data_angajare ?? '' }}
                                 </td>
                                 <td>
-                                    {{ $firma->psi_luna ?? '' }}
+                                    {{ $salariat->data_ssm_psi ?? '' }}
                                 </td>
                                 <td>
-                                    {{ $firma->ssm_stare_fise ?? '' }}
+                                    {{ $salariat->semnat_ssm ?? '' }}
                                 </td>
                                 <td>
-                                    {{ $firma->psi_stare_fise ?? '' }}
+                                    {{ $salariat->semnat_psi ?? '' }}
                                 </td>
                             </tr>
                         @empty
