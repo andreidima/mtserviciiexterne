@@ -194,6 +194,29 @@
                                     Salariați
                                 </a>
                             </li>
+                            <li class="nav-item me-3 dropdown">
+                                <a class="nav-link active dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="fas fa-file-alt me-1"></i>
+                                    Rapoarte
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <li>
+                                        <a class="dropdown-item" href="/ssm/rapoarte/firme">
+                                            Raport firme
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" href="/ssm/rapoarte/salariati">
+                                            Raport salariați
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" href="/ssm/rapoarte/salariati/medicina-muncii">
+                                            Raport medicina muncii
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
                             {{-- <li class="nav-item me-3">
                                 <a class="nav-link active" href="/rapoarte/ssm">
                                     <i class="fas fa-file-alt me-1"></i>
