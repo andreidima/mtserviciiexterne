@@ -199,7 +199,10 @@ class SsmSalariatController extends Controller
         $request->validate(
             [
                 'salariati_selectati' => 'required|array|between:1,100',
-                'data_ssm_psi' => 'required_without_all:semnat_ssm,semnat_psi,semnat_anexa,semnat_eip|max:200',
+                'nume_client' => 'required_without_all:semnat_ssm,semnat_psi,semnat_anexa,semnat_eip|max:200',
+                'functia' => 'nullable|max:200',
+                'traseu' => 'nullable|max:200',
+                'data_ssm_psi' => 'nullable|max:200',
                 'semnat_ssm' => 'nullable|max:200',
                 'semnat_psi' => 'nullable|max:200',
                 'semnat_anexa' => 'nullable|max:200',
@@ -214,6 +217,9 @@ class SsmSalariatController extends Controller
         $salariati = SsmSalariat::find($request->salariati_selectati);
 
         foreach ($salariati as $salariat){
+            $request->nume_client ? $salariat->nume_client = $request->nume_client : '';
+            $request->functia ? $salariat->functia = $request->functia : '';
+            $request->traseu ? $salariat->traseu = $request->traseu : '';
             $request->data_ssm_psi ? $salariat->data_ssm_psi = $request->data_ssm_psi : '';
             $request->semnat_ssm ? $salariat->semnat_ssm = $request->semnat_ssm : '';
             $request->semnat_psi ? $salariat->semnat_psi = $request->semnat_psi : '';

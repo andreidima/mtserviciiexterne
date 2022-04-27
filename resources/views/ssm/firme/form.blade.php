@@ -95,6 +95,7 @@
                     <option value="noi.p;de s.p" style="color:blueviolet" {{ old('ssm_stare_fise', $firma->ssm_stare_fise) === 'noi.p;de s.p' ? 'selected' : ''}}>noi.p;de s.p</option>
                     <option value="noi.p;de s" style="color:blueviolet" {{ old('ssm_stare_fise', $firma->ssm_stare_fise) === 'noi.p;de s' ? 'selected' : ''}}>noi.p;de s</option>
                     <option value="noi;de s" style="color:blueviolet" {{ old('ssm_stare_fise', $firma->ssm_stare_fise) === 'noi;de s' ? 'selected' : ''}}>noi;de s</option>
+                    <option value="noi" {{ old('ssm_stare_fise', $firma->ssm_stare_fise) === 'noi' ? 'selected' : ''}}>noi</option>
                     <option value="noi;s" {{ old('ssm_stare_fise', $firma->ssm_stare_fise) === 'noi;s' ? 'selected' : ''}}>noi;s</option>
                     <option value="noi;s.p" {{ old('ssm_stare_fise', $firma->ssm_stare_fise) === 'noi;s.p' ? 'selected' : ''}}>noi;s.p</option>
                     <option value="noi.p;s.p" {{ old('ssm_stare_fise', $firma->ssm_stare_fise) === 'noi.p;s.p' ? 'selected' : ''}}>noi.p;s.p</option>
@@ -113,6 +114,7 @@
                         (old('ssm_stare_fise', $firma->ssm_stare_fise) !== 'noi.p;de s.p') &&
                         (old('ssm_stare_fise', $firma->ssm_stare_fise) !== 'noi.p;de s') &&
                         (old('ssm_stare_fise', $firma->ssm_stare_fise) !== 'noi;de s') &&
+                        (old('ssm_stare_fise', $firma->ssm_stare_fise) !== 'noi') &&
                         (old('ssm_stare_fise', $firma->ssm_stare_fise) !== 'noi;s') &&
                         (old('ssm_stare_fise', $firma->ssm_stare_fise) !== 'noi;s.p') &&
                         (old('ssm_stare_fise', $firma->ssm_stare_fise) !== 'noi.p;s.p') &&
@@ -138,6 +140,7 @@
                     <option value="noi.p;de s.p" style="color:blueviolet" style="" {{ old('psi_stare_fise', $firma->psi_stare_fise) === 'noi.p;de s.p' ? 'selected' : ''}}>noi.p;de s.p</option>
                     <option value="noi.p;de s" style="color:blueviolet" {{ old('psi_stare_fise', $firma->psi_stare_fise) === 'noi.p;de s' ? 'selected' : ''}}>noi.p;de s</option>
                     <option value="noi;de s" style="color:blueviolet" {{ old('psi_stare_fise', $firma->psi_stare_fise) === 'noi;de s' ? 'selected' : ''}}>noi;de s</option>
+                    <option value="noi" {{ old('psi_stare_fise', $firma->psi_stare_fise) === 'noi' ? 'selected' : ''}}>noi</option>
                     <option value="noi;s" {{ old('psi_stare_fise', $firma->psi_stare_fise) === 'noi;s' ? 'selected' : ''}}>noi;s</option>
                     <option value="noi;s.p" {{ old('psi_stare_fise', $firma->psi_stare_fise) === 'noi;s.p' ? 'selected' : ''}}>noi;s.p</option>
                     <option value="noi.p;s.p" {{ old('psi_stare_fise', $firma->psi_stare_fise) === 'noi.p;s.p' ? 'selected' : ''}}>noi.p;s.p</option>
@@ -156,6 +159,7 @@
                         (old('psi_stare_fise', $firma->psi_stare_fise) !== 'noi.p;de s.p') &&
                         (old('psi_stare_fise', $firma->psi_stare_fise) !== 'noi.p;de s') &&
                         (old('psi_stare_fise', $firma->psi_stare_fise) !== 'noi;de s') &&
+                        (old('psi_stare_fise', $firma->psi_stare_fise) !== 'noi') &&
                         (old('psi_stare_fise', $firma->psi_stare_fise) !== 'noi;s') &&
                         (old('psi_stare_fise', $firma->psi_stare_fise) !== 'noi;s.p') &&
                         (old('psi_stare_fise', $firma->psi_stare_fise) !== 'noi.p;s.p') &&

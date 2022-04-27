@@ -98,7 +98,7 @@
         <div v-cloak v-if="modificari_globale" class="row justify-content-center">
             <div class="col-lg-8 mb-2 rounded-3" style="background-color:lightcyan">
                 <div class="row justify-content-center">
-                    <div class="col-md-2 mb-2">
+                    <div class="col-md-3 mb-2">
 
                         {{-- Daca validarea da eroare, se intoarce inapoi cu modificariGlobale=true, ca sa nu fie ascunse optiunile de modificari globale --}}
                         <input
@@ -106,6 +106,32 @@
                             name="modificariGlobale"
                             value="true">
 
+                        <small for="nume_client" class="mb-0 ps-3">Nume client</small>
+                        <input
+                            type="text"
+                            class="form-control form-control-sm rounded-3 {{ $errors->has('nume_client') ? 'is-invalid' : '' }}"
+                            name="nume_client"
+                            value="{{ old('nume_client') }}">
+                    </div>
+                    <div class="col-md-3 mb-2">
+                        <small for="functia" class="mb-0 ps-3">Funcție</small>
+                        <input
+                            type="text"
+                            class="form-control form-control-sm rounded-3 {{ $errors->has('functia') ? 'is-invalid' : '' }}"
+                            name="functia"
+                            value="{{ old('functia') }}">
+                    </div>
+                    <div class="col-md-3 mb-2">
+                        <small for="traseu" class="mb-0 ps-3">Traseu</small>
+                        <input
+                            type="text"
+                            class="form-control form-control-sm rounded-3 {{ $errors->has('traseu') ? 'is-invalid' : '' }}"
+                            name="traseu"
+                            value="{{ old('traseu') }}">
+                    </div>
+                </div>
+                <div class="row justify-content-center">
+                    <div class="col-md-2 mb-2">
                         {{-- <label for="data_ssm_psi" class="mb-0 ps-1">Data SSM/PSI</label> --}}
                         <small for="data_ssm_psi" class="mb-0 ps-1">Data SSM/PSI</small>
                         <input
@@ -124,7 +150,7 @@
                             <option value="comp.la cl." style="color:rgb(0, 180, 75)" {{ old('semnat_ssm') === 'comp.la cl.' ? 'selected' : ''}}>comp.la cl.</option>
                             <option value="n.de s" style="color:blueviolet" {{ old('semnat_ssm') === 'n.de s' ? 'selected' : ''}}>n. de s</option>
                             <option value="noi s." style="" {{ old('semnat_ssm') === 'noi s.' ? 'selected' : ''}}>noi s.</option>
-                            <option value="noi s." style="" {{ old('semnat_ssm') === 'noi' ? 'selected' : ''}}>noi</option>
+                            <option value="noi" style="" {{ old('semnat_ssm') === 'noi' ? 'selected' : ''}}>noi</option>
                             {{-- <option value='-'>-</option>
                             <option value="n.de s" style="color:blueviolet" {{ old('semnat_ssm') === 'n.de s' ? 'selected' : ''}}>n. de s</option>
                             <option value="noi s." style="" {{ old('semnat_ssm') === 'noi s.' ? 'selected' : ''}}>noi s.</option>
@@ -141,7 +167,7 @@
                             <option value="comp.la cl." style="color:rgb(0, 180, 75)" {{ old('semnat_psi') === 'comp.la cl.' ? 'selected' : ''}}>comp.la cl.</option>
                             <option value="n.de s" style="color:blueviolet" {{ old('semnat_psi') === 'n.de s' ? 'selected' : ''}}>n. de s</option>
                             <option value="noi s." style="" {{ old('semnat_psi') === 'noi s.' ? 'selected' : ''}}>noi s.</option>
-                            <option value="noi s." style="" {{ old('semnat_psi') === 'noi' ? 'selected' : ''}}>noi</option>
+                            <option value="noi" style="" {{ old('semnat_psi') === 'noi' ? 'selected' : ''}}>noi</option>
                             {{-- <option value='-'>-</option>
                             <option value="n.de s" style="color:blueviolet" {{ old('semnat_psi') === 'n.de s' ? 'selected' : ''}}>n.de s</option>
                             <option value="noi s." style="" {{ old('semnat_psi') === 'noi s.' ? 'selected' : ''}}>noi s.</option>
@@ -183,6 +209,7 @@
 
                     <tr class="" style="padding:2rem; font-size: 5px">
                         <th rowspan="2" class="text-center" style="font-size: 12px; padding:1px;">#</th>
+                        <th rowspan="2" class="text-center" style=" font-size: 12px; padding:1px;">Acțiuni</th>
                         <th rowspan="2" class="text-center" style="font-size: 12px; padding:1px;">Nume client</th>
                         <th rowspan="2" class="text-center" style="font-size: 12px; padding:1px;">Salariat</th>
                         <th rowspan="2" class="text-center" style="font-size: 12px; padding:1px;">
@@ -207,7 +234,6 @@
                                 >
 
                         </th>
-                        <th rowspan="2" class="text-center" style=" font-size: 12px; padding:1px;">Acțiuni</th>
                     </tr>
                     <tr class="">
                         <th class="text-center" style="font-size: 12px; padding:1px;">SSM</th>
@@ -232,6 +258,37 @@
                         @endif
                             <td style="font-size: 12px; padding:1px;">
                                 {{ ($salariati ->currentpage()-1) * $salariati ->perpage() + $loop->index + 1 }}
+                            </td>
+                            <td class="p-0 text-center">
+                                <div class="d-flex justify-content-end">
+                                    {{-- <a href="{{ $firma->path() }}"
+                                        class="flex me-1"
+                                    >
+                                        <span class="badge bg-success">Vizualizează</span>
+                                    </a> --}}
+                                    <a href="{{ $salariat->path() }}/modifica"
+                                            class="me-1"
+                                        {{-- class="flex" --}}
+                                    >
+                                        <span class="badge bg-primary" style="font-size: 10px;">
+                                            {{-- Modifică --}}
+                                            <i class="fas fa-edit" style="font-size: 10px;"></i>
+                                        </span>
+                                    </a>
+                                    {{-- <div style="flex" class=""> --}}
+                                        <a
+                                            href="#"
+                                            data-bs-toggle="modal"
+                                            data-bs-target="#stergeSalariat{{ $salariat->id }}"
+                                            title="Șterge Salariat"
+                                            >
+                                            <span class="badge bg-danger" style="font-size: 10px;">
+                                                {{-- Șterge --}}
+                                                <i class="fas fa-trash" style="font-size: 10px;"></i>
+                                            </span>
+                                        </a>
+                                    {{-- </div> --}}
+                                </div>
                             </td>
                             <td style="font-size: 12px; padding:1px;">
                                 {{ $salariat->nume_client }}
@@ -358,37 +415,6 @@
                                     {{-- <label class="form-check-label" for="{{ $salariat->id }}">
                                         {{ $salariat->salariat }}
                                     </label> --}}
-                                </div>
-                            </td>
-                            <td class="p-0 text-center">
-                                <div class="d-flex justify-content-end">
-                                    {{-- <a href="{{ $firma->path() }}"
-                                        class="flex me-1"
-                                    >
-                                        <span class="badge bg-success">Vizualizează</span>
-                                    </a> --}}
-                                    <a href="{{ $salariat->path() }}/modifica"
-                                            class="me-1"
-                                        {{-- class="flex" --}}
-                                    >
-                                        <span class="badge bg-primary" style="font-size: 10px;">
-                                            {{-- Modifică --}}
-                                            <i class="fas fa-edit" style="font-size: 10px;"></i>
-                                        </span>
-                                    </a>
-                                    {{-- <div style="flex" class=""> --}}
-                                        <a
-                                            href="#"
-                                            data-bs-toggle="modal"
-                                            data-bs-target="#stergeSalariat{{ $salariat->id }}"
-                                            title="Șterge Salariat"
-                                            >
-                                            <span class="badge bg-danger" style="font-size: 10px;">
-                                                {{-- Șterge --}}
-                                                <i class="fas fa-trash" style="font-size: 10px;"></i>
-                                            </span>
-                                        </a>
-                                    {{-- </div> --}}
                                 </div>
                             </td>
                         </tr>
