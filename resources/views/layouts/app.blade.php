@@ -69,11 +69,11 @@
                                             Raport salariați
                                         </a>
                                     </li>
-                                    <li>
+                                    {{-- <li>
                                         <a class="dropdown-item" href="/ssm/rapoarte/salariati/medicina-muncii">
                                             Raport medicina muncii
                                         </a>
-                                    </li>
+                                    </li> --}}
                                 </ul>
                             </li>
                             <li class="nav-item me-3 dropdown">
@@ -210,11 +210,11 @@
                                             Raport salariați
                                         </a>
                                     </li>
-                                    <li>
+                                    {{-- <li>
                                         <a class="dropdown-item" href="/ssm/rapoarte/salariati/medicina-muncii">
                                             Raport medicina muncii
                                         </a>
-                                    </li>
+                                    </li> --}}
                                 </ul>
                             </li>
                             {{-- <li class="nav-item me-3">
