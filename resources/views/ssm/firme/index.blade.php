@@ -132,6 +132,7 @@
 
                     <tr class="" style="padding:2rem; font-size: 5px">
                         <th rowspan="2" class="text-center" style="font-size: 12px; padding:1px;">#</th>
+                        <th rowspan="2" class="text-center" style=" font-size: 12px; padding:1px;">Acțiuni</th>
                         <th rowspan="2" class="text-center" style="font-size: 12px; padding:1px;">
                             Firma
                             <br>
@@ -159,7 +160,6 @@
                         </th>
                         <th rowspan="2" class="text-center" style="font-size: 12px; padding:1px;">Contract</th>
                         <th rowspan="2" class="text-center" style="font-size: 12px; padding:1px;">Observații</th>
-                        <th rowspan="2" class="text-center" style=" font-size: 12px; padding:1px;">Acțiuni</th>
                     </tr>
                     <tr class="">
                         <th class="text-center" style="font-size: 12px; padding:1px;">
@@ -189,6 +189,36 @@
                         {{-- <tr style=""> --}}
                             <td style="font-size: 12px; padding:1px;">
                                 {{ ($firme ->currentpage()-1) * $firme ->perpage() + $loop->index + 1 }}
+                            </td>
+                            <td class="p-0 text-center">
+                                <div class="d-flex justify-content-end">
+                                    {{-- <a href="{{ $firma->path() }}"
+                                        class="flex me-1"
+                                    >
+                                        <span class="badge bg-success">Vizualizează</span>
+                                    </a> --}}
+                                    <a href="{{ $firma->path() }}/modifica"
+                                        class="me-1"
+                                    >
+                                        <span class="badge bg-primary" style="font-size: 10px;">
+                                            {{-- Modifică --}}
+                                            <i class="fas fa-edit" style="font-size: 10px;"></i>
+                                        </span>
+                                    </a>
+                                    {{-- <div style="flex" class=""> --}}
+                                        <a
+                                            href="#"
+                                            data-bs-toggle="modal"
+                                            data-bs-target="#stergeFirma{{ $firma->id }}"
+                                            title="Șterge Firma"
+                                            >
+                                            <span class="badge bg-danger" style="font-size: 10px;">
+                                                {{-- Șterge --}}
+                                                <i class="fas fa-trash" style="font-size: 10px;"></i>
+                                            </span>
+                                        </a>
+                                    {{-- </div> --}}
+                                </div>
                             </td>
                             <td style="font-size: 12px; padding:1px;">
                                 {{ $firma->nume ?? '' }}
@@ -413,36 +443,6 @@
                                 {{ $firma->observatii_2 ? ($firma->observatii_2 . '.') : ''}}
                                 {{ $firma->observatii_3 ? ($firma->observatii_3 . '.') : ''}}
                                 {{-- {{ $firma->observatii_4 ? ($firma->observatii_4 . '') : ''}} --}}
-                            </td>
-                            <td class="p-0 text-center">
-                                <div class="d-flex justify-content-end">
-                                    {{-- <a href="{{ $firma->path() }}"
-                                        class="flex me-1"
-                                    >
-                                        <span class="badge bg-success">Vizualizează</span>
-                                    </a> --}}
-                                    <a href="{{ $firma->path() }}/modifica"
-                                        class="me-1"
-                                    >
-                                        <span class="badge bg-primary" style="font-size: 10px;">
-                                            {{-- Modifică --}}
-                                            <i class="fas fa-edit" style="font-size: 10px;"></i>
-                                        </span>
-                                    </a>
-                                    {{-- <div style="flex" class=""> --}}
-                                        <a
-                                            href="#"
-                                            data-bs-toggle="modal"
-                                            data-bs-target="#stergeFirma{{ $firma->id }}"
-                                            title="Șterge Firma"
-                                            >
-                                            <span class="badge bg-danger" style="font-size: 10px;">
-                                                {{-- Șterge --}}
-                                                <i class="fas fa-trash" style="font-size: 10px;"></i>
-                                            </span>
-                                        </a>
-                                    {{-- </div> --}}
-                                </div>
                             </td>
                         </tr>
                     @empty
