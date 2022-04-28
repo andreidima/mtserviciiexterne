@@ -140,6 +140,24 @@ class SsmRaportController extends Controller
             ->orderBy('salariat')
             ->simplePaginate(50);
 
-        return view('rapoarte.medicinaMuncii.ssmSalariati', compact('salariati', 'search_nume_client', 'search_salariat'));
+        switch ($request->input('action')) {
+            case 'export_pdf':
+                // return view('rapoarte.medicinaMuncii.export.ssmSalariatiPdf', compact('salariati'));
+                $pdf = \PDF::loadView('rapoarte.medicinaMuncii.export.ssmSalariatiPdf', compact('salariati'))
+                    ->setPaper('a4', 'portrait');
+                $pdf->getDomPDF()->set_option("enable_php", true);
+                // return $pdf->download('Raport salariati SSM');
+                return $pdf->stream();
+            default:
+                return view('rapoarte.medicinaMuncii.ssmSalariati', compact('salariati', 'search_nume_client', 'search_salariat'));
+                break;
+        }
+    }
+
+    public function medicinaMunciiSalariatiExportPdf(Request $request)
+    {
+        $search_nume_client = \Request::get('search_nume_client');
+
+        dd($request, $request->result, \Request::get('result'), $search_nume_client);
     }
 }
