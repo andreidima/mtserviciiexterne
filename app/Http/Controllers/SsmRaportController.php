@@ -137,18 +137,23 @@ class SsmRaportController extends Controller
                 return $query->where('salariat', 'like', '%' . $search_salariat . '%');
             })
             ->orderBy('nume_client', 'asc')
-            ->orderBy('salariat')
-            ->simplePaginate(50);
-
+            ->orderBy('salariat');
+// dd($salariati, $salariati->simplePaginate(50));
         switch ($request->input('action')) {
             case 'export_pdf':
-                // return view('rapoarte.medicinaMuncii.export.ssmSalariatiPdf', compact('salariati'));
-                $pdf = \PDF::loadView('rapoarte.medicinaMuncii.export.ssmSalariatiPdf', compact('salariati'))
-                    ->setPaper('a4', 'portrait');
-                $pdf->getDomPDF()->set_option("enable_php", true);
-                // return $pdf->download('Raport salariati SSM');
-                return $pdf->stream();
+                $salariati = $salariati->get();
+                if ($salariati->count() > 500){
+                    return back()->with('error', 'Sunt selectați peste 500 de salariați. Micșorați aria de selecție sub 500 de salariați pentru a putea extrage datele.');
+                } else{
+                    // return view('rapoarte.medicinaMuncii.export.ssmSalariatiPdf', compact('salariati'));
+                    $pdf = \PDF::loadView('rapoarte.medicinaMuncii.export.ssmSalariatiPdf', compact('salariati'))
+                        ->setPaper('a4', 'portrait');
+                    $pdf->getDomPDF()->set_option("enable_php", true);
+                    // return $pdf->download('Raport salariati SSM');
+                    return $pdf->stream();
+                }
             default:
+                $salariati = $salariati->simplePaginate(50);
                 return view('rapoarte.medicinaMuncii.ssmSalariati', compact('salariati', 'search_nume_client', 'search_salariat'));
                 break;
         }

@@ -91,7 +91,7 @@
                     @endif
                             <tr>
                                 <td align="">
-                                    {{ ($salariati ->currentpage()-1) * $salariati ->perpage() + $loop->index + 1 }}
+                                    {{ $loop->iteration }}
                                 </td>
                                 <td>
                                     {{ $salariat->nume_client ?? '' }}
