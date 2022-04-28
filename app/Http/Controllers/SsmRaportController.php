@@ -106,11 +106,28 @@ class SsmRaportController extends Controller
         }
     }
 
-    public function salariatiMedicinaMuncii(Request $request)
+    public function medicinaMunciiFirme(Request $request)
+    {
+        $search_firma = \Request::get('search_firma');
+        $search_cui = \Request::get('search_cui');
+
+        $firme = SsmFirma::
+            when($search_firma, function ($query, $search_firma) {
+                return $query->where('nume', 'like', '%' . $search_firma . '%');
+            })
+            ->when($search_cui, function ($query, $search_cui) {
+                return $query->where('cui', 'like', '%' . $search_cui . '%');
+            })
+            ->orderBy('nume')
+            ->simplePaginate(25);
+
+        return view('rapoarte.medicinaMuncii.ssmFirme', compact('firme', 'search_firma', 'search_cui'));
+    }
+
+    public function medicinaMunciiSalariati(Request $request)
     {
         $search_nume_client = \Request::get('search_nume_client');
         $search_salariat = \Request::get('search_salariat');
-        $search_med_muncii = \Request::get('search_med_muncii');
 
         $salariati = SsmSalariat::
             when($search_nume_client, function ($query, $search_nume_client) {
@@ -119,17 +136,10 @@ class SsmRaportController extends Controller
             ->when($search_salariat, function ($query, $search_salariat) {
                 return $query->where('salariat', 'like', '%' . $search_salariat . '%');
             })
-            ->when($search_med_muncii, function ($query, $search_med_muncii) {
-                return $query->where('med_muncii', 'like', '%' . $search_med_muncii . '%');
-            })
-            ->when(!($search_nume_client || $search_salariat || $search_med_muncii), function ($query) {
-                return $query->where('id', '-1');
-            })
-            // where('med_muncii', 'like', '%' . $search_med_muncii . '%')
             ->orderBy('nume_client', 'asc')
             ->orderBy('salariat')
-            ->get();
+            ->simplePaginate(50);
 
-        return view('ssm.rapoarte.salariatiMedicinaMuncii', compact('salariati', 'search_nume_client', 'search_salariat', 'search_med_muncii'));
+        return view('rapoarte.medicinaMuncii.ssmSalariati', compact('salariati', 'search_nume_client', 'search_salariat'));
     }
 }

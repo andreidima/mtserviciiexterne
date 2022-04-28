@@ -69,11 +69,6 @@
                                             Raport salariați
                                         </a>
                                     </li>
-                                    {{-- <li>
-                                        <a class="dropdown-item" href="/ssm/rapoarte/salariati/medicina-muncii">
-                                            Raport medicina muncii
-                                        </a>
-                                    </li> --}}
                                 </ul>
                             </li>
                             <li class="nav-item me-3 dropdown">
@@ -132,24 +127,6 @@
                                     </li>
                                 </ul>
                             </li>
-                            {{-- <li class="nav-item me-3 dropdown">
-                                <a class="nav-link active dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    <i class="fas fa-route me-1"></i>
-                                    Trasee
-                                </a>
-                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <li>
-                                        <a class="dropdown-item" href="/ssm/firme/trasee">
-                                            Trasee SSM
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a class="dropdown-item" href="/stingatoare/firme/trasee">
-                                            Trasee stingătoare
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li> --}}
                             <li class="nav-item me-3 dropdown">
                                 <a class="nav-link active dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     <i class="fas fa-file-pdf me-1"></i>
@@ -210,25 +187,8 @@
                                             Raport salariați
                                         </a>
                                     </li>
-                                    {{-- <li>
-                                        <a class="dropdown-item" href="/ssm/rapoarte/salariati/medicina-muncii">
-                                            Raport medicina muncii
-                                        </a>
-                                    </li> --}}
                                 </ul>
                             </li>
-                            {{-- <li class="nav-item me-3">
-                                <a class="nav-link active" href="/rapoarte/ssm">
-                                    <i class="fas fa-file-alt me-1"></i>
-                                    Raport
-                                </a>
-                            </li>
-                            <li class="nav-item me-3">
-                                <a class="nav-link active" href="/ssm/firme/trasee">
-                                    <i class="fas fa-route"></i>
-                                    Trasee
-                                </a>
-                            </li> --}}
                         @elseif (auth()->user()->name === "Medicina Muncii")
                             <li class="nav-item me-3">
                                 <a class="nav-link active" href="/medicina-muncii/firme">
@@ -244,6 +204,23 @@
                                 <a class="nav-link active" href="/rapoarte/medicina-muncii/nr-de-inregistrare">
                                     Nr de înregistrare
                                 </a>
+                            </li>
+                            <li class="nav-item me-3 dropdown">
+                                <a class="nav-link active dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    SSM
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <li>
+                                        <a class="dropdown-item" href="/ssm/rapoarte-pentru-medicina-muncii/firme">
+                                            Firme
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" href="/ssm/rapoarte-pentru-medicina-muncii/salariati">
+                                            Salariați
+                                        </a>
+                                    </li>
+                                </ul>
                             </li>
                         @elseif (auth()->user()->name === "Stingatoare")
                             <li class="nav-item me-3">

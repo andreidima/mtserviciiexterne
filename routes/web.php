@@ -88,7 +88,10 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/ssm/rapoarte/firme/{ssm_luna}/{psi_luna}/{view_type}', [SsmRaportController::class, 'firmeExportPDF']);
     Route::get('/ssm/rapoarte/salariati', [SsmRaportController::class, 'salariati']);
     Route::get('/ssm/rapoarte/salariati/{data_ssm_psi}/{semnat_ssm}/{semnat_psi}/{view_type}', [SsmRaportController::class, 'salariatiExportPDF']);
-    Route::get('/ssm/rapoarte/salariati/medicina-muncii', [SsmRaportController::class, 'salariatiMedicinaMuncii']);
+
+    // Rute pentru doamna de la Medicina Muncii, sa poata cauta in datele de la SSM
+    Route::get('/ssm/rapoarte-pentru-medicina-muncii/firme', [SsmRaportController::class, 'medicinaMunciiFirme']);
+    Route::get('/ssm/rapoarte-pentru-medicina-muncii/salariati', [SsmRaportController::class, 'medicinaMunciiSalariati']);
 
 
     // Reconstructie totala a rutelor - firme separate pentru SSM, Medicina muncii, Stingatoare
