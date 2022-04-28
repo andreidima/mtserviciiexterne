@@ -137,8 +137,14 @@ class SsmRaportController extends Controller
                 return $query->where('salariat', 'like', '%' . $search_salariat . '%');
             })
             ->orderBy('nume_client', 'asc')
+            ->orderByRaw(DB::raw("
+                    case when data_incetare like '%înc%' then 0 else 1 end DESC,
+                    case when data_incetare like '%lip%' then 0 else 1 end DESC,
+                    case when data_incetare like '%susp%' then 0 else 1 end DESC,
+                    case when data_incetare like '%c.c.c%' then 0 else 1 end DESC
+                "))
             ->orderBy('salariat');
-// dd($salariati, $salariati->simplePaginate(50));
+
         switch ($request->input('action')) {
             case 'export_pdf':
                 $salariati = $salariati->get();
