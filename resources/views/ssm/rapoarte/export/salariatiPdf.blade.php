@@ -73,9 +73,21 @@
                     </h2>
 
                     <h3 style="text-align: center">
-                        Data SSM/ PSI <u>{!! $data_ssm_psi === 'search_data_ssm_psi' ? '&nbsp;&nbsp;&nbsp;&nbsp;' : $data_ssm_psi !!}</u> /
+                        {{-- Data SSM/ PSI <u>{!! $data_ssm_psi === 'search_data_ssm_psi' ? '&nbsp;&nbsp;&nbsp;&nbsp;' : $data_ssm_psi !!}</u> /
                         Semnat SSM <u>{!! $semnat_ssm ?? '&nbsp;&nbsp;&nbsp;&nbsp;' !!}</u> /
-                        Semnat PSI <u>{!! $semnat_psi ?? '&nbsp;&nbsp;&nbsp;&nbsp;' !!}</u> /
+                        Semnat PSI <u>{!! $semnat_psi ?? '&nbsp;&nbsp;&nbsp;&nbsp;' !!}</u> / --}}
+                        @isset ($search_data_ssm_psi)
+                            Data SSM/ PSI <u>{{ $search_data_ssm_psi }}</u> /
+                        @endisset
+                        @isset ($search_semnat_ssm)
+                            Semnat SSM <u>{{ $search_semnat_ssm }}</u> /
+                        @endisset
+                        @isset ($search_semnat_psi)
+                            Semnat PSI <u>{{ $search_semnat_psi }}</u> /
+                        @endisset
+                        @isset ($search_firma)
+                            Firma <u>{{ $search_firma }}</u> /
+                        @endisset
                         Total salariati =
                                         <span class="badge bg-success fs-6 border border-white">
                                             {{ $salariati->count() }}

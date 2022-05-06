@@ -54,6 +54,13 @@ class SsmRaportController extends Controller
 
     public function salariati(Request $request)
     {
+        $request->validate(
+            ['search_firma' => 'nullable|min:3',],
+            ['search_firma.min' => 'Dacă doriți să căutați după numele unei firme, introduceți minim 3 caractere',]
+        );
+
+        $search_firma = \Request::get('search_firma');
+        $search_status = \Request::get('search_status');
         $search_data_ssm_psi = \Request::get('search_data_ssm_psi');
         $search_semnat_ssm = \Request::get('search_semnat_ssm');
         $search_semnat_psi = \Request::get('search_semnat_psi');
@@ -63,7 +70,26 @@ class SsmRaportController extends Controller
         $lista_semnat_psi = SsmSalariat::select('semnat_psi')->groupBy('semnat_psi')->get();
 
         $salariati = SsmSalariat::
-            where('data_ssm_psi', $search_data_ssm_psi)
+            // where('data_ssm_psi', $search_data_ssm_psi)
+            where(function($query) use($search_data_ssm_psi, $search_firma, $search_status) {
+                $query->where('data_ssm_psi', $search_data_ssm_psi);
+                if (strlen($search_firma) >= 3){
+                    $query->orwhere('nume_client',  'like', '%' . $search_firma . '%');
+                }
+            })
+            ->when($search_status, function ($query, $search_status) {
+                if ($search_status === 'activi'){
+                    $query
+                        // ->where('status', '!=', 'CCC')
+                        // ->where('status', '!=', 'incetat')
+                        // ->where('status', '!=', 'lipsa')
+                        ->where('data_incetare',  'not like', '%c.c.c%')
+                        ->where('data_incetare',  'not like', '%susp%')
+                        ->where('data_incetare',  'not like', '%înc%')
+                        ->where('data_incetare',  'not like', '%inc%')
+                        ->where('data_incetare',  'not like', '%lip%');
+                }
+            })
             ->when($search_semnat_ssm, function ($query, $search_semnat_ssm) {
                 return $query->where('semnat_ssm', $search_semnat_ssm);
             })
@@ -74,8 +100,24 @@ class SsmRaportController extends Controller
             ->orderBy('salariat')
             ->get();
 
-        return view('ssm.rapoarte.salariati', compact('salariati', 'search_data_ssm_psi', 'search_semnat_ssm', 'search_semnat_psi',
-            'lista_data_ssm_psi', 'lista_semnat_ssm', 'lista_semnat_psi'));
+        switch ($request->input('action')) {
+            case 'exportHtml':
+                return view('ssm.rapoarte.export.salariatiPdf', compact('salariati', 'search_data_ssm_psi', 'search_semnat_ssm', 'search_semnat_psi', 'search_firma'));
+            case 'exportPdf':
+                $pdf = \PDF::loadView('ssm.rapoarte.export.salariatiPdf', compact('salariati', 'search_data_ssm_psi', 'search_semnat_ssm', 'search_semnat_psi', 'search_firma'))
+                    ->setPaper('a4', 'portrait');
+                $pdf->getDomPDF()->set_option("enable_php", true);
+                return $pdf->download('Raport SSM - salariati.pdf');
+                // return $pdf->stream();
+                break;
+            default:
+                $request->session()->forget('pontaj_return_url');
+
+                return view('ssm.rapoarte.salariati', compact('salariati', 'search_data_ssm_psi', 'search_semnat_ssm', 'search_semnat_psi', 'search_firma', 'search_status',
+                    'lista_data_ssm_psi', 'lista_semnat_ssm', 'lista_semnat_psi'));
+                break;
+        }
+
     }
 
     public function salariatiExportPDF(Request $request, $data_ssm_psi = null, $semnat_ssm = null, $semnat_psi = null)

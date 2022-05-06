@@ -13,11 +13,25 @@
                     @csrf
                     <div class="row mb-1 input-group custom-search-form justify-content-center">
                         <div class="col-md-3">
+                            <input type="text" class="form-control form-control-sm rounded-3" id="search_firma" name="search_firma" placeholder="Firma"
+                                value="{{ old('search_firma', $search_firma) }}">
+                        </div>
+                        <div class="col-md-3">
+                            <select class="form-select form-select-sm mb-1" id="search_status" name="search_status" >
+                                <option value="" selected>Status</option>
+                                <option value="activi" {{ ($search_status === 'activi') ? 'selected' : '' }} >Doar activi</option>
+                                {{-- <option value="toti" {{ ($search_status === 'toti') ? 'selected' : '' }} >Toți</option> --}}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row mb-1 input-group custom-search-form justify-content-center">
+                        <div class="col-md-3">
                             <select class="form-select form-select-sm mb-1" id="search_data_ssm_psi" name="search_data_ssm_psi" >
                                     <option value="" selected>Data SSM/ PSI</option>
                                 @foreach ($lista_data_ssm_psi as $data_ssm_psi)
                                     <option value="{{ $data_ssm_psi->data_ssm_psi }}"
-                                        {{ isset($data_ssm_psi->data_ssm_psi) ? ($data_ssm_psi->data_ssm_psi === $search_data_ssm_psi ? 'selected' : '') : '' }}
+                                        {{-- {{ isset($data_ssm_psi->data_ssm_psi) ? ($data_ssm_psi->data_ssm_psi === $search_data_ssm_psi ? 'selected' : '') : '' }} --}}
+                                        {{ $data_ssm_psi->data_ssm_psi === old('search_data_ssm_psi', $search_data_ssm_psi) ? 'selected' : '' }}
                                     >
                                     {{ $data_ssm_psi->data_ssm_psi }}</option>
                                 @endforeach
@@ -28,7 +42,8 @@
                                     <option value="" selected>Semnat SSM</option>
                                 @foreach ($lista_semnat_ssm as $semnat_ssm)
                                     <option value="{{ $semnat_ssm->semnat_ssm }}"
-                                        {{ isset($semnat_ssm->semnat_ssm) ?  ($semnat_ssm->semnat_ssm === $search_semnat_ssm ? 'selected' : '') : '' }}
+                                        {{-- {{ isset($semnat_ssm->semnat_ssm) ?  ($semnat_ssm->semnat_ssm === $search_semnat_ssm ? 'selected' : '') : '' }} --}}
+                                        {{ $semnat_ssm->semnat_ssm === old('search_semnat_ssm', $search_semnat_ssm) ? 'selected' : '' }}
                                     >
                                     {{ $semnat_ssm->semnat_ssm }}</option>
                                 @endforeach
@@ -39,7 +54,8 @@
                                     <option value="" selected>Semnat PSI</option>
                                 @foreach ($lista_semnat_psi as $semnat_psi)
                                     <option value="{{ $semnat_psi->semnat_psi }}"
-                                        {{ isset($semnat_psi->semnat_psi) ?  ($semnat_psi->semnat_psi === $search_semnat_psi ? 'selected' : '') : '' }}
+                                        {{-- {{ isset($semnat_psi->semnat_psi) ?  ($semnat_psi->semnat_psi === $search_semnat_psi ? 'selected' : '') : '' }} --}}
+                                        {{ $semnat_psi->semnat_psi === old('search_semnat_psi', $search_semnat_psi) ? 'selected' : '' }}
                                     >
                                     {{ $semnat_psi->semnat_psi }}</option>
                                 @endforeach
@@ -47,15 +63,20 @@
                         </div>
                         <div class="col-md-12 text-center">
                             <small>
-                                * Câmpul „Data SSM/ PSI” este obligatoriu de selectat.
+                                * Este obligatoriu de completat câmpul „Firma” SAU câmpul „Data SSM/ PSI”.
                             </small>
                         </div>
                     </div>
                     <div class="row input-group custom-search-form justify-content-center">
-                        <button class="btn btn-sm btn-primary text-white col-md-4 me-3 border border-dark rounded-3" type="submit">
-                            <i class="fas fa-search text-white me-1"></i>Caută
+                        <button class="btn btn-sm btn-primary text-white col-md-3 me-2 border border-dark rounded-3" type="submit"
+                            name="action" value="cautare">
+                                <i class="fas fa-search text-white me-1"></i>Caută
                         </button>
-                        <a class="btn btn-sm bg-secondary text-white col-md-4 border border-dark rounded-3" href="/ssm/rapoarte/salariati" role="button">
+                        <button class="btn btn-sm btn-primary text-white col-md-3 me-2 border border-dark rounded-3" type="submit"
+                            name="action" value="exportPdf">
+                                <i class="fas fa-file-pdf text-white me-1"></i>Export PDF
+                        </button>
+                        <a class="btn btn-sm bg-secondary text-white col-md-3 border border-dark rounded-3" href="/ssm/rapoarte/salariati" role="button">
                             <i class="far fa-trash-alt text-white me-1"></i>Resetează căutarea
                         </a>
                     </div>
@@ -72,14 +93,14 @@
                     <thead class="text-white rounded-3" style="background-color:#e66800;">
                         <tr class="" style="padding:2rem">
                             <th colspan="7" class="text-center">
-                                <div class="d-flex justify-content-between">
-                                    <div>
+                                <div class=" justify-content-between">
+                                    {{-- <div>
 
-                                    </div>
+                                    </div> --}}
                                     <div>
-                                    Data SSM/ PSI <u>{!! $search_data_ssm_psi ?? '&nbsp&nbsp&nbsp&nbsp' !!}</u> /
+                                    {{-- Data SSM/ PSI <u>{!! $search_data_ssm_psi ?? '&nbsp&nbsp&nbsp&nbsp' !!}</u> /
                                     Semnat SSM <u>{!! $search_semnat_ssm ?? '&nbsp&nbsp&nbsp&nbsp' !!}</u> /
-                                    Semnat PSI <u>{!! $search_semnat_psi ?? '&nbsp&nbsp&nbsp&nbsp' !!}</u> /
+                                    Semnat PSI <u>{!! $search_semnat_psi ?? '&nbsp&nbsp&nbsp&nbsp' !!}</u> / --}}
                                     Total salariati =
                                         <span class="badge bg-success fs-6 border border-white">
                                             {{ $salariati->count() }}
@@ -87,12 +108,12 @@
                                     </div>
 
 
-                                    <div>
+                                    {{-- <div>
                                         <a class="btn btn-sm btn-primary border border-light rounded-3"
                                             href="/ssm/rapoarte/salariati/{{ $search_data_ssm_psi ?? 'search_data_ssm_psi' }}/{{ $search_semnat_ssm ?? 'search_semnat_ssm' }}/{{ $search_semnat_psi ?? 'search_semnat_psi' }}/export-pdf" role="button">
                                             Export PDF
                                         </a>
-                                    </div>
+                                    </div> --}}
                                 {{-- Luna precedentă {{ ($search_data_luna_precedenta)->isoFormat('MM.YYYY') }} / Total salariați nerezolvați =
                                     <span class="badge bg-danger fs-6 border border-white">
                                         {{ $salariati_luna_precedenta->count() }}
