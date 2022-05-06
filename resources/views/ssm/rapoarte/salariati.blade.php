@@ -12,19 +12,15 @@
                 <form class="needs-validation" novalidate method="GET" action="/ssm/rapoarte/salariati">
                     @csrf
                     <div class="row mb-1 input-group custom-search-form justify-content-center">
-                        <div class="col-md-6">
+                        <div class="col-md-5">
                             <input type="text" class="form-control form-control-sm rounded-3" id="search_firma" name="search_firma" placeholder="Firma"
                                 value="{{ old('search_firma', $search_firma) }}">
                         </div>
-                        <div class="col-md-3">
-                            <select class="form-select form-select-sm mb-1" id="search_status" name="search_status" >
-                                <option value="" selected>Status</option>
-                                <option value="activi" {{ ($search_status === 'activi') ? 'selected' : '' }} >Doar activi</option>
-                                {{-- <option value="toti" {{ ($search_status === 'toti') ? 'selected' : '' }} >Toți</option> --}}
-                            </select>
+                        <div class="col-md-1 d-flex align-items-center justify-content-center">
+                            <span>
+                                SAU
+                            </span>
                         </div>
-                    </div>
-                    <div class="row mb-1 input-group custom-search-form justify-content-center">
                         <div class="col-md-3">
                             <select class="form-select form-select-sm mb-1" id="search_data_ssm_psi" name="search_data_ssm_psi" >
                                     <option value="" selected>Data SSM/ PSI</option>
@@ -37,6 +33,8 @@
                                 @endforeach
                             </select>
                         </div>
+                    </div>
+                    <div class="row mb-1 input-group custom-search-form justify-content-center">
                         <div class="col-md-3">
                             <select class="form-select form-select-sm mb-1" id="search_semnat_ssm" name="search_semnat_ssm">
                                     <option value="" selected>Semnat SSM</option>
@@ -59,6 +57,13 @@
                                     >
                                     {{ $semnat_psi->semnat_psi }}</option>
                                 @endforeach
+                            </select>
+                        </div>
+                        <div class="col-md-3">
+                            <select class="form-select form-select-sm mb-1" id="search_status" name="search_status" >
+                                <option value="" selected>Status</option>
+                                <option value="activi" {{ ($search_status === 'activi') ? 'selected' : '' }} >Doar activi</option>
+                                {{-- <option value="toti" {{ ($search_status === 'toti') ? 'selected' : '' }} >Toți</option> --}}
                             </select>
                         </div>
                         <div class="col-md-12 text-center">
