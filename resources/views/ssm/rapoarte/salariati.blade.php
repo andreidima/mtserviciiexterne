@@ -12,7 +12,7 @@
                 <form class="needs-validation" novalidate method="GET" action="/ssm/rapoarte/salariati">
                     @csrf
                     <div class="row mb-1 input-group custom-search-form justify-content-center">
-                        <div class="col-md-3">
+                        <div class="col-md-6">
                             <input type="text" class="form-control form-control-sm rounded-3" id="search_firma" name="search_firma" placeholder="Firma"
                                 value="{{ old('search_firma', $search_firma) }}">
                         </div>
