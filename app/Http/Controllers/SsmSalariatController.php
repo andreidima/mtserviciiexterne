@@ -199,7 +199,7 @@ class SsmSalariatController extends Controller
         $request->validate(
             [
                 'salariati_selectati' => 'required|array|between:1,100',
-                'nume_client' => 'required_without_all:semnat_ssm,semnat_psi,semnat_anexa,semnat_eip|max:200',
+                'nume_client' => 'required_without_all:functia,traseu,data_ssm_psi,semnat_ssm,semnat_psi,semnat_anexa,semnat_eip|max:200',
                 'functia' => 'nullable|max:200',
                 'traseu' => 'nullable|max:200',
                 'data_ssm_psi' => 'nullable|max:200',
