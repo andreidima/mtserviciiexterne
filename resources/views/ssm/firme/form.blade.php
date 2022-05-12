@@ -217,7 +217,7 @@
                     value="{{ old('domeniu_de_activitate', $firma->domeniu_de_activitate) }}">
             </div>
         </div>
-        <div class="row mb-2">
+        {{-- <div class="row mb-2">
             <div class="col-lg-2 mb-3">
                 <label for="pram_zi" class="mb-0 ps-3">Pram ZI</label>
                 <input
@@ -245,8 +245,17 @@
                     placeholder=""
                     value="{{ old('pram_an', $firma->pram_an) }}">
             </div>
-        </div>
+        </div> --}}
         <div class="row mb-2">
+            <div class="col-lg-3 mb-3">
+                <label for="pram" class="mb-0 ps-3">Pram</label>
+                <input
+                    type="text"
+                    class="form-control bg-white rounded-3 {{ $errors->has('pram') ? 'is-invalid' : '' }}"
+                    name="pram"
+                    placeholder=""
+                    value="{{ old('pram', $firma->pram) }}">
+            </div>
             <div class="col-lg-3 mb-3">
                 <label for="contract_firma" class="mb-0 ps-3">Contract firma</label>
                 <input

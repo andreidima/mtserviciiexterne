@@ -421,11 +421,12 @@
                             <td class="text-center" style="font-size: 12px; padding:1px;">
                                  {{ $firma->domeniu_de_activitate }}
                                  <br>
-                                 {{ $firma->pram_zi }}
+                                 {{-- {{ $firma->pram_zi }}
                                  .
                                  {{ $firma->pram_luna }}
                                  .
-                                 {{ $firma->pram_an }}
+                                 {{ $firma->pram_an }} --}}
+                                 {{ $firma->pram }}
                             </td>
                             <td style="font-size: 12px; padding:1px;" class="text-center">
                                 {{ $firma->contract_firma }}
