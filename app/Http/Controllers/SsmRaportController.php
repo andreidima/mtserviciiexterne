@@ -24,13 +24,16 @@ class SsmRaportController extends Controller
         $lista_traseu = SsmFirma::select('traseu')->groupBy('traseu')->get();
 
         $firme = SsmFirma::
-            where(function($query) use($search_ssm_luna, $search_psi_luna) {
-                $query->where('ssm_luna', $search_ssm_luna)
-                    ->orwhere('psi_luna', $search_psi_luna);
-            })
-            ->when($search_traseu, function ($query, $search_traseu) {
-                return $query->where('traseu', $search_traseu);
-            })
+            // where(function($query) use($search_ssm_luna, $search_psi_luna) {
+            //     $query->where('ssm_luna', $search_ssm_luna)
+            //         ->orwhere('psi_luna', $search_psi_luna);
+            // })
+            // ->when($search_traseu, function ($query, $search_traseu) {
+            //     return $query->where('traseu', $search_traseu);
+            // })
+            where('ssm_luna', $search_ssm_luna)
+            ->orwhere('psi_luna', $search_psi_luna)
+            ->orwhere('traseu', $search_traseu)
             ->orderBy('traseu', 'asc')
             ->orderBy('nume')
             ->get();
