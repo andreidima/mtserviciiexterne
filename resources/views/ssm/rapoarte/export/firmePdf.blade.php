@@ -62,31 +62,44 @@
                     -webkit-border-radius: 10px;
                     border-radius: 10px;">
 
-                <div style="border:dashed #999; border-radius: 25px; padding:0px 20px">
-                    <h3 style="">
-                        MT Servicii Externe
-                    </h3>
-
-
-                    <h2 style="text-align: center">
-                        Raport SSM - Firme
-                    </h2>
-
-                    <h3 style="text-align: center">
-                        SSM luna <u>{!! $ssm_luna === 'search_ssm_luna' ? '&nbsp;&nbsp;&nbsp;&nbsp;' : $ssm_luna !!}</u> /
-                        PSI luna <u>{!! $psi_luna === 'search_psi_luna' ? '&nbsp;&nbsp;&nbsp;&nbsp;' : $psi_luna !!}</u> /
-                        Total firme =
-                                        <span class="badge bg-success fs-6 border border-white">
-                                            {{ $firme->count() }}
-                                        </span>
-                    </h3>
-                </div>
-
-                <br><br><br><br>
 
                 @forelse ($firme->groupBy('traseu') as $firme_per_traseu)
 
                     <table>
+
+                        @if ($loop->first)
+                            <tr>
+                                <td colspan="7">
+                                    <div style="border:dashed #999; border-radius: 25px; padding:0px 20px">
+                                        <h3 style="">
+                                            MT Servicii Externe
+                                        </h3>
+
+                                        <h2 style="text-align: center">
+                                            Raport SSM - Firme
+                                        </h2>
+
+                                        <h3 style="text-align: center">
+                                            {{-- SSM luna <u>{!! $ssm_luna === 'search_ssm_luna' ? '&nbsp;&nbsp;&nbsp;&nbsp;' : $ssm_luna !!}</u> /
+                                            PSI luna <u>{!! $psi_luna === 'search_psi_luna' ? '&nbsp;&nbsp;&nbsp;&nbsp;' : $psi_luna !!}</u> / --}}
+                                            @isset ($search_ssm_luna)
+                                                SSM luna <u>{{ $search_ssm_luna }}</u> /
+                                            @endisset
+                                            @isset ($search_psi_luna)
+                                                PSI luna <u>{{ $search_psi_luna }}</u> /
+                                            @endisset
+                                            Total firme =
+                                                            <span class="badge bg-success fs-6 border border-white">
+                                                                {{ $firme->count() }}
+                                                            </span>
+                                        </h3>
+                                    </div>
+
+                                    <br><br>
+                                </td>
+                            </tr>
+                        @endif)
+
                         <tr class="" style="padding:2rem; background-color:lightgrey">
                             <th colspan="7">
                                 Traseu:

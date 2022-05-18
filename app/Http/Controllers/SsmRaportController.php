@@ -15,21 +15,41 @@ class SsmRaportController extends Controller
 {
     public function firme(Request $request)
     {
-        $search_ssm_luna = \Request::get('search_ssm_luna');
-        $search_psi_luna = \Request::get('search_psi_luna');
+        $search_ssm_luna = $request->search_ssm_luna;
+        $search_psi_luna = $request->search_psi_luna;
+        $search_traseu = $request->search_traseu;
 
         $lista_ssm_luna = SsmFirma::select('ssm_luna')->groupBy('ssm_luna')->get();
         $lista_psi_luna = SsmFirma::select('psi_luna')->groupBy('psi_luna')->get();
+        $lista_traseu = SsmFirma::select('traseu')->groupBy('traseu')->get();
 
         $firme = SsmFirma::
-            where('ssm_luna', $search_ssm_luna)
-            ->orwhere('psi_luna', $search_psi_luna)
+            where(function($query) use($search_ssm_luna, $search_psi_luna) {
+                $query->where('ssm_luna', $search_ssm_luna)
+                    ->orwhere('psi_luna', $search_psi_luna);
+            })
+            ->when($search_traseu, function ($query, $search_traseu) {
+                return $query->where('traseu', $search_traseu);
+            })
             ->orderBy('traseu', 'asc')
             ->orderBy('nume')
             ->get();
 
-        return view('ssm.rapoarte.firme', compact('firme', 'search_ssm_luna', 'search_psi_luna',
-            'lista_ssm_luna', 'lista_psi_luna'));
+        switch ($request->input('action')) {
+            case 'exportHtml':
+                return view('ssm.rapoarte.export.firmePdf', compact('firme', 'search_ssm_luna', 'search_psi_luna'));
+                break;
+            case 'exportPdf':
+                $pdf = \PDF::loadView('ssm.rapoarte.export.firmePdf', compact('firme', 'search_ssm_luna', 'search_psi_luna'))
+                    ->setPaper('a4', 'portrait');
+                $pdf->getDomPDF()->set_option("enable_php", true);
+                return $pdf->download('Raport SSM - firme.pdf');
+                // return $pdf->stream();
+                break;
+            default:
+                return view('ssm.rapoarte.firme', compact('firme', 'search_ssm_luna', 'search_psi_luna', 'search_traseu', 'lista_ssm_luna', 'lista_psi_luna', 'lista_traseu'));
+        }
+
     }
 
     public function firmeExportPDF(Request $request, $ssm_luna = null, $psi_luna = null)
@@ -103,6 +123,7 @@ class SsmRaportController extends Controller
         switch ($request->input('action')) {
             case 'exportHtml':
                 return view('ssm.rapoarte.export.salariatiPdf', compact('salariati', 'search_data_ssm_psi', 'search_semnat_ssm', 'search_semnat_psi', 'search_firma'));
+                break;
             case 'exportPdf':
                 $pdf = \PDF::loadView('ssm.rapoarte.export.salariatiPdf', compact('salariati', 'search_data_ssm_psi', 'search_semnat_ssm', 'search_semnat_psi', 'search_firma'))
                     ->setPaper('a4', 'portrait');
@@ -111,13 +132,10 @@ class SsmRaportController extends Controller
                 // return $pdf->stream();
                 break;
             default:
-                $request->session()->forget('pontaj_return_url');
-
                 return view('ssm.rapoarte.salariati', compact('salariati', 'search_data_ssm_psi', 'search_semnat_ssm', 'search_semnat_psi', 'search_firma', 'search_status',
                     'lista_data_ssm_psi', 'lista_semnat_ssm', 'lista_semnat_psi'));
                 break;
         }
-
     }
 
     public function salariatiExportPDF(Request $request, $data_ssm_psi = null, $semnat_ssm = null, $semnat_psi = null)

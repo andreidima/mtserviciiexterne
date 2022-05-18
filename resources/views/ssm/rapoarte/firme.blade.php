@@ -24,7 +24,7 @@
                             </select>
                         </div>
                         <div class="col-md-1 d-flex align-items-center justify-content-center">
-                            sau
+                            SAU
                         </div>
                         <div class="col-md-2">
                             <select class="form-select form-select-sm mb-1" id="search_psi_luna" name="search_psi_luna">
@@ -38,9 +38,27 @@
                             </select>
                         </div>
                     </div>
+                    <div class="row mb-1 input-group custom-search-form justify-content-center">
+                        <div class="col-md-2">
+                            <select class="form-select form-select-sm mb-1" id="search_traseu" name="search_traseu">
+                                    <option value="" selected>Traseu</option>
+                                @foreach ($lista_traseu as $traseu)
+                                    <option value="{{ $traseu->traseu }}"
+                                        {{ isset($traseu->traseu) ?  ($traseu->traseu === $search_traseu ? 'selected' : '') : '' }}
+                                    >
+                                    {{ $traseu->traseu }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
                     <div class="row input-group custom-search-form justify-content-center">
-                        <button class="btn btn-sm btn-primary text-white col-md-4 me-3 border border-dark rounded-3" type="submit">
-                            <i class="fas fa-search text-white me-1"></i>Caută
+                        <button class="btn btn-sm btn-primary text-white col-md-3 me-2 border border-dark rounded-3" type="submit"
+                            name="action" value="cautare">
+                                <i class="fas fa-search text-white me-1"></i>Caută
+                        </button>
+                        <button class="btn btn-sm btn-primary text-white col-md-3 me-2 border border-dark rounded-3" type="submit"
+                            name="action" value="exportPdf">
+                                <i class="fas fa-file-pdf text-white me-1"></i>Export PDF
                         </button>
                         <a class="btn btn-sm bg-secondary text-white col-md-4 border border-dark rounded-3" href="/ssm/rapoarte/firme" role="button">
                             <i class="far fa-trash-alt text-white me-1"></i>Resetează căutarea
@@ -59,7 +77,7 @@
                     <thead class="text-white rounded-3" style="background-color:#e66800;">
                         <tr class="" style="padding:2rem">
                             <th colspan="7" class="text-center">
-                                <div class="d-flex justify-content-between">
+                                <div class="d-flex justify-content-center">
                                     <div>
 
                                     </div>
@@ -72,12 +90,12 @@
                                     </div>
 
 
-                                    <div>
+                                    {{-- <div>
                                         <a class="btn btn-sm btn-primary border border-light rounded-3"
                                             href="/ssm/rapoarte/firme/{{ $search_ssm_luna ?? 'search_ssm_luna' }}/{{ $search_psi_luna ?? 'search_psi_luna' }}/export-pdf" role="button">
                                             Export PDF
                                         </a>
-                                    </div>
+                                    </div> --}}
                                 {{-- Luna precedentă {{ ($search_data_luna_precedenta)->isoFormat('MM.YYYY') }} / Total salariați nerezolvați =
                                     <span class="badge bg-danger fs-6 border border-white">
                                         {{ $salariati_luna_precedenta->count() }}
