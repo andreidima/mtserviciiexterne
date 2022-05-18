@@ -69,6 +69,11 @@
                                             Raport salariați
                                         </a>
                                     </li>
+                                    <li>
+                                        <a class="dropdown-item" href="/ssm/rapoarte-pentru-medicina-muncii/salariati">
+                                            Raport medicina muncii
+                                        </a>
+                                    </li>
                                 </ul>
                             </li>
                             <li class="nav-item me-3 dropdown">
@@ -185,6 +190,11 @@
                                     <li>
                                         <a class="dropdown-item" href="/ssm/rapoarte/salariati">
                                             Raport salariați
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" href="/ssm/rapoarte-pentru-medicina-muncii/salariati">
+                                            Raport medicina muncii
                                         </a>
                                     </li>
                                 </ul>

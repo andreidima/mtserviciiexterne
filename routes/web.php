@@ -48,7 +48,6 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::resource('/firme', FirmaController::class,  ['parameters' => ['firme' => 'firma']]);
 
-
     Route::get('/tematici/file-download/{fisier}', [TematicaFisierController::class, 'fileDownload']);
     Route::resource('/tematici/fisiere', TematicaFisierController::class,  ['parameters' => ['fisiere' => 'fisier']]);
 
