@@ -62,44 +62,51 @@
                     -webkit-border-radius: 10px;
                     border-radius: 10px;">
 
-                <div style="border:dashed #999; border-radius: 25px; padding:0px 20px">
-                    <h3 style="">
-                        MT Servicii Externe
-                    </h3>
-
-
-                    <h2 style="text-align: center">
-                        Raport SSM - Salariați
-                    </h2>
-
-                    <h3 style="text-align: center">
-                        {{-- Data SSM/ PSI <u>{!! $data_ssm_psi === 'search_data_ssm_psi' ? '&nbsp;&nbsp;&nbsp;&nbsp;' : $data_ssm_psi !!}</u> /
-                        Semnat SSM <u>{!! $semnat_ssm ?? '&nbsp;&nbsp;&nbsp;&nbsp;' !!}</u> /
-                        Semnat PSI <u>{!! $semnat_psi ?? '&nbsp;&nbsp;&nbsp;&nbsp;' !!}</u> / --}}
-                        @isset ($search_data_ssm_psi)
-                            Data SSM/ PSI <u>{{ $search_data_ssm_psi }}</u> /
-                        @endisset
-                        @isset ($search_semnat_ssm)
-                            Semnat SSM <u>{{ $search_semnat_ssm }}</u> /
-                        @endisset
-                        @isset ($search_semnat_psi)
-                            Semnat PSI <u>{{ $search_semnat_psi }}</u> /
-                        @endisset
-                        @isset ($search_firma)
-                            Firma <u>{{ $search_firma }}</u> /
-                        @endisset
-                        Total salariati =
-                                        <span class="badge bg-success fs-6 border border-white">
-                                            {{ $salariati->count() }}
-                                        </span>
-                    </h3>
-                </div>
-
-                <br><br><br><br>
-
                 @forelse ($salariati->groupBy('nume_client') as $salariati_per_firma)
 
                     <table>
+
+                        @if ($loop->first)
+                            <tr>
+                                <td colspan="7">
+                                    <div style="border:dashed #999; border-radius: 25px; padding:0px 20px">
+                                        <h3 style="">
+                                            MT Servicii Externe
+                                        </h3>
+
+
+                                        <h2 style="text-align: center">
+                                            Raport SSM - Salariați
+                                        </h2>
+
+                                        <h3 style="text-align: center">
+                                            {{-- Data SSM/ PSI <u>{!! $data_ssm_psi === 'search_data_ssm_psi' ? '&nbsp;&nbsp;&nbsp;&nbsp;' : $data_ssm_psi !!}</u> /
+                                            Semnat SSM <u>{!! $semnat_ssm ?? '&nbsp;&nbsp;&nbsp;&nbsp;' !!}</u> /
+                                            Semnat PSI <u>{!! $semnat_psi ?? '&nbsp;&nbsp;&nbsp;&nbsp;' !!}</u> / --}}
+                                            @isset ($search_data_ssm_psi)
+                                                Data SSM/ PSI <u>{{ $search_data_ssm_psi }}</u> /
+                                            @endisset
+                                            @isset ($search_semnat_ssm)
+                                                Semnat SSM <u>{{ $search_semnat_ssm }}</u> /
+                                            @endisset
+                                            @isset ($search_semnat_psi)
+                                                Semnat PSI <u>{{ $search_semnat_psi }}</u> /
+                                            @endisset
+                                            @isset ($search_firma)
+                                                Firma <u>{{ $search_firma }}</u> /
+                                            @endisset
+                                            Total salariati =
+                                                            <span class="badge bg-success fs-6 border border-white">
+                                                                {{ $salariati->count() }}
+                                                            </span>
+                                        </h3>
+                                    </div>
+
+                                    <br><br><br><br>
+                                </td>
+                            </tr>
+                        @endif
+
                         <tr class="" style="padding:2rem; background-color:lightgrey">
                             <th colspan="7">
                                 Firma:
@@ -143,11 +150,35 @@
                                 <td>
                                     {{ $salariat->data_ssm_psi ?? '' }}
                                 </td>
-                                <td>
-                                    {{ $salariat->semnat_ssm ?? '' }}
+                                <td style="font-size: 12px; padding:1px;">
+                                    @if (stripos($salariat->semnat_ssm, 'client') !== false)
+                                        <span style="font-size: 12px; color:rgb(0, 140, 255)">
+                                    @elseif (stripos($salariat->semnat_ssm, 'Lipsa') !== false)
+                                        <span style="font-size: 12px; color:rgb(255, 0, 0)">
+                                    @elseif (stripos($salariat->semnat_ssm, 'comp.la cl.') !== false)
+                                        <span style="font-size: 12px; color:rgb(0, 180, 75)">
+                                    @elseif (stripos($salariat->semnat_ssm, 'n.de s') !== false)
+                                        <span style="font-size: 12px; color:blueviolet">
+                                    @else
+                                        <span style="font-size: 12px; color:rgb(0, 0, 0)">
+                                    @endif
+                                            {{ $salariat->semnat_ssm }}
+                                        </span>
                                 </td>
-                                <td>
-                                    {{ $salariat->semnat_psi ?? '' }}
+                                <td style="font-size: 12px; padding:1px;">
+                                    @if (stripos($salariat->semnat_psi, 'client') !== false)
+                                        <span style="font-size: 12px; color:rgb(0, 140, 255)">
+                                    @elseif (stripos($salariat->semnat_psi, 'Lipsa') !== false)
+                                        <span style="font-size: 12px; color:rgb(255, 0, 0)">
+                                    @elseif (stripos($salariat->semnat_psi, 'comp.la cl.') !== false)
+                                        <span style="font-size: 12px; color:rgb(0, 180, 75)">
+                                    @elseif (stripos($salariat->semnat_psi, 'n.de s') !== false)
+                                        <span style="font-size: 12px; color:blueviolet">
+                                    @else
+                                        <span style="font-size: 12px; color:rgb(0, 0, 0)">
+                                    @endif
+                                            {{ $salariat->semnat_psi }}
+                                        </span>
                                 </td>
                             </tr>
                         @empty
