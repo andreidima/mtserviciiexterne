@@ -63,6 +63,10 @@
                     border-radius: 10px;">
 
 
+                    @php
+                        $lunaCurenta = \Carbon\Carbon::now()->month // Folosita la inrosirea textului din Luna SSM si PSI
+                    @endphp
+
                 @forelse ($firme->groupBy('traseu') as $firme_per_traseu)
 
                     <table>
