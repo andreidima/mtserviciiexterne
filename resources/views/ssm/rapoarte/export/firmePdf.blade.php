@@ -152,7 +152,7 @@
                                     @isset ($ultimulNumarDinPerioada)
                                         @if ($firma->perioada === 'LUNAR')
                                             @if ($ultimulNumarDinPerioada !== $lunaCurenta)
-                                                <span class="text-danger" style="font-size: 12px;">{{ $firma->ssm_luna }}</span>
+                                                <span style="font-size: 12px; color:red">{{ $firma->ssm_luna }}</span>
                                             @else
                                                 {{ $firma->ssm_luna }}
                                             @endif
@@ -174,7 +174,7 @@
                                                         ( ($ultimulNumarDinPerioada + 3)%12 <= $lunaCurenta ) // au trecut minim 3 luni
                                                     )
                                                 )
-                                                <span class="text-danger" style="font-size: 12px;">{{ $firma->ssm_luna }}</span>
+                                                <span style="font-size: 12px; color:red">{{ $firma->ssm_luna }}</span>
                                             @else
                                                 {{ $firma->ssm_luna }}
                                             @endif
@@ -196,7 +196,7 @@
                                                         ( ($ultimulNumarDinPerioada + 6)%12 <= $lunaCurenta ) // au trecut minim 6 luni
                                                     )
                                                 )
-                                                <span class="text-danger" style="font-size: 12px;">{{ $firma->ssm_luna }}</span>
+                                                <span style="font-size: 12px; color:red">{{ $firma->ssm_luna }}</span>
                                             @else
                                                 {{ $firma->ssm_luna }}
                                             @endif
@@ -215,7 +215,7 @@
                                     @isset ($ultimulNumarDinPerioada)
                                         @if ($firma->perioada === 'LUNAR')
                                             @if ($ultimulNumarDinPerioada !== $lunaCurenta)
-                                                <span class="text-danger" style="font-size: 12px;">{{ $firma->psi_luna }}</span>
+                                                <span style="font-size: 12px; color:red">{{ $firma->psi_luna }}</span>
                                             @else
                                                 {{ $firma->psi_luna }}
                                             @endif
@@ -237,7 +237,7 @@
                                                         ( ($ultimulNumarDinPerioada + 3)%12 <= $lunaCurenta ) // au trecut minim 3 luni
                                                     )
                                                 )
-                                                <span class="text-danger" style="font-size: 12px;">{{ $firma->psi_luna }}</span>
+                                                <span style="font-size: 12px; color:red">{{ $firma->psi_luna }}</span>
                                             @else
                                                 {{ $firma->psi_luna }}
                                             @endif
@@ -259,7 +259,7 @@
                                                         ( ($ultimulNumarDinPerioada + 6)%12 <= $lunaCurenta ) // au trecut minim 6 luni
                                                     )
                                                 )
-                                                <span class="text-danger" style="font-size: 12px;">{{ $firma->psi_luna }}</span>
+                                                <span style="font-size: 12px; color:red">{{ $firma->psi_luna }}</span>
                                             @else
                                                 {{ $firma->psi_luna }}
                                             @endif
