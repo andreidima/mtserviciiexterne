@@ -388,7 +388,6 @@
                                 @endif
                                     {{ $firma->ssm_stare_fise }}
                                     </span>
-                                {{-- {{ $firma->ssm_stare_fise }} --}}
                             </td>
                             <td style="font-size: 12px; padding:1px;">
                                 @if ((strpos($firma->psi_stare_fise, 'noi.p;de s.p') !== false) ||
@@ -411,7 +410,6 @@
                                 @endif
                                     {{ $firma->psi_stare_fise }}
                                     </span>
-                                 {{-- {{ $firma->psi_stare_fise }} --}}
                             </td>
                             <td style="font-size: 12px; padding:1px;">
                                  {{ $firma->administrator }}
