@@ -70,19 +70,16 @@
                             <tr>
                                 <td colspan="7">
                                     <div style="border:dashed #999; border-radius: 25px; padding:0px 20px">
-                                        <h3 style="">
+                                        {{-- <h3 style="">
                                             MT Servicii Externe
-                                        </h3>
+                                        </h3> --}}
 
 
                                         <h2 style="text-align: center">
                                             Raport SSM - Salariați
                                         </h2>
 
-                                        <h3 style="text-align: center">
-                                            {{-- Data SSM/ PSI <u>{!! $data_ssm_psi === 'search_data_ssm_psi' ? '&nbsp;&nbsp;&nbsp;&nbsp;' : $data_ssm_psi !!}</u> /
-                                            Semnat SSM <u>{!! $semnat_ssm ?? '&nbsp;&nbsp;&nbsp;&nbsp;' !!}</u> /
-                                            Semnat PSI <u>{!! $semnat_psi ?? '&nbsp;&nbsp;&nbsp;&nbsp;' !!}</u> / --}}
+                                        {{-- <h3 style="text-align: center">
                                             @isset ($search_data_ssm_psi)
                                                 Data SSM/ PSI <u>{{ $search_data_ssm_psi }}</u> /
                                             @endisset
@@ -99,10 +96,10 @@
                                                             <span class="badge bg-success fs-6 border border-white">
                                                                 {{ $salariati->count() }}
                                                             </span>
-                                        </h3>
+                                        </h3> --}}
                                     </div>
 
-                                    <br><br><br><br>
+                                    <br><br>
                                 </td>
                             </tr>
                         @endif

@@ -75,17 +75,15 @@
                             <tr>
                                 <td colspan="7">
                                     <div style="border:dashed #999; border-radius: 25px; padding:0px 20px">
-                                        <h3 style="">
+                                        {{-- <h3 style="">
                                             MT Servicii Externe
-                                        </h3>
+                                        </h3> --}}
 
                                         <h2 style="text-align: center">
                                             Raport SSM - Firme
                                         </h2>
 
-                                        <h3 style="text-align: center">
-                                            {{-- SSM luna <u>{!! $ssm_luna === 'search_ssm_luna' ? '&nbsp;&nbsp;&nbsp;&nbsp;' : $ssm_luna !!}</u> /
-                                            PSI luna <u>{!! $psi_luna === 'search_psi_luna' ? '&nbsp;&nbsp;&nbsp;&nbsp;' : $psi_luna !!}</u> / --}}
+                                        {{-- <h3 style="text-align: center">
                                             @isset ($search_ssm_luna)
                                                 SSM luna <u>{{ $search_ssm_luna }}</u> /
                                             @endisset
@@ -96,7 +94,7 @@
                                                             <span class="badge bg-success fs-6 border border-white">
                                                                 {{ $firme->count() }}
                                                             </span>
-                                        </h3>
+                                        </h3> --}}
                                     </div>
 
                                     <br><br>
