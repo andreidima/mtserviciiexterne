@@ -68,8 +68,9 @@
 
                         @if ($loop->first)
                             <tr>
-                                <td colspan="7">
-                                    <div style="border:dashed #999; border-radius: 25px; padding:0px 20px">
+                                <td colspan="7" style="border-width: 0px">
+                                    {{-- <div style="border:dashed #999; border-radius: 25px; padding:0px 20px"> --}}
+                                    <div>
                                         {{-- <h3 style="">
                                             MT Servicii Externe
                                         </h3> --}}
