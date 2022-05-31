@@ -81,7 +81,7 @@
                                         </h3> --}}
 
                                         <h2 style="text-align: center">
-                                            Raport SSM - Firme
+                                            Raport SSM - Firme ({{ $firme->count() }})
                                         </h2>
 
                                         {{-- <h3 style="text-align: center">

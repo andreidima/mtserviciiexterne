@@ -77,7 +77,7 @@
 
 
                                         <h2 style="text-align: center">
-                                            Raport SSM - Salariați
+                                            Raport SSM - Salariați ({{ $salariati->count() }})
                                         </h2>
 
                                         {{-- <h3 style="text-align: center">
