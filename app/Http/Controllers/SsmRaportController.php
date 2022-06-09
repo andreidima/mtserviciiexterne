@@ -100,17 +100,23 @@ class SsmRaportController extends Controller
                     $query->orwhere('nume_client',  'like', '%' . $search_firma . '%');
                 }
             })
-            ->when($search_status, function ($query, $search_status) {
+            ->when($search_status, function ($query) use ($search_status) {
                 if ($search_status === 'activi'){
                     $query
                         // ->where('status', '!=', 'CCC')
                         // ->where('status', '!=', 'incetat')
                         // ->where('status', '!=', 'lipsa')
-                        ->where('data_incetare',  'not like', '%c.c.c%')
-                        ->where('data_incetare',  'not like', '%susp%')
-                        ->where('data_incetare',  'not like', '%înc%')
-                        ->where('data_incetare',  'not like', '%inc%')
-                        ->where('data_incetare',  'not like', '%lip%');
+                        ->where(function($query) {
+                            $query->where([
+                                        ['data_incetare',  'not like', '%c.c.c%'],
+                                        ['data_incetare',  'not like', '%susp%'],
+                                        ['data_incetare',  'not like', '%înc%'],
+                                        ['data_incetare',  'not like', '%inc%'],
+                                        ['data_incetare',  'not like', '%lip%'],
+                                        ['data_incetare',  'not like', '%lip%'],
+                                    ])
+                                ->orwhereNull('data_incetare');
+                        });
                 }
             })
             ->when($search_semnat_ssm, function ($query, $search_semnat_ssm) {
