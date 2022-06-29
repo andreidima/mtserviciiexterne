@@ -53,10 +53,12 @@ class SsmSalariatController extends Controller
                         case when salariat like '%3luni%' then 0 else 1 end ASC,
                         case when salariat like '%6 luni%' then 0 else 1 end ASC,
                         case when salariat like '%6luni%' then 0 else 1 end ASC,
-                        case when data_incetare like '%înc%' then 0 else 1 end DESC,
-                        case when data_incetare like '%lip%' then 0 else 1 end DESC,
-                        case when data_incetare like '%susp%' then 0 else 1 end DESC,
-                        case when data_incetare like '%c.c.c%' then 0 else 1 end DESC
+                        case when
+                            data_incetare like '%înc%' or
+                            data_incetare like '%lip%' or
+                            data_incetare like '%susp%' or
+                            data_incetare like '%c.c.c%'
+                        then 0 else 1 end DESC
                     "))
                 ->orderBy('salariat')
                 // ->orderByRaw(DB::raw("FIELD(status, 'activ', 'susp', 'CCC', 'incetat') ASC"))
