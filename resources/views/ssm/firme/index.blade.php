@@ -245,7 +245,7 @@
                                     if(preg_match_all('/\d+/', $firma->ssm_luna, $numere)){
                                         $ultimulNumarDinPerioada = (int)end($numere[0]);
                                     }
-                                    echo ($ultimulNumarDinPerioada + 3)%12;
+                                    // echo ($ultimulNumarDinPerioada + 3)%12;
                                 @endphp
                                 @isset ($ultimulNumarDinPerioada)
                                     @if ($firma->perioada === 'LUNAR')
