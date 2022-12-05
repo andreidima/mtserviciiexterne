@@ -269,7 +269,9 @@
                                                 (
                                                     ($ultimulNumarDinPerioada >= 10) // fiind perioada TRI, se calculeaza la 3 luni
                                                     &&
-                                                    ( ($ultimulNumarDinPerioada + 3)%12 <= $lunaCurenta ) // au trecut minim 3 luni
+                                                    ($lunaCurenta < 10) // Daca ar fi fost macar 10 luna curenta, nu aveau cum sa treaca 3 luni pana la sfarsitul anului
+                                                    &&
+                                                    (($ultimulNumarDinPerioada + 3)%12 <= $lunaCurenta) // au trecut minim 3 luni
                                                 )
                                             )
                                             <span class="text-danger" style="font-size: 12px;">{{ $firma->ssm_luna }}</span>
@@ -291,7 +293,9 @@
                                                 (
                                                     ($ultimulNumarDinPerioada >= 7) // fiind perioada SEM, se calculeaza la 6 luni
                                                     &&
-                                                    ( ($ultimulNumarDinPerioada + 6)%12 <= $lunaCurenta ) // au trecut minim 6 luni
+                                                    ($lunaCurenta < 7) // Daca ar fi fost macar 7 luna curenta, nu aveau cum sa treaca 6 luni pana la sfarsitul anului
+                                                    &&
+                                                    (($ultimulNumarDinPerioada + 6)%12 <= $lunaCurenta) // au trecut minim 6 luni
                                                 )
                                             )
                                             <span class="text-danger" style="font-size: 12px;">{{ $firma->ssm_luna }}</span>
@@ -332,7 +336,9 @@
                                                 (
                                                     ($ultimulNumarDinPerioada >= 10) // fiind perioada TRI, se calculeaza la 3 luni
                                                     &&
-                                                    ( ($ultimulNumarDinPerioada + 3)%12 <= $lunaCurenta ) // au trecut minim 3 luni
+                                                    ($lunaCurenta < 10) // Daca ar fi fost macar 10 luna curenta, nu aveau cum sa treaca 3 luni pana la sfarsitul anului
+                                                    &&
+                                                    (($ultimulNumarDinPerioada + 3)%12 <= $lunaCurenta) // au trecut minim 3 luni
                                                 )
                                             )
                                             <span class="text-danger" style="font-size: 12px;">{{ $firma->psi_luna }}</span>
@@ -354,7 +360,9 @@
                                                 (
                                                     ($ultimulNumarDinPerioada >= 7) // fiind perioada SEM, se calculeaza la 6 luni
                                                     &&
-                                                    ( ($ultimulNumarDinPerioada + 6)%12 <= $lunaCurenta ) // au trecut minim 6 luni
+                                                    ($lunaCurenta < 7) // Daca ar fi fost macar 7 luna curenta, nu aveau cum sa treaca 6 luni pana la sfarsitul anului
+                                                    &&
+                                                    (($ultimulNumarDinPerioada + 6)%12 <= $lunaCurenta) // au trecut minim 6 luni
                                                 )
                                             )
                                             <span class="text-danger" style="font-size: 12px;">{{ $firma->psi_luna }}</span>

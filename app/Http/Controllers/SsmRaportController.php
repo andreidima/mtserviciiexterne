@@ -224,8 +224,8 @@ class SsmRaportController extends Controller
                     $pdf = \PDF::loadView('rapoarte.medicinaMuncii.export.ssmSalariatiPdf', compact('salariati'))
                         ->setPaper('a4', 'portrait');
                     $pdf->getDomPDF()->set_option("enable_php", true);
-                    // return $pdf->download('Raport salariati SSM');
-                    return $pdf->stream();
+                    return $pdf->download('Raport salariati SSM.pdf');
+                    // return $pdf->stream();
                 }
             default:
                 $salariati = $salariati->simplePaginate(50);

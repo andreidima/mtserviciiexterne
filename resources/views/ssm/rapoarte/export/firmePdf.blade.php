@@ -103,10 +103,10 @@
                             </tr>
                         @endif)
 
-                        <tr class="" style="padding:2rem; background-color:lightgrey">
+                        <tr class="" style="padding:2rem; background-color:rgb(241, 241, 241)">
                             <th colspan="7">
                                 Traseu:
-                                    <span class="badge bg-dark fs-6">
+                                    <span class="badge bg-dark" style="font-size: 140%">
                                         {{ $firme_per_traseu->first()->traseu ?? '' }}
                                     </span>
                                     /
@@ -170,7 +170,9 @@
                                                     (
                                                         ($ultimulNumarDinPerioada >= 10) // fiind perioada TRI, se calculeaza la 3 luni
                                                         &&
-                                                        ( ($ultimulNumarDinPerioada + 3)%12 <= $lunaCurenta ) // au trecut minim 3 luni
+                                                        ($lunaCurenta < 10) // Daca ar fi fost macar 10 luna curenta, nu aveau cum sa treaca 3 luni pana la sfarsitul anului
+                                                        &&
+                                                        (($ultimulNumarDinPerioada + 3)%12 <= $lunaCurenta) // au trecut minim 3 luni
                                                     )
                                                 )
                                                 <span style="font-size: 12px; color:red">{{ $firma->ssm_luna }}</span>
@@ -192,7 +194,9 @@
                                                     (
                                                         ($ultimulNumarDinPerioada >= 7) // fiind perioada SEM, se calculeaza la 6 luni
                                                         &&
-                                                        ( ($ultimulNumarDinPerioada + 6)%12 <= $lunaCurenta ) // au trecut minim 6 luni
+                                                        ($lunaCurenta < 7) // Daca ar fi fost macar 7 luna curenta, nu aveau cum sa treaca 6 luni pana la sfarsitul anului
+                                                        &&
+                                                        (($ultimulNumarDinPerioada + 6)%12 <= $lunaCurenta) // au trecut minim 6 luni
                                                     )
                                                 )
                                                 <span style="font-size: 12px; color:red">{{ $firma->ssm_luna }}</span>
@@ -233,7 +237,9 @@
                                                     (
                                                         ($ultimulNumarDinPerioada >= 10) // fiind perioada TRI, se calculeaza la 3 luni
                                                         &&
-                                                        ( ($ultimulNumarDinPerioada + 3)%12 <= $lunaCurenta ) // au trecut minim 3 luni
+                                                        ($lunaCurenta < 10) // Daca ar fi fost macar 10 luna curenta, nu aveau cum sa treaca 3 luni pana la sfarsitul anului
+                                                        &&
+                                                        (($ultimulNumarDinPerioada + 3)%12 <= $lunaCurenta) // au trecut minim 3 luni
                                                     )
                                                 )
                                                 <span style="font-size: 12px; color:red">{{ $firma->psi_luna }}</span>
@@ -255,7 +261,9 @@
                                                     (
                                                         ($ultimulNumarDinPerioada >= 7) // fiind perioada SEM, se calculeaza la 6 luni
                                                         &&
-                                                        ( ($ultimulNumarDinPerioada + 6)%12 <= $lunaCurenta ) // au trecut minim 6 luni
+                                                        ($lunaCurenta < 7) // Daca ar fi fost macar 7 luna curenta, nu aveau cum sa treaca 6 luni pana la sfarsitul anului
+                                                        &&
+                                                        (($ultimulNumarDinPerioada + 6)%12 <= $lunaCurenta) // au trecut minim 6 luni
                                                     )
                                                 )
                                                 <span style="font-size: 12px; color:red">{{ $firma->psi_luna }}</span>

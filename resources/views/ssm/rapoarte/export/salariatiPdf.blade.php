@@ -77,7 +77,8 @@
 
 
                                         <h2 style="text-align: center">
-                                            Raport SSM - Salariați ({{ $salariati->count() }})
+                                            Raport SSM - Salariați
+                                            {{-- ({{ $salariati->count() }}) --}}
                                         </h2>
 
                                         {{-- <h3 style="text-align: center">
@@ -105,17 +106,17 @@
                             </tr>
                         @endif
 
-                        <tr class="" style="padding:2rem; background-color:lightgrey">
+                        <tr class="" style="padding:2rem; background-color:rgb(241, 241, 241)">
                             <th colspan="7">
                                 Firma:
-                                    <span class="badge bg-dark fs-6">
+                                    <span class="badge bg-dark" style="font-size: 140%">
                                         {{ $salariati_per_firma->first()->nume_client ?? '' }}
                                     </span>
-                                    /
+                                    {{-- /
                                     Salariați =
                                     <span class="badge bg-success fs-6">
                                         {{ $salariati_per_firma->count() }}
-                                    </span>
+                                    </span> --}}
                             </th>
                         </tr>
                         <tr class="" style="padding:2rem">
