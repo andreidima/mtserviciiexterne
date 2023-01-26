@@ -80,6 +80,7 @@ Route::group(['middleware' => 'auth'], function () {
 
     // SSM-ul construit total separat
     Route::resource('/ssm/firme', SsmFirmaController::class,  ['parameters' => ['firme' => 'firma']]);
+    Route::get('/ssm/salariati/{salariat}/duplica', [SsmSalariatController::class, 'duplica']);
     Route::resource('/ssm/salariati', SsmSalariatController::class,  ['parameters' => ['salariati' => 'salariat']]);
     Route::get('/ssm/salariati-modifica-selectati', [SsmSalariatController::class, 'modificaSelectati']);
 

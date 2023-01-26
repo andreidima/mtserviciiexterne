@@ -268,11 +268,22 @@
                                     </a> --}}
                                     <a href="{{ $salariat->path() }}/modifica"
                                             class="me-1"
+                                            title="Modifică Salariat"
                                         {{-- class="flex" --}}
                                     >
                                         <span class="badge bg-primary" style="font-size: 10px;">
                                             {{-- Modifică --}}
                                             <i class="fas fa-edit" style="font-size: 10px;"></i>
+                                        </span>
+                                    </a>
+                                    <a href="{{ $salariat->path() }}/duplica"
+                                            class="me-1"
+                                            title="Duplică Salariat"
+                                        {{-- class="flex" --}}
+                                    >
+                                        <span class="badge bg-success" style="font-size: 10px;">
+                                            {{-- Modifică --}}
+                                            <i class="fas fa-clone" style="font-size: 10px;"></i>
                                         </span>
                                     </a>
                                     {{-- <div style="flex" class=""> --}}

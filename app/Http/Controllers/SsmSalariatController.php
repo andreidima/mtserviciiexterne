@@ -233,4 +233,17 @@ class SsmSalariatController extends Controller
 
         return back()->with('status', 'Cei ' . count($salariati) . ' Salariați au fost modificați cu succes!');
     }
+
+    public function duplica(Request $request, SsmSalariat $salariat)
+    {
+        $salariat = $salariat->replicate(['created_at', 'updated_at']);
+
+        $salariat->salariat = $salariat->salariat . ' DUPLICAT';
+
+        $salariat->save();
+
+        $request->session()->get('salariat_return_url') ?? $request->session()->put('salariat_return_url', url()->previous());
+
+        return view('ssm.salariati.edit', compact('salariat'));
+    }
 }
