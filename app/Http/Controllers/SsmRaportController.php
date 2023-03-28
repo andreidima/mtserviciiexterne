@@ -17,23 +17,19 @@ class SsmRaportController extends Controller
     {
         $search_ssm_luna = $request->search_ssm_luna;
         $search_psi_luna = $request->search_psi_luna;
-        $search_traseu = $request->search_traseu;
+        // $search_traseu = $request->search_traseu;
+        $search_actionar = $request->search_actionar;
 
         $lista_ssm_luna = SsmFirma::select('ssm_luna')->groupBy('ssm_luna')->get();
         $lista_psi_luna = SsmFirma::select('psi_luna')->groupBy('psi_luna')->get();
-        $lista_traseu = SsmFirma::select('traseu')->groupBy('traseu')->get();
+        // $lista_traseu = SsmFirma::select('traseu')->groupBy('traseu')->get();
+        $lista_actionar = SsmFirma::select('actionar')->groupBy('actionar')->get();
 
         $firme = SsmFirma::
-            // where(function($query) use($search_ssm_luna, $search_psi_luna) {
-            //     $query->where('ssm_luna', $search_ssm_luna)
-            //         ->orwhere('psi_luna', $search_psi_luna);
-            // })
-            // ->when($search_traseu, function ($query, $search_traseu) {
-            //     return $query->where('traseu', $search_traseu);
-            // })
             where('ssm_luna', $search_ssm_luna)
             ->orwhere('psi_luna', $search_psi_luna)
-            ->orwhere('traseu', $search_traseu)
+            // ->orwhere('traseu', $search_traseu)
+            ->orwhere('actionar', $search_actionar)
             ->orderBy('traseu', 'asc')
             ->orderBy('nume')
             ->get();
@@ -50,7 +46,7 @@ class SsmRaportController extends Controller
                 // return $pdf->stream();
                 break;
             default:
-                return view('ssm.rapoarte.firme', compact('firme', 'search_ssm_luna', 'search_psi_luna', 'search_traseu', 'lista_ssm_luna', 'lista_psi_luna', 'lista_traseu'));
+                return view('ssm.rapoarte.firme', compact('firme', 'search_ssm_luna', 'search_psi_luna', 'search_actionar', 'lista_ssm_luna', 'lista_psi_luna', 'lista_actionar'));
         }
 
     }

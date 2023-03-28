@@ -41,13 +41,22 @@
                             SAU
                         </div>
                         <div class="col-md-2">
-                            <select class="form-select form-select-sm mb-1" id="search_traseu" name="search_traseu">
+                            {{-- <select class="form-select form-select-sm mb-1" id="search_traseu" name="search_traseu">
                                     <option value="" selected>Traseu</option>
                                 @foreach ($lista_traseu as $traseu)
                                     <option value="{{ $traseu->traseu }}"
                                         {{ isset($traseu->traseu) ?  ($traseu->traseu === $search_traseu ? 'selected' : '') : '' }}
                                     >
                                     {{ $traseu->traseu }}</option>
+                                @endforeach
+                            </select> --}}
+                            <select class="form-select form-select-sm mb-1" id="search_actionar" name="search_actionar">
+                                    <option value="" selected>Acționar</option>
+                                @foreach ($lista_actionar as $actionar)
+                                    <option value="{{ $actionar->actionar }}"
+                                        {{ isset($actionar->actionar) ?  ($actionar->actionar === $search_actionar ? 'selected' : '') : '' }}
+                                    >
+                                    {{ $actionar->actionar }}</option>
                                 @endforeach
                             </select>
                         </div>
