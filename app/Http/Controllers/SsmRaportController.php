@@ -26,10 +26,15 @@ class SsmRaportController extends Controller
         $lista_actionar = SsmFirma::select('actionar')->groupBy('actionar')->get();
 
         $firme = SsmFirma::
-            where('ssm_luna', $search_ssm_luna)
-            ->orwhere('psi_luna', $search_psi_luna)
+            where(function($query) use ($search_ssm_luna, $search_psi_luna) {
+                return $query->where('ssm_luna', $search_ssm_luna)
+                            ->orwhere('psi_luna', $search_psi_luna);
+            })
             // ->orwhere('traseu', $search_traseu)
-            ->orwhere('actionar', $search_actionar)
+            ->when($search_actionar, function($query) use ($search_actionar) {
+                return $query->where('actionar', $search_actionar);
+            })
+            // ->where('actionar', $search_actionar)
             ->orderBy('traseu', 'asc')
             ->orderBy('nume')
             ->get();

@@ -38,7 +38,7 @@
                             </select>
                         </div>
                         <div class="col-md-1 d-flex align-items-center justify-content-center">
-                            SAU
+                            ȘI
                         </div>
                         <div class="col-md-2">
                             {{-- <select class="form-select form-select-sm mb-1" id="search_traseu" name="search_traseu">
