@@ -66,6 +66,16 @@
                                 {{-- <option value="toti" {{ ($search_status === 'toti') ? 'selected' : '' }} >Toți</option> --}}
                             </select>
                         </div>
+                        <div class="col-md-3">
+                            <div class="form-check">
+                                <input class="form-check-input" type="hidden" name="search_nerezolvate" value="0" />
+                                <input class="form-check-input" type="checkbox" value="1" name="search_nerezolvate" id="search_nerezolvate"
+                                    {{ old('search_nerezolvate') == '1' ? 'checked' : '' }}>
+                                <label class="form-check-label" for="search_nerezolvate">
+                                    Nerezolvate
+                                </label>
+                            </div>
+                        </div>
                         <div class="col-md-12 text-center">
                             <small>
                                 * Este obligatoriu de completat câmpul „Firma” SAU câmpul „Data SSM/ PSI”.

@@ -81,6 +81,14 @@
                     <input class="btn btn-sm btn-primary" type="button" value="Modificări globale" v-on:click="modificari_globale = !modificari_globale">
                 </div>
             </div>
+            <div class="col-lg-12">
+                    @if ($nrSalariatiDeRezolvat > 0)
+                        <a href="/ssm/rapoarte/salariati/de-rezolvat" class="text-danger">
+                            <i class="fas fa-users me-1"></i>
+                            Salariați - de rezolvat ({{ $nrSalariatiDeRezolvat }})
+                        </a>
+                    @endif
+            </div>
         </div>
 
         <div class="card-body px-0 py-2">

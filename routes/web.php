@@ -86,7 +86,7 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('/ssm/rapoarte/firme', [SsmRaportController::class, 'firme']);
     Route::get('/ssm/rapoarte/firme/{ssm_luna}/{psi_luna}/{view_type}', [SsmRaportController::class, 'firmeExportPDF']);
-    Route::get('/ssm/rapoarte/salariati', [SsmRaportController::class, 'salariati']);
+    Route::get('/ssm/rapoarte/salariati/{deRezolvat?}', [SsmRaportController::class, 'salariati']);
     Route::get('/ssm/rapoarte/salariati/{data_ssm_psi}/{semnat_ssm}/{semnat_psi}/{view_type}', [SsmRaportController::class, 'salariatiExportPDF']);
 
     // Rute pentru doamna de la Medicina Muncii, sa poata cauta in datele de la SSM
