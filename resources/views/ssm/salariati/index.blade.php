@@ -48,17 +48,27 @@
                                 @endforeach
                             </select>
                         </div>
+                        <div class="col-md-3 d-flex justify-content-center">
+                            <div class="form-check">
+                                <input class="form-check-input" type="hidden" name="search_de_rezolvat" value="nu" />
+                                <input class="form-check-input" type="checkbox" value="da" name="search_de_rezolvat" id="search_de_rezolvat"
+                                    {{ $search_de_rezolvat == 'da' ? 'checked' : '' }}>
+                                <label class="form-check-label" for="search_de_rezolvat">
+                                    De rezolvat
+                                </label>
+                            </div>
+                        </div>
                         {{-- <div class="col-md-3">
                         </div> --}}
-                        <div class="col-md-9">
-                            <div class="d-flex justify-content-end">
-                                <button class="btn btn-sm btn-primary text-white col-md-5 me-3 border border-dark rounded-3" type="submit">
-                                    <i class="fas fa-search text-white me-1"></i>Caută
-                                </button>
-                                <a class="btn btn-sm bg-secondary text-white col-md-5 border border-dark rounded-3" href="/ssm/salariati" role="button">
-                                    <i class="far fa-trash-alt text-white me-1"></i>Resetează căutarea
-                                </a>
-                            </div>
+                        <div class="col-md-3">
+                            <button class="btn btn-sm btn-primary text-white col-md-12 me-3 border border-dark rounded-3" type="submit">
+                                <i class="fas fa-search text-white me-1"></i>Caută
+                            </button>
+                        </div>
+                        <div class="col-md-3">
+                            <a class="btn btn-sm bg-secondary text-white col-md-12 border border-dark rounded-3" href="/ssm/salariati" role="button">
+                                <i class="far fa-trash-alt text-white me-1"></i>Resetează căutarea
+                            </a>
                         </div>
                         {{-- <div class="col-lg-4 d-grid gap-5">
                             <button class="btn btn-sm btn-primary text-white border border-dark rounded-3" type="submit">
@@ -82,12 +92,27 @@
                 </div>
             </div>
             <div class="col-lg-12">
-                    @if ($nrSalariatiDeRezolvat > 0)
-                        <a href="/ssm/rapoarte/salariati/de-rezolvat" class="text-danger">
-                            <i class="fas fa-users me-1"></i>
-                            Salariați - de rezolvat ({{ $nrSalariatiDeRezolvat }})
-                        </a>
-                    @endif
+                @if ($nrSalariatiDeRezolvat > 0)
+                    <form class="needs-validation" novalidate method="GET" action="/ssm/salariati">
+                        @csrf
+                            <div class="col-md-12">
+                                <input type="hidden" class="form-control form-control-sm rounded-3" id="search_de_rezolvat" name="search_de_rezolvat"
+                                        value='da'>
+
+                                <div class="">
+                                    <button class="btn btn-sm btn-danger text-white border border-dark rounded-3" type="submit">
+                                        Salariați - de rezolvat ({{ $nrSalariatiDeRezolvat }})
+                                    </button>
+                                </div>
+                            </div>
+                    </form>
+                {{-- @if ($nrSalariatiDeRezolvat > 0)
+                    <a class="btn btn-sm mb-1 bg-success text-white border border-dark rounded-3 col-md-8" href="/ssm/salariati/adauga" role="button">
+                    <a href="/ssm/rapoarte/salariati/de-rezolvat" class="text-danger">
+                        <i class="fas fa-users me-1"></i>
+                        Salariați - de rezolvat ({{ $nrSalariatiDeRezolvat }})
+                    </a> --}}
+                @endif
             </div>
         </div>
 

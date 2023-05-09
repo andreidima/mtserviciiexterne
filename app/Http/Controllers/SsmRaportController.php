@@ -88,56 +88,47 @@ class SsmRaportController extends Controller
         $search_data_ssm_psi = \Request::get('search_data_ssm_psi');
         $search_semnat_ssm = \Request::get('search_semnat_ssm');
         $search_semnat_psi = \Request::get('search_semnat_psi');
-        $search_nerezolvate = \Request::get('search_nerezolvate');
 
         $lista_data_ssm_psi = SsmSalariat::select('data_ssm_psi')->groupBy('data_ssm_psi')->get();
         $lista_semnat_ssm = SsmSalariat::select('semnat_ssm')->groupBy('semnat_ssm')->get();
         $lista_semnat_psi = SsmSalariat::select('semnat_psi')->groupBy('semnat_psi')->get();
 
-        if ($search_nerezolvate == '1'){
-            $salariati = SsmSalariat::where('semnat_ssm', 'Lipsa')
-                ->orwhere('semnat_ssm', 'n.de s')
-                ->orwhere('semnat_psi', 'Lipsa')
-                ->orwhere('semnat_psi', 'n.de s')
-                ->get();
-        } else {
-            $salariati = SsmSalariat::
-                // where('data_ssm_psi', $search_data_ssm_psi)
-                where(function($query) use($search_data_ssm_psi, $search_firma, $search_status) {
-                    $query->where('data_ssm_psi', $search_data_ssm_psi);
-                    if (strlen($search_firma) >= 3){
-                        $query->orwhere('nume_client',  'like', '%' . $search_firma . '%');
-                    }
-                })
-                ->when($search_status, function ($query) use ($search_status) {
-                    if ($search_status === 'activi'){
-                        $query
-                            // ->where('status', '!=', 'CCC')
-                            // ->where('status', '!=', 'incetat')
-                            // ->where('status', '!=', 'lipsa')
-                            ->where(function($query) {
-                                $query->where([
-                                            ['data_incetare',  'not like', '%c.c.c%'],
-                                            ['data_incetare',  'not like', '%susp%'],
-                                            ['data_incetare',  'not like', '%înc%'],
-                                            ['data_incetare',  'not like', '%inc%'],
-                                            ['data_incetare',  'not like', '%lip%'],
-                                            ['data_incetare',  'not like', '%lip%'],
-                                        ])
-                                    ->orwhereNull('data_incetare');
-                            });
-                    }
-                })
-                ->when($search_semnat_ssm, function ($query, $search_semnat_ssm) {
-                    return $query->where('semnat_ssm', $search_semnat_ssm);
-                })
-                ->when($search_semnat_psi, function ($query, $search_semnat_psi) {
-                    return $query->where('semnat_psi', $search_semnat_psi);
-                })
-                ->orderBy('nume_client', 'asc')
-                ->orderBy('salariat')
-                ->get();
-        }
+        $salariati = SsmSalariat::
+            // where('data_ssm_psi', $search_data_ssm_psi)
+            where(function($query) use($search_data_ssm_psi, $search_firma, $search_status) {
+                $query->where('data_ssm_psi', $search_data_ssm_psi);
+                if (strlen($search_firma) >= 3){
+                    $query->orwhere('nume_client',  'like', '%' . $search_firma . '%');
+                }
+            })
+            ->when($search_status, function ($query) use ($search_status) {
+                if ($search_status === 'activi'){
+                    $query
+                        // ->where('status', '!=', 'CCC')
+                        // ->where('status', '!=', 'incetat')
+                        // ->where('status', '!=', 'lipsa')
+                        ->where(function($query) {
+                            $query->where([
+                                        ['data_incetare',  'not like', '%c.c.c%'],
+                                        ['data_incetare',  'not like', '%susp%'],
+                                        ['data_incetare',  'not like', '%înc%'],
+                                        ['data_incetare',  'not like', '%inc%'],
+                                        ['data_incetare',  'not like', '%lip%'],
+                                        ['data_incetare',  'not like', '%lip%'],
+                                    ])
+                                ->orwhereNull('data_incetare');
+                        });
+                }
+            })
+            ->when($search_semnat_ssm, function ($query, $search_semnat_ssm) {
+                return $query->where('semnat_ssm', $search_semnat_ssm);
+            })
+            ->when($search_semnat_psi, function ($query, $search_semnat_psi) {
+                return $query->where('semnat_psi', $search_semnat_psi);
+            })
+            ->orderBy('nume_client', 'asc')
+            ->orderBy('salariat')
+            ->get();
 
         switch ($request->input('action')) {
             case 'exportHtml':

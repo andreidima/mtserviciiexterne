@@ -24,53 +24,51 @@ class SsmSalariatController extends Controller
         $search_salariat = \Request::get('search_salariat');
         $search_cnp = \Request::get('search_cnp');
         $search_traseu = \Request::get('search_traseu');
+        $search_traseu = \Request::get('search_traseu');
+        $search_de_rezolvat = \Request::get('search_de_rezolvat');
 
-        // if ($search_firma && $search_salariat && $search_cnp){
-            $salariati = SsmSalariat::
-                when($search_firma, function ($query, $search_firma) {
-                    return $query->where('nume_client', $search_firma);
-                })
-                ->when($search_firma_nume, function ($query, $search_firma_nume) {
-                    return $query->where('nume_client', 'like', '%' . $search_firma_nume . '%');
-                })
-                ->when($search_salariat, function ($query, $search_salariat) {
-                    return $query->where('salariat', 'like', '%' . $search_salariat . '%');
-                })
-                ->when($search_cnp, function ($query, $search_cnp) {
-                    return $query->where('cnp', 'like', '%' . $search_cnp . '%');
-                })
-                ->when($search_traseu, function ($query, $search_traseu) {
-                    return $query->where('traseu', $search_traseu);
-                })
-                // ->when(!($search_firma || $search_firma_nume || $search_salariat || $search_cnp), function ($query) {
-                //     return $query->where('id', -1);
-                // })
-                ->orderBy('nume_client')
-                ->orderByRaw(DB::raw("
-                        case when salariat like '%revisal%' then 0 else 1 end ASC,
-                        case when salariat like '%situatie%' then 0 else 1 end ASC,
-                        case when salariat like '%3 luni%' then 0 else 1 end ASC,
-                        case when salariat like '%3luni%' then 0 else 1 end ASC,
-                        case when salariat like '%6 luni%' then 0 else 1 end ASC,
-                        case when salariat like '%6luni%' then 0 else 1 end ASC,
-                        case when
-                            data_incetare like '%înc%' or
-                            data_incetare like '%lip%' or
-                            data_incetare like '%susp%' or
-                            data_incetare like '%c.c.c%'
-                        then 0 else 1 end DESC
-                    "))
-                ->orderBy('salariat')
-                // ->orderByRaw(DB::raw("FIELD(status, 'activ', 'susp', 'CCC', 'incetat') ASC"))
-                ->simplePaginate(50);
-                        // case when data_incetare not like '%înc%' then 0 else 1 end ASC,
-                        // case when data_incetare not like '%lip%' then 0 else 1 end ASC,
-                        // case when data_incetare not like '%c.c.c%' then 0 else 1 end ASC,
-                        // case when data_incetare not like '%susp%' then 0 else 1 end ASC,
-        // } else{
-        //     $salariati = SsmSalariat::find(1)->get();
-        // }
-        // dd($salariati);
+        $query = SsmSalariat::
+            when($search_firma, function ($query, $search_firma) {
+                return $query->where('nume_client', $search_firma);
+            })
+            ->when($search_firma_nume, function ($query, $search_firma_nume) {
+                return $query->where('nume_client', 'like', '%' . $search_firma_nume . '%');
+            })
+            ->when($search_salariat, function ($query, $search_salariat) {
+                return $query->where('salariat', 'like', '%' . $search_salariat . '%');
+            })
+            ->when($search_cnp, function ($query, $search_cnp) {
+                return $query->where('cnp', 'like', '%' . $search_cnp . '%');
+            })
+            ->when($search_traseu, function ($query, $search_traseu) {
+                return $query->where('traseu', $search_traseu);
+            })
+            ->when($search_de_rezolvat == 'da', function ($query, $search_traseu) {
+                return $query->where(function ($query) {
+                    $query->where('semnat_ssm', 'Lipsa')
+                        ->orwhere('semnat_ssm', 'n.de s')
+                        ->orwhere('semnat_psi', 'Lipsa')
+                        ->orwhere('semnat_psi', 'n.de s');
+                });
+            });
+
+        $salariati = $query->orderBy('nume_client')
+                        ->orderByRaw(DB::raw("
+                                case when salariat like '%revisal%' then 0 else 1 end ASC,
+                                case when salariat like '%situatie%' then 0 else 1 end ASC,
+                                case when salariat like '%3 luni%' then 0 else 1 end ASC,
+                                case when salariat like '%3luni%' then 0 else 1 end ASC,
+                                case when salariat like '%6 luni%' then 0 else 1 end ASC,
+                                case when salariat like '%6luni%' then 0 else 1 end ASC,
+                                case when
+                                    data_incetare like '%înc%' or
+                                    data_incetare like '%lip%' or
+                                    data_incetare like '%susp%' or
+                                    data_incetare like '%c.c.c%'
+                                then 0 else 1 end DESC
+                            "))
+                        ->orderBy('salariat')
+                        ->simplePaginate(50);
 
         $nrSalariatiDeRezolvat = SsmSalariat::
                 where('semnat_ssm', 'Lipsa')
@@ -84,7 +82,7 @@ class SsmSalariatController extends Controller
 
         $request->session()->forget('salariat_return_url');
 
-        return view('ssm.salariati.index', compact('salariati', 'search_firma', 'search_firma_nume', 'search_salariat', 'search_cnp', 'search_traseu', 'lista_firma', 'lista_traseu', 'nrSalariatiDeRezolvat'));
+        return view('ssm.salariati.index', compact('salariati', 'search_firma', 'search_firma_nume', 'search_salariat', 'search_cnp', 'search_traseu', 'search_de_rezolvat', 'lista_firma', 'lista_traseu', 'nrSalariatiDeRezolvat'));
     }
 
     /**
