@@ -14,7 +14,7 @@
                 <form class="needs-validation" novalidate method="GET" action="/ssm/salariati">
                     @csrf
                     <div class="row mb-1 input-group custom-search-form justify-content-center">
-                        <div class="col-md-3">
+                        {{-- <div class="col-md-3">
                             <select class="form-select form-select-sm mb-1" id="search_firma" name="search_firma" >
                                     <option value="" selected>Firma</option>
                                 @foreach ($lista_firma as $firma)
@@ -24,6 +24,10 @@
                                     {{ $firma->nume_client }}</option>
                                 @endforeach
                             </select>
+                        </div> --}}
+                        <div class="col-md-3">
+                            <input type="text" class="form-control form-control-sm rounded-3" id="searchDataSsmPsi" name="searchDataSsmPsi" placeholder="Data SSM/ PSI"
+                                    value="{{ $searchDataSsmPsi }}">
                         </div>
                         <div class="col-md-3">
                             <input type="text" class="form-control form-control-sm rounded-3" id="search_firma_nume" name="search_firma_nume" placeholder="Firma"

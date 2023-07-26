@@ -19,7 +19,8 @@ class SsmSalariatController extends Controller
      */
     public function index(Request $request)
     {
-        $search_firma = \Request::get('search_firma');
+        // $search_firma = \Request::get('search_firma');
+        $searchDataSsmPsi = \Request::get('searchDataSsmPsi');
         $search_firma_nume = \Request::get('search_firma_nume');
         $search_salariat = \Request::get('search_salariat');
         $search_cnp = \Request::get('search_cnp');
@@ -28,8 +29,11 @@ class SsmSalariatController extends Controller
         $search_de_rezolvat = \Request::get('search_de_rezolvat');
 
         $query = SsmSalariat::
-            when($search_firma, function ($query, $search_firma) {
-                return $query->where('nume_client', $search_firma);
+            // when($search_firma, function ($query, $search_firma) {
+            //     return $query->where('nume_client', $search_firma);
+            // })
+            when($searchDataSsmPsi, function ($query, $searchDataSsmPsi) {
+                return $query->where('data_ssm_psi', 'like', '%' . $searchDataSsmPsi . '%');
             })
             ->when($search_firma_nume, function ($query, $search_firma_nume) {
                 return $query->where('nume_client', 'like', '%' . $search_firma_nume . '%');
@@ -82,7 +86,7 @@ class SsmSalariatController extends Controller
 
         $request->session()->forget('salariat_return_url');
 
-        return view('ssm.salariati.index', compact('salariati', 'search_firma', 'search_firma_nume', 'search_salariat', 'search_cnp', 'search_traseu', 'search_de_rezolvat', 'lista_firma', 'lista_traseu', 'nrSalariatiDeRezolvat'));
+        return view('ssm.salariati.index', compact('salariati', 'searchDataSsmPsi', 'search_firma_nume', 'search_salariat', 'search_cnp', 'search_traseu', 'search_de_rezolvat', 'lista_firma', 'lista_traseu', 'nrSalariatiDeRezolvat'));
     }
 
     /**
