@@ -68,6 +68,16 @@
                     placeholder=""
                     value="{{ old('actionar', $firma->actionar) }}">
             </div>
+            <div class="col-lg-3 mb-3 p-1 d-flex align-items-end justify-content-center">
+                <div class="form-check">
+                    <input class="form-check-input" type="hidden" name="activa" value="0" />
+                    <input class="form-check-input" type="checkbox" value="1" name="activa" id="activa"
+                        {{ old('activa', $firma->activa) == '1' ? 'checked' : '' }}>
+                    <label class="form-check-label" for="activa">
+                        Activă
+                    </label>
+                </div>
+            </div>
         </div>
         <div class="row mb-2 p-2 rounded-3" style="background-color: rgb(132, 236, 255)">
             <div class="col-lg-2 mb-2">

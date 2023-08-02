@@ -42,7 +42,10 @@ if (document.querySelector('#salariatiIndex')) {
             modificari_globale: ((typeof modificariGlobale !== 'undefined') ? ((modificariGlobale == "true") ? true : false) : false),
 
             salariati: salariati,
-            salariati_selectati: salariatiSelectati
+            salariati_selectati: salariatiSelectati,
+
+            axiosActualizatSalariatId: '',
+            axiosActualizatCamp: '',
         },
         methods: {
             select: function (event) {
@@ -65,8 +68,63 @@ if (document.querySelector('#salariatiIndex')) {
                 }
 
                 this.salariati_selectati = salariati_selectati;
-            }
+            },
+            axiosActualizeazaSalariat(salariatId, camp, valoare) {
+                // console.log('yea');
+                console.log(salariatId, camp, valoare);
+
+                axios
+                    .post('/ssm/salariati/axios-modificare-salariati-direct-din-index',
+                        {
+                            salariatId: salariatId,
+                            camp: camp,
+                            valoare: valoare
+                        },
+                        {
+                            params: {
+                                request: 'actualizareSuma',
+                            }
+                        })
+                    .then(function (response) {
+                        app.axiosActualizatSalariatId = response.data.salariatId;
+                        app.axiosActualizatCamp = response.data.camp;
+                        console.log(app.axiosActualizatSalariatId, app.axiosActualizatCamp);
+                    });
+            },
 
         },
+    });
+}
+
+if (document.querySelector('#modificareSalariatiDirectDinIndex')) {
+    const app = new Vue({
+        el: '#modificareSalariatiDirectDinIndex',
+        data: {
+            mesajSucces: '',
+            avansId: '',
+        },
+        methods: {
+            actualizeazaSalariat(camp, valoare) {
+                // console.log('yea');
+                console.log(camp, valoare);
+
+                // axios
+                //     .post('/avansuri/axios-actualizare-suma',
+                //         {
+                //             avansId: avansId,
+                //             avansSuma: avansSuma
+                //         },
+                //         {
+                //             params: {
+                //                 request: 'actualizareSuma',
+                //             }
+                //         })
+                //     .then(function (response) {
+                //         app.mesajSucces = response.data.raspuns;
+                //         app.avansId = response.data.avansId;
+                //         console.log(app.mesajSucces, app.avansId);
+                //     });
+            },
+        }
     });
 }

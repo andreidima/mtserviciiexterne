@@ -5513,7 +5513,9 @@ if (document.querySelector('#salariatiIndex')) {
     data: {
       modificari_globale: typeof modificariGlobale !== 'undefined' ? modificariGlobale == "true" ? true : false : false,
       salariati: salariati,
-      salariati_selectati: salariatiSelectati
+      salariati_selectati: salariatiSelectati,
+      axiosActualizatSalariatId: '',
+      axiosActualizatCamp: ''
     },
     methods: {
       select: function select(event) {
@@ -5536,6 +5538,54 @@ if (document.querySelector('#salariatiIndex')) {
         }
 
         this.salariati_selectati = salariati_selectati;
+      },
+      axiosActualizeazaSalariat: function axiosActualizeazaSalariat(salariatId, camp, valoare) {
+        // console.log('yea');
+        console.log(salariatId, camp, valoare);
+        axios.post('/ssm/salariati/axios-modificare-salariati-direct-din-index', {
+          salariatId: salariatId,
+          camp: camp,
+          valoare: valoare
+        }, {
+          params: {
+            request: 'actualizareSuma'
+          }
+        }).then(function (response) {
+          _app.axiosActualizatSalariatId = response.data.salariatId;
+          _app.axiosActualizatCamp = response.data.camp;
+          console.log(_app.axiosActualizatSalariatId, _app.axiosActualizatCamp);
+        });
+      }
+    }
+  });
+}
+
+if (document.querySelector('#modificareSalariatiDirectDinIndex')) {
+  var _app2 = new Vue({
+    el: '#modificareSalariatiDirectDinIndex',
+    data: {
+      mesajSucces: '',
+      avansId: ''
+    },
+    methods: {
+      actualizeazaSalariat: function actualizeazaSalariat(camp, valoare) {
+        // console.log('yea');
+        console.log(camp, valoare); // axios
+        //     .post('/avansuri/axios-actualizare-suma',
+        //         {
+        //             avansId: avansId,
+        //             avansSuma: avansSuma
+        //         },
+        //         {
+        //             params: {
+        //                 request: 'actualizareSuma',
+        //             }
+        //         })
+        //     .then(function (response) {
+        //         app.mesajSucces = response.data.raspuns;
+        //         app.avansId = response.data.avansId;
+        //         console.log(app.mesajSucces, app.avansId);
+        //     });
       }
     }
   });

@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container card" style="border-radius: 40px 40px 40px 40px;" id="salariatiIndex">
-        <div class="row card-header align-items-center" style="border-radius: 40px 40px 0px 0px;">
+        <div class="row p-1 card-header align-items-center" style="border-radius: 40px 40px 0px 0px;">
             <div class="col-lg-2">
                 <h4 class="mb-0">
                     <a href="/ssm/salariati">
@@ -10,7 +10,7 @@
                     </a>
                 </h4>
             </div>
-            <div class="col-lg-7">
+            <div class="col-lg-8">
                 <form class="needs-validation" novalidate method="GET" action="/ssm/salariati">
                     @csrf
                     <div class="row mb-1 input-group custom-search-form justify-content-center">
@@ -25,23 +25,19 @@
                                 @endforeach
                             </select>
                         </div> --}}
-                        <div class="col-md-3">
-                            <input type="text" class="form-control form-control-sm rounded-3" id="searchDataSsmPsi" name="searchDataSsmPsi" placeholder="Data SSM/ PSI"
-                                    value="{{ $searchDataSsmPsi }}">
-                        </div>
-                        <div class="col-md-3">
+                        <div class="col-md-3 mb-1">
                             <input type="text" class="form-control form-control-sm rounded-3" id="search_firma_nume" name="search_firma_nume" placeholder="Firma"
                                     value="{{ $search_firma_nume }}">
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-3 mb-1">
                             <input type="text" class="form-control form-control-sm rounded-3" id="search_salariat" name="search_salariat" placeholder="Salariat"
                                     value="{{ $search_salariat }}">
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-3 mb-1">
                             <input type="text" class="form-control form-control-sm rounded-3" id="search_cnp" name="search_cnp" placeholder="CNP"
                                     value="{{ $search_cnp }}">
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-3 mb-1">
                             <select class="form-select form-select-sm mb-1" id="search_traseu" name="search_traseu" >
                                     <option value="" selected>Traseu</option>
                                 @foreach ($lista_traseu as $traseu)
@@ -52,26 +48,42 @@
                                 @endforeach
                             </select>
                         </div>
-                        <div class="col-md-3 d-flex justify-content-center">
+                        <div class="col-md-3 mb-1 d-flex justify-content-center">
                             <div class="form-check">
                                 <input class="form-check-input" type="hidden" name="search_de_rezolvat" value="nu" />
                                 <input class="form-check-input" type="checkbox" value="da" name="search_de_rezolvat" id="search_de_rezolvat"
                                     {{ $search_de_rezolvat == 'da' ? 'checked' : '' }}>
-                                <label class="form-check-label" for="search_de_rezolvat">
-                                    De rezolvat
+                                <label class="form-check-label small" for="search_de_rezolvat">
+                                    De rezolvat ({{ $nrSalariatiDeRezolvat }})
                                 </label>
                             </div>
                         </div>
+                        <div class="col-md-3 mb-1">
+                            <input type="text" class="form-control form-control-sm rounded-3" id="searchDataSsmPsi" name="searchDataSsmPsi" placeholder="Data SSM/ PSI"
+                                    value="{{ $searchDataSsmPsi }}">
+                        </div>
+                        <div class="col-md-2 mb-1">
+                            <input type="text" class="form-control form-control-sm rounded-3" id="searchDataInc" name="searchDataInc" placeholder="Data înc"
+                                    value="{{ $searchDataInc }}">
+                        </div>
+                        <div class="col-md-1 mb-1">
+                            <input type="text" class="form-control form-control-sm rounded-3" id="searchActionar" name="searchActionar" placeholder="I / C"
+                                    value="{{ $searchActionar }}">
+                        </div>
+                        <div class="col-md-3 mb-1">
+                            <input type="text" class="form-control form-control-sm rounded-3" id="searchObservatii" name="searchObservatii" placeholder="Observații"
+                                    value="{{ $searchObservatii }}">
+                        </div>
                         {{-- <div class="col-md-3">
                         </div> --}}
-                        <div class="col-md-3">
+                        <div class="col-md-3 mb-1">
                             <button class="btn btn-sm btn-primary text-white col-md-12 me-3 border border-dark rounded-3" type="submit">
                                 <i class="fas fa-search text-white me-1"></i>Caută
                             </button>
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-3 mb-1">
                             <a class="btn btn-sm bg-secondary text-white col-md-12 border border-dark rounded-3" href="/ssm/salariati" role="button">
-                                <i class="far fa-trash-alt text-white me-1"></i>Resetează căutarea
+                                <i class="far fa-trash-alt text-white me-1"></i>Resetează
                             </a>
                         </div>
                         {{-- <div class="col-lg-4 d-grid gap-5">
@@ -87,15 +99,15 @@
                     </div>
                 </form>
             </div>
-            <div class="col-lg-3 text-end">
-                <a class="btn btn-sm mb-1 bg-success text-white border border-dark rounded-3 col-md-8" href="/ssm/salariati/adauga" role="button">
-                    <i class="fas fa-plus-square text-white me-1"></i>Adaugă salariat
+            <div class="col-lg-2 text-end">
+                <a class="btn btn-sm mb-1 bg-success text-white border border-dark rounded-3" href="/ssm/salariati/adauga" role="button">
+                    <i class="fas fa-plus-square text-white me-1"></i>Adaugă
                 </a>
                 <div id="salariatiIndex">
                     <input class="btn btn-sm btn-primary" type="button" value="Modificări globale" v-on:click="modificari_globale = !modificari_globale">
                 </div>
             </div>
-            <div class="col-lg-12">
+            {{-- <div class="col-lg-12">
                 @if ($nrSalariatiDeRezolvat > 0)
                     <form class="needs-validation" novalidate method="GET" action="/ssm/salariati">
                         @csrf
@@ -110,14 +122,8 @@
                                 </div>
                             </div>
                     </form>
-                {{-- @if ($nrSalariatiDeRezolvat > 0)
-                    <a class="btn btn-sm mb-1 bg-success text-white border border-dark rounded-3 col-md-8" href="/ssm/salariati/adauga" role="button">
-                    <a href="/ssm/rapoarte/salariati/de-rezolvat" class="text-danger">
-                        <i class="fas fa-users me-1"></i>
-                        Salariați - de rezolvat ({{ $nrSalariatiDeRezolvat }})
-                    </a> --}}
                 @endif
-            </div>
+            </div> --}}
         </div>
 
         <div class="card-body px-0 py-2">
@@ -338,8 +344,8 @@
                                     {{-- </div> --}}
                                 </div>
                             </td>
-                            <td style="font-size: 12px; padding:1px;">
-                                {{ $salariat->nume_client }}
+                            <td style="font-size: 12px; padding:1px;" title="{{ $salariat->nume_client }}">
+                                {{ substr($salariat->nume_client, 0, 20) }}
                             </td>
                             <td style="font-size: 12px; padding:1px;">
                                 @if (stripos($salariat->salariat, '3 luni') !== false)
@@ -354,8 +360,18 @@
                                     {!! $salariat->salariat !!}
                                 @endif
                             </td>
-                            <td style="font-size: 12px; padding:1px;">
-                                {{ $salariat->data_ssm_psi }}
+                            <td style="font-size: 12px; padding:0px;">
+                                <input type="text"
+                                        {{-- class="form-control form-control-sm bg-white rounded-3"  --}}
+                                        style="width: 60px; border: none; padding:0px"
+                                        id="data_ssm_psi" name="data_ssm_psi"
+                                        value="{{ $salariat->data_ssm_psi }}"
+                                        v-on:blur = "axiosActualizeazaSalariat({{ $salariat->id }}, 'data_ssm_psi', $event.target.value)"
+                                        >
+                                {{-- {{ $salariat->data_ssm_psi }} --}}
+                                <div v-cloak v-if="(axiosActualizatSalariatId == {{ $salariat->id }}) && (axiosActualizatCamp == 'data_ssm_psi')" class="me-2 text-success">
+                                    <i class="fas fa-thumbs-up"></i>
+                                </div>
                             </td>
                             <td style="font-size: 12px; padding:1px;">
                                 @if (stripos($salariat->semnat_ssm, 'client') !== false)
@@ -401,16 +417,17 @@
                             <td style="font-size: 12px; padding:1px;">
                                 {{ $salariat->cnp }}
                             </td>
-                            <td style="font-size: 12px; padding:1px;">
+                            <td style="font-size: 12px; padding:1px;" title="{{ $salariat->functia }}">
                                 @php
-                                    if (stripos($salariat->functia, 'adm.') !== false){
-                                        $salariat->functia = str_replace("adm.", "<span style='font-size: 12px; color:blueviolet'>adm.</span>", $salariat->functia);
-                                    } elseif (stripos($salariat->functia, 'adm') !== false){
-                                        $salariat->functia = str_replace("adm", "<span style='font-size: 12px; color:blueviolet'>adm</span>", $salariat->functia);
+                                $salariatFunctia = substr($salariat->functia, 0, 20);
+                                    if (stripos($salariatFunctia, 'adm.') !== false){
+                                        $salariatFunctia = str_replace("adm.", "<span style='font-size: 12px; color:blueviolet'>adm.</span>", $salariatFunctia);
+                                    } elseif (stripos($salariatFunctia, 'adm') !== false){
+                                        $salariatFunctia = str_replace("adm", "<span style='font-size: 12px; color:blueviolet'>adm</span>", $salariatFunctia);
                                     }
-                                    $salariat->functia = str_replace("pers. des.", "<span style='font-size: 12px; color:blueviolet'>pers. des.</span>", $salariat->functia);
+                                    $salariatFunctia = str_replace("pers. des.", "<span style='font-size: 12px; color:blueviolet'>pers. des.</span>", $salariatFunctia);
                                 @endphp
-                                {!! $salariat->functia !!}
+                                {!! $salariatFunctia !!}
                             </td>
                             <td class="text-center" style="font-size: 12px; padding:1px;">
                                 {{ $salariat->actionar }}

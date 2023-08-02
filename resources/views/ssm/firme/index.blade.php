@@ -104,14 +104,22 @@
                             <input type="text" class="form-control form-control-sm rounded-3" id="search_observatii" name="search_observatii" placeholder="Observații"
                                     value="{{ $search_observatii}}">
                         </div>
-                    </div>
-                    <div class="row input-group custom-search-form justify-content-center">
-                        <button class="btn btn-sm btn-primary text-white col-md-4 me-3 border border-dark rounded-3" type="submit">
-                            <i class="fas fa-search text-white me-1"></i>Caută
-                        </button>
-                        <a class="btn btn-sm bg-secondary text-white col-md-4 border border-dark rounded-3" href="/ssm/firme" role="button">
-                            <i class="far fa-trash-alt text-white me-1"></i>Resetează căutarea
-                        </a>
+                        <div class="col-md-2">
+                            <select class="form-select form-select-sm mb-1" id="searchActiva" name="searchActiva" >
+                                <option value="1" {{ $searchActiva == "1" ? 'selected' : '' }}>Active</option>
+                                <option value="0" {{ $searchActiva == "0" ? 'selected' : '' }}>Inactive</option>
+                            </select>
+                        </div>
+                        <div class="col-md-5">
+                            <button class="btn btn-sm btn-primary text-white col-lg-12 border border-dark rounded-3" type="submit">
+                                <i class="fas fa-search text-white me-1"></i>Caută
+                            </button>
+                        </div>
+                        <div class="col-md-5">
+                            <a class="btn btn-sm bg-secondary text-white col-lg-12 border border-dark rounded-3" href="/ssm/firme" role="button">
+                                <i class="far fa-trash-alt text-white me-1"></i>Resetează căutarea
+                            </a>
+                        </div>
                     </div>
                 </form>
             </div>

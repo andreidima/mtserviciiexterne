@@ -81,6 +81,7 @@ Route::group(['middleware' => 'auth'], function () {
     // SSM-ul construit total separat
     Route::resource('/ssm/firme', SsmFirmaController::class,  ['parameters' => ['firme' => 'firma']]);
     Route::get('/ssm/salariati/{salariat}/duplica', [SsmSalariatController::class, 'duplica']);
+    Route::post('/ssm/salariati/axios-modificare-salariati-direct-din-index', [SsmSalariatController::class, 'axiosModificareSalariatiDirectDinIndex']);
     Route::resource('/ssm/salariati', SsmSalariatController::class,  ['parameters' => ['salariati' => 'salariat']]);
     Route::get('/ssm/salariati-modifica-selectati', [SsmSalariatController::class, 'modificaSelectati']);
 
@@ -102,6 +103,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('/{serviciu}/firme/{firma_curenta}/salariati', FirmaSalariatController::class,  ['parameters' => ['salariati' => 'salariat']]);
     Route::resource('/{serviciu}/firme/{firma}/stingatoare', FirmaStingatorController::class,  ['parameters' => ['stingatoare' => 'stingator']]);
     Route::resource('/{serviciu}/firme', FirmaController::class,  ['parameters' => ['firme' => 'firma']]);
+
+
 
 
 

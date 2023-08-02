@@ -35,6 +35,7 @@ class SsmRaportController extends Controller
                 return $query->where('actionar', $search_actionar);
             })
             // ->where('actionar', $search_actionar)
+            ->where('activa', 1)
             ->orderBy('traseu', 'asc')
             ->orderBy('nume')
             ->get();

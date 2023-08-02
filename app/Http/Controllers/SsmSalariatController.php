@@ -27,6 +27,9 @@ class SsmSalariatController extends Controller
         $search_traseu = \Request::get('search_traseu');
         $search_traseu = \Request::get('search_traseu');
         $search_de_rezolvat = \Request::get('search_de_rezolvat');
+        $searchDataInc = \Request::get('searchDataInc');
+        $searchActionar = \Request::get('searchActionar');
+        $searchObservatii = \Request::get('searchObservatii');
 
         $query = SsmSalariat::
             // when($search_firma, function ($query, $search_firma) {
@@ -54,6 +57,16 @@ class SsmSalariatController extends Controller
                         ->orwhere('semnat_psi', 'Lipsa')
                         ->orwhere('semnat_psi', 'n.de s');
                 });
+            })
+            ->when($searchDataInc, function ($query, $searchDataInc) {
+                return $query->where('data_incetare', 'like', '%' . $searchDataInc . '%');
+            })
+            ->when($searchActionar, function ($query, $searchActionar) {
+                return $query->where('actionar', 'like', '%' . $searchActionar . '%');
+            })
+            ->when($searchObservatii, function ($query, $searchObservatii) {
+                return $query->where('observatii_1', 'like', '%' . $searchObservatii . '%')
+                            ->orWhere('observatii_2', 'like', '%' . $searchObservatii . '%');
             });
 
         $salariati = $query->orderBy('nume_client')
@@ -72,7 +85,7 @@ class SsmSalariatController extends Controller
                                 then 0 else 1 end DESC
                             "))
                         ->orderBy('salariat')
-                        ->simplePaginate(50);
+                        ->simplePaginate(200);
 
         $nrSalariatiDeRezolvat = SsmSalariat::
                 where('semnat_ssm', 'Lipsa')
@@ -86,7 +99,7 @@ class SsmSalariatController extends Controller
 
         $request->session()->forget('salariat_return_url');
 
-        return view('ssm.salariati.index', compact('salariati', 'searchDataSsmPsi', 'search_firma_nume', 'search_salariat', 'search_cnp', 'search_traseu', 'search_de_rezolvat', 'lista_firma', 'lista_traseu', 'nrSalariatiDeRezolvat'));
+        return view('ssm.salariati.index', compact('salariati', 'searchDataSsmPsi', 'search_firma_nume', 'search_salariat', 'search_cnp', 'search_traseu', 'search_de_rezolvat', 'lista_firma', 'lista_traseu', 'nrSalariatiDeRezolvat', 'searchDataInc', 'searchActionar', 'searchObservatii'));
     }
 
     /**
@@ -254,5 +267,19 @@ class SsmSalariatController extends Controller
         $request->session()->get('salariat_return_url') ?? $request->session()->put('salariat_return_url', url()->previous());
 
         return view('ssm.salariati.edit', compact('salariat'));
+    }
+
+    public function axiosModificareSalariatiDirectDinIndex(Request $request)
+    {
+        SsmSalariat::where('id', $request->salariatId)->update([$request->camp => $request->valoare]);
+        // SsmSalariat::where()
+        // $avans->suma = $request->avansSuma;
+        // $avans->save();
+
+        return response()->json([
+            'raspuns' => "Actualizat",
+            'salariatId' => $request->salariatId,
+            'camp' => $request->camp,
+        ]);
     }
 }

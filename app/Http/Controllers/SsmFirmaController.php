@@ -31,6 +31,7 @@ class SsmFirmaController extends Controller
         $search_contract_firma = \Request::get('search_contract_firma');
         $search_contract_numar = \Request::get('search_contract_numar');
         $search_observatii = \Request::get('search_observatii');
+        $searchActiva = \Request::get('searchActiva') ?? 1;
 
         $firme = SsmFirma::
             when($search_firma_si_cui, function ($query, $search_firma_si_cui) {
@@ -84,6 +85,7 @@ class SsmFirmaController extends Controller
                             ->orwhere('observatii_3', 'like', '%' . $search_observatii . '%');
                 });
             })
+            ->where('activa', $searchActiva)
             ->orderBy('nume')
             ->simplePaginate(25);
 
@@ -99,7 +101,7 @@ class SsmFirmaController extends Controller
         return view('ssm.firme.index', compact('firme', 'search_firma_si_cui', 'search_adresa_si_observatii', 'search_traseu', 'search_administrator_si_pers_desemnata', 'search_domeniu_de_activitate',
             'search_actionar', 'search_ssm_luna', 'search_psi_luna', 'search_perioada',
             'search_contract_firma', 'search_contract_numar', 'search_observatii',
-            'lista_traseu', 'lista_actionar', 'lista_ssm_luna', 'lista_psi_luna', 'lista_perioada', 'lista_contract_firma'
+            'lista_traseu', 'lista_actionar', 'lista_ssm_luna', 'lista_psi_luna', 'lista_perioada', 'lista_contract_firma', 'searchActiva'
         ));
     }
 
@@ -219,6 +221,7 @@ class SsmFirmaController extends Controller
                 'observatii_2' => 'nullable|max:1000',
                 'observatii_3' => 'nullable|max:1000',
                 'observatii_4' => 'nullable|max:1000',
+                'activa' => 'nullable|max:200',
             ],
             [
 
