@@ -176,35 +176,35 @@
                             value="{{ old('traseu') }}">
                     </div>
                     <div class="col-md-3 mb-2">
-                        <small for="observatii" class="mb-0 ps-3">Observații</small>
+                        <small for="modificariGlobaleObservatii" class="mb-0 ps-3">Observații</small>
                         <input
                             type="text"
-                            class="form-control form-control-sm rounded-3 {{ $errors->has('observatii') ? 'is-invalid' : '' }}"
-                            name="observatii"
-                            value="{{ old('observatii') }}">
+                            class="form-control form-control-sm rounded-3 {{ $errors->has('modificariGlobaleObservatii') ? 'is-invalid' : '' }}"
+                            name="modificariGlobaleObservatii"
+                            value="{{ old('modificariGlobaleObservatii') }}">
                     </div>
                 </div>
                 <div class="row justify-content-center">
                     <div class="col-md-2 mb-2">
-                        {{-- <label for="data_ssm_psi" class="mb-0 ps-1">Data SSM/PSI</label> --}}
-                        <small for="data_ssm_psi" class="mb-0 ps-1">Data SSM/PSI</small>
+                        {{-- <label for="modificariGlobaleData_ssm_psi" class="mb-0 ps-1">Data SSM/PSI</label> --}}
+                        <small for="modificariGlobaleData_ssm_psi" class="mb-0 ps-1">Data SSM/PSI</small>
                         <input
                             type="text"
-                            class="form-control form-control-sm rounded-3 {{ $errors->has('data_ssm_psi') ? 'is-invalid' : '' }}"
-                            name="data_ssm_psi"
-                            value="{{ old('data_ssm_psi') }}">
+                            class="form-control form-control-sm rounded-3 {{ $errors->has('modificariGlobaleData_ssm_psi') ? 'is-invalid' : '' }}"
+                            name="modificariGlobaleData_ssm_psi"
+                            value="{{ old('modificariGlobaleData_ssm_psi') }}">
                     </div>
                     <div class="col-lg-2 mb-2">
-                        <small for="semnat_ssm" class="mb-0 ps-1">Semnat SSM</small>
-                        <select name="semnat_ssm" class="form-select form-select-sm bg-white rounded-3 {{ $errors->has('semnat_ssm') ? 'is-invalid' : '' }}">
+                        <small for="modificariGlobaleSemnat_ssm" class="mb-0 ps-1">Semnat SSM</small>
+                        <select name="modificariGlobaleSemnat_ssm" class="form-select form-select-sm bg-white rounded-3 {{ $errors->has('modificariGlobaleSemnat_ssm') ? 'is-invalid' : '' }}">
                             <option value="" selected></option>
                             <option value='-'>-</option>
-                            <option value="client" style="color:rgb(0, 140, 255)" {{ old('semnat_ssm') === 'client' ? 'selected' : ''}}>client</option>
-                            <option value="Lipsa" style="color:rgb(255, 0, 0)" {{ old('semnat_ssm') === 'Lipsa' ? 'selected' : ''}}>Lipsa</option>
-                            <option value="comp.la cl." style="color:rgb(0, 180, 75)" {{ old('semnat_ssm') === 'comp.la cl.' ? 'selected' : ''}}>comp.la cl.</option>
-                            <option value="n.de s" style="color:blueviolet" {{ old('semnat_ssm') === 'n.de s' ? 'selected' : ''}}>n. de s</option>
-                            <option value="noi s." style="" {{ old('semnat_ssm') === 'noi s.' ? 'selected' : ''}}>noi s.</option>
-                            <option value="noi" style="" {{ old('semnat_ssm') === 'noi' ? 'selected' : ''}}>noi</option>
+                            <option value="client" style="color:rgb(0, 140, 255)" {{ old('modificariGlobaleSemnat_ssm') === 'client' ? 'selected' : ''}}>client</option>
+                            <option value="Lipsa" style="color:rgb(255, 0, 0)" {{ old('modificariGlobaleSemnat_ssm') === 'Lipsa' ? 'selected' : ''}}>Lipsa</option>
+                            <option value="comp.la cl." style="color:rgb(0, 180, 75)" {{ old('modificariGlobaleSemnat_ssm') === 'comp.la cl.' ? 'selected' : ''}}>comp.la cl.</option>
+                            <option value="n.de s" style="color:blueviolet" {{ old('modificariGlobaleSemnat_ssm') === 'n.de s' ? 'selected' : ''}}>n. de s</option>
+                            <option value="noi s." style="" {{ old('modificariGlobaleSemnat_ssm') === 'noi s.' ? 'selected' : ''}}>noi s.</option>
+                            <option value="noi" style="" {{ old('modificariGlobaleSemnat_ssm') === 'noi' ? 'selected' : ''}}>noi</option>
                             {{-- <option value='-'>-</option>
                             <option value="n.de s" style="color:blueviolet" {{ old('semnat_ssm') === 'n.de s' ? 'selected' : ''}}>n. de s</option>
                             <option value="noi s." style="" {{ old('semnat_ssm') === 'noi s.' ? 'selected' : ''}}>noi s.</option>
@@ -212,16 +212,16 @@
                         </select>
                     </div>
                     <div class="col-lg-2 mb-2">
-                        <small for="semnat_psi" class="mb-0 ps-1">Semnat PSI</small>
-                        <select name="semnat_psi" class="form-select form-select-sm bg-white rounded-3 {{ $errors->has('semnat_psi') ? 'is-invalid' : '' }}">
+                        <small for="modificariGlobaleSemnat_psi" class="mb-0 ps-1">Semnat PSI</small>
+                        <select name="modificariGlobaleSemnat_psi" class="form-select form-select-sm bg-white rounded-3 {{ $errors->has('modificariGlobaleSemnat_psi') ? 'is-invalid' : '' }}">
                             <option value="" selected></option>
                             <option value='-'>-</option>
-                            <option value="client" style="color:rgb(0, 140, 255)" {{ old('semnat_psi') === 'client' ? 'selected' : ''}}>client</option>
-                            <option value="Lipsa" style="color:rgb(255, 0, 0)" {{ old('semnat_psi') === 'Lipsa' ? 'selected' : ''}}>Lipsa</option>
-                            <option value="comp.la cl." style="color:rgb(0, 180, 75)" {{ old('semnat_psi') === 'comp.la cl.' ? 'selected' : ''}}>comp.la cl.</option>
-                            <option value="n.de s" style="color:blueviolet" {{ old('semnat_psi') === 'n.de s' ? 'selected' : ''}}>n. de s</option>
-                            <option value="noi s." style="" {{ old('semnat_psi') === 'noi s.' ? 'selected' : ''}}>noi s.</option>
-                            <option value="noi" style="" {{ old('semnat_psi') === 'noi' ? 'selected' : ''}}>noi</option>
+                            <option value="client" style="color:rgb(0, 140, 255)" {{ old('modificariGlobaleSemnat_psi') === 'client' ? 'selected' : ''}}>client</option>
+                            <option value="Lipsa" style="color:rgb(255, 0, 0)" {{ old('modificariGlobaleSemnat_psi') === 'Lipsa' ? 'selected' : ''}}>Lipsa</option>
+                            <option value="comp.la cl." style="color:rgb(0, 180, 75)" {{ old('modificariGlobaleSemnat_psi') === 'comp.la cl.' ? 'selected' : ''}}>comp.la cl.</option>
+                            <option value="n.de s" style="color:blueviolet" {{ old('modificariGlobaleSemnat_psi') === 'n.de s' ? 'selected' : ''}}>n. de s</option>
+                            <option value="noi s." style="" {{ old('modificariGlobaleSemnat_psi') === 'noi s.' ? 'selected' : ''}}>noi s.</option>
+                            <option value="noi" style="" {{ old('modificariGlobaleSemnat_psi') === 'noi' ? 'selected' : ''}}>noi</option>
                             {{-- <option value='-'>-</option>
                             <option value="n.de s" style="color:blueviolet" {{ old('semnat_psi') === 'n.de s' ? 'selected' : ''}}>n.de s</option>
                             <option value="noi s." style="" {{ old('semnat_psi') === 'noi s.' ? 'selected' : ''}}>noi s.</option>

@@ -226,10 +226,10 @@ class SsmSalariatController extends Controller
                 'nume_client' => 'required_without_all:functia,traseu,data_ssm_psi,semnat_ssm,semnat_psi,semnat_anexa,semnat_eip|max:200',
                 'functia' => 'nullable|max:200',
                 'traseu' => 'nullable|max:200',
-                'observatii' => 'nullable|max:200',
-                'data_ssm_psi' => 'nullable|max:200',
-                'semnat_ssm' => 'nullable|max:200',
-                'semnat_psi' => 'nullable|max:200',
+                'modificariGlobaleObservatii' => 'nullable|max:200',
+                'modificariGlobaleData_ssm_psi' => 'nullable|max:200',
+                'modificariGlobaleSemnat_ssm' => 'nullable|max:200',
+                'modificariGlobaleSemnat_psi' => 'nullable|max:200',
                 'semnat_anexa' => 'nullable|max:200',
                 'semnat_eip' => 'nullable|max:200',
             ],
@@ -245,12 +245,12 @@ class SsmSalariatController extends Controller
             $request->nume_client ? $salariat->nume_client = $request->nume_client : '';
             $request->functia ? $salariat->functia = $request->functia : '';
             $request->traseu ? $salariat->traseu = $request->traseu : '';
-            $request->data_ssm_psi ? $salariat->data_ssm_psi = $request->data_ssm_psi : '';
-            $request->semnat_ssm ? $salariat->semnat_ssm = $request->semnat_ssm : '';
-            $request->semnat_psi ? $salariat->semnat_psi = $request->semnat_psi : '';
+            $request->modificariGlobaleData_ssm_psi ? $salariat->data_ssm_psi = $request->modificariGlobaleData_ssm_psi : '';
+            $request->modificariGlobaleSemnat_ssm ? $salariat->semnat_ssm = $request->modificariGlobaleSemnat_ssm : '';
+            $request->modificariGlobaleSemnat_psi ? $salariat->semnat_psi = $request->modificariGlobaleSemnat_psi : '';
             $request->semnat_anexa ? $salariat->semnat_anexa = $request->semnat_anexa : '';
             $request->semnat_eip ? $salariat->semnat_eip = $request->semnat_eip : '';
-            $request->observatii ? $salariat->observatii_1 = $request->observatii : '';
+            $request->modificariGlobaleObservatii ? $salariat->observatii_1 = $request->modificariGlobaleObservatii : '';
 
             $salariat->save();
         }
