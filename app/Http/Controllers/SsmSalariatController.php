@@ -230,7 +230,7 @@ class SsmSalariatController extends Controller
                 'modificariGlobaleData_ssm_psi' => 'nullable|max:200',
                 'modificariGlobaleSemnat_ssm' => 'nullable|max:200',
                 'modificariGlobaleSemnat_psi' => 'nullable|max:200',
-                'semnat_anexa' => 'nullable|max:200',
+                'modificariGlobaleSemnatAnexa' => 'nullable|max:200',
                 'semnat_eip' => 'nullable|max:200',
             ],
             [
@@ -248,8 +248,8 @@ class SsmSalariatController extends Controller
             $request->modificariGlobaleData_ssm_psi ? $salariat->data_ssm_psi = $request->modificariGlobaleData_ssm_psi : '';
             $request->modificariGlobaleSemnat_ssm ? $salariat->semnat_ssm = $request->modificariGlobaleSemnat_ssm : '';
             $request->modificariGlobaleSemnat_psi ? $salariat->semnat_psi = $request->modificariGlobaleSemnat_psi : '';
-            $request->semnat_anexa ? $salariat->semnat_anexa = $request->semnat_anexa : '';
-            $request->semnat_eip ? $salariat->semnat_eip = $request->semnat_eip : '';
+            $request->modificariGlobaleSemnatAnexa ? $salariat->semnat_anexa = $request->modificariGlobaleSemnatAnexa : '';
+            $request->modificariGlobaleSemnatEip ? $salariat->semnat_eip = $request->modificariGlobaleSemnatEip : '';
             $request->modificariGlobaleObservatii ? $salariat->observatii_1 = $request->modificariGlobaleObservatii : '';
 
             $salariat->save();

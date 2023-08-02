@@ -229,21 +229,21 @@
                         </select>
                     </div>
                     <div class="col-lg-2 mb-2">
-                        <small for="semnat_anexa" class="mb-0 ps-1">Semnat Anexa</small>
-                        <select name="semnat_anexa" class="form-select form-select-sm bg-white rounded-3 {{ $errors->has('semnat_anexa') ? 'is-invalid' : '' }}">
+                        <small for="modificariGlobaleSemnatAnexa" class="mb-0 ps-1">Semnat Anexa</small>
+                        <select name="modificariGlobaleSemnatAnexa" class="form-select form-select-sm bg-white rounded-3 {{ $errors->has('modificariGlobaleSemnatAnexa') ? 'is-invalid' : '' }}">
                             <option value="" selected></option>
                             <option value='-'>-</option>
-                            <option value="sem" style="" {{ old('semnat_anexa') === 'sem' ? 'selected' : ''}}>sem</option>
-                            <option value="de s" style="color:rgb(204, 0, 0)" {{ old('semnat_anexa') === 'de s' ? 'selected' : ''}}>de s</option>
+                            <option value="sem" style="" {{ old('modificariGlobaleSemnatAnexa') === 'sem' ? 'selected' : ''}}>sem</option>
+                            <option value="de s" style="color:rgb(204, 0, 0)" {{ old('modificariGlobaleSemnatAnexa') === 'de s' ? 'selected' : ''}}>de s</option>
                         </select>
                     </div>
                     <div class="col-lg-2 mb-2">
-                        <small for="semnat_eip" class="mb-0 ps-1">Semnat E.I.P.</small>
-                        <select name="semnat_eip" class="form-select form-select-sm bg-white rounded-3 {{ $errors->has('semnat_eip') ? 'is-invalid' : '' }}">
+                        <small for="modificariGlobaleSemnatEip" class="mb-0 ps-1">Semnat E.I.P.</small>
+                        <select name="modificariGlobaleSemnatEip" class="form-select form-select-sm bg-white rounded-3 {{ $errors->has('modificariGlobaleSemnatEip') ? 'is-invalid' : '' }}">
                             <option value="" selected></option>
                             <option value='-'>-</option>
-                            <option value="sem" style="" {{ old('semnat_eip') === 'sem' ? 'selected' : ''}}>sem</option>
-                            <option value="de s" style="color:rgb(204, 0, 0)" {{ old('semnat_eip') === 'de s' ? 'selected' : ''}}>de s</option>
+                            <option value="sem" style="" {{ old('modificariGlobaleSemnatEip') === 'sem' ? 'selected' : ''}}>sem</option>
+                            <option value="de s" style="color:rgb(204, 0, 0)" {{ old('modificariGlobaleSemnatEip') === 'de s' ? 'selected' : ''}}>de s</option>
                         </select>
                     </div>
 
@@ -500,22 +500,40 @@
                                 {{-- {{ $salariat->observatii_3 ? ($salariat->observatii_3 . '') : ''}} --}}
                             </td>
                             <td style="font-size: 12px; padding:1px;">
-                                @if ((strpos($salariat->semnat_anexa, 'de s') !== false))
+                                {{-- @if ((strpos($salariat->semnat_anexa, 'de s') !== false))
                                     <span style="font-size: 12px; color:rgb(204, 0, 0)">
                                         {{ $salariat->semnat_anexa }}
                                     </span>
                                 @else
                                     {{ $salariat->semnat_anexa }}
-                                @endif
+                                @endif --}}
+                                <input type="text"
+                                        style="width: 30px; border: none; padding:0px; {{ (strpos($salariat->semnat_anexa, 'de s') !== false) ? 'color:rgb(204, 0, 0)' : '' }}"
+                                        id="semnat_anexa" name="semnat_anexa"
+                                        value="{{ $salariat->semnat_anexa }}"
+                                        v-on:blur = "axiosActualizeazaSalariat({{ $salariat->id }}, 'semnat_anexa', $event.target.value)"
+                                        >
+                                <div v-cloak v-if="(axiosActualizatSalariatId == {{ $salariat->id }}) && (axiosActualizatCamp == 'semnat_anexa')" class="me-2 text-success">
+                                    <i class="fas fa-thumbs-up"></i>
+                                </div>
                             </td>
                             <td style="font-size: 12px; padding:1px;">
-                                @if ((strpos($salariat->semnat_eip, 'de s') !== false))
+                                {{-- @if ((strpos($salariat->semnat_eip, 'de s') !== false))
                                     <span style="font-size: 12px; color:rgb(204, 0, 0)">
                                         {{ $salariat->semnat_eip }}
                                     </span>
                                 @else
                                     {{ $salariat->semnat_eip }}
-                                @endif
+                                @endif --}}
+                                <input type="text"
+                                        style="width: 30px; border: none; padding:0px; {{ (strpos($salariat->semnat_eip, 'de s') !== false) ? 'color:rgb(204, 0, 0)' : '' }}"
+                                        id="semnat_eip" name="semnat_eip"
+                                        value="{{ $salariat->semnat_eip }}"
+                                        v-on:blur = "axiosActualizeazaSalariat({{ $salariat->id }}, 'semnat_eip', $event.target.value)"
+                                        >
+                                <div v-cloak v-if="(axiosActualizatSalariatId == {{ $salariat->id }}) && (axiosActualizatCamp == 'semnat_eip')" class="me-2 text-success">
+                                    <i class="fas fa-thumbs-up"></i>
+                                </div>
                             </td>
                             <td v-cloak v-if="modificari_globale" style="font-size: 10px; padding:1px; background-color:lightcyan">
                                 <div class="form-check text-center">
