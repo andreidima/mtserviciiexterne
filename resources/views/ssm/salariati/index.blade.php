@@ -397,7 +397,7 @@
                                         {{ $salariat->semnat_ssm }}
                                     </span> --}}
                                 <input type="text"
-                                        style="width: 60px; border: none; padding:0px;
+                                        style="width: 35px; border: none; padding:0px;
                                             {{
                                                 (stripos($salariat->semnat_ssm, 'client') !== false) ? 'color:rgb(0, 140, 255)' :
                                                 (
@@ -437,7 +437,7 @@
                                         {{ $salariat->semnat_psi }}
                                     </span> --}}
                                 <input type="text"
-                                        style="width: 60px; border: none; padding:0px;
+                                        style="width: 35px; border: none; padding:0px;
                                             {{
                                                 (stripos($salariat->semnat_psi, 'client') !== false) ? 'color:rgb(0, 140, 255)' :
                                                 (
