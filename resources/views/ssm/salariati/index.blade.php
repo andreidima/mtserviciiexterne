@@ -131,7 +131,10 @@
             @include ('errors')
 
 
-    <form class="needs-validation" novalidate method="GET" action="/ssm/salariati-modifica-selectati">
+    {{-- <form class="needs-validation" novalidate method="GET" action="/ssm/salariati-modifica-selectati"> --}}
+    <form class="needs-validation" novalidate method="POST" action="/ssm/salariati-modifica-selectati">
+        @csrf
+
         <script type="application/javascript">
             modificariGlobale = @json(old('modificariGlobale') ?? false);
 
@@ -171,6 +174,14 @@
                             class="form-control form-control-sm rounded-3 {{ $errors->has('traseu') ? 'is-invalid' : '' }}"
                             name="traseu"
                             value="{{ old('traseu') }}">
+                    </div>
+                    <div class="col-md-3 mb-2">
+                        <small for="observatii" class="mb-0 ps-3">Observații</small>
+                        <input
+                            type="text"
+                            class="form-control form-control-sm rounded-3 {{ $errors->has('observatii') ? 'is-invalid' : '' }}"
+                            name="observatii"
+                            value="{{ old('observatii') }}">
                     </div>
                 </div>
                 <div class="row justify-content-center">
@@ -289,7 +300,7 @@
                     @forelse ($salariati as $salariat)
                         @if ((stripos($salariat->salariat, 'revisal') !== false) || (stripos($salariat->salariat, 'Situatie') !== false))
                             <tr style="background-color:rgb(169, 212, 255)">
-                        @elseif (($salariat->status === "CCC") || (stripos($salariat->data_incetare, 'c.c.c') !== false))
+                        @elseif (($salariat->status === "CCC") || (stripos($salariat->data_incetare, 'c.c.c') !== false) || (stripos($salariat->data_incetare, 'CCC') !== false) || (stripos($salariat->data_incetare, 'CM') !== false))
                             <tr style="background-color:rgb(255, 184, 245)">
                         @elseif ((stripos($salariat->data_incetare, 'susp') !== false))
                             <tr style="background-color:rgb(205, 181, 219)">
@@ -362,19 +373,17 @@
                             </td>
                             <td style="font-size: 12px; padding:0px;">
                                 <input type="text"
-                                        {{-- class="form-control form-control-sm bg-white rounded-3"  --}}
                                         style="width: 60px; border: none; padding:0px"
                                         id="data_ssm_psi" name="data_ssm_psi"
                                         value="{{ $salariat->data_ssm_psi }}"
                                         v-on:blur = "axiosActualizeazaSalariat({{ $salariat->id }}, 'data_ssm_psi', $event.target.value)"
                                         >
-                                {{-- {{ $salariat->data_ssm_psi }} --}}
                                 <div v-cloak v-if="(axiosActualizatSalariatId == {{ $salariat->id }}) && (axiosActualizatCamp == 'data_ssm_psi')" class="me-2 text-success">
                                     <i class="fas fa-thumbs-up"></i>
                                 </div>
                             </td>
-                            <td style="font-size: 12px; padding:1px;">
-                                @if (stripos($salariat->semnat_ssm, 'client') !== false)
+                            <td style="font-size: 12px; padding:0px;">
+                                {{-- @if (stripos($salariat->semnat_ssm, 'client') !== false)
                                     <span style="font-size: 12px; color:rgb(0, 140, 255)">
                                 @elseif (stripos($salariat->semnat_ssm, 'Lipsa') !== false)
                                     <span style="font-size: 12px; color:rgb(255, 0, 0)">
@@ -386,10 +395,35 @@
                                     <span style="font-size: 12px; color:rgb(0, 0, 0)">
                                 @endif
                                         {{ $salariat->semnat_ssm }}
-                                    </span>
+                                    </span> --}}
+                                <input type="text"
+                                        style="width: 60px; border: none; padding:0px;
+                                            {{
+                                                (stripos($salariat->semnat_ssm, 'client') !== false) ? 'color:rgb(0, 140, 255)' :
+                                                (
+                                                    (stripos($salariat->semnat_ssm, 'Lipsa') !== false) ? 'color:rgb(255, 0, 0)' :
+                                                    (
+                                                        (stripos($salariat->semnat_ssm, 'comp.la cl.') !== false) ? 'color:rgb(0, 180, 75)' :
+                                                        (
+                                                            (stripos($salariat->semnat_ssm, 'n.de s') !== false) ? 'color:blueviolet' :
+                                                            (
+                                                                (stripos($salariat->semnat_ssm, 'n.de s') !== false) ? 'color:blueviolet' : 'color:rgb(0, 0, 0)'
+                                                            )
+                                                        )
+                                                    )
+                                                )
+                                            }}
+                                        "
+                                        id="semnat_ssm" name="semnat_ssm"
+                                        value="{{ $salariat->semnat_ssm }}"
+                                        v-on:blur = "axiosActualizeazaSalariat({{ $salariat->id }}, 'semnat_ssm', $event.target.value)"
+                                        >
+                                <div v-cloak v-if="(axiosActualizatSalariatId == {{ $salariat->id }}) && (axiosActualizatCamp == 'semnat_ssm')" class="me-2 text-success">
+                                    <i class="fas fa-thumbs-up"></i>
+                                </div>
                             </td>
-                            <td style="font-size: 12px; padding:1px;">
-                                @if (stripos($salariat->semnat_psi, 'client') !== false)
+                            <td style="font-size: 12px; padding:0px;">
+                                {{-- @if (stripos($salariat->semnat_psi, 'client') !== false)
                                     <span style="font-size: 12px; color:rgb(0, 140, 255)">
                                 @elseif (stripos($salariat->semnat_psi, 'Lipsa') !== false)
                                     <span style="font-size: 12px; color:rgb(255, 0, 0)">
@@ -401,24 +435,38 @@
                                     <span style="font-size: 12px; color:rgb(0, 0, 0)">
                                 @endif
                                         {{ $salariat->semnat_psi }}
-                                    </span>
-                                {{-- @if ((strpos($salariat->semnat_psi, 'n.de s') !== false))
-                                    <span style="font-size: 12px; color:blueviolet">
-                                        {{ $salariat->semnat_psi }}
-                                    </span>
-                                @elseif ((strpos($salariat->semnat_psi, 'cl.de s') !== false))
-                                    <span style="font-size: 12px; color:rgb(0, 96, 175)">
-                                        {{ $salariat->semnat_psi }}
-                                    </span>
-                                @else
-                                    {{ $salariat->semnat_psi }}
-                                @endif --}}
+                                    </span> --}}
+                                <input type="text"
+                                        style="width: 60px; border: none; padding:0px;
+                                            {{
+                                                (stripos($salariat->semnat_psi, 'client') !== false) ? 'color:rgb(0, 140, 255)' :
+                                                (
+                                                    (stripos($salariat->semnat_psi, 'Lipsa') !== false) ? 'color:rgb(255, 0, 0)' :
+                                                    (
+                                                        (stripos($salariat->semnat_psi, 'comp.la cl.') !== false) ? 'color:rgb(0, 180, 75)' :
+                                                        (
+                                                            (stripos($salariat->semnat_psi, 'n.de s') !== false) ? 'color:blueviolet' :
+                                                            (
+                                                                (stripos($salariat->semnat_psi, 'n.de s') !== false) ? 'color:blueviolet' : 'color:rgb(0, 0, 0)'
+                                                            )
+                                                        )
+                                                    )
+                                                )
+                                            }}
+                                        "
+                                        id="semnat_psi" name="semnat_psi"
+                                        value="{{ $salariat->semnat_psi }}"
+                                        v-on:blur = "axiosActualizeazaSalariat({{ $salariat->id }}, 'semnat_psi', $event.target.value)"
+                                        >
+                                <div v-cloak v-if="(axiosActualizatSalariatId == {{ $salariat->id }}) && (axiosActualizatCamp == 'semnat_psi')" class="me-2 text-success">
+                                    <i class="fas fa-thumbs-up"></i>
+                                </div>
                             </td>
                             <td style="font-size: 12px; padding:1px;">
                                 {{ $salariat->cnp }}
                             </td>
                             <td style="font-size: 12px; padding:1px;" title="{{ $salariat->functia }}">
-                                @php
+                                {{-- @php
                                 $salariatFunctia = substr($salariat->functia, 0, 20);
                                     if (stripos($salariatFunctia, 'adm.') !== false){
                                         $salariatFunctia = str_replace("adm.", "<span style='font-size: 12px; color:blueviolet'>adm.</span>", $salariatFunctia);
@@ -427,7 +475,12 @@
                                     }
                                     $salariatFunctia = str_replace("pers. des.", "<span style='font-size: 12px; color:blueviolet'>pers. des.</span>", $salariatFunctia);
                                 @endphp
-                                {!! $salariatFunctia !!}
+                                {!! $salariatFunctia !!} --}}
+                                @if ((stripos($salariat->functia, 'adm.') !== false) || (stripos($salariat->functia, 'adm') !== false) || (stripos($salariat->functia, 'pers. des.') !== false))
+                                    <span style='font-size: 12px; color:blueviolet'>{{ substr($salariat->functia, 0, 20) }}</span>
+                                @else
+                                    {{ substr($salariat->functia, 0, 20) }}
+                                @endif
                             </td>
                             <td class="text-center" style="font-size: 12px; padding:1px;">
                                 {{ $salariat->actionar }}

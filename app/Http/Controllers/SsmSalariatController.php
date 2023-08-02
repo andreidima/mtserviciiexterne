@@ -226,6 +226,7 @@ class SsmSalariatController extends Controller
                 'nume_client' => 'required_without_all:functia,traseu,data_ssm_psi,semnat_ssm,semnat_psi,semnat_anexa,semnat_eip|max:200',
                 'functia' => 'nullable|max:200',
                 'traseu' => 'nullable|max:200',
+                'observatii' => 'nullable|max:200',
                 'data_ssm_psi' => 'nullable|max:200',
                 'semnat_ssm' => 'nullable|max:200',
                 'semnat_psi' => 'nullable|max:200',
@@ -249,6 +250,7 @@ class SsmSalariatController extends Controller
             $request->semnat_psi ? $salariat->semnat_psi = $request->semnat_psi : '';
             $request->semnat_anexa ? $salariat->semnat_anexa = $request->semnat_anexa : '';
             $request->semnat_eip ? $salariat->semnat_eip = $request->semnat_eip : '';
+            $request->observatii ? $salariat->observatii_1 = $request->observatii : '';
 
             $salariat->save();
         }

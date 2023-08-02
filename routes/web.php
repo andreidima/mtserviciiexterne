@@ -83,7 +83,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/ssm/salariati/{salariat}/duplica', [SsmSalariatController::class, 'duplica']);
     Route::post('/ssm/salariati/axios-modificare-salariati-direct-din-index', [SsmSalariatController::class, 'axiosModificareSalariatiDirectDinIndex']);
     Route::resource('/ssm/salariati', SsmSalariatController::class,  ['parameters' => ['salariati' => 'salariat']]);
-    Route::get('/ssm/salariati-modifica-selectati', [SsmSalariatController::class, 'modificaSelectati']);
+    // Route::get('/ssm/salariati-modifica-selectati', [SsmSalariatController::class, 'modificaSelectati']);
+    Route::post('/ssm/salariati-modifica-selectati', [SsmSalariatController::class, 'modificaSelectati']);
 
     Route::get('/ssm/rapoarte/firme', [SsmRaportController::class, 'firme']);
     Route::get('/ssm/rapoarte/firme/{ssm_luna}/{psi_luna}/{view_type}', [SsmRaportController::class, 'firmeExportPDF']);
