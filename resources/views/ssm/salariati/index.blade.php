@@ -1,5 +1,6 @@
 @extends ('layouts.app')
 
+
 @section('content')
 <div class="container card" style="border-radius: 40px 40px 40px 40px;" id="salariatiIndex">
         <div class="row p-1 card-header align-items-center" style="border-radius: 40px 40px 0px 0px;">
@@ -97,7 +98,7 @@
                             </a>
                         </div> --}}
                     </div>
-                </form>
+                {{-- </form> --}}
             </div>
             <div class="col-lg-2 text-end">
                 <a class="btn btn-sm mb-1 bg-success text-white border border-dark rounded-3" href="/ssm/salariati/adauga" role="button">
@@ -131,16 +132,72 @@
             @include ('errors')
 
 
-    {{-- <form class="needs-validation" novalidate method="GET" action="/ssm/salariati-modifica-selectati"> --}}
+
+
+        <div class="table-responsive rounded">
+            <table class="table table-striped table-hover table-bordered border-secondary rounded-3" style=" font-size: 5px !important">
+
+                <thead class="text-white rounded" style="background-color:#e66800; font-size: 5px !important">
+                    @csrf
+                    <tr class="" style="padding:2rem; font-size: 5px">
+                        <th rowspan="2" class="text-center" style="font-size: 12px; padding:1px;">#</th>
+                        <th rowspan="2" class="text-center" style=" font-size: 12px; padding:1px;">Acțiuni</th>
+                        <th rowspan="2" class="text-center" style="font-size: 12px; padding:1px;">Nume client</th>
+                        <th rowspan="2" class="text-center" style="font-size: 12px; padding:1px;">
+                            Salariat
+                            <button class="btn btn-sm btn-primary text-white mx-0 py-0 px-2 border-0 rounded-3" type="submit" name="butonSortare" value="salariat.asc">
+                                <i class='fas fa-sort-up'></i>
+                            </button>
+                            <button class="btn btn-sm btn-primary text-white mx-0 py-0 px-2 border-0 rounded-3" type="submit" name="butonSortare" value="salariat.desc">
+                                <i class='fas fa-sort-down'></i>
+                            </button>
+                        </th>
+                        <th rowspan="2" class="text-center" style="font-size: 12px; padding:1px;">
+                            Data<br>SSM/ PSI
+                        </th>
+                        <th colspan="2" class="text-center" style="font-size: 12px; padding:1px;">Semnat</th>
+                        <th rowspan="2" class="text-center" style="font-size: 12px; padding:1px;">CNP</th>
+                        <th rowspan="2" class="text-center" style="font-size: 12px; padding:1px;">Funcția</th>
+                        <th rowspan="2" class="text-center" style="font-size: 12px; padding:1px;"></th>
+                        <th rowspan="2" class="text-center" style=" font-size: 12px; padding:1px;">Data ang.</th>
+                        <th rowspan="2" class="text-center" style=" font-size: 12px; padding:1px;">Data înc.</th>
+                        <th rowspan="2" class="text-center" style="font-size: 12px; padding:1px;">Traseu</th>
+                        <th rowspan="2" class="text-center" style="font-size: 12px; padding:1px;">Observații</th>
+                        <th colspan="2" class="text-center" style="font-size: 12px; padding:1px;">Semnat</th>
+                        <th rowspan="2" class="text-center" style="font-size: 12px; padding:1px;" v-cloak v-if="modificari_globale">
+                            <input type="checkbox"
+                                class="form-check-input"
+                                id=""
+                                style="padding:10px"
+                                {{-- v-on:change="select({{ $categorie->id }})" --}}
+                                v-on:change="select($event)"
+                                >
+
+                        </th>
+                    </tr>
+                    <tr class="">
+                        <th class="text-center" style="font-size: 12px; padding:1px;">SSM</th>
+                        <th class="text-center" style="font-size: 12px; padding:1px;">PSI</th>
+                        <th class="text-center" style="font-size: 12px; padding:1px;">Anexa</th>
+                        <th class="text-center" style="font-size: 12px; padding:1px;">E.I.P.</th>
+                    </tr>
+                </form>
+                </thead>
+                <tbody>
+<script type="application/javascript">
+    modificariGlobale = @json(old('modificariGlobale') ?? false);
+
+    salariati={!! json_encode($salariati->items()) !!};
+    // salariatiSelectati={!! json_encode(old('salariati_selectati', [])) !!};
+    // salariatiSelectati={!! json_encode([]) !!};
+</script>
     <form class="needs-validation" novalidate method="POST" action="/ssm/salariati-modifica-selectati">
         @csrf
+                    <tr>
+                        <td colspan="16">
 
-        <script type="application/javascript">
-            modificariGlobale = @json(old('modificariGlobale') ?? false);
 
-            salariati={!! json_encode($salariati->items()) !!}
-            salariatiSelectati={!! json_encode(old('salariati_selectati', [])) !!}
-        </script>
+
         <div v-cloak v-if="modificari_globale" class="row justify-content-center">
             <div class="col-lg-8 mb-2 rounded-3" style="background-color:lightcyan">
                 <div class="row justify-content-center">
@@ -255,48 +312,13 @@
                 </div>
             </div>
         </div>
-
-
-        <div class="table-responsive rounded">
-            <table class="table table-striped table-hover table-bordered border-secondary rounded-3" style=" font-size: 5px !important">
-                <thead class="text-white rounded" style="background-color:#e66800; font-size: 5px !important">
-
-                    <tr class="" style="padding:2rem; font-size: 5px">
-                        <th rowspan="2" class="text-center" style="font-size: 12px; padding:1px;">#</th>
-                        <th rowspan="2" class="text-center" style=" font-size: 12px; padding:1px;">Acțiuni</th>
-                        <th rowspan="2" class="text-center" style="font-size: 12px; padding:1px;">Nume client</th>
-                        <th rowspan="2" class="text-center" style="font-size: 12px; padding:1px;">Salariat</th>
-                        <th rowspan="2" class="text-center" style="font-size: 12px; padding:1px;">
-                            Data<br>SSM/ PSI
-                        </th>
-                        <th colspan="2" class="text-center" style="font-size: 12px; padding:1px;">Semnat</th>
-                        <th rowspan="2" class="text-center" style="font-size: 12px; padding:1px;">CNP</th>
-                        <th rowspan="2" class="text-center" style="font-size: 12px; padding:1px;">Funcția</th>
-                        <th rowspan="2" class="text-center" style="font-size: 12px; padding:1px;"></th>
-                        <th rowspan="2" class="text-center" style=" font-size: 12px; padding:1px;">Data ang.</th>
-                        <th rowspan="2" class="text-center" style=" font-size: 12px; padding:1px;">Data înc.</th>
-                        <th rowspan="2" class="text-center" style="font-size: 12px; padding:1px;">Traseu</th>
-                        <th rowspan="2" class="text-center" style="font-size: 12px; padding:1px;">Observații</th>
-                        <th colspan="2" class="text-center" style="font-size: 12px; padding:1px;">Semnat</th>
-                        <th rowspan="2" class="text-center" style="font-size: 12px; padding:1px;" v-cloak v-if="modificari_globale">
-                            <input type="checkbox"
-                                class="form-check-input"
-                                id=""
-                                style="padding:10px"
-                                {{-- v-on:change="select({{ $categorie->id }})" --}}
-                                v-on:change="select($event)"
-                                >
-
-                        </th>
+    {{-- </form> --}}
+                        </td>
                     </tr>
-                    <tr class="">
-                        <th class="text-center" style="font-size: 12px; padding:1px;">SSM</th>
-                        <th class="text-center" style="font-size: 12px; padding:1px;">PSI</th>
-                        <th class="text-center" style="font-size: 12px; padding:1px;">Anexa</th>
-                        <th class="text-center" style="font-size: 12px; padding:1px;">E.I.P.</th>
-                    </tr>
-                </thead>
-                <tbody>
+
+
+
+
                     @forelse ($salariati as $salariat)
                         @if ((stripos($salariat->salariat, 'revisal') !== false) || (stripos($salariat->salariat, 'Situatie') !== false))
                             <tr style="background-color:rgb(169, 212, 255)">
@@ -602,23 +624,17 @@
                                         value="{{ $salariat->id }}"
                                         style="padding:10px"
                                         id="{{ $salariat->id }}"
-                                        {{-- @if (old("salariati_selectati"))
-                                            {{ in_array($salariat->id, old("salariati_selectati")) ? "checked":"" }}
-                                        @endif --}}
                                         >
-                                    {{-- <label class="form-check-label" for="{{ $salariat->id }}">
-                                        {{ $salariat->salariat }}
-                                    </label> --}}
                                 </div>
                             </td>
                         </tr>
                     @empty
                         {{-- <div>Nu s-au gasit rezervări în baza de date. Încearcă alte date de căutare</div> --}}
                     @endforelse
+    </form>
                     </tbody>
             </table>
         </div>
-    </form>
                 <nav>
                     <ul class="pagination justify-content-center">
                         {{ $salariati->appends(Request::except('page'))->links() }}

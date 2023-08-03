@@ -31,6 +31,16 @@ class SsmSalariatController extends Controller
         $searchActionar = \Request::get('searchActionar');
         $searchObservatii = \Request::get('searchObservatii');
 
+        if(isset($_GET['butonSortare'])) {
+            $arr = explode(".", $_GET['butonSortare'], 2);
+            $campSortare = $arr[0];
+            $ordineSortare = $arr[1];
+        }
+        if (!isset($campSortare)) {
+            $campSortare = 'salariat';
+            $ordineSortare = 'asc';
+        }
+
         $query = SsmSalariat::
             // when($search_firma, function ($query, $search_firma) {
             //     return $query->where('nume_client', $search_firma);
@@ -69,7 +79,8 @@ class SsmSalariatController extends Controller
                             ->orWhere('observatii_2', 'like', '%' . $searchObservatii . '%');
             });
 
-        $salariati = $query->orderBy('nume_client')
+        $salariati = $query
+                        ->orderBy('nume_client')
                         ->orderByRaw(DB::raw("
                                 case when salariat like '%revisal%' then 0 else 1 end ASC,
                                 case when salariat like '%situatie%' then 0 else 1 end ASC,
@@ -86,7 +97,8 @@ class SsmSalariatController extends Controller
                                     data_incetare like '%cm%'
                                 then 0 else 1 end DESC
                             "))
-                        ->orderBy('salariat')
+                        // ->orderBy('salariat')
+                        ->orderBy($campSortare, $ordineSortare)
                         ->simplePaginate(200);
 
         $nrSalariatiDeRezolvat = SsmSalariat::
