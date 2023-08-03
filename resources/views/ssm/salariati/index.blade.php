@@ -396,7 +396,7 @@
                                 @endif
                                         {{ $salariat->semnat_ssm }}
                                     </span> --}}
-                                <input type="text"
+                                {{-- <input type="text"
                                         style="width: 35px; border: none; padding:0px;
                                             {{
                                                 (stripos($salariat->semnat_ssm, 'client') !== false) ? 'color:rgb(0, 140, 255)' :
@@ -417,7 +417,25 @@
                                         id="semnat_ssm" name="semnat_ssm"
                                         value="{{ $salariat->semnat_ssm }}"
                                         v-on:blur = "axiosActualizeazaSalariat({{ $salariat->id }}, 'semnat_ssm', $event.target.value)"
-                                        >
+                                        > --}}
+                                <select name="semnat_ssm" class="bg-white rounded-3 {{ $errors->has('semnat_ssm') ? 'is-invalid' : '' }}"
+                                        style="width: 35px; border: none; padding:0px; appearance: none;
+                                            {{ $salariat->semnat_ssm === 'client' ? 'color:rgb(0, 140, 255)' : ''}}
+                                            {{ $salariat->semnat_ssm === 'Lipsa' ? 'color:rgb(255, 0, 0)' : ''}}
+                                            {{ $salariat->semnat_ssm === 'comp.la cl.' ? 'color:rgb(0, 180, 75)' : ''}}
+                                            {{ $salariat->semnat_ssm === 'n.de s' ? 'color:blueviolet' : ''}}
+                                        "
+                                        @change="axiosActualizeazaSalariat({{ $salariat->id }}, 'semnat_ssm', $event.target.value)"
+                                    >
+                                    <option value="" selected></option>
+                                    <option value='-' style="color:rgb(0, 0, 0)" {{ $salariat->semnat_ssm === '-' ? 'selected' : ''}}>-</option>
+                                    <option value="client" style="color:rgb(0, 140, 255)" {{ $salariat->semnat_ssm === 'client' ? 'selected' : ''}}><span style="color:rgb(0, 140, 255)">client</span></option>
+                                    <option value="Lipsa" style="color:rgb(255, 0, 0)" {{ $salariat->semnat_ssm === 'Lipsa' ? 'selected' : ''}}>Lipsa</option>
+                                    <option value="comp.la cl." style="color:rgb(0, 180, 75)" {{ $salariat->semnat_ssm === 'comp.la cl.' ? 'selected' : ''}}>comp.la cl.</option>
+                                    <option value="n.de s" style="color:blueviolet" {{ $salariat->semnat_ssm === 'n.de s' ? 'selected' : ''}}>n. de s</option>
+                                    <option value="noi s." style="color:rgb(0, 0, 0)" {{ $salariat->semnat_ssm === 'noi s.' ? 'selected' : ''}}>noi s.</option>
+                                    <option value="noi" style="color:rgb(0, 0, 0)" {{ $salariat->semnat_ssm === 'noi' ? 'selected' : ''}}>noi</option>
+                                </select>
                                 <div v-cloak v-if="(axiosActualizatSalariatId == {{ $salariat->id }}) && (axiosActualizatCamp == 'semnat_ssm')" class="me-2 text-success">
                                     <i class="fas fa-thumbs-up"></i>
                                 </div>
@@ -459,7 +477,6 @@
                                         v-on:blur = "axiosActualizeazaSalariat({{ $salariat->id }}, 'semnat_psi', $event.target.value)"
                                         > --}}
                                 <select name="semnat_psi" class="bg-white rounded-3 {{ $errors->has('semnat_psi') ? 'is-invalid' : '' }}"
-                                         onchange=" this.dataset.chosen = this.value; "
                                         style="width: 35px; border: none; padding:0px; appearance: none;
                                             {{ $salariat->semnat_psi === 'client' ? 'color:rgb(0, 140, 255)' : ''}}
                                             {{ $salariat->semnat_psi === 'Lipsa' ? 'color:rgb(255, 0, 0)' : ''}}
@@ -469,13 +486,13 @@
                                         @change="axiosActualizeazaSalariat({{ $salariat->id }}, 'semnat_psi', $event.target.value)"
                                     >
                                     <option value="" selected></option>
-                                    <option value='-' {{ $salariat->semnat_psi === '-' ? 'selected' : ''}}>-</option>
+                                    <option value='-' style="color:rgb(0, 0, 0)" {{ $salariat->semnat_psi === '-' ? 'selected' : ''}}>-</option>
                                     <option value="client" style="color:rgb(0, 140, 255)" {{ $salariat->semnat_psi === 'client' ? 'selected' : ''}}><span style="color:rgb(0, 140, 255)">client</span></option>
                                     <option value="Lipsa" style="color:rgb(255, 0, 0)" {{ $salariat->semnat_psi === 'Lipsa' ? 'selected' : ''}}>Lipsa</option>
                                     <option value="comp.la cl." style="color:rgb(0, 180, 75)" {{ $salariat->semnat_psi === 'comp.la cl.' ? 'selected' : ''}}>comp.la cl.</option>
                                     <option value="n.de s" style="color:blueviolet" {{ $salariat->semnat_psi === 'n.de s' ? 'selected' : ''}}>n. de s</option>
-                                    <option value="noi s." style="" {{ $salariat->semnat_psi === 'noi s.' ? 'selected' : ''}}>noi s.</option>
-                                    <option value="noi" style="" {{ $salariat->semnat_psi === 'noi' ? 'selected' : ''}}>noi</option>
+                                    <option value="noi s." style="color:rgb(0, 0, 0)" {{ $salariat->semnat_psi === 'noi s.' ? 'selected' : ''}}>noi s.</option>
+                                    <option value="noi" style="color:rgb(0, 0, 0)" {{ $salariat->semnat_psi === 'noi' ? 'selected' : ''}}>noi</option>
                                 </select>
                                 <div v-cloak v-if="(axiosActualizatSalariatId == {{ $salariat->id }}) && (axiosActualizatCamp == 'semnat_psi')" class="me-2 text-success">
                                     <i class="fas fa-thumbs-up"></i>
@@ -526,12 +543,23 @@
                                 @else
                                     {{ $salariat->semnat_anexa }}
                                 @endif --}}
-                                <input type="text"
+                                {{-- <input type="text"
                                         style="width: 30px; border: none; padding:0px; {{ (strpos($salariat->semnat_anexa, 'de s') !== false) ? 'color:rgb(204, 0, 0)' : '' }}"
                                         id="semnat_anexa" name="semnat_anexa"
                                         value="{{ $salariat->semnat_anexa }}"
                                         v-on:blur = "axiosActualizeazaSalariat({{ $salariat->id }}, 'semnat_anexa', $event.target.value)"
-                                        >
+                                        > --}}
+                                <select name="semnat_anexa" class="bg-white rounded-3 {{ $errors->has('semnat_anexa') ? 'is-invalid' : '' }}"
+                                        style="width: 30px; border: none; padding:0px; appearance: none;
+                                            {{ (strpos($salariat->semnat_anexa, 'de s') !== false) ? 'color:rgb(204, 0, 0)' : ''}}
+                                        "
+                                        @change="axiosActualizeazaSalariat({{ $salariat->id }}, 'semnat_anexa', $event.target.value)"
+                                    >
+                                    <option value="" selected></option>
+                                    <option value='-' style="color:rgb(0, 0, 0)" {{ $salariat->semnat_anexa === '-' ? 'selected' : ''}}>-</option>
+                                    <option value='sem' style="color:rgb(0, 0, 0)" {{ $salariat->semnat_anexa === 'sem' ? 'selected' : ''}}>sem</option>
+                                    <option value='de s' style="color:rgb(204, 0, 0)" {{ $salariat->semnat_anexa === 'de s' ? 'selected' : ''}}>de s</option>
+                                </select>
                                 <div v-cloak v-if="(axiosActualizatSalariatId == {{ $salariat->id }}) && (axiosActualizatCamp == 'semnat_anexa')" class="me-2 text-success">
                                     <i class="fas fa-thumbs-up"></i>
                                 </div>
@@ -544,12 +572,23 @@
                                 @else
                                     {{ $salariat->semnat_eip }}
                                 @endif --}}
-                                <input type="text"
+                                {{-- <input type="text"
                                         style="width: 30px; border: none; padding:0px; {{ (strpos($salariat->semnat_eip, 'de s') !== false) ? 'color:rgb(204, 0, 0)' : '' }}"
                                         id="semnat_eip" name="semnat_eip"
                                         value="{{ $salariat->semnat_eip }}"
                                         v-on:blur = "axiosActualizeazaSalariat({{ $salariat->id }}, 'semnat_eip', $event.target.value)"
-                                        >
+                                        > --}}
+                                <select name="semnat_eip" class="bg-white rounded-3 {{ $errors->has('semnat_eip') ? 'is-invalid' : '' }}"
+                                        style="width: 30px; border: none; padding:0px; appearance: none;
+                                            {{ (strpos($salariat->semnat_eip, 'de s') !== false) ? 'color:rgb(204, 0, 0)' : ''}}
+                                        "
+                                        @change="axiosActualizeazaSalariat({{ $salariat->id }}, 'semnat_eip', $event.target.value)"
+                                    >
+                                    <option value="" selected></option>
+                                    <option value='-' style="color:rgb(0, 0, 0)" {{ $salariat->semnat_eip === '-' ? 'selected' : ''}}>-</option>
+                                    <option value='sem' style="color:rgb(0, 0, 0)" {{ $salariat->semnat_eip === 'sem' ? 'selected' : ''}}>sem</option>
+                                    <option value='de s' style="color:rgb(204, 0, 0)" {{ $salariat->semnat_eip === 'de s' ? 'selected' : ''}}>de s</option>
+                                </select>
                                 <div v-cloak v-if="(axiosActualizatSalariatId == {{ $salariat->id }}) && (axiosActualizatCamp == 'semnat_eip')" class="me-2 text-success">
                                     <i class="fas fa-thumbs-up"></i>
                                 </div>

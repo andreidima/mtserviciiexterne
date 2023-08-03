@@ -81,7 +81,9 @@ class SsmSalariatController extends Controller
                                     data_incetare like '%înc%' or
                                     data_incetare like '%lip%' or
                                     data_incetare like '%susp%' or
-                                    data_incetare like '%c.c.c%'
+                                    data_incetare like '%c.c.c%' or
+                                    data_incetare like '%ccc%' or
+                                    data_incetare like '%cm%'
                                 then 0 else 1 end DESC
                             "))
                         ->orderBy('salariat')
