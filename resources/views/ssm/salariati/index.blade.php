@@ -436,7 +436,7 @@
                                 @endif
                                         {{ $salariat->semnat_psi }}
                                     </span> --}}
-                                <input type="text"
+                                {{-- <input type="text"
                                         style="width: 35px; border: none; padding:0px;
                                             {{
                                                 (stripos($salariat->semnat_psi, 'client') !== false) ? 'color:rgb(0, 140, 255)' :
@@ -457,7 +457,26 @@
                                         id="semnat_psi" name="semnat_psi"
                                         value="{{ $salariat->semnat_psi }}"
                                         v-on:blur = "axiosActualizeazaSalariat({{ $salariat->id }}, 'semnat_psi', $event.target.value)"
-                                        >
+                                        > --}}
+                                <select name="semnat_psi" class="bg-white rounded-3 {{ $errors->has('semnat_psi') ? 'is-invalid' : '' }}"
+                                         onchange=" this.dataset.chosen = this.value; "
+                                        style="width: 35px; border: none; padding:0px; appearance: none;
+                                            {{ $salariat->semnat_psi === 'client' ? 'color:rgb(0, 140, 255)' : ''}}
+                                            {{ $salariat->semnat_psi === 'Lipsa' ? 'color:rgb(255, 0, 0)' : ''}}
+                                            {{ $salariat->semnat_psi === 'comp.la cl.' ? 'color:rgb(0, 180, 75)' : ''}}
+                                            {{ $salariat->semnat_psi === 'n.de s' ? 'color:blueviolet' : ''}}
+                                        "
+                                        @change="axiosActualizeazaSalariat({{ $salariat->id }}, 'semnat_psi', $event.target.value)"
+                                    >
+                                    <option value="" selected></option>
+                                    <option value='-' {{ $salariat->semnat_psi === '-' ? 'selected' : ''}}>-</option>
+                                    <option value="client" style="color:rgb(0, 140, 255)" {{ $salariat->semnat_psi === 'client' ? 'selected' : ''}}><span style="color:rgb(0, 140, 255)">client</span></option>
+                                    <option value="Lipsa" style="color:rgb(255, 0, 0)" {{ $salariat->semnat_psi === 'Lipsa' ? 'selected' : ''}}>Lipsa</option>
+                                    <option value="comp.la cl." style="color:rgb(0, 180, 75)" {{ $salariat->semnat_psi === 'comp.la cl.' ? 'selected' : ''}}>comp.la cl.</option>
+                                    <option value="n.de s" style="color:blueviolet" {{ $salariat->semnat_psi === 'n.de s' ? 'selected' : ''}}>n. de s</option>
+                                    <option value="noi s." style="" {{ $salariat->semnat_psi === 'noi s.' ? 'selected' : ''}}>noi s.</option>
+                                    <option value="noi" style="" {{ $salariat->semnat_psi === 'noi' ? 'selected' : ''}}>noi</option>
+                                </select>
                                 <div v-cloak v-if="(axiosActualizatSalariatId == {{ $salariat->id }}) && (axiosActualizatCamp == 'semnat_psi')" class="me-2 text-success">
                                     <i class="fas fa-thumbs-up"></i>
                                 </div>
