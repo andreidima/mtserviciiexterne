@@ -8,7 +8,7 @@
         </script>
 
 @section('content')
-<div class="container card" style="border-radius: 40px 40px 40px 40px;" id="salariatiIndex">
+<div class="card" style="border-radius: 40px 40px 40px 40px;" id="salariatiIndex">
     <form class="needs-validation mb-0" novalidate method="POST" action="/ssm/salariati-modifica-selectati">
         @csrf
 
@@ -270,7 +270,7 @@
                     @csrf
                 <thead class="text-white rounded" style="background-color:#e66800; font-size: 5px !important">
                     <tr class="" style="padding:2rem; font-size: 5px">
-                        <th rowspan="2" class="text-center m-0 p-0" style="font-size: 12px;">
+                        <th rowspan="2" class="text-center m-0 p-0" style="font-size: 14px;">
                             {{-- # --}}
                             <button class="btn btn-sm btn-primary text-white mx-0 py-0 px-1 border-0 rounded-3" type="submit" name="butonSortare" value="nr_crt.asc">
                                 <i class='fas fa-sort-up'></i>
@@ -280,11 +280,11 @@
                                 <i class='fas fa-sort-down'></i>
                             </button>
                         </th>
-                        <th rowspan="2" class="text-center" style=" font-size: 12px; padding:1px;">Acțiuni</th>
-                        <th rowspan="2" class="text-center" style="font-size: 12px; padding:1px;">
+                        <th rowspan="2" class="text-center" style=" font-size: 14px; padding:1px;">Acțiuni</th>
+                        <th rowspan="2" class="text-center" style="font-size: 14px; padding:1px;">
                             Nume client
                         </th>
-                        <th rowspan="2" class="text-center" style="font-size: 12px; padding:1px;">
+                        <th rowspan="2" class="text-center" style="font-size: 14px; padding:1px;">
                             Salariat
                             <button class="btn btn-sm btn-primary text-white mx-0 py-0 px-1 border-0 rounded-3" type="submit" name="butonSortare" value="salariat.asc">
                                 <i class='fas fa-sort-up'></i>
@@ -293,7 +293,7 @@
                                 <i class='fas fa-sort-down'></i>
                             </button>
                         </th>
-                        <th rowspan="2" class="text-center" style="font-size: 12px; padding:1px;">
+                        <th rowspan="2" class="text-center" style="font-size: 14px; padding:1px;">
                             Data<br>SSM/ PSI
                             <br>
                             <button class="btn btn-sm btn-primary text-white mx-0 py-0 px-1 border-0 rounded-3" type="submit" name="butonSortare" value="data_ssm_psi.asc">
@@ -303,8 +303,8 @@
                                 <i class='fas fa-sort-down'></i>
                             </button>
                         </th>
-                        <th colspan="2" class="text-center" style="font-size: 12px; padding:1px;">Semnat</th>
-                        <th rowspan="2" class="text-center" style="font-size: 12px; padding:1px;" v-cloak v-if="modificari_globale">
+                        <th colspan="2" class="text-center" style="font-size: 14px; padding:1px;">Semnat</th>
+                        <th rowspan="2" class="text-center" style="font-size: 14px; padding:1px;" v-cloak v-if="modificari_globale">
                             <input type="checkbox"
                                 class=""
                                 id=""
@@ -314,8 +314,8 @@
                                 >
 
                         </th>
-                        <th rowspan="2" class="text-center" style="font-size: 12px; padding:1px;">CNP</th>
-                        <th rowspan="2" class="text-center" style="font-size: 12px; padding:1px;">
+                        <th rowspan="2" class="text-center" style="font-size: 14px; padding:1px;">CNP</th>
+                        <th rowspan="2" class="text-center" style="font-size: 14px; padding:1px;">
                             Funcția
                             <button class="btn btn-sm btn-primary text-white mx-0 py-0 px-1 border-0 rounded-3" type="submit" name="butonSortare" value="functia.asc">
                                 <i class='fas fa-sort-up'></i>
@@ -324,9 +324,9 @@
                                 <i class='fas fa-sort-down'></i>
                             </button>
                         </th>
-                        <th rowspan="2" class="text-center" style="font-size: 12px; padding:1px;"></th>
-                        <th rowspan="2" class="text-center" style=" font-size: 12px; padding:1px;">Data ang.</th>
-                        <th rowspan="2" class="text-center" style=" font-size: 12px; padding:1px;">
+                        <th rowspan="2" class="text-center" style="font-size: 14px; padding:1px;"></th>
+                        <th rowspan="2" class="text-center" style=" font-size: 14px; padding:1px;">Data ang.</th>
+                        <th rowspan="2" class="text-center" style=" font-size: 14px; padding:1px;">
                             Data înc.
                             <br>
                             <button class="btn btn-sm btn-primary text-white mx-0 py-0 px-1 border-0 rounded-3" type="submit" name="butonSortare" value="data_incetare.asc">
@@ -336,8 +336,8 @@
                                 <i class='fas fa-sort-down'></i>
                             </button>
                         </th>
-                        <th rowspan="2" class="text-center" style="font-size: 12px; padding:1px;">Traseu</th>
-                        <th rowspan="2" class="text-center" style="font-size: 12px; padding:1px;">
+                        <th rowspan="2" class="text-center" style="font-size: 14px; padding:1px;">Traseu</th>
+                        <th rowspan="2" class="text-center" style="font-size: 14px; padding:1px;">
                             Observații
                             <br>
                             <button class="btn btn-sm btn-primary text-white mx-0 py-0 px-1 border-0 rounded-3" type="submit" name="butonSortare" value="observatii_1.asc">
@@ -347,13 +347,13 @@
                                 <i class='fas fa-sort-down'></i>
                             </button>
                         </th>
-                        <th colspan="2" class="text-center" style="font-size: 12px; padding:1px;">Semnat</th>
+                        <th colspan="2" class="text-center" style="font-size: 14px; padding:1px;">Semnat</th>
                     </tr>
                     <tr class="">
-                        <th class="text-center" style="font-size: 12px; padding:1px;">SSM</th>
-                        <th class="text-center" style="font-size: 12px; padding:1px;">PSI</th>
-                        <th class="text-center" style="font-size: 12px; padding:1px;">Anexa</th>
-                        <th class="text-center" style="font-size: 12px; padding:1px;">E.I.P.</th>
+                        <th class="text-center" style="font-size: 14px; padding:1px;">SSM</th>
+                        <th class="text-center" style="font-size: 14px; padding:1px;">PSI</th>
+                        <th class="text-center" style="font-size: 14px; padding:1px;">Anexa</th>
+                        <th class="text-center" style="font-size: 14px; padding:1px;">E.I.P.</th>
                     </tr>
                 </thead>
                 </form>
@@ -371,7 +371,7 @@
                         @else
                             <tr style="">
                         @endif
-                            <td style="font-size: 12px; padding:0px; width: 23px;">
+                            <td style="font-size: 14px; padding:0px; width: 23px;">
                                 {{-- {{ ($salariati ->currentpage()-1) * $salariati ->perpage() + $loop->index + 1 }} --}}
                                 {{-- {{ $salariat->nr_crt }} --}}
                                 <input type="text"
@@ -427,23 +427,23 @@
                                     {{-- </div> --}}
                                 </div>
                             </td>
-                            <td style="font-size: 12px; padding:1px;" title="{{ $salariat->nume_client }}">
+                            <td style="font-size: 14px; padding:1px;" title="{{ $salariat->nume_client }}">
                                 {{ substr($salariat->nume_client, 0, 20) }}
                             </td>
-                            <td style="font-size: 12px; padding:1px;">
+                            <td style="font-size: 14px; padding:1px;">
                                 @if (stripos($salariat->salariat, '3 luni') !== false)
-                                    {!! str_replace("3 luni", "<span class='text-primary' style='font-size: 12px;'>3 luni</span>", $salariat->salariat) !!}
+                                    {!! str_replace("3 luni", "<span class='text-primary' style='font-size: 14px;'>3 luni</span>", $salariat->salariat) !!}
                                 @elseif (stripos($salariat->salariat, '3luni') !== false)
-                                    {!! str_replace("3luni", "<span class='text-primary' style='font-size: 12px;'>3luni</span>", $salariat->salariat) !!}
+                                    {!! str_replace("3luni", "<span class='text-primary' style='font-size: 14px;'>3luni</span>", $salariat->salariat) !!}
                                 @elseif (stripos($salariat->salariat, '6 luni') !== false)
-                                    {!! str_replace("6 luni", "<span class='text-primary' style='font-size: 12px;'>6 luni</span>", $salariat->salariat) !!}
+                                    {!! str_replace("6 luni", "<span class='text-primary' style='font-size: 14px;'>6 luni</span>", $salariat->salariat) !!}
                                 @elseif (stripos($salariat->salariat, '6luni') !== false)
-                                    {!! str_replace("6luni", "<span class='text-primary' style='font-size: 12px;'>6luni</span>", $salariat->salariat) !!}
+                                    {!! str_replace("6luni", "<span class='text-primary' style='font-size: 14px;'>6luni</span>", $salariat->salariat) !!}
                                 @else
                                     {!! $salariat->salariat !!}
                                 @endif
                             </td>
-                            <td style="font-size: 12px; padding:0px;">
+                            <td style="font-size: 14px; padding:0px;">
                                 <input type="text"
                                         style="width: 60px; border: none; padding:0px"
                                         id="data_ssm_psi"
@@ -455,17 +455,17 @@
                                     <i class="fas fa-thumbs-up"></i>
                                 </div>
                             </td>
-                            <td style="font-size: 12px; padding:0px;">
+                            <td style="font-size: 14px; padding:0px;">
                                 {{-- @if (stripos($salariat->semnat_ssm, 'client') !== false)
-                                    <span style="font-size: 12px; color:rgb(0, 140, 255)">
+                                    <span style="font-size: 14px; color:rgb(0, 140, 255)">
                                 @elseif (stripos($salariat->semnat_ssm, 'Lipsa') !== false)
-                                    <span style="font-size: 12px; color:rgb(255, 0, 0)">
+                                    <span style="font-size: 14px; color:rgb(255, 0, 0)">
                                 @elseif (stripos($salariat->semnat_ssm, 'comp.la cl.') !== false)
-                                    <span style="font-size: 12px; color:rgb(0, 180, 75)">
+                                    <span style="font-size: 14px; color:rgb(0, 180, 75)">
                                 @elseif (stripos($salariat->semnat_ssm, 'n.de s') !== false)
-                                    <span style="font-size: 12px; color:blueviolet">
+                                    <span style="font-size: 14px; color:blueviolet">
                                 @else
-                                    <span style="font-size: 12px; color:rgb(0, 0, 0)">
+                                    <span style="font-size: 14px; color:rgb(0, 0, 0)">
                                 @endif
                                         {{ $salariat->semnat_ssm }}
                                     </span> --}}
@@ -515,17 +515,17 @@
                                     <i class="fas fa-thumbs-up"></i>
                                 </div>
                             </td>
-                            <td style="font-size: 12px; padding:0px;">
+                            <td style="font-size: 14px; padding:0px;">
                                 {{-- @if (stripos($salariat->semnat_psi, 'client') !== false)
-                                    <span style="font-size: 12px; color:rgb(0, 140, 255)">
+                                    <span style="font-size: 14px; color:rgb(0, 140, 255)">
                                 @elseif (stripos($salariat->semnat_psi, 'Lipsa') !== false)
-                                    <span style="font-size: 12px; color:rgb(255, 0, 0)">
+                                    <span style="font-size: 14px; color:rgb(255, 0, 0)">
                                 @elseif (stripos($salariat->semnat_psi, 'comp.la cl.') !== false)
-                                    <span style="font-size: 12px; color:rgb(0, 180, 75)">
+                                    <span style="font-size: 14px; color:rgb(0, 180, 75)">
                                 @elseif (stripos($salariat->semnat_psi, 'n.de s') !== false)
-                                    <span style="font-size: 12px; color:blueviolet">
+                                    <span style="font-size: 14px; color:blueviolet">
                                 @else
-                                    <span style="font-size: 12px; color:rgb(0, 0, 0)">
+                                    <span style="font-size: 14px; color:rgb(0, 0, 0)">
                                 @endif
                                         {{ $salariat->semnat_psi }}
                                     </span> --}}
@@ -593,46 +593,46 @@
                                     </label> --}}
                                 </div>
                             </td>
-                            <td style="font-size: 12px; padding:1px;">
+                            <td style="font-size: 14px; padding:1px;">
                                 {{ $salariat->cnp }}
                             </td>
-                            <td style="font-size: 12px; padding:1px;" title="{{ $salariat->functia }}">
+                            <td style="font-size: 14px; padding:1px;" title="{{ $salariat->functia }}">
                                 {{-- @php
                                 $salariatFunctia = substr($salariat->functia, 0, 20);
                                     if (stripos($salariatFunctia, 'adm.') !== false){
-                                        $salariatFunctia = str_replace("adm.", "<span style='font-size: 12px; color:blueviolet'>adm.</span>", $salariatFunctia);
+                                        $salariatFunctia = str_replace("adm.", "<span style='font-size: 14px; color:blueviolet'>adm.</span>", $salariatFunctia);
                                     } elseif (stripos($salariatFunctia, 'adm') !== false){
-                                        $salariatFunctia = str_replace("adm", "<span style='font-size: 12px; color:blueviolet'>adm</span>", $salariatFunctia);
+                                        $salariatFunctia = str_replace("adm", "<span style='font-size: 14px; color:blueviolet'>adm</span>", $salariatFunctia);
                                     }
-                                    $salariatFunctia = str_replace("pers. des.", "<span style='font-size: 12px; color:blueviolet'>pers. des.</span>", $salariatFunctia);
+                                    $salariatFunctia = str_replace("pers. des.", "<span style='font-size: 14px; color:blueviolet'>pers. des.</span>", $salariatFunctia);
                                 @endphp
                                 {!! $salariatFunctia !!} --}}
                                 @if ((stripos($salariat->functia, 'adm.') !== false) || (stripos($salariat->functia, 'adm') !== false) || (stripos($salariat->functia, 'pers. des.') !== false))
-                                    <span style='font-size: 12px; color:blueviolet'>{{ substr($salariat->functia, 0, 20) }}</span>
+                                    <span style='font-size: 14px; color:blueviolet'>{{ substr($salariat->functia, 0, 20) }}</span>
                                 @else
                                     {{ substr($salariat->functia, 0, 20) }}
                                 @endif
                             </td>
-                            <td class="text-center" style="font-size: 12px; padding:1px;">
+                            <td class="text-center" style="font-size: 14px; padding:1px;">
                                 {{ $salariat->actionar }}
                             </td>
-                            <td style="font-size: 12px; padding:1px;">
+                            <td style="font-size: 14px; padding:1px;">
                                 {{ $salariat->data_angajare }}
                             </td>
-                            <td style="font-size: 12px; padding:1px;">
+                            <td style="font-size: 14px; padding:1px;">
                                 {{ $salariat->data_incetare }}
                             </td>
-                            <td style="font-size: 12px; padding:1px;">
+                            <td style="font-size: 14px; padding:1px;">
                                 {{ $salariat->traseu }}
                             </td>
-                            <td style="font-size: 12px; padding:1px;">
+                            <td style="font-size: 14px; padding:1px;">
                                 {{ $salariat->observatii_1 ? ($salariat->observatii_1 . '.') : ''}}
                                 {{ $salariat->observatii_2 ? ($salariat->observatii_2 . '.') : ''}}
                                 {{-- {{ $salariat->observatii_3 ? ($salariat->observatii_3 . '') : ''}} --}}
                             </td>
-                            <td style="font-size: 12px; padding:1px;">
+                            <td style="font-size: 14px; padding:1px;">
                                 {{-- @if ((strpos($salariat->semnat_anexa, 'de s') !== false))
-                                    <span style="font-size: 12px; color:rgb(204, 0, 0)">
+                                    <span style="font-size: 14px; color:rgb(204, 0, 0)">
                                         {{ $salariat->semnat_anexa }}
                                     </span>
                                 @else
@@ -661,9 +661,9 @@
                                     <i class="fas fa-thumbs-up"></i>
                                 </div>
                             </td>
-                            <td style="font-size: 12px; padding:1px;">
+                            <td style="font-size: 14px; padding:1px;">
                                 {{-- @if ((strpos($salariat->semnat_eip, 'de s') !== false))
-                                    <span style="font-size: 12px; color:rgb(204, 0, 0)">
+                                    <span style="font-size: 14px; color:rgb(204, 0, 0)">
                                         {{ $salariat->semnat_eip }}
                                     </span>
                                 @else
