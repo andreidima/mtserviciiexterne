@@ -270,7 +270,16 @@
                     @csrf
                 <thead class="text-white rounded" style="background-color:#e66800; font-size: 5px !important">
                     <tr class="" style="padding:2rem; font-size: 5px">
-                        <th rowspan="2" class="text-center" style="font-size: 12px; padding:1px;">#</th>
+                        <th rowspan="2" class="text-center m-0 p-0" style="font-size: 12px;">
+                            {{-- # --}}
+                            <button class="btn btn-sm btn-primary text-white mx-0 py-0 px-1 border-0 rounded-3" type="submit" name="butonSortare" value="nr_crt.asc">
+                                <i class='fas fa-sort-up'></i>
+                            </button>
+                            <br>
+                            <button class="btn btn-sm btn-primary text-white mx-0 py-0 px-1 border-0 rounded-3" type="submit" name="butonSortare" value="nr_crt.desc">
+                                <i class='fas fa-sort-down'></i>
+                            </button>
+                        </th>
                         <th rowspan="2" class="text-center" style=" font-size: 12px; padding:1px;">Acțiuni</th>
                         <th rowspan="2" class="text-center" style="font-size: 12px; padding:1px;">
                             Nume client
@@ -286,6 +295,7 @@
                         </th>
                         <th rowspan="2" class="text-center" style="font-size: 12px; padding:1px;">
                             Data<br>SSM/ PSI
+                            <br>
                             <button class="btn btn-sm btn-primary text-white mx-0 py-0 px-1 border-0 rounded-3" type="submit" name="butonSortare" value="data_ssm_psi.asc">
                                 <i class='fas fa-sort-up'></i>
                             </button>
@@ -294,6 +304,16 @@
                             </button>
                         </th>
                         <th colspan="2" class="text-center" style="font-size: 12px; padding:1px;">Semnat</th>
+                        <th rowspan="2" class="text-center" style="font-size: 12px; padding:1px;" v-cloak v-if="modificari_globale">
+                            <input type="checkbox"
+                                class=""
+                                id=""
+                                style="padding:10px; width:20px; height:20px"
+                                {{-- v-on:change="select({{ $categorie->id }})" --}}
+                                v-on:change="select($event)"
+                                >
+
+                        </th>
                         <th rowspan="2" class="text-center" style="font-size: 12px; padding:1px;">CNP</th>
                         <th rowspan="2" class="text-center" style="font-size: 12px; padding:1px;">
                             Funcția
@@ -308,6 +328,7 @@
                         <th rowspan="2" class="text-center" style=" font-size: 12px; padding:1px;">Data ang.</th>
                         <th rowspan="2" class="text-center" style=" font-size: 12px; padding:1px;">
                             Data înc.
+                            <br>
                             <button class="btn btn-sm btn-primary text-white mx-0 py-0 px-1 border-0 rounded-3" type="submit" name="butonSortare" value="data_incetare.asc">
                                 <i class='fas fa-sort-up'></i>
                             </button>
@@ -318,6 +339,7 @@
                         <th rowspan="2" class="text-center" style="font-size: 12px; padding:1px;">Traseu</th>
                         <th rowspan="2" class="text-center" style="font-size: 12px; padding:1px;">
                             Observații
+                            <br>
                             <button class="btn btn-sm btn-primary text-white mx-0 py-0 px-1 border-0 rounded-3" type="submit" name="butonSortare" value="observatii_1.asc">
                                 <i class='fas fa-sort-up'></i>
                             </button>
@@ -326,16 +348,6 @@
                             </button>
                         </th>
                         <th colspan="2" class="text-center" style="font-size: 12px; padding:1px;">Semnat</th>
-                        <th rowspan="2" class="text-center" style="font-size: 12px; padding:1px;" v-cloak v-if="modificari_globale">
-                            <input type="checkbox"
-                                class="form-check-input"
-                                id=""
-                                style="padding:10px"
-                                {{-- v-on:change="select({{ $categorie->id }})" --}}
-                                v-on:change="select($event)"
-                                >
-
-                        </th>
                     </tr>
                     <tr class="">
                         <th class="text-center" style="font-size: 12px; padding:1px;">SSM</th>
@@ -359,8 +371,19 @@
                         @else
                             <tr style="">
                         @endif
-                            <td style="font-size: 12px; padding:1px;">
-                                {{ ($salariati ->currentpage()-1) * $salariati ->perpage() + $loop->index + 1 }}
+                            <td style="font-size: 12px; padding:0px; width: 23px;">
+                                {{-- {{ ($salariati ->currentpage()-1) * $salariati ->perpage() + $loop->index + 1 }} --}}
+                                {{-- {{ $salariat->nr_crt }} --}}
+                                <input type="text"
+                                        style="width: 23px; border: none; padding:0px"
+                                        id="nr_crt"
+                                        {{-- name="nr_crt" --}}
+                                        value="{{ $salariat->nr_crt }}"
+                                        v-on:blur = "axiosActualizeazaSalariat({{ $salariat->id }}, 'nr_crt', $event.target.value)"
+                                        >
+                                <div v-cloak v-if="(axiosActualizatSalariatId == {{ $salariat->id }}) && (axiosActualizatCamp == 'nr_crt')" class="me-2 text-success">
+                                    <i class="fas fa-thumbs-up"></i>
+                                </div>
                             </td>
                             <td class="p-0 text-center">
                                 <div class="d-flex justify-content-end">
@@ -552,6 +575,24 @@
                                     <i class="fas fa-thumbs-up"></i>
                                 </div>
                             </td>
+                            <td v-cloak v-if="modificari_globale" style="font-size: 10px; padding:0px; background-color:rgb(191, 253, 253);">
+                                <div class="form-check text-center p-0 m-0">
+                                    <input type="checkbox"
+                                        class="p-0 m-0"
+                                        {{-- name="salariati_selectati[]" --}}
+                                        v-model="salariati_selectati"
+                                        value="{{ $salariat->id }}"
+                                        style="width:20px; height:20px"
+                                        id="{{ $salariat->id }}"
+                                        {{-- @if (old("salariati_selectati"))
+                                            {{ in_array($salariat->id, old("salariati_selectati")) ? "checked":"" }}
+                                        @endif --}}
+                                        >
+                                    {{-- <label class="form-check-label" for="{{ $salariat->id }}">
+                                        {{ $salariat->salariat }}
+                                    </label> --}}
+                                </div>
+                            </td>
                             <td style="font-size: 12px; padding:1px;">
                                 {{ $salariat->cnp }}
                             </td>
@@ -649,24 +690,6 @@
                                 </select>
                                 <div v-cloak v-if="(axiosActualizatSalariatId == {{ $salariat->id }}) && (axiosActualizatCamp == 'semnat_eip')" class="me-2 text-success">
                                     <i class="fas fa-thumbs-up"></i>
-                                </div>
-                            </td>
-                            <td v-cloak v-if="modificari_globale" style="font-size: 10px; padding:1px; background-color:lightcyan">
-                                <div class="form-check text-center">
-                                    <input type="checkbox"
-                                        class="form-check-input"
-                                        {{-- name="salariati_selectati[]" --}}
-                                        v-model="salariati_selectati"
-                                        value="{{ $salariat->id }}"
-                                        style="padding:10px"
-                                        id="{{ $salariat->id }}"
-                                        {{-- @if (old("salariati_selectati"))
-                                            {{ in_array($salariat->id, old("salariati_selectati")) ? "checked":"" }}
-                                        @endif --}}
-                                        >
-                                    {{-- <label class="form-check-label" for="{{ $salariat->id }}">
-                                        {{ $salariat->salariat }}
-                                    </label> --}}
                                 </div>
                             </td>
                         </tr>
