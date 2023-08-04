@@ -234,10 +234,12 @@ class SsmSalariatController extends Controller
 
     public function modificaSelectati(Request $request)
     {
+        $request->request->add(['salariati_selectati' => explode(',', $request->salariati_selectati)]); // salariati_selectati vine string din formular
+
         $request->validate(
             [
                 'salariati_selectati' => 'required|array|between:1,100',
-                'nume_client' => 'required_without_all:functia,traseu,data_ssm_psi,semnat_ssm,semnat_psi,semnat_anexa,semnat_eip|max:200',
+                'nume_client' => 'required_without_all:functia,traseu,modificariGlobaleData_ssm_psi,modificariGlobaleSemnat_ssm,modificariGlobaleSemnat_psi,modificariGlobaleSemnatAnexa,modificariGlobaleSemnatEip,modificariGlobaleObservatii|max:200',
                 'functia' => 'nullable|max:200',
                 'traseu' => 'nullable|max:200',
                 'modificariGlobaleObservatii' => 'nullable|max:200',
@@ -245,7 +247,7 @@ class SsmSalariatController extends Controller
                 'modificariGlobaleSemnat_ssm' => 'nullable|max:200',
                 'modificariGlobaleSemnat_psi' => 'nullable|max:200',
                 'modificariGlobaleSemnatAnexa' => 'nullable|max:200',
-                'semnat_eip' => 'nullable|max:200',
+                'modificariGlobaleSemnatEip' => 'nullable|max:200',
             ],
             [
                 'salariati_selectati.required' => 'Nu ați selectat nici un salariat!',

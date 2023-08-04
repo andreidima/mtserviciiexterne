@@ -1,8 +1,139 @@
 @extends ('layouts.app')
 
+        <script type="application/javascript">
+            modificariGlobale = @json(old('modificariGlobale') ?? false);
+
+            salariati={!! json_encode($salariati->items()) !!}
+            salariatiSelectati={!! json_encode(old('salariati_selectati', [])) !!}
+        </script>
 
 @section('content')
 <div class="container card" style="border-radius: 40px 40px 40px 40px;" id="salariatiIndex">
+    <form class="needs-validation mb-0" novalidate method="POST" action="/ssm/salariati-modifica-selectati">
+        @csrf
+
+        <div v-cloak v-if="modificari_globale" class="row justify-content-center">
+            <div class="col-lg-8 mb-2 rounded-3" style="background-color:lightcyan">
+                <div class="row justify-content-center">
+                    <div class="col-md-3 mb-2">
+
+                        {{-- Daca validarea da eroare, se intoarce inapoi cu modificariGlobale=true, ca sa nu fie ascunse optiunile de modificari globale --}}
+                        <input
+                            type="hidden"
+                            name="modificariGlobale"
+                            value="true">
+
+                        {{-- Se trimit intr-un string toti salariatii care sunt selectati in tabel --}}
+                        <input type="hidden"
+                            name="salariati_selectati"
+                            v-model="salariati_selectati">
+
+                        <small for="nume_client" class="mb-0 ps-3">Nume client</small>
+                        <input
+                            type="text"
+                            class="form-control form-control-sm rounded-3 {{ $errors->has('nume_client') ? 'is-invalid' : '' }}"
+                            name="nume_client"
+                            value="{{ old('nume_client') }}">
+                    </div>
+                    <div class="col-md-3 mb-2">
+                        <small for="functia" class="mb-0 ps-3">Funcție</small>
+                        <input
+                            type="text"
+                            class="form-control form-control-sm rounded-3 {{ $errors->has('functia') ? 'is-invalid' : '' }}"
+                            name="functia"
+                            value="{{ old('functia') }}">
+                    </div>
+                    <div class="col-md-3 mb-2">
+                        <small for="traseu" class="mb-0 ps-3">Traseu</small>
+                        <input
+                            type="text"
+                            class="form-control form-control-sm rounded-3 {{ $errors->has('traseu') ? 'is-invalid' : '' }}"
+                            name="traseu"
+                            value="{{ old('traseu') }}">
+                    </div>
+                    <div class="col-md-3 mb-2">
+                        <small for="modificariGlobaleObservatii" class="mb-0 ps-3">Observații</small>
+                        <input
+                            type="text"
+                            class="form-control form-control-sm rounded-3 {{ $errors->has('modificariGlobaleObservatii') ? 'is-invalid' : '' }}"
+                            name="modificariGlobaleObservatii"
+                            value="{{ old('modificariGlobaleObservatii') }}">
+                    </div>
+                </div>
+                <div class="row justify-content-center">
+                    <div class="col-md-2 mb-2">
+                        {{-- <label for="modificariGlobaleData_ssm_psi" class="mb-0 ps-1">Data SSM/PSI</label> --}}
+                        <small for="modificariGlobaleData_ssm_psi" class="mb-0 ps-1">Data SSM/PSI</small>
+                        <input
+                            type="text"
+                            class="form-control form-control-sm rounded-3 {{ $errors->has('modificariGlobaleData_ssm_psi') ? 'is-invalid' : '' }}"
+                            name="modificariGlobaleData_ssm_psi"
+                            value="{{ old('modificariGlobaleData_ssm_psi') }}">
+                    </div>
+                    <div class="col-lg-2 mb-2">
+                        <small for="modificariGlobaleSemnat_ssm" class="mb-0 ps-1">Semnat SSM</small>
+                        <select name="modificariGlobaleSemnat_ssm" class="form-select form-select-sm bg-white rounded-3 {{ $errors->has('modificariGlobaleSemnat_ssm') ? 'is-invalid' : '' }}">
+                            <option value="" selected></option>
+                            <option value='-'>-</option>
+                            <option value="client" style="color:rgb(0, 140, 255)" {{ old('modificariGlobaleSemnat_ssm') === 'client' ? 'selected' : ''}}>client</option>
+                            <option value="Lipsa" style="color:rgb(255, 0, 0)" {{ old('modificariGlobaleSemnat_ssm') === 'Lipsa' ? 'selected' : ''}}>Lipsa</option>
+                            <option value="comp.la cl." style="color:rgb(0, 180, 75)" {{ old('modificariGlobaleSemnat_ssm') === 'comp.la cl.' ? 'selected' : ''}}>comp.la cl.</option>
+                            <option value="n.de s" style="color:blueviolet" {{ old('modificariGlobaleSemnat_ssm') === 'n.de s' ? 'selected' : ''}}>n. de s</option>
+                            <option value="noi s." style="" {{ old('modificariGlobaleSemnat_ssm') === 'noi s.' ? 'selected' : ''}}>noi s.</option>
+                            <option value="noi" style="" {{ old('modificariGlobaleSemnat_ssm') === 'noi' ? 'selected' : ''}}>noi</option>
+                            {{-- <option value='-'>-</option>
+                            <option value="n.de s" style="color:blueviolet" {{ old('semnat_ssm') === 'n.de s' ? 'selected' : ''}}>n. de s</option>
+                            <option value="noi s." style="" {{ old('semnat_ssm') === 'noi s.' ? 'selected' : ''}}>noi s.</option>
+                            <option value="cl.de s" style="color:rgb(0, 96, 175)" {{ old('semnat_ssm') === 'cl.de s' ? 'selected' : ''}}>cl.de s</option> --}}
+                        </select>
+                    </div>
+                    <div class="col-lg-2 mb-2">
+                        <small for="modificariGlobaleSemnat_psi" class="mb-0 ps-1">Semnat PSI</small>
+                        <select name="modificariGlobaleSemnat_psi" class="form-select form-select-sm bg-white rounded-3 {{ $errors->has('modificariGlobaleSemnat_psi') ? 'is-invalid' : '' }}">
+                            <option value="" selected></option>
+                            <option value='-'>-</option>
+                            <option value="client" style="color:rgb(0, 140, 255)" {{ old('modificariGlobaleSemnat_psi') === 'client' ? 'selected' : ''}}>client</option>
+                            <option value="Lipsa" style="color:rgb(255, 0, 0)" {{ old('modificariGlobaleSemnat_psi') === 'Lipsa' ? 'selected' : ''}}>Lipsa</option>
+                            <option value="comp.la cl." style="color:rgb(0, 180, 75)" {{ old('modificariGlobaleSemnat_psi') === 'comp.la cl.' ? 'selected' : ''}}>comp.la cl.</option>
+                            <option value="n.de s" style="color:blueviolet" {{ old('modificariGlobaleSemnat_psi') === 'n.de s' ? 'selected' : ''}}>n. de s</option>
+                            <option value="noi s." style="" {{ old('modificariGlobaleSemnat_psi') === 'noi s.' ? 'selected' : ''}}>noi s.</option>
+                            <option value="noi" style="" {{ old('modificariGlobaleSemnat_psi') === 'noi' ? 'selected' : ''}}>noi</option>
+                            {{-- <option value='-'>-</option>
+                            <option value="n.de s" style="color:blueviolet" {{ old('semnat_psi') === 'n.de s' ? 'selected' : ''}}>n.de s</option>
+                            <option value="noi s." style="" {{ old('semnat_psi') === 'noi s.' ? 'selected' : ''}}>noi s.</option>
+                            <option value="cl.de s" style="color:rgb(0, 96, 175)" {{ old('semnat_psi') === 'cl.de s' ? 'selected' : ''}}>cl.de s</option> --}}
+                        </select>
+                    </div>
+                    <div class="col-lg-2 mb-2">
+                        <small for="modificariGlobaleSemnatAnexa" class="mb-0 ps-1">Semnat Anexa</small>
+                        <select name="modificariGlobaleSemnatAnexa" class="form-select form-select-sm bg-white rounded-3 {{ $errors->has('modificariGlobaleSemnatAnexa') ? 'is-invalid' : '' }}">
+                            <option value="" selected></option>
+                            <option value='-'>-</option>
+                            <option value="sem" style="" {{ old('modificariGlobaleSemnatAnexa') === 'sem' ? 'selected' : ''}}>sem</option>
+                            <option value="de s" style="color:rgb(204, 0, 0)" {{ old('modificariGlobaleSemnatAnexa') === 'de s' ? 'selected' : ''}}>de s</option>
+                        </select>
+                    </div>
+                    <div class="col-lg-2 mb-2">
+                        <small for="modificariGlobaleSemnatEip" class="mb-0 ps-1">Semnat E.I.P.</small>
+                        <select name="modificariGlobaleSemnatEip" class="form-select form-select-sm bg-white rounded-3 {{ $errors->has('modificariGlobaleSemnatEip') ? 'is-invalid' : '' }}">
+                            <option value="" selected></option>
+                            <option value='-'>-</option>
+                            <option value="sem" style="" {{ old('modificariGlobaleSemnatEip') === 'sem' ? 'selected' : ''}}>sem</option>
+                            <option value="de s" style="color:rgb(204, 0, 0)" {{ old('modificariGlobaleSemnatEip') === 'de s' ? 'selected' : ''}}>de s</option>
+                        </select>
+                    </div>
+
+                    <div class="col-lg-12 mb-2 text-center">
+                        <button class="btn btn-sm btn-primary text-white me-3 border border-dark rounded-3" type="submit">
+                            Modifică toți salariații selectați
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    <form class="needs-validation" novalidate method="GET" action="/ssm/salariati">
+        @csrf
         <div class="row p-1 card-header align-items-center" style="border-radius: 40px 40px 0px 0px;">
             <div class="col-lg-2">
                 <h4 class="mb-0">
@@ -12,8 +143,6 @@
                 </h4>
             </div>
             <div class="col-lg-8">
-                <form class="needs-validation" novalidate method="GET" action="/ssm/salariati">
-                    @csrf
                     <div class="row mb-1 input-group custom-search-form justify-content-center">
                         {{-- <div class="col-md-3">
                             <select class="form-select form-select-sm mb-1" id="search_firma" name="search_firma" >
@@ -137,32 +266,65 @@
         <div class="table-responsive rounded">
             <table class="table table-striped table-hover table-bordered border-secondary rounded-3" style=" font-size: 5px !important">
 
-                <thead class="text-white rounded" style="background-color:#e66800; font-size: 5px !important">
+                <form class="needs-validation" novalidate method="GET" action="/ssm/salariati">
                     @csrf
+                <thead class="text-white rounded" style="background-color:#e66800; font-size: 5px !important">
                     <tr class="" style="padding:2rem; font-size: 5px">
                         <th rowspan="2" class="text-center" style="font-size: 12px; padding:1px;">#</th>
                         <th rowspan="2" class="text-center" style=" font-size: 12px; padding:1px;">Acțiuni</th>
-                        <th rowspan="2" class="text-center" style="font-size: 12px; padding:1px;">Nume client</th>
+                        <th rowspan="2" class="text-center" style="font-size: 12px; padding:1px;">
+                            Nume client
+                        </th>
                         <th rowspan="2" class="text-center" style="font-size: 12px; padding:1px;">
                             Salariat
-                            <button class="btn btn-sm btn-primary text-white mx-0 py-0 px-2 border-0 rounded-3" type="submit" name="butonSortare" value="salariat.asc">
+                            <button class="btn btn-sm btn-primary text-white mx-0 py-0 px-1 border-0 rounded-3" type="submit" name="butonSortare" value="salariat.asc">
                                 <i class='fas fa-sort-up'></i>
                             </button>
-                            <button class="btn btn-sm btn-primary text-white mx-0 py-0 px-2 border-0 rounded-3" type="submit" name="butonSortare" value="salariat.desc">
+                            <button class="btn btn-sm btn-primary text-white mx-0 py-0 px-1 border-0 rounded-3" type="submit" name="butonSortare" value="salariat.desc">
                                 <i class='fas fa-sort-down'></i>
                             </button>
                         </th>
                         <th rowspan="2" class="text-center" style="font-size: 12px; padding:1px;">
                             Data<br>SSM/ PSI
+                            <button class="btn btn-sm btn-primary text-white mx-0 py-0 px-1 border-0 rounded-3" type="submit" name="butonSortare" value="data_ssm_psi.asc">
+                                <i class='fas fa-sort-up'></i>
+                            </button>
+                            <button class="btn btn-sm btn-primary text-white mx-0 py-0 px-1 border-0 rounded-3" type="submit" name="butonSortare" value="data_ssm_psi.desc">
+                                <i class='fas fa-sort-down'></i>
+                            </button>
                         </th>
                         <th colspan="2" class="text-center" style="font-size: 12px; padding:1px;">Semnat</th>
                         <th rowspan="2" class="text-center" style="font-size: 12px; padding:1px;">CNP</th>
-                        <th rowspan="2" class="text-center" style="font-size: 12px; padding:1px;">Funcția</th>
+                        <th rowspan="2" class="text-center" style="font-size: 12px; padding:1px;">
+                            Funcția
+                            <button class="btn btn-sm btn-primary text-white mx-0 py-0 px-1 border-0 rounded-3" type="submit" name="butonSortare" value="functia.asc">
+                                <i class='fas fa-sort-up'></i>
+                            </button>
+                            <button class="btn btn-sm btn-primary text-white mx-0 py-0 px-1 border-0 rounded-3" type="submit" name="butonSortare" value="functia.desc">
+                                <i class='fas fa-sort-down'></i>
+                            </button>
+                        </th>
                         <th rowspan="2" class="text-center" style="font-size: 12px; padding:1px;"></th>
                         <th rowspan="2" class="text-center" style=" font-size: 12px; padding:1px;">Data ang.</th>
-                        <th rowspan="2" class="text-center" style=" font-size: 12px; padding:1px;">Data înc.</th>
+                        <th rowspan="2" class="text-center" style=" font-size: 12px; padding:1px;">
+                            Data înc.
+                            <button class="btn btn-sm btn-primary text-white mx-0 py-0 px-1 border-0 rounded-3" type="submit" name="butonSortare" value="data_incetare.asc">
+                                <i class='fas fa-sort-up'></i>
+                            </button>
+                            <button class="btn btn-sm btn-primary text-white mx-0 py-0 px-1 border-0 rounded-3" type="submit" name="butonSortare" value="data_incetare.desc">
+                                <i class='fas fa-sort-down'></i>
+                            </button>
+                        </th>
                         <th rowspan="2" class="text-center" style="font-size: 12px; padding:1px;">Traseu</th>
-                        <th rowspan="2" class="text-center" style="font-size: 12px; padding:1px;">Observații</th>
+                        <th rowspan="2" class="text-center" style="font-size: 12px; padding:1px;">
+                            Observații
+                            <button class="btn btn-sm btn-primary text-white mx-0 py-0 px-1 border-0 rounded-3" type="submit" name="butonSortare" value="observatii_1.asc">
+                                <i class='fas fa-sort-up'></i>
+                            </button>
+                            <button class="btn btn-sm btn-primary text-white mx-0 py-0 px-1 border-0 rounded-3" type="submit" name="butonSortare" value="observatii_1.desc">
+                                <i class='fas fa-sort-down'></i>
+                            </button>
+                        </th>
                         <th colspan="2" class="text-center" style="font-size: 12px; padding:1px;">Semnat</th>
                         <th rowspan="2" class="text-center" style="font-size: 12px; padding:1px;" v-cloak v-if="modificari_globale">
                             <input type="checkbox"
@@ -181,144 +343,9 @@
                         <th class="text-center" style="font-size: 12px; padding:1px;">Anexa</th>
                         <th class="text-center" style="font-size: 12px; padding:1px;">E.I.P.</th>
                     </tr>
-                </form>
                 </thead>
+                </form>
                 <tbody>
-<script type="application/javascript">
-    modificariGlobale = @json(old('modificariGlobale') ?? false);
-
-    salariati={!! json_encode($salariati->items()) !!};
-    // salariatiSelectati={!! json_encode(old('salariati_selectati', [])) !!};
-    // salariatiSelectati={!! json_encode([]) !!};
-</script>
-    <form class="needs-validation" novalidate method="POST" action="/ssm/salariati-modifica-selectati">
-        @csrf
-                    <tr>
-                        <td colspan="16">
-
-
-
-        <div v-cloak v-if="modificari_globale" class="row justify-content-center">
-            <div class="col-lg-8 mb-2 rounded-3" style="background-color:lightcyan">
-                <div class="row justify-content-center">
-                    <div class="col-md-3 mb-2">
-
-                        {{-- Daca validarea da eroare, se intoarce inapoi cu modificariGlobale=true, ca sa nu fie ascunse optiunile de modificari globale --}}
-                        <input
-                            type="hidden"
-                            name="modificariGlobale"
-                            value="true">
-
-                        <small for="nume_client" class="mb-0 ps-3">Nume client</small>
-                        <input
-                            type="text"
-                            class="form-control form-control-sm rounded-3 {{ $errors->has('nume_client') ? 'is-invalid' : '' }}"
-                            name="nume_client"
-                            value="{{ old('nume_client') }}">
-                    </div>
-                    <div class="col-md-3 mb-2">
-                        <small for="functia" class="mb-0 ps-3">Funcție</small>
-                        <input
-                            type="text"
-                            class="form-control form-control-sm rounded-3 {{ $errors->has('functia') ? 'is-invalid' : '' }}"
-                            name="functia"
-                            value="{{ old('functia') }}">
-                    </div>
-                    <div class="col-md-3 mb-2">
-                        <small for="traseu" class="mb-0 ps-3">Traseu</small>
-                        <input
-                            type="text"
-                            class="form-control form-control-sm rounded-3 {{ $errors->has('traseu') ? 'is-invalid' : '' }}"
-                            name="traseu"
-                            value="{{ old('traseu') }}">
-                    </div>
-                    <div class="col-md-3 mb-2">
-                        <small for="modificariGlobaleObservatii" class="mb-0 ps-3">Observații</small>
-                        <input
-                            type="text"
-                            class="form-control form-control-sm rounded-3 {{ $errors->has('modificariGlobaleObservatii') ? 'is-invalid' : '' }}"
-                            name="modificariGlobaleObservatii"
-                            value="{{ old('modificariGlobaleObservatii') }}">
-                    </div>
-                </div>
-                <div class="row justify-content-center">
-                    <div class="col-md-2 mb-2">
-                        {{-- <label for="modificariGlobaleData_ssm_psi" class="mb-0 ps-1">Data SSM/PSI</label> --}}
-                        <small for="modificariGlobaleData_ssm_psi" class="mb-0 ps-1">Data SSM/PSI</small>
-                        <input
-                            type="text"
-                            class="form-control form-control-sm rounded-3 {{ $errors->has('modificariGlobaleData_ssm_psi') ? 'is-invalid' : '' }}"
-                            name="modificariGlobaleData_ssm_psi"
-                            value="{{ old('modificariGlobaleData_ssm_psi') }}">
-                    </div>
-                    <div class="col-lg-2 mb-2">
-                        <small for="modificariGlobaleSemnat_ssm" class="mb-0 ps-1">Semnat SSM</small>
-                        <select name="modificariGlobaleSemnat_ssm" class="form-select form-select-sm bg-white rounded-3 {{ $errors->has('modificariGlobaleSemnat_ssm') ? 'is-invalid' : '' }}">
-                            <option value="" selected></option>
-                            <option value='-'>-</option>
-                            <option value="client" style="color:rgb(0, 140, 255)" {{ old('modificariGlobaleSemnat_ssm') === 'client' ? 'selected' : ''}}>client</option>
-                            <option value="Lipsa" style="color:rgb(255, 0, 0)" {{ old('modificariGlobaleSemnat_ssm') === 'Lipsa' ? 'selected' : ''}}>Lipsa</option>
-                            <option value="comp.la cl." style="color:rgb(0, 180, 75)" {{ old('modificariGlobaleSemnat_ssm') === 'comp.la cl.' ? 'selected' : ''}}>comp.la cl.</option>
-                            <option value="n.de s" style="color:blueviolet" {{ old('modificariGlobaleSemnat_ssm') === 'n.de s' ? 'selected' : ''}}>n. de s</option>
-                            <option value="noi s." style="" {{ old('modificariGlobaleSemnat_ssm') === 'noi s.' ? 'selected' : ''}}>noi s.</option>
-                            <option value="noi" style="" {{ old('modificariGlobaleSemnat_ssm') === 'noi' ? 'selected' : ''}}>noi</option>
-                            {{-- <option value='-'>-</option>
-                            <option value="n.de s" style="color:blueviolet" {{ old('semnat_ssm') === 'n.de s' ? 'selected' : ''}}>n. de s</option>
-                            <option value="noi s." style="" {{ old('semnat_ssm') === 'noi s.' ? 'selected' : ''}}>noi s.</option>
-                            <option value="cl.de s" style="color:rgb(0, 96, 175)" {{ old('semnat_ssm') === 'cl.de s' ? 'selected' : ''}}>cl.de s</option> --}}
-                        </select>
-                    </div>
-                    <div class="col-lg-2 mb-2">
-                        <small for="modificariGlobaleSemnat_psi" class="mb-0 ps-1">Semnat PSI</small>
-                        <select name="modificariGlobaleSemnat_psi" class="form-select form-select-sm bg-white rounded-3 {{ $errors->has('modificariGlobaleSemnat_psi') ? 'is-invalid' : '' }}">
-                            <option value="" selected></option>
-                            <option value='-'>-</option>
-                            <option value="client" style="color:rgb(0, 140, 255)" {{ old('modificariGlobaleSemnat_psi') === 'client' ? 'selected' : ''}}>client</option>
-                            <option value="Lipsa" style="color:rgb(255, 0, 0)" {{ old('modificariGlobaleSemnat_psi') === 'Lipsa' ? 'selected' : ''}}>Lipsa</option>
-                            <option value="comp.la cl." style="color:rgb(0, 180, 75)" {{ old('modificariGlobaleSemnat_psi') === 'comp.la cl.' ? 'selected' : ''}}>comp.la cl.</option>
-                            <option value="n.de s" style="color:blueviolet" {{ old('modificariGlobaleSemnat_psi') === 'n.de s' ? 'selected' : ''}}>n. de s</option>
-                            <option value="noi s." style="" {{ old('modificariGlobaleSemnat_psi') === 'noi s.' ? 'selected' : ''}}>noi s.</option>
-                            <option value="noi" style="" {{ old('modificariGlobaleSemnat_psi') === 'noi' ? 'selected' : ''}}>noi</option>
-                            {{-- <option value='-'>-</option>
-                            <option value="n.de s" style="color:blueviolet" {{ old('semnat_psi') === 'n.de s' ? 'selected' : ''}}>n.de s</option>
-                            <option value="noi s." style="" {{ old('semnat_psi') === 'noi s.' ? 'selected' : ''}}>noi s.</option>
-                            <option value="cl.de s" style="color:rgb(0, 96, 175)" {{ old('semnat_psi') === 'cl.de s' ? 'selected' : ''}}>cl.de s</option> --}}
-                        </select>
-                    </div>
-                    <div class="col-lg-2 mb-2">
-                        <small for="modificariGlobaleSemnatAnexa" class="mb-0 ps-1">Semnat Anexa</small>
-                        <select name="modificariGlobaleSemnatAnexa" class="form-select form-select-sm bg-white rounded-3 {{ $errors->has('modificariGlobaleSemnatAnexa') ? 'is-invalid' : '' }}">
-                            <option value="" selected></option>
-                            <option value='-'>-</option>
-                            <option value="sem" style="" {{ old('modificariGlobaleSemnatAnexa') === 'sem' ? 'selected' : ''}}>sem</option>
-                            <option value="de s" style="color:rgb(204, 0, 0)" {{ old('modificariGlobaleSemnatAnexa') === 'de s' ? 'selected' : ''}}>de s</option>
-                        </select>
-                    </div>
-                    <div class="col-lg-2 mb-2">
-                        <small for="modificariGlobaleSemnatEip" class="mb-0 ps-1">Semnat E.I.P.</small>
-                        <select name="modificariGlobaleSemnatEip" class="form-select form-select-sm bg-white rounded-3 {{ $errors->has('modificariGlobaleSemnatEip') ? 'is-invalid' : '' }}">
-                            <option value="" selected></option>
-                            <option value='-'>-</option>
-                            <option value="sem" style="" {{ old('modificariGlobaleSemnatEip') === 'sem' ? 'selected' : ''}}>sem</option>
-                            <option value="de s" style="color:rgb(204, 0, 0)" {{ old('modificariGlobaleSemnatEip') === 'de s' ? 'selected' : ''}}>de s</option>
-                        </select>
-                    </div>
-
-                    <div class="col-lg-12 mb-2 text-center">
-                        <button class="btn btn-sm btn-primary text-white me-3 border border-dark rounded-3" type="submit">
-                            Modifică toți salariații selectați
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    {{-- </form> --}}
-                        </td>
-                    </tr>
-
-
-
-
                     @forelse ($salariati as $salariat)
                         @if ((stripos($salariat->salariat, 'revisal') !== false) || (stripos($salariat->salariat, 'Situatie') !== false))
                             <tr style="background-color:rgb(169, 212, 255)">
@@ -396,7 +423,8 @@
                             <td style="font-size: 12px; padding:0px;">
                                 <input type="text"
                                         style="width: 60px; border: none; padding:0px"
-                                        id="data_ssm_psi" name="data_ssm_psi"
+                                        id="data_ssm_psi"
+                                        {{-- name="data_ssm_psi" --}}
                                         value="{{ $salariat->data_ssm_psi }}"
                                         v-on:blur = "axiosActualizeazaSalariat({{ $salariat->id }}, 'data_ssm_psi', $event.target.value)"
                                         >
@@ -440,7 +468,9 @@
                                         value="{{ $salariat->semnat_ssm }}"
                                         v-on:blur = "axiosActualizeazaSalariat({{ $salariat->id }}, 'semnat_ssm', $event.target.value)"
                                         > --}}
-                                <select name="semnat_ssm" class="bg-white rounded-3 {{ $errors->has('semnat_ssm') ? 'is-invalid' : '' }}"
+                                <select
+                                    {{-- name="semnat_ssm"  --}}
+                                    class="bg-white rounded-3 {{ $errors->has('semnat_ssm') ? 'is-invalid' : '' }}"
                                         style="width: 35px; border: none; padding:0px; appearance: none;
                                             {{ $salariat->semnat_ssm === 'client' ? 'color:rgb(0, 140, 255)' : ''}}
                                             {{ $salariat->semnat_ssm === 'Lipsa' ? 'color:rgb(255, 0, 0)' : ''}}
@@ -498,7 +528,9 @@
                                         value="{{ $salariat->semnat_psi }}"
                                         v-on:blur = "axiosActualizeazaSalariat({{ $salariat->id }}, 'semnat_psi', $event.target.value)"
                                         > --}}
-                                <select name="semnat_psi" class="bg-white rounded-3 {{ $errors->has('semnat_psi') ? 'is-invalid' : '' }}"
+                                <select
+                                    {{-- name="semnat_psi"  --}}
+                                    class="bg-white rounded-3 {{ $errors->has('semnat_psi') ? 'is-invalid' : '' }}"
                                         style="width: 35px; border: none; padding:0px; appearance: none;
                                             {{ $salariat->semnat_psi === 'client' ? 'color:rgb(0, 140, 255)' : ''}}
                                             {{ $salariat->semnat_psi === 'Lipsa' ? 'color:rgb(255, 0, 0)' : ''}}
@@ -571,7 +603,9 @@
                                         value="{{ $salariat->semnat_anexa }}"
                                         v-on:blur = "axiosActualizeazaSalariat({{ $salariat->id }}, 'semnat_anexa', $event.target.value)"
                                         > --}}
-                                <select name="semnat_anexa" class="bg-white rounded-3 {{ $errors->has('semnat_anexa') ? 'is-invalid' : '' }}"
+                                <select
+                                    {{-- name="semnat_anexa"  --}}
+                                    class="bg-white rounded-3 {{ $errors->has('semnat_anexa') ? 'is-invalid' : '' }}"
                                         style="width: 30px; border: none; padding:0px; appearance: none;
                                             {{ (strpos($salariat->semnat_anexa, 'de s') !== false) ? 'color:rgb(204, 0, 0)' : ''}}
                                         "
@@ -600,7 +634,9 @@
                                         value="{{ $salariat->semnat_eip }}"
                                         v-on:blur = "axiosActualizeazaSalariat({{ $salariat->id }}, 'semnat_eip', $event.target.value)"
                                         > --}}
-                                <select name="semnat_eip" class="bg-white rounded-3 {{ $errors->has('semnat_eip') ? 'is-invalid' : '' }}"
+                                <select
+                                    {{-- name="semnat_eip"  --}}
+                                    class="bg-white rounded-3 {{ $errors->has('semnat_eip') ? 'is-invalid' : '' }}"
                                         style="width: 30px; border: none; padding:0px; appearance: none;
                                             {{ (strpos($salariat->semnat_eip, 'de s') !== false) ? 'color:rgb(204, 0, 0)' : ''}}
                                         "
@@ -619,22 +655,28 @@
                                 <div class="form-check text-center">
                                     <input type="checkbox"
                                         class="form-check-input"
-                                        name="salariati_selectati[]"
+                                        {{-- name="salariati_selectati[]" --}}
                                         v-model="salariati_selectati"
                                         value="{{ $salariat->id }}"
                                         style="padding:10px"
                                         id="{{ $salariat->id }}"
+                                        {{-- @if (old("salariati_selectati"))
+                                            {{ in_array($salariat->id, old("salariati_selectati")) ? "checked":"" }}
+                                        @endif --}}
                                         >
+                                    {{-- <label class="form-check-label" for="{{ $salariat->id }}">
+                                        {{ $salariat->salariat }}
+                                    </label> --}}
                                 </div>
                             </td>
                         </tr>
                     @empty
                         {{-- <div>Nu s-au gasit rezervări în baza de date. Încearcă alte date de căutare</div> --}}
                     @endforelse
-    </form>
                     </tbody>
             </table>
         </div>
+    </form>
                 <nav>
                     <ul class="pagination justify-content-center">
                         {{ $salariati->appends(Request::except('page'))->links() }}

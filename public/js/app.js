@@ -5514,6 +5514,7 @@ if (document.querySelector('#salariatiIndex')) {
       modificari_globale: typeof modificariGlobale !== 'undefined' ? modificariGlobale == "true" ? true : false : false,
       salariati: salariati,
       salariati_selectati: salariatiSelectati,
+      // Campuri pentru afisarea confirmarii cand se face salvarea cu axios
       axiosActualizatSalariatId: '',
       axiosActualizatCamp: ''
     },
@@ -5555,37 +5556,6 @@ if (document.querySelector('#salariatiIndex')) {
           _app.axiosActualizatCamp = response.data.camp;
           console.log(_app.axiosActualizatSalariatId, _app.axiosActualizatCamp);
         });
-      }
-    }
-  });
-}
-
-if (document.querySelector('#modificareSalariatiDirectDinIndex')) {
-  var _app2 = new Vue({
-    el: '#modificareSalariatiDirectDinIndex',
-    data: {
-      mesajSucces: '',
-      avansId: ''
-    },
-    methods: {
-      actualizeazaSalariat: function actualizeazaSalariat(camp, valoare) {
-        // console.log('yea');
-        console.log(camp, valoare); // axios
-        //     .post('/avansuri/axios-actualizare-suma',
-        //         {
-        //             avansId: avansId,
-        //             avansSuma: avansSuma
-        //         },
-        //         {
-        //             params: {
-        //                 request: 'actualizareSuma',
-        //             }
-        //         })
-        //     .then(function (response) {
-        //         app.mesajSucces = response.data.raspuns;
-        //         app.avansId = response.data.avansId;
-        //         console.log(app.mesajSucces, app.avansId);
-        //     });
       }
     }
   });
