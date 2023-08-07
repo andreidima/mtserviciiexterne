@@ -79,6 +79,7 @@ Route::group(['middleware' => 'auth'], function () {
 
 
     // SSM-ul construit total separat
+    Route::post('/ssm/firme/axios-modificare-firme-direct-din-index', [SsmFirmaController::class, 'axiosModificareFirmeDirectDinIndex']);
     Route::resource('/ssm/firme', SsmFirmaController::class,  ['parameters' => ['firme' => 'firma']]);
     Route::get('/ssm/salariati/{salariat}/duplica', [SsmSalariatController::class, 'duplica']);
     Route::post('/ssm/salariati/axios-modificare-salariati-direct-din-index', [SsmSalariatController::class, 'axiosModificareSalariatiDirectDinIndex']);

@@ -97,3 +97,37 @@ if (document.querySelector('#salariatiIndex')) {
     });
 }
 
+if (document.querySelector('#firmeIndex')) {
+    const app = new Vue({
+        el: '#firmeIndex',
+        data: {
+            // Campuri pentru afisarea confirmarii cand se face salvarea cu axios
+            axiosActualizatFirmaId: '',
+            axiosActualizatCamp: '',
+        },
+        methods: {
+            axiosActualizeazaFirma(firmaId, camp, valoare) {
+                console.log('yea');
+                axios
+                    .post('/ssm/firme/axios-modificare-firme-direct-din-index',
+                        {
+                            firmaId: firmaId,
+                            camp: camp,
+                            valoare: valoare
+                        },
+                        {
+                            params: {
+                                // request: 'actualizareSuma',
+                            }
+                        })
+                    .then(function (response) {
+                        app.axiosActualizatFirmaId = response.data.firmaId;
+                        app.axiosActualizatCamp = response.data.camp;
+                        // console.log(app.axiosActualizatFirmaId, app.axiosActualizatCamp);
+                    });
+            },
+
+        },
+    });
+}
+

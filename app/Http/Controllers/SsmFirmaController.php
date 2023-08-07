@@ -228,4 +228,15 @@ class SsmFirmaController extends Controller
             ]
         );
     }
+
+    public function axiosModificareFirmeDirectDinIndex(Request $request)
+    {
+        $firma = SsmFirma::where('id', $request->firmaId)->update([$request->camp => $request->valoare]);
+
+        return response()->json([
+            'raspuns' => "Actualizat",
+            'firmaId' => $request->firmaId,
+            'camp' => $request->camp,
+        ]);
+    }
 }
