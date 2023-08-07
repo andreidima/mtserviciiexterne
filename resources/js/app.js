@@ -72,7 +72,7 @@ if (document.querySelector('#salariatiIndex')) {
             },
             axiosActualizeazaSalariat(salariatId, camp, valoare) {
                 // console.log('yea');
-                console.log(salariatId, camp, valoare);
+                // console.log(salariatId, camp, valoare);
 
                 axios
                     .post('/ssm/salariati/axios-modificare-salariati-direct-din-index',
@@ -89,7 +89,7 @@ if (document.querySelector('#salariatiIndex')) {
                     .then(function (response) {
                         app.axiosActualizatSalariatId = response.data.salariatId;
                         app.axiosActualizatCamp = response.data.camp;
-                        console.log(app.axiosActualizatSalariatId, app.axiosActualizatCamp);
+                        // console.log(app.axiosActualizatSalariatId, app.axiosActualizatCamp);
                     });
             },
 

@@ -317,7 +317,8 @@
                 </thead>
                 </form>
                 <tbody>
-                    @forelse ($salariati as $salariat)
+                    <tr v-for="salariat in salariati">
+                    {{-- @forelse ($salariati as $salariat)
                         @if ((stripos($salariat->salariat, 'revisal') !== false) || (stripos($salariat->salariat, 'Situatie') !== false))
                             <tr style="background-color:rgb(169, 212, 255)">
                         @elseif (($salariat->status === "CCC") || (stripos($salariat->data_incetare, 'c.c.c') !== false) || (stripos($salariat->data_incetare, 'CCC') !== false) || (stripos($salariat->data_incetare, 'CM') !== false))
@@ -329,7 +330,7 @@
                             <tr style="opacity: 0.5;">
                         @else
                             <tr style="">
-                        @endif
+                        @endif --}}
                             <td style="font-size: 14px; padding:0px; width: 23px;">
                                 {{-- {{ ($salariati ->currentpage()-1) * $salariati ->perpage() + $loop->index + 1 }} --}}
                                 {{-- {{ $salariat->nr_crt }} --}}
@@ -337,59 +338,20 @@
                                         style="width: 23px; border: none; padding:0px"
                                         id="nr_crt"
                                         {{-- name="nr_crt" --}}
-                                        value="{{ $salariat->nr_crt }}"
-                                        v-on:blur = "axiosActualizeazaSalariat({{ $salariat->id }}, 'nr_crt', $event.target.value)"
+                                        :value="salariat['nr_crt']"
+                                        v-on:blur = "axiosActualizeazaSalariat( salariat['id'] , 'nr_crt', $event.target.value)"
                                         >
-                                <div v-cloak v-if="(axiosActualizatSalariatId == {{ $salariat->id }}) && (axiosActualizatCamp == 'nr_crt')" class="me-2 text-success">
+                                <div v-cloak v-if="(axiosActualizatSalariatId == salariat['id']) && (axiosActualizatCamp == 'nr_crt')" class="me-2 text-success">
                                     <i class="fas fa-thumbs-up"></i>
                                 </div>
                             </td>
-                            <td class="p-0 text-center">
-                                <div class="d-flex justify-content-end">
-                                    {{-- <a href="{{ $firma->path() }}"
-                                        class="flex me-1"
-                                    >
-                                        <span class="badge bg-success">Vizualizează</span>
-                                    </a> --}}
-                                    <a href="{{ $salariat->path() }}/modifica"
-                                            class="me-1"
-                                            title="Modifică Salariat"
-                                        {{-- class="flex" --}}
-                                    >
-                                        <span class="badge bg-primary" style="font-size: 10px;">
-                                            {{-- Modifică --}}
-                                            <i class="fas fa-edit" style="font-size: 10px;"></i>
-                                        </span>
-                                    </a>
-                                    <a href="{{ $salariat->path() }}/duplica"
-                                            class="me-1"
-                                            title="Duplică Salariat"
-                                        {{-- class="flex" --}}
-                                    >
-                                        <span class="badge bg-success" style="font-size: 10px;">
-                                            {{-- Modifică --}}
-                                            <i class="fas fa-clone" style="font-size: 10px;"></i>
-                                        </span>
-                                    </a>
-                                    {{-- <div style="flex" class=""> --}}
-                                        <a
-                                            href="#"
-                                            data-bs-toggle="modal"
-                                            data-bs-target="#stergeSalariat{{ $salariat->id }}"
-                                            title="Șterge Salariat"
-                                            >
-                                            <span class="badge bg-danger" style="font-size: 10px;">
-                                                {{-- Șterge --}}
-                                                <i class="fas fa-trash" style="font-size: 10px;"></i>
-                                            </span>
-                                        </a>
-                                    {{-- </div> --}}
-                                </div>
-                            </td>
-                            <td style="font-size: 14px; padding:1px;" title="{{ $salariat->nume_client }}">
-                                {{ substr($salariat->nume_client, 0, 20) }}
+                            <td></td>
+                            <td style="font-size: 14px; padding:1px;" :title="salariat['nume_client']">
+                                {{-- {{ substr($salariat->nume_client, 0, 20) }} --}}
+                                @{{ salariat['nume_client'].slice(0,20) }}
                             </td>
                             <td style="font-size: 14px; padding:1px;">
+                                {{-- <span v-if="(salariat['salariat'].search(3 luni) )"
                                 @if (stripos($salariat->salariat, '3 luni') !== false)
                                     {!! str_replace("3 luni", "<span class='text-primary' style='font-size: 14px;'>3 luni</span>", $salariat->salariat) !!}
                                 @elseif (stripos($salariat->salariat, '3luni') !== false)
@@ -398,263 +360,14 @@
                                     {!! str_replace("6 luni", "<span class='text-primary' style='font-size: 14px;'>6 luni</span>", $salariat->salariat) !!}
                                 @elseif (stripos($salariat->salariat, '6luni') !== false)
                                     {!! str_replace("6luni", "<span class='text-primary' style='font-size: 14px;'>6luni</span>", $salariat->salariat) !!}
-                                @else
-                                    {!! $salariat->salariat !!}
-                                @endif
-                            </td>
-                            <td style="font-size: 14px; padding:0px;">
-                                <input type="text"
-                                        style="width: 60px; border: none; padding:0px"
-                                        id="data_ssm_psi"
-                                        {{-- name="data_ssm_psi" --}}
-                                        value="{{ $salariat->data_ssm_psi }}"
-                                        v-on:blur = "axiosActualizeazaSalariat({{ $salariat->id }}, 'data_ssm_psi', $event.target.value)"
-                                        >
-                                <div v-cloak v-if="(axiosActualizatSalariatId == {{ $salariat->id }}) && (axiosActualizatCamp == 'data_ssm_psi')" class="me-2 text-success">
-                                    <i class="fas fa-thumbs-up"></i>
-                                </div>
-                            </td>
-                            <td style="font-size: 14px; padding:0px;">
-                                {{-- @if (stripos($salariat->semnat_ssm, 'client') !== false)
-                                    <span style="font-size: 14px; color:rgb(0, 140, 255)">
-                                @elseif (stripos($salariat->semnat_ssm, 'Lipsa') !== false)
-                                    <span style="font-size: 14px; color:rgb(255, 0, 0)">
-                                @elseif (stripos($salariat->semnat_ssm, 'comp.la cl.') !== false)
-                                    <span style="font-size: 14px; color:rgb(0, 180, 75)">
-                                @elseif (stripos($salariat->semnat_ssm, 'n.de s') !== false)
-                                    <span style="font-size: 14px; color:blueviolet">
-                                @else
-                                    <span style="font-size: 14px; color:rgb(0, 0, 0)">
-                                @endif
-                                        {{ $salariat->semnat_ssm }}
-                                    </span> --}}
-                                {{-- <input type="text"
-                                        style="width: 35px; border: none; padding:0px;
-                                            {{
-                                                (stripos($salariat->semnat_ssm, 'client') !== false) ? 'color:rgb(0, 140, 255)' :
-                                                (
-                                                    (stripos($salariat->semnat_ssm, 'Lipsa') !== false) ? 'color:rgb(255, 0, 0)' :
-                                                    (
-                                                        (stripos($salariat->semnat_ssm, 'comp.la cl.') !== false) ? 'color:rgb(0, 180, 75)' :
-                                                        (
-                                                            (stripos($salariat->semnat_ssm, 'n.de s') !== false) ? 'color:blueviolet' :
-                                                            (
-                                                                (stripos($salariat->semnat_ssm, 'n.de s') !== false) ? 'color:blueviolet' : 'color:rgb(0, 0, 0)'
-                                                            )
-                                                        )
-                                                    )
-                                                )
-                                            }}
-                                        "
-                                        id="semnat_ssm" name="semnat_ssm"
-                                        value="{{ $salariat->semnat_ssm }}"
-                                        v-on:blur = "axiosActualizeazaSalariat({{ $salariat->id }}, 'semnat_ssm', $event.target.value)"
-                                        > --}}
-                                <select
-                                    {{-- name="semnat_ssm"  --}}
-                                    class="bg-white rounded-3 {{ $errors->has('semnat_ssm') ? 'is-invalid' : '' }}"
-                                        style="width: 35px; border: none; padding:0px; appearance: none;
-                                            {{ $salariat->semnat_ssm === 'client' ? 'color:rgb(0, 140, 255)' : ''}}
-                                            {{ $salariat->semnat_ssm === 'Lipsa' ? 'color:rgb(255, 0, 0)' : ''}}
-                                            {{ $salariat->semnat_ssm === 'comp.la cl.' ? 'color:rgb(0, 180, 75)' : ''}}
-                                            {{ $salariat->semnat_ssm === 'n.de s' ? 'color:blueviolet' : ''}}
-                                        "
-                                        @change="axiosActualizeazaSalariat({{ $salariat->id }}, 'semnat_ssm', $event.target.value)"
-                                    >
-                                    <option value="" selected></option>
-                                    <option value='-' style="color:rgb(0, 0, 0)" {{ $salariat->semnat_ssm === '-' ? 'selected' : ''}}>-</option>
-                                    <option value="client" style="color:rgb(0, 140, 255)" {{ $salariat->semnat_ssm === 'client' ? 'selected' : ''}}><span style="color:rgb(0, 140, 255)">client</span></option>
-                                    <option value="Lipsa" style="color:rgb(255, 0, 0)" {{ $salariat->semnat_ssm === 'Lipsa' ? 'selected' : ''}}>Lipsa</option>
-                                    <option value="comp.la cl." style="color:rgb(0, 180, 75)" {{ $salariat->semnat_ssm === 'comp.la cl.' ? 'selected' : ''}}>comp.la cl.</option>
-                                    <option value="n.de s" style="color:blueviolet" {{ $salariat->semnat_ssm === 'n.de s' ? 'selected' : ''}}>n. de s</option>
-                                    <option value="noi s." style="color:rgb(0, 0, 0)" {{ $salariat->semnat_ssm === 'noi s.' ? 'selected' : ''}}>noi s.</option>
-                                    <option value="noi" style="color:rgb(0, 0, 0)" {{ $salariat->semnat_ssm === 'noi' ? 'selected' : ''}}>noi</option>
-                                </select>
-                                <div v-cloak v-if="(axiosActualizatSalariatId == {{ $salariat->id }}) && (axiosActualizatCamp == 'semnat_ssm')" class="me-2 text-success">
-                                    <i class="fas fa-thumbs-up"></i>
-                                </div>
-                            </td>
-                            <td style="font-size: 14px; padding:0px;">
-                                {{-- @if (stripos($salariat->semnat_psi, 'client') !== false)
-                                    <span style="font-size: 14px; color:rgb(0, 140, 255)">
-                                @elseif (stripos($salariat->semnat_psi, 'Lipsa') !== false)
-                                    <span style="font-size: 14px; color:rgb(255, 0, 0)">
-                                @elseif (stripos($salariat->semnat_psi, 'comp.la cl.') !== false)
-                                    <span style="font-size: 14px; color:rgb(0, 180, 75)">
-                                @elseif (stripos($salariat->semnat_psi, 'n.de s') !== false)
-                                    <span style="font-size: 14px; color:blueviolet">
-                                @else
-                                    <span style="font-size: 14px; color:rgb(0, 0, 0)">
-                                @endif
-                                        {{ $salariat->semnat_psi }}
-                                    </span> --}}
-                                {{-- <input type="text"
-                                        style="width: 35px; border: none; padding:0px;
-                                            {{
-                                                (stripos($salariat->semnat_psi, 'client') !== false) ? 'color:rgb(0, 140, 255)' :
-                                                (
-                                                    (stripos($salariat->semnat_psi, 'Lipsa') !== false) ? 'color:rgb(255, 0, 0)' :
-                                                    (
-                                                        (stripos($salariat->semnat_psi, 'comp.la cl.') !== false) ? 'color:rgb(0, 180, 75)' :
-                                                        (
-                                                            (stripos($salariat->semnat_psi, 'n.de s') !== false) ? 'color:blueviolet' :
-                                                            (
-                                                                (stripos($salariat->semnat_psi, 'n.de s') !== false) ? 'color:blueviolet' : 'color:rgb(0, 0, 0)'
-                                                            )
-                                                        )
-                                                    )
-                                                )
-                                            }}
-                                        "
-                                        id="semnat_psi" name="semnat_psi"
-                                        value="{{ $salariat->semnat_psi }}"
-                                        v-on:blur = "axiosActualizeazaSalariat({{ $salariat->id }}, 'semnat_psi', $event.target.value)"
-                                        > --}}
-                                <select
-                                    {{-- name="semnat_psi"  --}}
-                                    class="bg-white rounded-3 {{ $errors->has('semnat_psi') ? 'is-invalid' : '' }}"
-                                        style="width: 35px; border: none; padding:0px; appearance: none;
-                                            {{ $salariat->semnat_psi === 'client' ? 'color:rgb(0, 140, 255)' : ''}}
-                                            {{ $salariat->semnat_psi === 'Lipsa' ? 'color:rgb(255, 0, 0)' : ''}}
-                                            {{ $salariat->semnat_psi === 'comp.la cl.' ? 'color:rgb(0, 180, 75)' : ''}}
-                                            {{ $salariat->semnat_psi === 'n.de s' ? 'color:blueviolet' : ''}}
-                                        "
-                                        @change="axiosActualizeazaSalariat({{ $salariat->id }}, 'semnat_psi', $event.target.value)"
-                                    >
-                                    <option value="" selected></option>
-                                    <option value='-' style="color:rgb(0, 0, 0)" {{ $salariat->semnat_psi === '-' ? 'selected' : ''}}>-</option>
-                                    <option value="client" style="color:rgb(0, 140, 255)" {{ $salariat->semnat_psi === 'client' ? 'selected' : ''}}><span style="color:rgb(0, 140, 255)">client</span></option>
-                                    <option value="Lipsa" style="color:rgb(255, 0, 0)" {{ $salariat->semnat_psi === 'Lipsa' ? 'selected' : ''}}>Lipsa</option>
-                                    <option value="comp.la cl." style="color:rgb(0, 180, 75)" {{ $salariat->semnat_psi === 'comp.la cl.' ? 'selected' : ''}}>comp.la cl.</option>
-                                    <option value="n.de s" style="color:blueviolet" {{ $salariat->semnat_psi === 'n.de s' ? 'selected' : ''}}>n. de s</option>
-                                    <option value="noi s." style="color:rgb(0, 0, 0)" {{ $salariat->semnat_psi === 'noi s.' ? 'selected' : ''}}>noi s.</option>
-                                    <option value="noi" style="color:rgb(0, 0, 0)" {{ $salariat->semnat_psi === 'noi' ? 'selected' : ''}}>noi</option>
-                                </select>
-                                <div v-cloak v-if="(axiosActualizatSalariatId == {{ $salariat->id }}) && (axiosActualizatCamp == 'semnat_psi')" class="me-2 text-success">
-                                    <i class="fas fa-thumbs-up"></i>
-                                </div>
-                            </td>
-                            <td v-cloak v-if="modificari_globale" style="font-size: 10px; padding:0px; background-color:rgb(191, 253, 253);">
-                                <div class="form-check text-center p-0 m-0">
-                                    <input type="checkbox"
-                                        class="p-0 m-0"
-                                        {{-- name="salariati_selectati[]" --}}
-                                        v-model="salariati_selectati"
-                                        value="{{ $salariat->id }}"
-                                        style="width:20px; height:20px"
-                                        id="{{ $salariat->id }}"
-                                        {{-- @if (old("salariati_selectati"))
-                                            {{ in_array($salariat->id, old("salariati_selectati")) ? "checked":"" }}
-                                        @endif --}}
-                                        >
-                                    {{-- <label class="form-check-label" for="{{ $salariat->id }}">
-                                        {{ $salariat->salariat }}
-                                    </label> --}}
-                                </div>
-                            </td>
-                            <td style="font-size: 14px; padding:1px;">
-                                {{ $salariat->cnp }}
-                            </td>
-                            <td style="font-size: 14px; padding:1px;" title="{{ $salariat->functia }}">
-                                {{-- @php
-                                $salariatFunctia = substr($salariat->functia, 0, 20);
-                                    if (stripos($salariatFunctia, 'adm.') !== false){
-                                        $salariatFunctia = str_replace("adm.", "<span style='font-size: 14px; color:blueviolet'>adm.</span>", $salariatFunctia);
-                                    } elseif (stripos($salariatFunctia, 'adm') !== false){
-                                        $salariatFunctia = str_replace("adm", "<span style='font-size: 14px; color:blueviolet'>adm</span>", $salariatFunctia);
-                                    }
-                                    $salariatFunctia = str_replace("pers. des.", "<span style='font-size: 14px; color:blueviolet'>pers. des.</span>", $salariatFunctia);
-                                @endphp
-                                {!! $salariatFunctia !!} --}}
-                                @if ((stripos($salariat->functia, 'adm.') !== false) || (stripos($salariat->functia, 'adm') !== false) || (stripos($salariat->functia, 'pers. des.') !== false))
-                                    <span style='font-size: 14px; color:blueviolet'>{{ substr($salariat->functia, 0, 20) }}</span>
-                                @else
-                                    {{ substr($salariat->functia, 0, 20) }}
-                                @endif
-                            </td>
-                            <td class="text-center" style="font-size: 14px; padding:1px;">
-                                {{ $salariat->actionar }}
-                            </td>
-                            <td style="font-size: 14px; padding:1px;">
-                                {{ $salariat->data_angajare }}
-                            </td>
-                            <td style="font-size: 14px; padding:1px;">
-                                {{ $salariat->data_incetare }}
-                            </td>
-                            <td style="font-size: 14px; padding:1px;">
-                                {{ $salariat->traseu }}
-                            </td>
-                            <td style="font-size: 14px; padding:1px;">
-                                {{ $salariat->observatii_1 ? ($salariat->observatii_1 . '.') : ''}}
-                                {{ $salariat->observatii_2 ? ($salariat->observatii_2 . '.') : ''}}
-                                {{-- {{ $salariat->observatii_3 ? ($salariat->observatii_3 . '') : ''}} --}}
-                            </td>
-                            <td style="font-size: 14px; padding:1px;">
-                                {{-- @if ((strpos($salariat->semnat_anexa, 'de s') !== false))
-                                    <span style="font-size: 14px; color:rgb(204, 0, 0)">
-                                        {{ $salariat->semnat_anexa }}
-                                    </span>
-                                @else
-                                    {{ $salariat->semnat_anexa }}
-                                @endif --}}
-                                {{-- <input type="text"
-                                        style="width: 30px; border: none; padding:0px; {{ (strpos($salariat->semnat_anexa, 'de s') !== false) ? 'color:rgb(204, 0, 0)' : '' }}"
-                                        id="semnat_anexa" name="semnat_anexa"
-                                        value="{{ $salariat->semnat_anexa }}"
-                                        v-on:blur = "axiosActualizeazaSalariat({{ $salariat->id }}, 'semnat_anexa', $event.target.value)"
-                                        > --}}
-                                <select
-                                    {{-- name="semnat_anexa"  --}}
-                                    class="bg-white rounded-3 {{ $errors->has('semnat_anexa') ? 'is-invalid' : '' }}"
-                                        style="width: 30px; border: none; padding:0px; appearance: none;
-                                            {{ (strpos($salariat->semnat_anexa, 'de s') !== false) ? 'color:rgb(204, 0, 0)' : ''}}
-                                        "
-                                        @change="axiosActualizeazaSalariat({{ $salariat->id }}, 'semnat_anexa', $event.target.value)"
-                                    >
-                                    <option value="" selected></option>
-                                    <option value='-' style="color:rgb(0, 0, 0)" {{ $salariat->semnat_anexa === '-' ? 'selected' : ''}}>-</option>
-                                    <option value='sem' style="color:rgb(0, 0, 0)" {{ $salariat->semnat_anexa === 'sem' ? 'selected' : ''}}>sem</option>
-                                    <option value='de s' style="color:rgb(204, 0, 0)" {{ $salariat->semnat_anexa === 'de s' ? 'selected' : ''}}>de s</option>
-                                </select>
-                                <div v-cloak v-if="(axiosActualizatSalariatId == {{ $salariat->id }}) && (axiosActualizatCamp == 'semnat_anexa')" class="me-2 text-success">
-                                    <i class="fas fa-thumbs-up"></i>
-                                </div>
-                            </td>
-                            <td style="font-size: 14px; padding:1px;">
-                                {{-- @if ((strpos($salariat->semnat_eip, 'de s') !== false))
-                                    <span style="font-size: 14px; color:rgb(204, 0, 0)">
-                                        {{ $salariat->semnat_eip }}
-                                    </span>
-                                @else
-                                    {{ $salariat->semnat_eip }}
-                                @endif --}}
-                                {{-- <input type="text"
-                                        style="width: 30px; border: none; padding:0px; {{ (strpos($salariat->semnat_eip, 'de s') !== false) ? 'color:rgb(204, 0, 0)' : '' }}"
-                                        id="semnat_eip" name="semnat_eip"
-                                        value="{{ $salariat->semnat_eip }}"
-                                        v-on:blur = "axiosActualizeazaSalariat({{ $salariat->id }}, 'semnat_eip', $event.target.value)"
-                                        > --}}
-                                <select
-                                    {{-- name="semnat_eip"  --}}
-                                    class="bg-white rounded-3 {{ $errors->has('semnat_eip') ? 'is-invalid' : '' }}"
-                                        style="width: 30px; border: none; padding:0px; appearance: none;
-                                            {{ (strpos($salariat->semnat_eip, 'de s') !== false) ? 'color:rgb(204, 0, 0)' : ''}}
-                                        "
-                                        @change="axiosActualizeazaSalariat({{ $salariat->id }}, 'semnat_eip', $event.target.value)"
-                                    >
-                                    <option value="" selected></option>
-                                    <option value='-' style="color:rgb(0, 0, 0)" {{ $salariat->semnat_eip === '-' ? 'selected' : ''}}>-</option>
-                                    <option value='sem' style="color:rgb(0, 0, 0)" {{ $salariat->semnat_eip === 'sem' ? 'selected' : ''}}>sem</option>
-                                    <option value='de s' style="color:rgb(204, 0, 0)" {{ $salariat->semnat_eip === 'de s' ? 'selected' : ''}}>de s</option>
-                                </select>
-                                <div v-cloak v-if="(axiosActualizatSalariatId == {{ $salariat->id }}) && (axiosActualizatCamp == 'semnat_eip')" class="me-2 text-success">
-                                    <i class="fas fa-thumbs-up"></i>
-                                </div>
+                                @else --}}
+                                    @{{ salariat['salariat'] }}
+                                {{-- @endif --}}
                             </td>
                         </tr>
-                    @empty
+                    {{-- @empty --}}
                         {{-- <div>Nu s-au gasit rezervări în baza de date. Încearcă alte date de căutare</div> --}}
-                    @endforelse
+                    {{-- @endforelse --}}
                     </tbody>
             </table>
         </div>

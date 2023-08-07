@@ -54,6 +54,7 @@
                             <th>Salariat</th>
                             <th>CNP</th>
                             <th>Funcția</th>
+                            <th>Data angajare</th>
                             <th>Data încetare</th>
                             <th>Medicina Muncii</th>
                         </tr>
@@ -75,6 +76,9 @@
                                 </td>
                                 <td>
                                     {{ $salariat->functia ?? '' }}
+                                </td>
+                                <td>
+                                    {{ $salariat->data_angajare ?? '' }}
                                 </td>
                                 <td>
                                     {{ $salariat->data_incetare ?? '' }}

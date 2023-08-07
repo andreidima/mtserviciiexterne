@@ -19,7 +19,6 @@ class SsmSalariatController extends Controller
      */
     public function index(Request $request)
     {
-        // $search_firma = \Request::get('search_firma');
         $searchDataSsmPsi = \Request::get('searchDataSsmPsi');
         $search_firma_nume = \Request::get('search_firma_nume');
         $search_salariat = \Request::get('search_salariat');
@@ -113,6 +112,8 @@ class SsmSalariatController extends Controller
 
         $request->session()->forget('salariat_return_url');
 
+        // dd($salariati);
+
         return view('ssm.salariati.index', compact('salariati', 'searchDataSsmPsi', 'search_firma_nume', 'search_salariat', 'search_cnp', 'search_traseu', 'search_de_rezolvat', 'lista_firma', 'lista_traseu', 'nrSalariatiDeRezolvat', 'searchDataInc', 'searchActionar', 'searchObservatii'));
     }
 
@@ -192,6 +193,13 @@ class SsmSalariatController extends Controller
     public function destroy(SsmSalariat $salariat)
     {
         $salariat->delete();
+
+        // Se parcurg toti salariatii de la cel sters pana la final, si li se modifica nr_crt
+        $nrCrt = $salariat->nr_crt;
+        $salariati = SsmSalariat::where('nume_client', $salariat->nume_client)->where('nr_crt', '>=', $salariat->nr_crt)->orderBy('nr_crt')->get();
+        foreach ($salariati as $salariat){
+            $salariat->update(['nr_crt' => $nrCrt++]);
+        }
 
         return back()->with('status', 'Salariatul „' . ($salariat->salariat ?? '') . '” a fost șters cu succes!');
     }
@@ -278,6 +286,7 @@ class SsmSalariatController extends Controller
     {
         $salariat = $salariat->replicate(['created_at', 'updated_at']);
 
+        $salariat->nr_crt = 0;
         $salariat->salariat = $salariat->salariat . ' DUPLICAT';
 
         $salariat->save();
@@ -295,15 +304,23 @@ class SsmSalariatController extends Controller
         if ($request->camp !== "nr_crt"){
             SsmSalariat::where('id', $request->salariatId)->update([$request->camp => $request->valoare]);
         } else {
-            $salariat = SsmSalariat::where('id', $request->salariatId)->first();
-            $nrCrt = $request->valoare + 1;
-            // $salariati = SsmSalariat::where('nume_client', $salariat->nume_client)->where('nr_crt', '>=', $request->valoare)->get();
-            $salariati = SsmSalariat::where('nume_client', $salariat->nume_client)->where('nr_crt', '>=', $request->valoare)->get();
-            foreach ($salariati as $salariat){
-                $salariat->update(['nr_crt' => $nrCrt++]);
-            }
+            if (is_numeric($request->valoare) && ($request->valoare > 0) && ($request->valoare < 9999)){ //valoarea sa fie un int intreg
+                $salariat = SsmSalariat::where('id', $request->salariatId)->first();
+                $nrCrt = 1;
+                // $salariati = SsmSalariat::where('nume_client', $salariat->nume_client)->where('nr_crt', '>=', $request->valoare)->get();
 
-            SsmSalariat::where('id', $request->salariatId)->update([$request->camp => $request->valoare]);
+                // Se parcurg toti salariatii in afara de cel selectat, si li se modifica nr_crt
+                $salariati = SsmSalariat::where('nume_client', $salariat->nume_client)->where('id', '<>', $salariat->id)->orderBy('nr_crt')->get();
+                foreach ($salariati as $salariat){
+                    if ($nrCrt === $request->valoare){ // se incrementeaza nrCrt ca sa se sara peste cel selectat
+                        $nrCrt++;
+                    }
+                    $salariat->update(['nr_crt' => $nrCrt++]);
+                }
+
+                // Salariatului selectat i se da valoarea primita, sau $nrCrt daca valoarea primita este una mai mare decat numarul total de salariati
+                SsmSalariat::where('id', $request->salariatId)->update([$request->camp => min($nrCrt, $request->valoare)]);
+            }
         }
 
         return response()->json([
