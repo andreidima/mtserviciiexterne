@@ -289,10 +289,22 @@ class SsmSalariatController extends Controller
 
     public function axiosModificareSalariatiDirectDinIndex(Request $request)
     {
-        SsmSalariat::where('id', $request->salariatId)->update([$request->camp => $request->valoare]);
-        // SsmSalariat::where()
-        // $avans->suma = $request->avansSuma;
-        // $avans->save();
+        // $salariat = SsmSalariat::where('id', $request->salariatId)->update([$request->camp => $request->valoare]);
+
+        // Daca se modifica nr_crt, trebuie reordonati toti salariatii
+        if ($request->camp !== "nr_crt"){
+            SsmSalariat::where('id', $request->salariatId)->update([$request->camp => $request->valoare]);
+        } else {
+            $salariat = SsmSalariat::where('id', $request->salariatId)->first();
+            $nrCrt = $request->valoare + 1;
+            // $salariati = SsmSalariat::where('nume_client', $salariat->nume_client)->where('nr_crt', '>=', $request->valoare)->get();
+            $salariati = SsmSalariat::where('nume_client', $salariat->nume_client)->where('nr_crt', '>=', $request->valoare)->get();
+            foreach ($salariati as $salariat){
+                $salariat->update(['nr_crt' => $nrCrt++]);
+            }
+
+            SsmSalariat::where('id', $request->salariatId)->update([$request->camp => $request->valoare]);
+        }
 
         return response()->json([
             'raspuns' => "Actualizat",
