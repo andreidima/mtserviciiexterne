@@ -109,43 +109,38 @@ Route::group(['middleware' => 'auth'], function () {
     // A fost introdus Nr. Crt. pentru Anca, pentru un mai bun control al sortarii salariatilor de la SSM
     // A fost setat Nr. Crt. default 0, iar apoi i s-a dat fiecarui salariat o valoare, in functie de cum a avut nevoie Anca
     // Data 2023.08.05
-    Route::get('/setarea-nr-crt-initiala-din-cod', function(){
-        $salariati = App\Models\SsmSalariat::
-                        orderBy('nume_client')
-                        ->orderByRaw(DB::raw("
-                                case when salariat like '%revisal%' then 0 else 1 end ASC,
-                                case when salariat like '%situatie%' then 0 else 1 end ASC,
-                                case when salariat like '%3 luni%' then 0 else 1 end ASC,
-                                case when salariat like '%3luni%' then 0 else 1 end ASC,
-                                case when salariat like '%6 luni%' then 0 else 1 end ASC,
-                                case when salariat like '%6luni%' then 0 else 1 end ASC,
-                                case when
-                                    data_incetare like '%înc%' or
-                                    data_incetare like '%lip%' or
-                                    data_incetare like '%susp%' or
-                                    data_incetare like '%c.c.c%' or
-                                    data_incetare like '%ccc%' or
-                                    data_incetare like '%cm%'
-                                then 0 else 1 end DESC
-                            "))
-                        ->orderBy('salariat')
-                        ->get();
-        foreach($salariati->groupBy('nume_client') as $salariatiGrupatiDupaNumeClient){
-            $nrCrt = 1;
-            // if ($salariatiGrupatiDupaNumeClient->first()->nume_client === 'AGROTRANS COMPANY'){
-                foreach ($salariatiGrupatiDupaNumeClient as $salariat){
-                    // $salariat->nr_crt = $nrCrt++;
-                    // $salariat0>save();
-                    // echo $salariat->nume;
+    // Route::get('/setarea-nr-crt-initiala-din-cod', function(){
+    //     $salariati = App\Models\SsmSalariat::
+    //                     orderBy('nume_client')
+    //                     ->orderByRaw(DB::raw("
+    //                             case when salariat like '%revisal%' then 0 else 1 end ASC,
+    //                             case when salariat like '%situatie%' then 0 else 1 end ASC,
+    //                             case when salariat like '%3 luni%' then 0 else 1 end ASC,
+    //                             case when salariat like '%3luni%' then 0 else 1 end ASC,
+    //                             case when salariat like '%6 luni%' then 0 else 1 end ASC,
+    //                             case when salariat like '%6luni%' then 0 else 1 end ASC,
+    //                             case when
+    //                                 data_incetare like '%înc%' or
+    //                                 data_incetare like '%lip%' or
+    //                                 data_incetare like '%susp%' or
+    //                                 data_incetare like '%c.c.c%' or
+    //                                 data_incetare like '%ccc%' or
+    //                                 data_incetare like '%cm%'
+    //                             then 0 else 1 end DESC
+    //                         "))
+    //                     ->orderBy('salariat')
+    //                     ->get();
+    //     foreach($salariati->groupBy('nume_client') as $salariatiGrupatiDupaNumeClient){
+    //         $nrCrt = 1;
+    //             foreach ($salariatiGrupatiDupaNumeClient as $salariat){
 
-                    $salariat->update(['nr_crt' => $nrCrt++]);
-                }
-            // }
-        }
+    //                 $salariat->update(['nr_crt' => $nrCrt++]);
+    //             }
+    //     }
 
-        return('hi');
+    //     return('hi');
 
-    });
+    // });
 
 
 
