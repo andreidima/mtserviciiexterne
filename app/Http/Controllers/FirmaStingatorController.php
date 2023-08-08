@@ -134,7 +134,7 @@ class FirmaStingatorController extends Controller
                 'p5' => 'nullable|numeric|integer|min:0|max:999',
                 'p6' => 'nullable|numeric|integer|min:0|max:999',
                 'p9' => 'nullable|numeric|integer|min:0|max:999',
-                'p20' => 'nullable|numeric|integer|min:0|max:999',
+                'p12' => 'nullable|numeric|integer|min:0|max:999',
                 'p50' => 'nullable|numeric|integer|min:0|max:999',
                 'p100' => 'nullable|numeric|integer|min:0|max:999',
                 'sm3' => 'nullable|numeric|integer|min:0|max:999',

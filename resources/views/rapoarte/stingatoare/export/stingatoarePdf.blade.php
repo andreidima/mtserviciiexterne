@@ -74,7 +74,7 @@
 
                     <h3 style="text-align: center">
                         Total stingătoare =
-                        {{ $stingatoare->sum('p1') + $stingatoare->sum('p2') + $stingatoare->sum('p3') + $stingatoare->sum('p4') + $stingatoare->sum('p5') + $stingatoare->sum('p6') + $stingatoare->sum('p9') + $stingatoare->sum('p20') + $stingatoare->sum('p50') +
+                        {{ $stingatoare->sum('p1') + $stingatoare->sum('p2') + $stingatoare->sum('p3') + $stingatoare->sum('p4') + $stingatoare->sum('p5') + $stingatoare->sum('p6') + $stingatoare->sum('p9') + $stingatoare->sum('p12') + $stingatoare->sum('p50') +
                             $stingatoare->sum('p100') + $stingatoare->sum('sm3') + $stingatoare->sum('sm6') + $stingatoare->sum('sm9') + $stingatoare->sum('sm50') + $stingatoare->sum('sm100') + $stingatoare->sum('g2') + $stingatoare->sum('g5') }}
 
                     </h3>
@@ -91,7 +91,7 @@
                                 /
                                 Stingatoare =
                                     <b>
-                                    {{ $stingatoare_per_traseu->sum('p1') + $stingatoare_per_traseu->sum('p2') + $stingatoare_per_traseu->sum('p3') + $stingatoare_per_traseu->sum('p4') + $stingatoare_per_traseu->sum('p5') + $stingatoare_per_traseu->sum('p6') + $stingatoare_per_traseu->sum('p9') + $stingatoare_per_traseu->sum('p20') + $stingatoare_per_traseu->sum('p50') +
+                                    {{ $stingatoare_per_traseu->sum('p1') + $stingatoare_per_traseu->sum('p2') + $stingatoare_per_traseu->sum('p3') + $stingatoare_per_traseu->sum('p4') + $stingatoare_per_traseu->sum('p5') + $stingatoare_per_traseu->sum('p6') + $stingatoare_per_traseu->sum('p9') + $stingatoare_per_traseu->sum('p12') + $stingatoare_per_traseu->sum('p50') +
                                         $stingatoare_per_traseu->sum('p100') + $stingatoare_per_traseu->sum('sm3') + $stingatoare_per_traseu->sum('sm6') + $stingatoare_per_traseu->sum('sm9') + $stingatoare_per_traseu->sum('sm50') + $stingatoare_per_traseu->sum('sm100') + $stingatoare_per_traseu->sum('g2') + $stingatoare_per_traseu->sum('g5') }}
                                     </b>
                             </th>
@@ -137,8 +137,8 @@
                                     @if($stingator->p9 > 0)
                                         {{ $stingator->p9 }} P9;
                                     @endif
-                                    @if($stingator->p20 > 0)
-                                        {{ $stingator->p20 }} P20;
+                                    @if($stingator->p12 > 0)
+                                        {{ $stingator->p12 }} P12;
                                     @endif
                                     @if($stingator->p50 > 0)
                                         {{ $stingator->p50 }} P50;
@@ -171,7 +171,7 @@
                                 <td align="right">
                                     <span class="badge fs-6 bg-success">
                                         {{
-                                            $stingator->p1 + $stingator->p2 + $stingator->p3 + $stingator->p4 + $stingator->p5 + $stingator->p6 + $stingator->p9 + $stingator->p20 + $stingator->p50 +
+                                            $stingator->p1 + $stingator->p2 + $stingator->p3 + $stingator->p4 + $stingator->p5 + $stingator->p6 + $stingator->p9 + $stingator->p12 + $stingator->p50 +
                                             $stingator->p100 + $stingator->sm3 + $stingator->sm6 + $stingator->sm9 + $stingator->sm50 + $stingator->sm100 + $stingator->g2 + $stingator->g5;
                                         }}
                                     </span>

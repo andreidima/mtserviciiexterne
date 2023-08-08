@@ -85,13 +85,13 @@
                     value="{{ old('p9', $stingator->p9) }}">
             </div>
             <div class="col-lg-2 mb-5">
-                <label for="p20" class="mb-0 ps-3">P20</label>
+                <label for="p12" class="mb-0 ps-3">P12</label>
                 <input
                     type="text"
-                    class="form-control bg-white rounded-3 {{ $errors->has('p20') ? 'is-invalid' : '' }}"
-                    name="p20"
+                    class="form-control bg-white rounded-3 {{ $errors->has('p12') ? 'is-invalid' : '' }}"
+                    name="p12"
                     placeholder=""
-                    value="{{ old('p20', $stingator->p20) }}">
+                    value="{{ old('p12', $stingator->p12) }}">
             </div>
             <div class="col-lg-2 mb-5">
                 <label for="p50" class="mb-0 ps-3">P50</label>

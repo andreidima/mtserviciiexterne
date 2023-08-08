@@ -86,10 +86,10 @@
                             </tr>
                             <tr>
                                 <td class="pe-4">
-                                    P20
+                                    P12
                                 </td>
                                 <td>
-                                    {{ $stingator->p20 }}
+                                    {{ $stingator->p12 }}
                                 </td>
                             </tr>
                             <tr>

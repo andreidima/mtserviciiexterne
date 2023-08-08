@@ -108,7 +108,7 @@ class ImportInitialStingatoareFisierExcelController extends Controller
                         // echo $tip_stingatoare . ' = ' . $numar_stingatoare . '<br>';
 
                         // Verificare daca exista acel tip de stingator (acea coloana) in baza de date
-                        if (in_array($tip_stingatoare, ['p1', 'p2', 'p3', 'p4', 'p5', 'p6', 'p9', 'p20', 'p50', 'p100', 'sm3', 'sm6', 'sm9', 'sm50', 'sm100', 'g2', 'g5'], true)){
+                        if (in_array($tip_stingatoare, ['p1', 'p2', 'p3', 'p4', 'p5', 'p6', 'p9', 'p12', 'p50', 'p100', 'sm3', 'sm6', 'sm9', 'sm50', 'sm100', 'g2', 'g5'], true)){
                             // Daca $numar_stingatoare este '', inseamna ca acolo este doar 1 stingator, asa ca automat i se va da valoarea 1;
                             ($numar_stingatoare == '') ?
                                 ( (count($stingatoare_array) == 1) ?
@@ -164,7 +164,7 @@ class ImportInitialStingatoareFisierExcelController extends Controller
                     // case 'P9':
                         $stingator->p9 = is_numeric($stingator_import->{'NR. STING'}) ? $stingator_import->{'NR. STING'} : 0;
                         break;
-                    case 'p20':
+                    case 'p12':
                     // case 'P3':
                         $stingator->p3 = is_numeric($stingator_import->{'NR. STING'}) ? $stingator_import->{'NR. STING'} : 0;
                         break;

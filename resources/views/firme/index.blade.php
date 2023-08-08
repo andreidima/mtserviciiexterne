@@ -355,7 +355,7 @@
                                                             Sting
                                                             <span class="badge bg-success">
                                                                 {{
-                                                                    $firma->stingator->p1 + $firma->stingator->p2 + $firma->stingator->p3 + $firma->stingator->p4 + $firma->stingator->p5 + $firma->stingator->p6 + $firma->stingator->p9 + $firma->stingator->p20 + $firma->stingator->p50 +
+                                                                    $firma->stingator->p1 + $firma->stingator->p2 + $firma->stingator->p3 + $firma->stingator->p4 + $firma->stingator->p5 + $firma->stingator->p6 + $firma->stingator->p9 + $firma->stingator->p12 + $firma->stingator->p50 +
                                                                     $firma->stingator->p100 + $firma->stingator->sm3 + $firma->stingator->sm6 + $firma->stingator->sm9 + $firma->stingator->sm50 + $firma->stingator->sm100 + $firma->stingator->g2 + $firma->stingator->g5;
                                                                 }}
                                                             </span>
@@ -625,7 +625,7 @@
                                                             Sting
                                                             <span class="badge bg-success">
                                                                 {{
-                                                                    $firma->stingator->p1 + $firma->stingator->p2 + $firma->stingator->p3 + $firma->stingator->p4 + $firma->stingator->p5 + $firma->stingator->p6 + $firma->stingator->p9 + $firma->stingator->p20 + $firma->stingator->p50 +
+                                                                    $firma->stingator->p1 + $firma->stingator->p2 + $firma->stingator->p3 + $firma->stingator->p4 + $firma->stingator->p5 + $firma->stingator->p6 + $firma->stingator->p9 + $firma->stingator->p12 + $firma->stingator->p50 +
                                                                     $firma->stingator->p100 + $firma->stingator->sm3 + $firma->stingator->sm6 + $firma->stingator->sm9 + $firma->stingator->sm50 + $firma->stingator->sm100 + $firma->stingator->g2 + $firma->stingator->g5;
                                                                 }}
                                                             </span>

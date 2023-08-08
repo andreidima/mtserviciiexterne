@@ -52,13 +52,13 @@
                             <th colspan="4" class="text-center">
                                 Luna {{ \Carbon\Carbon::parse($search_data)->isoFormat('MM.YYYY') }} / Total stingătoare =
                                     <span class="badge bg-success fs-6 border border-white">
-                                        {{ $stingatoare->sum('p1') + $stingatoare->sum('p2') + $stingatoare->sum('p3') + $stingatoare->sum('p4') + $stingatoare->sum('p5') + $stingatoare->sum('p6') + $stingatoare->sum('p9') + $stingatoare->sum('p20') + $stingatoare->sum('p50') +
+                                        {{ $stingatoare->sum('p1') + $stingatoare->sum('p2') + $stingatoare->sum('p3') + $stingatoare->sum('p4') + $stingatoare->sum('p5') + $stingatoare->sum('p6') + $stingatoare->sum('p9') + $stingatoare->sum('p12') + $stingatoare->sum('p50') +
                                             $stingatoare->sum('p100') + $stingatoare->sum('sm3') + $stingatoare->sum('sm6') + $stingatoare->sum('sm9') + $stingatoare->sum('sm50') + $stingatoare->sum('sm100') + $stingatoare->sum('g2') + $stingatoare->sum('g5') }}
                                     </span>
                                 <br>
                                 Luna precedentă {{ \Carbon\Carbon::parse($search_data_luna_precedenta)->isoFormat('MM.YYYY') }} / Total stingătoare nerezolvate =
                                     <span class="badge bg-danger fs-6 border border-white">
-                                        {{ $stingatoare_luna_precedenta->sum('p1') + $stingatoare_luna_precedenta->sum('p2') + $stingatoare_luna_precedenta->sum('p3') + $stingatoare_luna_precedenta->sum('p4') + $stingatoare_luna_precedenta->sum('p5') + $stingatoare_luna_precedenta->sum('p6') + $stingatoare_luna_precedenta->sum('p9') + $stingatoare_luna_precedenta->sum('p20') + $stingatoare_luna_precedenta->sum('p50') +
+                                        {{ $stingatoare_luna_precedenta->sum('p1') + $stingatoare_luna_precedenta->sum('p2') + $stingatoare_luna_precedenta->sum('p3') + $stingatoare_luna_precedenta->sum('p4') + $stingatoare_luna_precedenta->sum('p5') + $stingatoare_luna_precedenta->sum('p6') + $stingatoare_luna_precedenta->sum('p9') + $stingatoare_luna_precedenta->sum('p12') + $stingatoare_luna_precedenta->sum('p50') +
                                             $stingatoare_luna_precedenta->sum('p100') + $stingatoare_luna_precedenta->sum('sm3') + $stingatoare_luna_precedenta->sum('sm6') + $stingatoare_luna_precedenta->sum('sm9') + $stingatoare_luna_precedenta->sum('sm50') + $stingatoare_luna_precedenta->sum('sm100') + $stingatoare_luna_precedenta->sum('g2') + $stingatoare_luna_precedenta->sum('g5') }}
                                     </span>
                             </th>
@@ -99,7 +99,7 @@
                                     /
                                     Stingatoare =
                                     <span class="badge bg-success fs-6">
-                                        {{ $stingatoare_per_traseu->sum('p1') + $stingatoare_per_traseu->sum('p2') + $stingatoare_per_traseu->sum('p3') + $stingatoare_per_traseu->sum('p4') + $stingatoare_per_traseu->sum('p5') + $stingatoare_per_traseu->sum('p6') + $stingatoare_per_traseu->sum('p9') + $stingatoare_per_traseu->sum('p20') + $stingatoare_per_traseu->sum('p50') +
+                                        {{ $stingatoare_per_traseu->sum('p1') + $stingatoare_per_traseu->sum('p2') + $stingatoare_per_traseu->sum('p3') + $stingatoare_per_traseu->sum('p4') + $stingatoare_per_traseu->sum('p5') + $stingatoare_per_traseu->sum('p6') + $stingatoare_per_traseu->sum('p9') + $stingatoare_per_traseu->sum('p12') + $stingatoare_per_traseu->sum('p50') +
                                             $stingatoare_per_traseu->sum('p100') + $stingatoare_per_traseu->sum('sm3') + $stingatoare_per_traseu->sum('sm6') + $stingatoare_per_traseu->sum('sm9') + $stingatoare_per_traseu->sum('sm50') + $stingatoare_per_traseu->sum('sm100') + $stingatoare_per_traseu->sum('g2') + $stingatoare_per_traseu->sum('g5') }}
                                     </span>
                                 </td>
@@ -107,7 +107,7 @@
                             @forelse ($stingatoare_per_traseu as $stingator)
                                 {{-- @php
                                     $total_stingatoare_per_stingator =
-                                        $stingator->p1 + $stingator->p2 + $stingator->p3 + $stingator->p4 + $stingator->p5 + $stingator->p6 + $stingator->p9 + $stingator->p20 + $stingator->p50 +
+                                        $stingator->p1 + $stingator->p2 + $stingator->p3 + $stingator->p4 + $stingator->p5 + $stingator->p6 + $stingator->p9 + $stingator->p12 + $stingator->p50 +
                                         $stingator->p100 + $stingator->sm3 + $stingator->sm6 + $stingator->sm9 + $stingator->sm50 + $stingator->sm100 + $stingator->g2 + $stingator->g5;
                                     $total_stingatoare_per_traseu += $total_stingatoare_per_stingator
                                 @endphp --}}
@@ -126,7 +126,7 @@
                                     <td>
                                         <span class="badge fs-6 bg-success">
                                             {{
-                                                $stingator->p1 + $stingator->p2 + $stingator->p3 + $stingator->p4 + $stingator->p5 + $stingator->p6 + $stingator->p9 + $stingator->p20 + $stingator->p50 +
+                                                $stingator->p1 + $stingator->p2 + $stingator->p3 + $stingator->p4 + $stingator->p5 + $stingator->p6 + $stingator->p9 + $stingator->p12 + $stingator->p50 +
                                                 $stingator->p100 + $stingator->sm3 + $stingator->sm6 + $stingator->sm9 + $stingator->sm50 + $stingator->sm100 + $stingator->g2 + $stingator->g5;
                                             }}
                                         </span> =
@@ -165,9 +165,9 @@
                                                 {{ $stingator->p9 }} P9
                                                 </span>
                                         @endif
-                                        @if($stingator->p20 > 0)
+                                        @if($stingator->p12 > 0)
                                                 <span class="badge bg-secondary">
-                                                {{ $stingator->p20 }} P20
+                                                {{ $stingator->p12 }} P12
                                                 </span>
                                         @endif
                                         @if($stingator->p50 > 0)
@@ -240,7 +240,7 @@
                             <th colspan="4" class="text-center">
                                 Luna precedentă {{ \Carbon\Carbon::parse($search_data_luna_precedenta)->isoFormat('MM.YYYY') }} / Total stingătoare nerezolvate =
                                     <span class="badge bg-danger fs-6 border border-white">
-                                        {{ $stingatoare_luna_precedenta->sum('p1') + $stingatoare_luna_precedenta->sum('p2') + $stingatoare_luna_precedenta->sum('p3') + $stingatoare_luna_precedenta->sum('p4') + $stingatoare_luna_precedenta->sum('p5') + $stingatoare_luna_precedenta->sum('p6') + $stingatoare_luna_precedenta->sum('p9') + $stingatoare_luna_precedenta->sum('p20') + $stingatoare_luna_precedenta->sum('p50') +
+                                        {{ $stingatoare_luna_precedenta->sum('p1') + $stingatoare_luna_precedenta->sum('p2') + $stingatoare_luna_precedenta->sum('p3') + $stingatoare_luna_precedenta->sum('p4') + $stingatoare_luna_precedenta->sum('p5') + $stingatoare_luna_precedenta->sum('p6') + $stingatoare_luna_precedenta->sum('p9') + $stingatoare_luna_precedenta->sum('p12') + $stingatoare_luna_precedenta->sum('p50') +
                                             $stingatoare_luna_precedenta->sum('p100') + $stingatoare_luna_precedenta->sum('sm3') + $stingatoare_luna_precedenta->sum('sm6') + $stingatoare_luna_precedenta->sum('sm9') + $stingatoare_luna_precedenta->sum('sm50') + $stingatoare_luna_precedenta->sum('sm100') + $stingatoare_luna_precedenta->sum('g2') + $stingatoare_luna_precedenta->sum('g5') }}
                                     </span>
                             </th>
@@ -269,7 +269,7 @@
                                     /
                                     Stingatoare =
                                     <span class="badge bg-success fs-6">
-                                        {{ $stingatoare_per_traseu->sum('p1') + $stingatoare_per_traseu->sum('p2') + $stingatoare_per_traseu->sum('p3') + $stingatoare_per_traseu->sum('p4') + $stingatoare_per_traseu->sum('p5') + $stingatoare_per_traseu->sum('p6') + $stingatoare_per_traseu->sum('p9') + $stingatoare_per_traseu->sum('p20') + $stingatoare_per_traseu->sum('p50') +
+                                        {{ $stingatoare_per_traseu->sum('p1') + $stingatoare_per_traseu->sum('p2') + $stingatoare_per_traseu->sum('p3') + $stingatoare_per_traseu->sum('p4') + $stingatoare_per_traseu->sum('p5') + $stingatoare_per_traseu->sum('p6') + $stingatoare_per_traseu->sum('p9') + $stingatoare_per_traseu->sum('p12') + $stingatoare_per_traseu->sum('p50') +
                                             $stingatoare_per_traseu->sum('p100') + $stingatoare_per_traseu->sum('sm3') + $stingatoare_per_traseu->sum('sm6') + $stingatoare_per_traseu->sum('sm9') + $stingatoare_per_traseu->sum('sm50') + $stingatoare_per_traseu->sum('sm100') + $stingatoare_per_traseu->sum('g2') + $stingatoare_per_traseu->sum('g5') }}
                                     </span>
                                 </td>
@@ -277,7 +277,7 @@
                             @forelse ($stingatoare_per_traseu as $stingator)
                                 @php
                                     $total_stingatoare_per_stingator =
-                                        $stingator->p1 + $stingator->p2 + $stingator->p3 + $stingator->p4 + $stingator->p5 + $stingator->p6 + $stingator->p9 + $stingator->p20 + $stingator->p50 +
+                                        $stingator->p1 + $stingator->p2 + $stingator->p3 + $stingator->p4 + $stingator->p5 + $stingator->p6 + $stingator->p9 + $stingator->p12 + $stingator->p50 +
                                         $stingator->p100 + $stingator->sm3 + $stingator->sm6 + $stingator->sm9 + $stingator->sm50 + $stingator->sm100 + $stingator->g2 + $stingator->g5;
                                     $total_stingatoare_per_traseu += $total_stingatoare_per_stingator
                                 @endphp
@@ -332,9 +332,9 @@
                                                 {{ $stingator->p9 }} P9
                                                 </span>
                                         @endif
-                                        @if($stingator->p20 > 0)
+                                        @if($stingator->p12 > 0)
                                                 <span class="badge bg-secondary">
-                                                {{ $stingator->p20 }} P20
+                                                {{ $stingator->p12 }} P12
                                                 </span>
                                         @endif
                                         @if($stingator->p50 > 0)

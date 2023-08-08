@@ -72,7 +72,7 @@
                                             $stingator->p5 +
                                             $stingator->p6 +
                                             $stingator->p9 +
-                                            $stingator->p20 +
+                                            $stingator->p12 +
                                             $stingator->p50 +
                                             $stingator->p100 +
                                             $stingator->sm3 +
@@ -119,9 +119,9 @@
                                             {{ $stingator->p9 }} P9
                                             </span>
                                     @endif
-                                    @if($stingator->p20 > 0)
+                                    @if($stingator->p12 > 0)
                                             <span class="badge bg-secondary">
-                                            {{ $stingator->p20 }} P20
+                                            {{ $stingator->p12 }} P12
                                             </span>
                                     @endif
                                     @if($stingator->p50 > 0)
