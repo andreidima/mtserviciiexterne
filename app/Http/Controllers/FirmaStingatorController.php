@@ -98,6 +98,8 @@ class FirmaStingatorController extends Controller
     public function update(Request $request, $serviciu = null, Firma $firma, FirmaStingator $stingator)
     {
         $request->request->add(['user_id' => $request->user()->id]);
+        $this->validateRequest($request);
+        // dd($request, $stingator);
         $stingator->update($this->validateRequest($request));
 
         return redirect($request->session()->get('stingatoare_return_url') ?? ('/' . $serviciu . '/firme'))
@@ -134,7 +136,7 @@ class FirmaStingatorController extends Controller
                 'p5' => 'nullable|numeric|integer|min:0|max:999',
                 'p6' => 'nullable|numeric|integer|min:0|max:999',
                 'p9' => 'nullable|numeric|integer|min:0|max:999',
-                'p12' => 'nullable|numeric|integer|min:0|max:999',
+                // 'p12' => 'nullable|numeric|integer|min:0|max:999',
                 'p50' => 'nullable|numeric|integer|min:0|max:999',
                 'p100' => 'nullable|numeric|integer|min:0|max:999',
                 'sm3' => 'nullable|numeric|integer|min:0|max:999',

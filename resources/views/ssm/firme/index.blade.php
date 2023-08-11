@@ -462,23 +462,23 @@
                                         @change="axiosActualizeazaFirma({{ $firma->id }}, 'ssm_stare_fise', $event.target.value)"
                                     >
                                     <option value='-' selected>-</option>
-                                    <option value="noi.p;de s.p" style="color:blueviolet" {{ $firma->ssm_stare_fise === 'noi.p;de s.p' ? 'selected' : ''}}>noi.p;de s.p</option>
+                                    {{-- <option value="noi.p;de s.p" style="color:blueviolet" {{ $firma->ssm_stare_fise === 'noi.p;de s.p' ? 'selected' : ''}}>noi.p;de s.p</option> --}}
                                     <option value="noi.p;de s" style="color:blueviolet" {{ $firma->ssm_stare_fise === 'noi.p;de s' ? 'selected' : ''}}>noi.p;de s</option>
                                     <option value="noi;de s" style="color:blueviolet" {{ $firma->ssm_stare_fise === 'noi;de s' ? 'selected' : ''}}>noi;de s</option>
                                     <option value="noi" style="color:black" {{ $firma->ssm_stare_fise === 'noi' ? 'selected' : ''}}>noi</option>
-                                    <option value="noi;s" style="color:black" {{ $firma->ssm_stare_fise === 'noi;s' ? 'selected' : ''}}>noi;s</option>
+                                    {{-- <option value="noi;s" style="color:black" {{ $firma->ssm_stare_fise === 'noi;s' ? 'selected' : ''}}>noi;s</option> --}}
                                     <option value="noi;s.p" style="color:black" {{ $firma->ssm_stare_fise === 'noi;s.p' ? 'selected' : ''}}>noi;s.p</option>
                                     <option value="noi.p;s.p" style="color:black" {{ $firma->ssm_stare_fise === 'noi.p;s.p' ? 'selected' : ''}}>noi.p;s.p</option>
                                     <option value="comp.la cl." style="color:rgb(0, 145, 77)" {{ $firma->ssm_stare_fise === 'comp.la cl.' ? 'selected' : ''}}>comp.la cl.</option>
                                     <option value="cl;de s" style="color:rgb(0, 96, 175)" {{ $firma->ssm_stare_fise === 'cl;de s' ? 'selected' : ''}}>cl;de s</option>
                                     <option value="cl.p;de s" style="color:rgb(0, 96, 175)" {{ $firma->ssm_stare_fise === 'cl.p;de s' ? 'selected' : ''}}>cl.p;de s</option>
-                                    <option value="Fișe-C" style="color:rgb(0, 96, 175)" {{ $firma->ssm_stare_fise === 'Fișe-C' ? 'selected' : ''}}>Fișe-C</option>
+                                    {{-- <option value="Fișe-C" style="color:rgb(0, 96, 175)" {{ $firma->ssm_stare_fise === 'Fișe-C' ? 'selected' : ''}}>Fișe-C</option> --}}
                                     <option value="cl;control" style="color:rgb(0, 96, 175)" {{ $firma->ssm_stare_fise === 'cl;control' ? 'selected' : ''}}>cl;control</option>
                                     <option value="Nu sal." style="color:black" {{ $firma->ssm_stare_fise === 'Nu sal.' ? 'selected' : ''}}>Nu sal.</option>
-                                    <option value="Activ.susp" style="color:black" {{ $firma->ssm_stare_fise === 'Activ.susp' ? 'selected' : ''}}>Activ.susp</option>
-                                    <option value="Firma inchisa" style="color:black" {{ $firma->ssm_stare_fise === 'Firma inchisa' ? 'selected' : ''}}>Firma inchisa</option>
+                                    {{-- <option value="Activ.susp" style="color:black" {{ $firma->ssm_stare_fise === 'Activ.susp' ? 'selected' : ''}}>Activ.susp</option> --}}
+                                    {{-- <option value="Firma inchisa" style="color:black" {{ $firma->ssm_stare_fise === 'Firma inchisa' ? 'selected' : ''}}>Firma inchisa</option> --}}
                                     <option value="de adus" style="color:rgb(204, 0, 0)" {{ $firma->ssm_stare_fise === 'de adus' ? 'selected' : ''}}>de adus</option>
-                                    <option value="La anulate" style="color:rgb(94, 94, 94)" {{ $firma->ssm_stare_fise === 'La anulate' ? 'selected' : ''}}>La anulate</option>
+                                    {{-- <option value="La anulate" style="color:rgb(94, 94, 94)" {{ $firma->ssm_stare_fise === 'La anulate' ? 'selected' : ''}}>La anulate</option> --}}
                                 </select>
                                 <div v-cloak v-if="(axiosActualizatFirmaId == {{ $firma->id }}) && (axiosActualizatCamp == 'ssm_stare_fise')" class="me-2 text-success">
                                     <i class="fas fa-thumbs-up"></i>
@@ -537,23 +537,23 @@
                                         @change="axiosActualizeazaFirma({{ $firma->id }}, 'psi_stare_fise', $event.target.value)"
                                     >
                                     <option value='-' selected>-</option>
-                                    <option value="noi.p;de s.p" style="color:blueviolet" {{ $firma->psi_stare_fise === 'noi.p;de s.p' ? 'selected' : ''}}>noi.p;de s.p</option>
+                                    {{-- <option value="noi.p;de s.p" style="color:blueviolet" {{ $firma->psi_stare_fise === 'noi.p;de s.p' ? 'selected' : ''}}>noi.p;de s.p</option> --}}
                                     <option value="noi.p;de s" style="color:blueviolet" {{ $firma->psi_stare_fise === 'noi.p;de s' ? 'selected' : ''}}>noi.p;de s</option>
                                     <option value="noi;de s" style="color:blueviolet" {{ $firma->psi_stare_fise === 'noi;de s' ? 'selected' : ''}}>noi;de s</option>
                                     <option value="noi" style="color:black" {{ $firma->psi_stare_fise === 'noi' ? 'selected' : ''}}>noi</option>
-                                    <option value="noi;s" style="color:black" {{ $firma->psi_stare_fise === 'noi;s' ? 'selected' : ''}}>noi;s</option>
+                                    {{-- <option value="noi;s" style="color:black" {{ $firma->psi_stare_fise === 'noi;s' ? 'selected' : ''}}>noi;s</option> --}}
                                     <option value="noi;s.p" style="color:black" {{ $firma->psi_stare_fise === 'noi;s.p' ? 'selected' : ''}}>noi;s.p</option>
                                     <option value="noi.p;s.p" style="color:black" {{ $firma->psi_stare_fise === 'noi.p;s.p' ? 'selected' : ''}}>noi.p;s.p</option>
                                     <option value="comp.la cl." style="color:rgb(0, 145, 77)" {{ $firma->psi_stare_fise === 'comp.la cl.' ? 'selected' : ''}}>comp.la cl.</option>
                                     <option value="cl;de s" style="color:rgb(0, 96, 175)" {{ $firma->psi_stare_fise === 'cl;de s' ? 'selected' : ''}}>cl;de s</option>
                                     <option value="cl.p;de s" style="color:rgb(0, 96, 175)" {{ $firma->psi_stare_fise === 'cl.p;de s' ? 'selected' : ''}}>cl.p;de s</option>
-                                    <option value="Fișe-C" style="color:rgb(0, 96, 175)" {{ $firma->psi_stare_fise === 'Fișe-C' ? 'selected' : ''}}>Fișe-C</option>
+                                    {{-- <option value="Fișe-C" style="color:rgb(0, 96, 175)" {{ $firma->psi_stare_fise === 'Fișe-C' ? 'selected' : ''}}>Fișe-C</option> --}}
                                     <option value="cl;control" style="color:rgb(0, 96, 175)" {{ $firma->psi_stare_fise === 'cl;control' ? 'selected' : ''}}>cl;control</option>
                                     <option value="Nu sal." style="color:black" {{ $firma->psi_stare_fise === 'Nu sal.' ? 'selected' : ''}}>Nu sal.</option>
-                                    <option value="Activ.susp" style="color:black" {{ $firma->psi_stare_fise === 'Activ.susp' ? 'selected' : ''}}>Activ.susp</option>
-                                    <option value="Firma inchisa" style="color:black" {{ $firma->psi_stare_fise === 'Firma inchisa' ? 'selected' : ''}}>Firma inchisa</option>
+                                    {{-- <option value="Activ.susp" style="color:black" {{ $firma->psi_stare_fise === 'Activ.susp' ? 'selected' : ''}}>Activ.susp</option> --}}
+                                    {{-- <option value="Firma inchisa" style="color:black" {{ $firma->psi_stare_fise === 'Firma inchisa' ? 'selected' : ''}}>Firma inchisa</option> --}}
                                     <option value="de adus" style="color:rgb(204, 0, 0)" {{ $firma->psi_stare_fise === 'de adus' ? 'selected' : ''}}>de adus</option>
-                                    <option value="La anulate" style="color:rgb(94, 94, 94)" {{ $firma->psi_stare_fise === 'La anulate' ? 'selected' : ''}}>La anulate</option>
+                                    {{-- <option value="La anulate" style="color:rgb(94, 94, 94)" {{ $firma->psi_stare_fise === 'La anulate' ? 'selected' : ''}}>La anulate</option> --}}
                                 </select>
                                 <div v-cloak v-if="(axiosActualizatFirmaId == {{ $firma->id }}) && (axiosActualizatCamp == 'psi_stare_fise')" class="me-2 text-success">
                                     <i class="fas fa-thumbs-up"></i>

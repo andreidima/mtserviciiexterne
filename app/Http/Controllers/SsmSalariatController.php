@@ -96,8 +96,8 @@ class SsmSalariatController extends Controller
                                     data_incetare like '%cm%'
                                 then 0 else 1 end DESC
                             "))
-                        // ->orderBy('salariat')
                         ->orderBy($campSortare, $ordineSortare)
+                        ->orderBy('salariat')
                         ->simplePaginate(200);
 
         $nrSalariatiDeRezolvat = SsmSalariat::

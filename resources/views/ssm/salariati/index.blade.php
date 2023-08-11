@@ -79,7 +79,7 @@
                             <option value="Lipsa" style="color:rgb(255, 0, 0)" {{ old('modificariGlobaleSemnat_ssm') === 'Lipsa' ? 'selected' : ''}}>Lipsa</option>
                             <option value="comp.la cl." style="color:rgb(0, 180, 75)" {{ old('modificariGlobaleSemnat_ssm') === 'comp.la cl.' ? 'selected' : ''}}>comp.la cl.</option>
                             <option value="n.de s" style="color:blueviolet" {{ old('modificariGlobaleSemnat_ssm') === 'n.de s' ? 'selected' : ''}}>n. de s</option>
-                            <option value="noi s." style="" {{ old('modificariGlobaleSemnat_ssm') === 'noi s.' ? 'selected' : ''}}>noi s.</option>
+                            {{-- <option value="noi s." style="" {{ old('modificariGlobaleSemnat_ssm') === 'noi s.' ? 'selected' : ''}}>noi s.</option> --}}
                             <option value="noi" style="" {{ old('modificariGlobaleSemnat_ssm') === 'noi' ? 'selected' : ''}}>noi</option>
                             {{-- <option value='-'>-</option>
                             <option value="n.de s" style="color:blueviolet" {{ old('semnat_ssm') === 'n.de s' ? 'selected' : ''}}>n. de s</option>
@@ -96,7 +96,7 @@
                             <option value="Lipsa" style="color:rgb(255, 0, 0)" {{ old('modificariGlobaleSemnat_psi') === 'Lipsa' ? 'selected' : ''}}>Lipsa</option>
                             <option value="comp.la cl." style="color:rgb(0, 180, 75)" {{ old('modificariGlobaleSemnat_psi') === 'comp.la cl.' ? 'selected' : ''}}>comp.la cl.</option>
                             <option value="n.de s" style="color:blueviolet" {{ old('modificariGlobaleSemnat_psi') === 'n.de s' ? 'selected' : ''}}>n. de s</option>
-                            <option value="noi s." style="" {{ old('modificariGlobaleSemnat_psi') === 'noi s.' ? 'selected' : ''}}>noi s.</option>
+                            {{-- <option value="noi s." style="" {{ old('modificariGlobaleSemnat_psi') === 'noi s.' ? 'selected' : ''}}>noi s.</option> --}}
                             <option value="noi" style="" {{ old('modificariGlobaleSemnat_psi') === 'noi' ? 'selected' : ''}}>noi</option>
                             {{-- <option value='-'>-</option>
                             <option value="n.de s" style="color:blueviolet" {{ old('semnat_psi') === 'n.de s' ? 'selected' : ''}}>n.de s</option>
@@ -467,7 +467,7 @@
                                     <option value="Lipsa" style="color:rgb(255, 0, 0)" {{ $salariat->semnat_ssm === 'Lipsa' ? 'selected' : ''}}>Lipsa</option>
                                     <option value="comp.la cl." style="color:rgb(0, 180, 75)" {{ $salariat->semnat_ssm === 'comp.la cl.' ? 'selected' : ''}}>comp.la cl.</option>
                                     <option value="n.de s" style="color:blueviolet" {{ $salariat->semnat_ssm === 'n.de s' ? 'selected' : ''}}>n. de s</option>
-                                    <option value="noi s." style="color:rgb(0, 0, 0)" {{ $salariat->semnat_ssm === 'noi s.' ? 'selected' : ''}}>noi s.</option>
+                                    {{-- <option value="noi s." style="color:rgb(0, 0, 0)" {{ $salariat->semnat_ssm === 'noi s.' ? 'selected' : ''}}>noi s.</option> --}}
                                     <option value="noi" style="color:rgb(0, 0, 0)" {{ $salariat->semnat_ssm === 'noi' ? 'selected' : ''}}>noi</option>
                                 </select>
                                 <div v-cloak v-if="(axiosActualizatSalariatId == {{ $salariat->id }}) && (axiosActualizatCamp == 'semnat_ssm')" class="me-2 text-success">
@@ -527,7 +527,7 @@
                                     <option value="Lipsa" style="color:rgb(255, 0, 0)" {{ $salariat->semnat_psi === 'Lipsa' ? 'selected' : ''}}>Lipsa</option>
                                     <option value="comp.la cl." style="color:rgb(0, 180, 75)" {{ $salariat->semnat_psi === 'comp.la cl.' ? 'selected' : ''}}>comp.la cl.</option>
                                     <option value="n.de s" style="color:blueviolet" {{ $salariat->semnat_psi === 'n.de s' ? 'selected' : ''}}>n. de s</option>
-                                    <option value="noi s." style="color:rgb(0, 0, 0)" {{ $salariat->semnat_psi === 'noi s.' ? 'selected' : ''}}>noi s.</option>
+                                    {{-- <option value="noi s." style="color:rgb(0, 0, 0)" {{ $salariat->semnat_psi === 'noi s.' ? 'selected' : ''}}>noi s.</option> --}}
                                     <option value="noi" style="color:rgb(0, 0, 0)" {{ $salariat->semnat_psi === 'noi' ? 'selected' : ''}}>noi</option>
                                 </select>
                                 <div v-cloak v-if="(axiosActualizatSalariatId == {{ $salariat->id }}) && (axiosActualizatCamp == 'semnat_psi')" class="me-2 text-success">

@@ -102,42 +102,42 @@
                 <label for="ssm_stare_fise" class="mb-0 ps-3">SSM stare fișe</label>
                 <select name="ssm_stare_fise" class="form-select bg-white rounded-3 {{ $errors->has('ssm_stare_fise') ? 'is-invalid' : '' }}">
                     <option value='-' selected>-</option>
-                    <option value="noi.p;de s.p" style="color:blueviolet" {{ old('ssm_stare_fise', $firma->ssm_stare_fise) === 'noi.p;de s.p' ? 'selected' : ''}}>noi.p;de s.p</option>
+                    {{-- <option value="noi.p;de s.p" style="color:blueviolet" {{ old('ssm_stare_fise', $firma->ssm_stare_fise) === 'noi.p;de s.p' ? 'selected' : ''}}>noi.p;de s.p</option> --}}
                     <option value="noi.p;de s" style="color:blueviolet" {{ old('ssm_stare_fise', $firma->ssm_stare_fise) === 'noi.p;de s' ? 'selected' : ''}}>noi.p;de s</option>
                     <option value="noi;de s" style="color:blueviolet" {{ old('ssm_stare_fise', $firma->ssm_stare_fise) === 'noi;de s' ? 'selected' : ''}}>noi;de s</option>
                     <option value="noi" {{ old('ssm_stare_fise', $firma->ssm_stare_fise) === 'noi' ? 'selected' : ''}}>noi</option>
-                    <option value="noi;s" {{ old('ssm_stare_fise', $firma->ssm_stare_fise) === 'noi;s' ? 'selected' : ''}}>noi;s</option>
+                    {{-- <option value="noi;s" {{ old('ssm_stare_fise', $firma->ssm_stare_fise) === 'noi;s' ? 'selected' : ''}}>noi;s</option> --}}
                     <option value="noi;s.p" {{ old('ssm_stare_fise', $firma->ssm_stare_fise) === 'noi;s.p' ? 'selected' : ''}}>noi;s.p</option>
                     <option value="noi.p;s.p" {{ old('ssm_stare_fise', $firma->ssm_stare_fise) === 'noi.p;s.p' ? 'selected' : ''}}>noi.p;s.p</option>
                     <option value="comp.la cl." style="color:rgb(0, 145, 77)" {{ old('ssm_stare_fise', $firma->ssm_stare_fise) === 'comp.la cl.' ? 'selected' : ''}}>comp.la cl.</option>
                     <option value="cl;de s" style="color:rgb(0, 96, 175)" {{ old('ssm_stare_fise', $firma->ssm_stare_fise) === 'cl;de s' ? 'selected' : ''}}>cl;de s</option>
                     <option value="cl.p;de s" style="color:rgb(0, 96, 175)" {{ old('ssm_stare_fise', $firma->ssm_stare_fise) === 'cl.p;de s' ? 'selected' : ''}}>cl.p;de s</option>
-                    <option value="Fișe-C" style="color:rgb(0, 96, 175)" {{ old('ssm_stare_fise', $firma->ssm_stare_fise) === 'Fișe-C' ? 'selected' : ''}}>Fișe-C</option>
+                    {{-- <option value="Fișe-C" style="color:rgb(0, 96, 175)" {{ old('ssm_stare_fise', $firma->ssm_stare_fise) === 'Fișe-C' ? 'selected' : ''}}>Fișe-C</option> --}}
                     <option value="cl;control" style="color:rgb(0, 96, 175)" {{ old('ssm_stare_fise', $firma->ssm_stare_fise) === 'cl;control' ? 'selected' : ''}}>cl;control</option>
                     <option value="Nu sal." {{ old('ssm_stare_fise', $firma->ssm_stare_fise) === 'Nu sal.' ? 'selected' : ''}}>Nu sal.</option>
-                    <option value="Activ.susp" {{ old('ssm_stare_fise', $firma->ssm_stare_fise) === 'Activ.susp' ? 'selected' : ''}}>Activ.susp</option>
-                    <option value="Firma inchisa" {{ old('ssm_stare_fise', $firma->ssm_stare_fise) === 'Firma inchisa' ? 'selected' : ''}}>Firma inchisa</option>
+                    {{-- <option value="Activ.susp" {{ old('ssm_stare_fise', $firma->ssm_stare_fise) === 'Activ.susp' ? 'selected' : ''}}>Activ.susp</option> --}}
+                    {{-- <option value="Firma inchisa" {{ old('ssm_stare_fise', $firma->ssm_stare_fise) === 'Firma inchisa' ? 'selected' : ''}}>Firma inchisa</option> --}}
                     <option value="de adus" style="color:rgb(204, 0, 0)" {{ old('ssm_stare_fise', $firma->ssm_stare_fise) === 'de adus' ? 'selected' : ''}}>de adus</option>
-                    <option value="La anulate" style="color:rgb(94, 94, 94)" {{ old('ssm_stare_fise', $firma->ssm_stare_fise) === 'La anulate' ? 'selected' : ''}}>La anulate</option>
+                    {{-- <option value="La anulate" style="color:rgb(94, 94, 94)" {{ old('ssm_stare_fise', $firma->ssm_stare_fise) === 'La anulate' ? 'selected' : ''}}>La anulate</option> --}}
                     @if (
                         (old('ssm_stare_fise', $firma->ssm_stare_fise) !== '-') &&
-                        (old('ssm_stare_fise', $firma->ssm_stare_fise) !== 'noi.p;de s.p') &&
+                        // (old('ssm_stare_fise', $firma->ssm_stare_fise) !== 'noi.p;de s.p') &&
                         (old('ssm_stare_fise', $firma->ssm_stare_fise) !== 'noi.p;de s') &&
                         (old('ssm_stare_fise', $firma->ssm_stare_fise) !== 'noi;de s') &&
                         (old('ssm_stare_fise', $firma->ssm_stare_fise) !== 'noi') &&
-                        (old('ssm_stare_fise', $firma->ssm_stare_fise) !== 'noi;s') &&
+                        // (old('ssm_stare_fise', $firma->ssm_stare_fise) !== 'noi;s') &&
                         (old('ssm_stare_fise', $firma->ssm_stare_fise) !== 'noi;s.p') &&
                         (old('ssm_stare_fise', $firma->ssm_stare_fise) !== 'noi.p;s.p') &&
                         (old('ssm_stare_fise', $firma->ssm_stare_fise) !== 'comp.la cl.') &&
                         (old('ssm_stare_fise', $firma->ssm_stare_fise) !== 'cl;de s') &&
                         (old('ssm_stare_fise', $firma->ssm_stare_fise) !== 'cl.p;de s') &&
-                        (old('ssm_stare_fise', $firma->ssm_stare_fise) !== 'Fișe-C') &&
+                        // (old('ssm_stare_fise', $firma->ssm_stare_fise) !== 'Fișe-C') &&
                         (old('ssm_stare_fise', $firma->ssm_stare_fise) !== 'cl;control') &&
                         (old('ssm_stare_fise', $firma->ssm_stare_fise) !== 'Nu sal.') &&
-                        (old('ssm_stare_fise', $firma->ssm_stare_fise) !== 'Activ.susp') &&
-                        (old('ssm_stare_fise', $firma->ssm_stare_fise) !== 'Firma inchisa') &&
+                        // (old('ssm_stare_fise', $firma->ssm_stare_fise) !== 'Activ.susp') &&
+                        // (old('ssm_stare_fise', $firma->ssm_stare_fise) !== 'Firma inchisa') &&
                         (old('ssm_stare_fise', $firma->ssm_stare_fise) !== 'de adus') &&
-                        (old('ssm_stare_fise', $firma->ssm_stare_fise) !== 'La anulate')
+                        // (old('ssm_stare_fise', $firma->ssm_stare_fise) !== 'La anulate')
                         )
                         <option value="{{ $firma->ssm_stare_fise }}" {{ (old('ssm_stare_fise', $firma->ssm_stare_fise) === $firma->ssm_stare_fise) ? 'selected' : ''}}>{{ $firma->ssm_stare_fise }}</option>
                     @endif
@@ -147,42 +147,42 @@
                 <label for="psi_stare_fise" class="mb-0 ps-3">PSI stare fișe</label>
                 <select name="psi_stare_fise" class="form-select bg-white rounded-3 {{ $errors->has('psi_stare_fise') ? 'is-invalid' : '' }}">
                     <option value='-' selected>-</option>
-                    <option value="noi.p;de s.p" style="color:blueviolet" style="" {{ old('psi_stare_fise', $firma->psi_stare_fise) === 'noi.p;de s.p' ? 'selected' : ''}}>noi.p;de s.p</option>
+                    {{-- <option value="noi.p;de s.p" style="color:blueviolet" style="" {{ old('psi_stare_fise', $firma->psi_stare_fise) === 'noi.p;de s.p' ? 'selected' : ''}}>noi.p;de s.p</option> --}}
                     <option value="noi.p;de s" style="color:blueviolet" {{ old('psi_stare_fise', $firma->psi_stare_fise) === 'noi.p;de s' ? 'selected' : ''}}>noi.p;de s</option>
                     <option value="noi;de s" style="color:blueviolet" {{ old('psi_stare_fise', $firma->psi_stare_fise) === 'noi;de s' ? 'selected' : ''}}>noi;de s</option>
                     <option value="noi" {{ old('psi_stare_fise', $firma->psi_stare_fise) === 'noi' ? 'selected' : ''}}>noi</option>
-                    <option value="noi;s" {{ old('psi_stare_fise', $firma->psi_stare_fise) === 'noi;s' ? 'selected' : ''}}>noi;s</option>
+                    {{-- <option value="noi;s" {{ old('psi_stare_fise', $firma->psi_stare_fise) === 'noi;s' ? 'selected' : ''}}>noi;s</option> --}}
                     <option value="noi;s.p" {{ old('psi_stare_fise', $firma->psi_stare_fise) === 'noi;s.p' ? 'selected' : ''}}>noi;s.p</option>
                     <option value="noi.p;s.p" {{ old('psi_stare_fise', $firma->psi_stare_fise) === 'noi.p;s.p' ? 'selected' : ''}}>noi.p;s.p</option>
                     <option value="comp.la cl." style="color:rgb(0, 145, 77)" {{ old('psi_stare_fise', $firma->psi_stare_fise) === 'comp.la cl.' ? 'selected' : ''}}>comp.la cl.</option>
                     <option value="cl;de s" style="color:rgb(0, 96, 175)" {{ old('psi_stare_fise', $firma->psi_stare_fise) === 'cl;de s' ? 'selected' : ''}}>cl;de s</option>
                     <option value="cl.p;de s" style="color:rgb(0, 96, 175)" {{ old('psi_stare_fise', $firma->psi_stare_fise) === 'cl.p;de s' ? 'selected' : ''}}>cl.p;de s</option>
-                    <option value="Fișe-C" style="color:rgb(0, 96, 175)" {{ old('psi_stare_fise', $firma->psi_stare_fise) === 'Fișe-C' ? 'selected' : ''}}>Fișe-C</option>
+                    {{-- <option value="Fișe-C" style="color:rgb(0, 96, 175)" {{ old('psi_stare_fise', $firma->psi_stare_fise) === 'Fișe-C' ? 'selected' : ''}}>Fișe-C</option> --}}
                     <option value="cl;control" style="color:rgb(0, 96, 175)" {{ old('psi_stare_fise', $firma->psi_stare_fise) === 'cl;control' ? 'selected' : ''}}>cl;control</option>
                     <option value="Nu sal." {{ old('psi_stare_fise', $firma->psi_stare_fise) === 'Nu sal.' ? 'selected' : ''}}>Nu sal.</option>
-                    <option value="Activ.susp" {{ old('psi_stare_fise', $firma->psi_stare_fise) === 'Activ.susp' ? 'selected' : ''}}>Activ.susp</option>
-                    <option value="Firma inchisa" {{ old('psi_stare_fise', $firma->psi_stare_fise) === 'Firma inchisa' ? 'selected' : ''}}>Firma inchisa</option>
+                    {{-- <option value="Activ.susp" {{ old('psi_stare_fise', $firma->psi_stare_fise) === 'Activ.susp' ? 'selected' : ''}}>Activ.susp</option> --}}
+                    {{-- <option value="Firma inchisa" {{ old('psi_stare_fise', $firma->psi_stare_fise) === 'Firma inchisa' ? 'selected' : ''}}>Firma inchisa</option> --}}
                     <option value="de adus" style="color:rgb(204, 0, 0)" {{ old('psi_stare_fise', $firma->psi_stare_fise) === 'de adus' ? 'selected' : ''}}>de adus</option>
-                    <option value="La anulate" style="color:rgb(94, 94, 94)" {{ old('psi_stare_fise', $firma->psi_stare_fise) === 'La anulate' ? 'selected' : ''}}>La anulate</option>
+                    {{-- <option value="La anulate" style="color:rgb(94, 94, 94)" {{ old('psi_stare_fise', $firma->psi_stare_fise) === 'La anulate' ? 'selected' : ''}}>La anulate</option> --}}
                     @if (
                         (old('psi_stare_fise', $firma->psi_stare_fise) !== '-') &&
-                        (old('psi_stare_fise', $firma->psi_stare_fise) !== 'noi.p;de s.p') &&
+                        // (old('psi_stare_fise', $firma->psi_stare_fise) !== 'noi.p;de s.p') &&
                         (old('psi_stare_fise', $firma->psi_stare_fise) !== 'noi.p;de s') &&
                         (old('psi_stare_fise', $firma->psi_stare_fise) !== 'noi;de s') &&
                         (old('psi_stare_fise', $firma->psi_stare_fise) !== 'noi') &&
-                        (old('psi_stare_fise', $firma->psi_stare_fise) !== 'noi;s') &&
+                        // (old('psi_stare_fise', $firma->psi_stare_fise) !== 'noi;s') &&
                         (old('psi_stare_fise', $firma->psi_stare_fise) !== 'noi;s.p') &&
                         (old('psi_stare_fise', $firma->psi_stare_fise) !== 'noi.p;s.p') &&
                         (old('psi_stare_fise', $firma->psi_stare_fise) !== 'comp.la cl.') &&
                         (old('psi_stare_fise', $firma->psi_stare_fise) !== 'cl;de s') &&
                         (old('psi_stare_fise', $firma->psi_stare_fise) !== 'cl.p;de s') &&
-                        (old('psi_stare_fise', $firma->psi_stare_fise) !== 'Fișe-C') &&
+                        // (old('psi_stare_fise', $firma->psi_stare_fise) !== 'Fișe-C') &&
                         (old('psi_stare_fise', $firma->psi_stare_fise) !== 'cl;control') &&
                         (old('psi_stare_fise', $firma->psi_stare_fise) !== 'Nu sal.') &&
-                        (old('psi_stare_fise', $firma->psi_stare_fise) !== 'Activ.susp') &&
-                        (old('psi_stare_fise', $firma->psi_stare_fise) !== 'Firma inchisa') &&
+                        // (old('psi_stare_fise', $firma->psi_stare_fise) !== 'Activ.susp') &&
+                        // (old('psi_stare_fise', $firma->psi_stare_fise) !== 'Firma inchisa') &&
                         (old('psi_stare_fise', $firma->psi_stare_fise) !== 'de adus') &&
-                        (old('psi_stare_fise', $firma->psi_stare_fise) !== 'La anulate')
+                        // (old('psi_stare_fise', $firma->psi_stare_fise) !== 'La anulate')
                         )
                         <option value="{{ $firma->psi_stare_fise }}" {{ (old('psi_stare_fise', $firma->psi_stare_fise) === $firma->psi_stare_fise) ? 'selected' : ''}}>{{ $firma->psi_stare_fise }}</option>
                     @endif
