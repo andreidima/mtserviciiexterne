@@ -131,3 +131,38 @@ if (document.querySelector('#firmeIndex')) {
     });
 }
 
+if (document.querySelector('#medicinaMunciiIndexAxiosUpdate')) {
+    const app = new Vue({
+        el: '#medicinaMunciiIndexAxiosUpdate',
+        data: {
+            // Campuri pentru afisarea confirmarii cand se face salvarea cu axios
+            // Numar inregistrare, data_examinare, urmatoarea examinare
+            axiosActualizatFirmaId: '',
+            axiosActualizatCamp: '',
+        },
+        methods: {
+            axiosActualizeazaFirma(firmaId, camp, valoare) {
+                console.log('yea');
+                axios
+                    .post('/ssm/firme/axios-modificare-firme-direct-din-index',
+                        {
+                            firmaId: firmaId,
+                            camp: camp,
+                            valoare: valoare
+                        },
+                        {
+                            params: {
+                                // request: 'actualizareSuma',
+                            }
+                        })
+                    .then(function (response) {
+                        app.axiosActualizatFirmaId = response.data.firmaId;
+                        app.axiosActualizatCamp = response.data.camp;
+                        // console.log(app.axiosActualizatFirmaId, app.axiosActualizatCamp);
+                    });
+            },
+
+        },
+    });
+}
+

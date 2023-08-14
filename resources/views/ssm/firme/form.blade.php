@@ -136,7 +136,7 @@
                         (old('ssm_stare_fise', $firma->ssm_stare_fise) !== 'Nu sal.') &&
                         // (old('ssm_stare_fise', $firma->ssm_stare_fise) !== 'Activ.susp') &&
                         // (old('ssm_stare_fise', $firma->ssm_stare_fise) !== 'Firma inchisa') &&
-                        (old('ssm_stare_fise', $firma->ssm_stare_fise) !== 'de adus') &&
+                        (old('ssm_stare_fise', $firma->ssm_stare_fise) !== 'de adus')
                         // (old('ssm_stare_fise', $firma->ssm_stare_fise) !== 'La anulate')
                         )
                         <option value="{{ $firma->ssm_stare_fise }}" {{ (old('ssm_stare_fise', $firma->ssm_stare_fise) === $firma->ssm_stare_fise) ? 'selected' : ''}}>{{ $firma->ssm_stare_fise }}</option>
@@ -181,7 +181,7 @@
                         (old('psi_stare_fise', $firma->psi_stare_fise) !== 'Nu sal.') &&
                         // (old('psi_stare_fise', $firma->psi_stare_fise) !== 'Activ.susp') &&
                         // (old('psi_stare_fise', $firma->psi_stare_fise) !== 'Firma inchisa') &&
-                        (old('psi_stare_fise', $firma->psi_stare_fise) !== 'de adus') &&
+                        (old('psi_stare_fise', $firma->psi_stare_fise) !== 'de adus')
                         // (old('psi_stare_fise', $firma->psi_stare_fise) !== 'La anulate')
                         )
                         <option value="{{ $firma->psi_stare_fise }}" {{ (old('psi_stare_fise', $firma->psi_stare_fise) === $firma->psi_stare_fise) ? 'selected' : ''}}>{{ $firma->psi_stare_fise }}</option>
