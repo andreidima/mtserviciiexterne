@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="card" style="border-radius: 40px 40px 40px 40px;">
-        <div class="row card-header align-items-center" style="border-radius: 40px 40px 0px 0px;">
+        <div class="row card-header align-items-center mx-1" style="border-radius: 40px 40px 0px 0px;">
             {{-- <div class="col-lg-2">
                 <h4 class="mb-0">
                     <a href="/ssm/firme">

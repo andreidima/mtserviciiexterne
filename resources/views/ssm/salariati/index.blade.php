@@ -134,7 +134,7 @@
     </form>
     <form class="needs-validation" novalidate method="GET" action="/ssm/salariati">
         @csrf
-        <div class="row p-1 card-header align-items-center" style="border-radius: 40px 40px 0px 0px;">
+        <div class="row p-1 card-header align-items-center mx-1" style="border-radius: 40px 40px 0px 0px;">
             <div class="col-lg-2">
                 <h4 class="mb-0">
                     <a href="/ssm/salariati">
