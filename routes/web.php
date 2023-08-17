@@ -100,6 +100,8 @@ Route::group(['middleware' => 'auth'], function () {
 
     // Reconstructie totala a rutelor - firme separate pentru SSM, Medicina muncii, Stingatoare
     // SSM-ul a fost construit total separat pana la urma
+    Route::post('/firme-salariati/axios-modificare-salariati-direct-din-index', [FirmaSalariatController::class, 'axiosModificareSalariatiDirectDinIndex']);
+
     Route::resource('/{serviciu}/firme/trasee', FirmaTraseuController::class,  ['parameters' => ['trasee' => 'traseu']]);
 
     Route::resource('/{serviciu}/firme/{firma_curenta}/salariati', FirmaSalariatController::class,  ['parameters' => ['salariati' => 'salariat']]);

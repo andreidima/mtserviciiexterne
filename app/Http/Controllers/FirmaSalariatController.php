@@ -9,6 +9,10 @@ use Illuminate\Support\Facades\DB;
 use App\Models\FirmaSalariat;
 use App\Models\Firma;
 
+use \Carbon\Carbon;
+
+use Illuminate\Support\Facades\Validator;
+
 use Illuminate\Database\Eloquent\Builder;
 
 class FirmaSalariatController extends Controller
@@ -215,5 +219,41 @@ class FirmaSalariatController extends Controller
 
             ]
         );
+    }
+
+    public function axiosModificareSalariatiDirectDinIndex(Request $request)
+    {
+        if (($request->camp === 'medicina_muncii_examinare') || ($request->camp === 'medicina_muncii_expirare')){
+            // try {
+            //     Carbon::parse($request->valoare);
+            // } catch (\Carbon\Exceptions\InvalidFormatException $e) {
+            //     return response()->json([
+            //         'mesaj' => "Formatul datei este greșit",
+            //         'salariatId' => $request->salariatId,
+            //         'camp' => $request->camp,
+            //     ]);
+            // }
+
+            $validator = Validator::make(['data' => $request->valoare], ['data' => 'date',]);
+
+            if (!$validator->passes()){
+                return response()->json([
+                    'mesaj' => "Formatul datei este greșit",
+                    'salariatId' => $request->salariatId,
+                    'camp' => $request->camp,
+                ]);
+            }
+
+            $request->valoare = Carbon::parse($request->valoare)->isoFormat('YYYY-MM-DD');
+        }
+
+        $salariat = FirmaSalariat::where('id', $request->salariatId)->first();
+        $salariat->update([$request->camp => $request->valoare]);
+
+        return response()->json([
+            'mesaj' => "",
+            'salariatId' => $salariat->id,
+            'camp' => $request->camp,
+        ]);
     }
 }

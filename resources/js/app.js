@@ -107,7 +107,7 @@ if (document.querySelector('#firmeIndex')) {
         },
         methods: {
             axiosActualizeazaFirma(firmaId, camp, valoare) {
-                console.log('yea');
+                // console.log('yea');
                 axios
                     .post('/ssm/firme/axios-modificare-firme-direct-din-index',
                         {
@@ -136,17 +136,18 @@ if (document.querySelector('#medicinaMunciiIndexAxiosUpdate')) {
         el: '#medicinaMunciiIndexAxiosUpdate',
         data: {
             // Campuri pentru afisarea confirmarii cand se face salvarea cu axios
-            // Numar inregistrare, data_examinare, urmatoarea examinare
-            axiosActualizatFirmaId: '',
+            axiosMesaj: '',
+            axiosActualizatSalariatId: '',
             axiosActualizatCamp: '',
         },
         methods: {
-            axiosActualizeazaFirma(firmaId, camp, valoare) {
-                console.log('yea');
+            axiosActualizeazaSalariat(salariatId, camp, valoare) {
+                // console.log('yea');
+                // console.log(salariatId, camp, valoare);
                 axios
-                    .post('/ssm/firme/axios-modificare-firme-direct-din-index',
+                    .post('/firme-salariati/axios-modificare-salariati-direct-din-index',
                         {
-                            firmaId: firmaId,
+                            salariatId: salariatId,
                             camp: camp,
                             valoare: valoare
                         },
@@ -156,9 +157,11 @@ if (document.querySelector('#medicinaMunciiIndexAxiosUpdate')) {
                             }
                         })
                     .then(function (response) {
-                        app.axiosActualizatFirmaId = response.data.firmaId;
+                        // console.log('response');
+                        app.axiosMesaj = response.data.mesaj;
+                        app.axiosActualizatSalariatId = response.data.salariatId;
                         app.axiosActualizatCamp = response.data.camp;
-                        // console.log(app.axiosActualizatFirmaId, app.axiosActualizatCamp);
+                        // console.log(app.axiosActualizatSalariatId, app.axiosActualizatCamp);
                     });
             },
 

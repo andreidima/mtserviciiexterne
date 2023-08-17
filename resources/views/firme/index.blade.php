@@ -1,7 +1,7 @@
 @extends ('layouts.app')
 
 @section('content')
-<div class="container card" style="border-radius: 40px 40px 40px 40px;">
+<div class="card" style="border-radius: 40px 40px 40px 40px;">
         <div class="row card-header align-items-center" style="border-radius: 40px 40px 0px 0px;">
             <div class="col-lg-3">
                 <h4 class="mb-0">
@@ -422,7 +422,7 @@
             </div>
             @break
         @case('medicina-muncii')
-            <div class="table-responsive rounded">
+            <div class="table-responsive rounded" id="medicinaMunciiIndexAxiosUpdate">
                 <table class="table table-striped table-hover rounded">
                     <thead class="text-white rounded" style="background-color:#e66800;">
                         <tr class="" style="padding:2rem">
@@ -470,18 +470,68 @@
                                                         {{ $salariat->medicina_muncii_nr_inregistrare }}
                                                     </td> --}}
                                                     <td class="text-start" style="width: 45%">
-                                                        {{ $salariat->medicina_muncii_nr_inregistrare }} | {{ $salariat->nume }}
+                                                        {{-- {{ $salariat->medicina_muncii_nr_inregistrare }} | {{ $salariat->nume }} --}}
+                                                        <div class="d-flex">
+                                                            <div>
+                                                                <input type="text"
+                                                                    style="width: 70px; border: none; padding:0px;"
+                                                                    id="medicina_muncii_nr_inregistrare" name="medicina_muncii_nr_inregistrare"
+                                                                    value="{{ $salariat->medicina_muncii_nr_inregistrare }}"
+                                                                    v-on:blur = "axiosActualizeazaSalariat({{ $salariat->id }}, 'medicina_muncii_nr_inregistrare', $event.target.value)"
+                                                                    >
+                                                                <div v-cloak v-if="(axiosActualizatSalariatId == {{ $salariat->id }}) && (axiosActualizatCamp == 'medicina_muncii_nr_inregistrare')" class="me-2 text-success">
+                                                                    <i class="fas fa-thumbs-up"></i>
+                                                                </div>
+                                                            </div>
+                                                            <div>
+                                                                | {{ $salariat->nume }}
+                                                            </div>
+                                                        </div>
                                                     </td>
                                                     {{-- <td class="text-center w-25">
                                                         {{ $salariat->medicina_muncii_examinare ?
                                                             \Carbon\Carbon::parse($salariat->medicina_muncii_examinare)->isoFormat('DD.MM.YYYY') : '' }}
                                                     </td> --}}
                                                     <td class="text-center" style="width: 37%">
-                                                        {{ $salariat->medicina_muncii_examinare ?
+                                                        {{-- {{ $salariat->medicina_muncii_examinare ?
                                                             \Carbon\Carbon::parse($salariat->medicina_muncii_examinare)->isoFormat('DD.MM.YYYY') : '' }}
                                                         |
                                                         {{ $salariat->medicina_muncii_expirare ?
-                                                            \Carbon\Carbon::parse($salariat->medicina_muncii_expirare)->isoFormat('DD.MM.YYYY') : '' }}
+                                                            \Carbon\Carbon::parse($salariat->medicina_muncii_expirare)->isoFormat('DD.MM.YYYY') : '' }} --}}
+                                                        <div class="d-flex">
+                                                            <div style="margin-right: 10px">
+                                                                <input type="text"
+                                                                    style="width: 110px; border: none; padding:0px; text-align:center"
+                                                                    id="medicina_muncii_examinare" name="medicina_muncii_examinare"
+                                                                    value="{{ $salariat->medicina_muncii_examinare ? \Carbon\Carbon::parse($salariat->medicina_muncii_examinare)->isoFormat('DD.MM.YYYY') : '' }}"
+                                                                    v-on:blur = "axiosActualizeazaSalariat({{ $salariat->id }}, 'medicina_muncii_examinare', $event.target.value)"
+                                                                    >
+                                                                <div v-cloak v-if="(axiosActualizatSalariatId == {{ $salariat->id }}) && (axiosActualizatCamp == 'medicina_muncii_examinare')">
+                                                                    <div v-if="axiosMesaj" class="me-2 bg-danger text-white">
+                                                                        @{{ axiosMesaj }}
+                                                                    </div>
+                                                                    <div v-else class="me-2 text-success">
+                                                                        <i class="fas fa-thumbs-up"></i>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div>
+                                                                <input type="text"
+                                                                    style="width: 110px; border: none; padding:0px; text-align:center"
+                                                                    id="medicina_muncii_expirare" name="medicina_muncii_expirare"
+                                                                    value="{{ $salariat->medicina_muncii_expirare ? \Carbon\Carbon::parse($salariat->medicina_muncii_expirare)->isoFormat('DD.MM.YYYY') : '' }}"
+                                                                    v-on:blur = "axiosActualizeazaSalariat({{ $salariat->id }}, 'medicina_muncii_expirare', $event.target.value)"
+                                                                    >
+                                                                <div v-cloak v-if="(axiosActualizatSalariatId == {{ $salariat->id }}) && (axiosActualizatCamp == 'medicina_muncii_expirare')">
+                                                                    <div v-if="axiosMesaj" class="me-2 bg-danger text-white">
+                                                                        @{{ axiosMesaj }}
+                                                                    </div>
+                                                                    <div v-else class="me-2 text-success">
+                                                                        <i class="fas fa-thumbs-up"></i>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
                                                     </td>
                                                     <td class="" style="width: 18%">
                                                         <div class="d-flex justify-content-end">

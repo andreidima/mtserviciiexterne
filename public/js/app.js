@@ -5570,7 +5570,7 @@ if (document.querySelector('#firmeIndex')) {
     },
     methods: {
       axiosActualizeazaFirma: function axiosActualizeazaFirma(firmaId, camp, valoare) {
-        console.log('yea');
+        // console.log('yea');
         axios.post('/ssm/firme/axios-modificare-firme-direct-din-index', {
           firmaId: firmaId,
           camp: camp,
@@ -5581,6 +5581,37 @@ if (document.querySelector('#firmeIndex')) {
         }).then(function (response) {
           _app2.axiosActualizatFirmaId = response.data.firmaId;
           _app2.axiosActualizatCamp = response.data.camp; // console.log(app.axiosActualizatFirmaId, app.axiosActualizatCamp);
+        });
+      }
+    }
+  });
+}
+
+if (document.querySelector('#medicinaMunciiIndexAxiosUpdate')) {
+  var _app3 = new Vue({
+    el: '#medicinaMunciiIndexAxiosUpdate',
+    data: {
+      // Campuri pentru afisarea confirmarii cand se face salvarea cu axios
+      axiosMesaj: '',
+      axiosActualizatSalariatId: '',
+      axiosActualizatCamp: ''
+    },
+    methods: {
+      axiosActualizeazaSalariat: function axiosActualizeazaSalariat(salariatId, camp, valoare) {
+        // console.log('yea');
+        // console.log(salariatId, camp, valoare);
+        axios.post('/firme-salariati/axios-modificare-salariati-direct-din-index', {
+          salariatId: salariatId,
+          camp: camp,
+          valoare: valoare
+        }, {
+          params: {// request: 'actualizareSuma',
+          }
+        }).then(function (response) {
+          // console.log('response');
+          _app3.axiosMesaj = response.data.mesaj;
+          _app3.axiosActualizatSalariatId = response.data.salariatId;
+          _app3.axiosActualizatCamp = response.data.camp; // console.log(app.axiosActualizatSalariatId, app.axiosActualizatCamp);
         });
       }
     }
