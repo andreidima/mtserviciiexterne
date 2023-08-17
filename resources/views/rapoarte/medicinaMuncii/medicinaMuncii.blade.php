@@ -249,7 +249,7 @@
             </div>
 
 
-            <div class="table-responsive rounded-3">
+            <div class="table-responsive rounded-3" id="medicinaMunciiIndexAxiosUpdate">
                 <table class="table table-striped table-hover rounded-3">
                     <thead class="text-white rounded-3" style="background-color:#e66800;">
                         <tr class="" style="padding:2rem">
