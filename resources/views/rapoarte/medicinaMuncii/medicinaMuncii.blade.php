@@ -41,11 +41,11 @@
             </div>
         </div>
 
-        <div class="card-body px-0 py-3">
+        <div class="card-body px-0 py-3" id="medicinaMunciiIndexAxiosUpdate">
 
             @include ('errors')
 
-            <div class="table-responsive rounded-3" id="medicinaMunciiIndexAxiosUpdate">
+            <div class="table-responsive rounded-3">
                 <table class="table table-striped table-hover rounded-3">
                     <thead class="text-white rounded-3" style="background-color:#e66800;">
                         <tr class="" style="padding:2rem">
@@ -249,7 +249,7 @@
             </div>
 
 
-            <div class="table-responsive rounded-3" id="medicinaMunciiIndexAxiosUpdate">
+            <div class="table-responsive rounded-3">
                 <table class="table table-striped table-hover rounded-3">
                     <thead class="text-white rounded-3" style="background-color:#e66800;">
                         <tr class="" style="padding:2rem">
