@@ -110,7 +110,7 @@
                                     {{ $loop->iteration }}
                                 </td>
                                 <td>
-                                    {{ $stingator->firma->nume ?? '' }}
+                                    {{ $stingator->firma->nume ?? '' }} - {{ $stingator->firma->adresa ?? '' }} {{ $stingator->firma->oras ?? '' }} {{ $stingator->firma->judet ?? '' }}
                                 </td>
                                 <td align="center">
                                     {{ $stingator->firma->telefon ?? '' }}

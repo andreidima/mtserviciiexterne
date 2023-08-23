@@ -1,8 +1,8 @@
 @extends ('layouts.app')
 
 @section('content')
-<div class="container card" style="border-radius: 40px 40px 40px 40px;">
-        <div class="row card-header align-items-center" style="border-radius: 40px 40px 0px 0px;">
+<div class="card" style="border-radius: 40px 40px 40px 40px;">
+        <div class="row card-header align-items-center mx-1" style="border-radius: 40px 40px 0px 0px;">
             <div class="col-lg-3">
                 <h4 class="mb-0">
                     <a href="/rapoarte/stingatoare"><i class="fas fa-file-alt me-1"></i></a>
@@ -117,7 +117,7 @@
                                     </td>
                                     <td>
                                         <b>
-                                            {{ $stingator->firma->nume ?? '' }}
+                                            {{ $stingator->firma->nume ?? '' }} - {{ $stingator->firma->adresa ?? '' }} {{ $stingator->firma->oras ?? '' }} {{ $stingator->firma->judet ?? '' }}
                                         </b>
                                     </td>
                                     <td>
