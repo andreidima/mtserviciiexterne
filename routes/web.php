@@ -108,6 +108,13 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('/{serviciu}/firme/{firma}/stingatoare', FirmaStingatorController::class,  ['parameters' => ['stingatoare' => 'stingator']]);
     Route::resource('/{serviciu}/firme', FirmaController::class,  ['parameters' => ['firme' => 'firma']]);
 
+    // Proces verbal de predare-primire stingatoare - document PDF gol
+    Route::get('/stingatoare-proces-verbal-de-predare-primire-pdf', function () {
+        $pdf = \PDF::loadView('stingatoare/pdfGol/procesVerbalDePredarePrimire')
+            ->setPaper('a4', 'portrait');
+        return $pdf->stream();
+    });
+
 
     // A fost introdus Nr. Crt. pentru Anca, pentru un mai bun control al sortarii salariatilor de la SSM
     // A fost setat Nr. Crt. default 0, iar apoi i s-a dat fiecarui salariat o valoare, in functie de cum a avut nevoie Anca

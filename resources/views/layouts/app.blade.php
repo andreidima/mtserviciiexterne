@@ -131,6 +131,12 @@
                                             Trasee
                                         </a>
                                     </li>
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li>
+                                        <a class="dropdown-item" href="/stingatoare-proces-verbal-de-predare-primire-pdf">
+                                            Proces verbal predare-primire PDF
+                                        </a>
+                                    </li>
                                 </ul>
                             </li>
                             <li class="nav-item me-3 dropdown">
