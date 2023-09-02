@@ -112,7 +112,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/stingatoare-proces-verbal-de-predare-primire-pdf', function () {
         $pdf = \PDF::loadView('stingatoare/pdfGol/procesVerbalDePredarePrimire')
             ->setPaper('a4', 'portrait');
-        return $pdf->stream();
+        return $pdf->download('Proces verval predare-primire stingatoare.pdf');
     });
 
 
