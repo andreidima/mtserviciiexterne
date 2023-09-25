@@ -387,7 +387,8 @@
                                 </div>
                             </td>
                             <td style="font-size: 14px; padding:1px;" title="{{ $salariat->nume_client }}">
-                                {{ substr($salariat->nume_client, 0, 20) }}
+                                {{ mb_substr($salariat->nume_client, 0, 20) }}
+                                {{-- {{ $salariat->nume_client }} --}}
                             </td>
                             <td style="font-size: 14px; padding:1px;">
                                 @if (stripos($salariat->salariat, '3 luni') !== false)
