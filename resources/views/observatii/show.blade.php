@@ -66,12 +66,23 @@
                     <div class="row mb-2 px-2">
                         @forelse ($observatie->poze as $poza)
                             <div class="col-lg-6 mb-2 justify-content-center">
-                                <a href="{{ asset('storage/observatii/' . $observatie->id . '/' . $poza->nume) }}" target="_blank">
+                                <a href="{{ asset('storage/app/uploads/observatii/' . $observatie->id . '/' . $poza->nume) }}" target="_blank">
                                     <img
-                                        src="{{ asset('storage/observatii/' . $observatie->id . '/' . $poza->nume) }}"
+                                        src="{{ asset('storage/app/uploads/observatii/' . $observatie->id . '/' . $poza->nume) }}"
                                         alt=""
                                         width="100%"
                                     >
+                                    <img
+                                        src="{{ url('storage/app/uploads/observatii/' . $observatie->id . '/' . $poza->nume) }}"
+                                        alt=""
+                                        width="100%"
+                                    >
+                                    <img
+                                        src="{{ asset('public/app/uploads/observatii/40/17004627811574029993665803840741.jpg') }}"
+                                        alt=""
+                                        width="100%"
+                                    >
+
                                 </a>
                             </div>
                         @empty

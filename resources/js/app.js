@@ -22,6 +22,23 @@ window.Vue = require('vue').default;
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 Vue.component('vue2-datepicker', require('./components/DatePicker.vue').default);
 
+Vue.directive('click-outside', {
+    bind: function (el, binding, vnode) {
+        el.clickOutsideEvent = function (event) {
+            // here I check that click was outside the el and his children
+            if (!(el == event.target || el.contains(event.target))) {
+                // and if it did, call method provided in attribute value
+                vnode.context[binding.expression](event);
+            }
+        };
+        document.body.addEventListener('click', el.clickOutsideEvent)
+    },
+    unbind: function (el) {
+        document.body.removeEventListener('click', el.clickOutsideEvent)
+    },
+});
+
+
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
@@ -169,3 +186,37 @@ if (document.querySelector('#medicinaMunciiIndexAxiosUpdate')) {
     });
 }
 
+if (document.querySelector('#formularObservatii')) {
+    const app = new Vue({
+        el: '#formularObservatii',
+        data: {
+            firmaId: firmaIdVechi,
+            firmaNume: '',
+            firme: firme,
+            firmeListaAutocomplete: [],
+        },
+        created: function () {
+            if (this.firmaId) {
+                for (var i = 0; i < this.firme.length; i++) {
+                    if (this.firme[i].id == this.firmaId) {
+                        this.firmaNume = this.firme[i].nume;
+                    }
+                }
+            }
+        },
+        methods: {
+            autocompleteFirme() {
+                this.firmeListaAutocomplete = [];
+
+                for (var i = 0; i < this.firme.length; i++) {
+                    if (this.firme[i].nume && this.firme[i].nume.toLowerCase().includes(this.firmaNume.toLowerCase())) {
+                        this.firmeListaAutocomplete.push(this.firme[i]);
+                    }
+                }
+            },
+            golesteFirmeListaAutocomplete() {
+                this.firmeListaAutocomplete = [];
+            }
+        },
+    });
+}

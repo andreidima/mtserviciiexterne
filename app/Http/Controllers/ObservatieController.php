@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Gate;
 
 use App\Models\Observatie;
 use App\Models\ObservatiePoza;
-use App\Models\Firma;
+use App\Models\SsmFirma;
 use App\Mail\ObservatieFirma;
 
 use Illuminate\Database\Eloquent\Builder;
@@ -50,7 +50,7 @@ class ObservatieController extends Controller
      */
     public function create()
     {
-        $firme = Firma::orderBy('nume')->get();
+        $firme = SsmFirma::select('id', 'nume')->orderBy('nume')->get();
 
         return view('observatii.create', compact('firme'));
     }
@@ -117,7 +117,7 @@ class ObservatieController extends Controller
      */
     public function edit(Observatie $observatie)
     {
-        $firme = Firma::orderBy('nume')->get();
+        $firme = SsmFirma::select('id', 'nume')->orderBy('nume')->get();
 
         return view('observatii.edit', compact('observatie', 'firme'));
     }

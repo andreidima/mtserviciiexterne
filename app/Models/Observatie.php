@@ -24,7 +24,7 @@ class Observatie extends Model
      */
     public function firma()
     {
-        return $this->belongsTo(Firma::class, 'firma_id', 'id');
+        return $this->belongsTo(SsmFirma::class, 'firma_id', 'id');
     }
 
     /**
