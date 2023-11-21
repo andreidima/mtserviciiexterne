@@ -5,7 +5,7 @@
     firmaIdVechi = {!! json_encode(old('firma_id', ($observatie->firma_id ?? "")) ?? "") !!}
 </script>
 
-<div class="row mb-0 p-3 d-flex border-radius: 0px 0px 40px 40px" id="formularObservatii">
+<div class="row mb-0 p-3 d-flex border-radius: 0px 0px 40px 40px">
     <div class="col-lg-12 mb-0">
 
         <div class="row mb-0">
@@ -108,8 +108,22 @@
         </div>
 
         <div class="row">
+            <div v-if="buttonSubmitFormApasat" class="col-lg-12 mb-2 d-flex justify-content-center">
+                <div v-if="buttonSubmitFormApasat">
+                    <label class="bg-warning px-2 rounded-3">Se salvează datele ...</label>
+                </div>
+            </div>
             <div class="col-lg-12 mb-2 d-flex justify-content-center">
-                <button type="submit" class="btn btn-primary text-white me-3 rounded-3">{{ $buttonText }}</button>
+                <button
+                    v-on:click="
+                        buttonSubmitFormApasat = true;
+                        $nextTick(() => {
+                            $refs.form.submit();
+                        });
+                    "
+                    :disabled="buttonSubmitFormApasat"
+                    type="button"
+                    class="btn btn-primary text-white me-3 rounded-3">{{ $buttonText }}</button>
                 <a class="btn btn-secondary rounded-3" href="/observatii">Renunță</a>
             </div>
         </div>

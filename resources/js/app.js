@@ -194,6 +194,8 @@ if (document.querySelector('#formularObservatii')) {
             firmaNume: '',
             firme: firme,
             firmeListaAutocomplete: [],
+
+            buttonSubmitFormApasat: false,
         },
         created: function () {
             if (this.firmaId) {
@@ -216,7 +218,7 @@ if (document.querySelector('#formularObservatii')) {
             },
             golesteFirmeListaAutocomplete() {
                 this.firmeListaAutocomplete = [];
-            }
+            },
         },
     });
 }

@@ -16,6 +16,7 @@
 
                 <div class="card-body py-2 border border-secondary"
                     style="border-radius: 0px 0px 40px 40px;"
+                    id="formularObservatii"
                 >
 
                         @if (count($observatie->poze))
@@ -57,7 +58,7 @@
                             </div>
                         @endif
 
-                    <form  class="needs-validation" novalidate method="POST" action="{{ $observatie->path() }}" enctype="multipart/form-data">
+                    <form ref="form" class="needs-validation" novalidate method="POST" action="{{ $observatie->path() }}" enctype="multipart/form-data">
                         @method('PATCH')
 
                                 @include ('observatii.form', [
