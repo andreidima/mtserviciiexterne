@@ -3,7 +3,7 @@
 @section('content')
 <div class="container card" style="border-radius: 40px 40px 40px 40px;">
         <div class="row card-header align-items-center" style="border-radius: 40px 40px 0px 0px;">
-            <div class="col-lg-3">
+            <div class="col-lg-3 mb-2">
                 <h4 class="mb-0">
                     <a href="/observatii"><i class="fas fa-comments me-1"></i></a>
                     <a href="/observatii">Observații</a>
@@ -12,23 +12,23 @@
             <div class="col-lg-6" id="app">
                 <form class="needs-validation" novalidate method="GET" action="/observatii">
                     @csrf
-                    <div class="row mb-1 input-group custom-search-form justify-content-center">
+                    <div class="row mb-2 input-group custom-search-form justify-content-center">
                         <input type="text" class="form-control form-control-sm col-md-4 me-3 border rounded-3" id="search_nume" name="search_nume" placeholder="Nume" autofocus
                                 value="{{ $search_nume }}">
                         <input type="text" class="form-control form-control-sm col-md-4 border rounded-3" id="search_firma" name="search_firma" placeholder="Firma" autofocus
                                 value="{{ $search_firma }}">
                     </div>
                     <div class="row input-group custom-search-form justify-content-center">
-                        <button class="btn btn-sm btn-primary text-white col-md-4 me-3 border border-dark rounded-3" type="submit">
+                        <button class="btn btn-sm btn-primary text-white col-md-4 mx-3 mb-2 border border-dark rounded-3" type="submit">
                             <i class="fas fa-search text-white me-1"></i>Caută
                         </button>
-                        <a class="btn btn-sm bg-secondary text-white col-md-4 border border-dark rounded-3" href="/observatii" role="button">
+                        <a class="btn btn-sm bg-secondary text-white col-md-4 mx-3 mb-2 border border-dark rounded-3" href="/observatii" role="button">
                             <i class="far fa-trash-alt text-white me-1"></i>Resetează căutarea
                         </a>
                     </div>
                 </form>
             </div>
-            <div class="col-lg-3 text-end">
+            <div class="col-lg-3 text-center text-lg-end">
                 <a class="btn btn-sm bg-success text-white border border-dark rounded-3 col-md-8" href="/observatii/adauga" role="button">
                     <i class="fas fa-plus-square text-white me-1"></i>Adaugă observație
                 </a>
@@ -78,13 +78,14 @@
                                 </td>
                                 <td class="text-end">
                                     <a href="{{ $observatie->path() }}"
-                                        class="flex me-1"
+                                        class="flex mx-1"
                                     ><span class="badge bg-success">Vizualizează</span></a>
                                     <a href="{{ $observatie->path() }}/modifica"
-                                        class="flex me-1"
+                                        class="flex mx-1"
                                     ><span class="badge bg-primary">Modifică</span></a>
                                     <a
                                         href="#"
+                                        class="mx-1"
                                         data-bs-toggle="modal"
                                         data-bs-target="#stergeObservatie{{ $observatie->id }}"
                                         title="Șterge Observație"
