@@ -90,7 +90,7 @@
             </div>
             <div class="col-lg-12 mb-5">
                 <label for="file" class="form-label mb-0 ps-3">Adaugă poze</label>
-                <input type="file" name="poze[]" class="form-control rounded-3" multiple>
+                <input type="file" accept="image/*" name="poze[]" class="form-control rounded-3" multiple>
                 @if($errors->has('poze'))
                 <span class="help-block text-danger">{{ $errors->first('poze') }}</span>
                 @endif
