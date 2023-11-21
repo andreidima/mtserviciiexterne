@@ -44,8 +44,7 @@
                     <thead class="text-white rounded-3" style="background-color:#e66800;">
                         <tr class="" style="padding:2rem">
                             <th>#</th>
-                            <th>Observație</th>
-                            <th>Firma</th>
+                            <th>Firma / Observație</th>
                             <th class="text-center">Email</th>
                             <th class="text-end">Acțiuni</th>
                         </tr>
@@ -57,12 +56,11 @@
                                     {{ ($observatii ->currentpage()-1) * $observatii ->perpage() + $loop->index + 1 }}
                                 </td>
                                 <td>
+                                    {{ $observatie->firma->nume ?? '' }}
+                                    <br>
                                     {{ $observatie->nume }}
                                 </td>
-                                <td>
-                                    {{ $observatie->firma->nume ?? '' }}
-                                </td>
-                                <td>
+                                <td class="text-center">
                                     @if ($observatie->nr_trimiteri == 0)
                                         <a
                                             href="#"
@@ -78,14 +76,14 @@
                                 </td>
                                 <td class="text-end">
                                     <a href="{{ $observatie->path() }}"
-                                        class="flex mx-1"
+                                        class="flex"
                                     ><span class="badge bg-success">Vizualizează</span></a>
                                     <a href="{{ $observatie->path() }}/modifica"
-                                        class="flex mx-1"
+                                        class="flex ms-1"
                                     ><span class="badge bg-primary">Modifică</span></a>
                                     <a
                                         href="#"
-                                        class="mx-1"
+                                        class="ms-1"
                                         data-bs-toggle="modal"
                                         data-bs-target="#stergeObservatie{{ $observatie->id }}"
                                         title="Șterge Observație"
