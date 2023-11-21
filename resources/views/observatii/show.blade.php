@@ -65,10 +65,10 @@
 
                     <div class="row mb-2 px-2">
                         @forelse ($observatie->poze as $poza)
-                            <div class="col-lg-6 mb-2 justify-content-center">
-                                <a href="{{ asset('storage/observatii/' . $observatie->id . '/' . $poza->nume) }}" target="_blank">
+                            <div class="col-lg-6 mb-4 justify-content-center">
+                                <a href="{{ $poza->path() }}" target="_blank">
                                     <img
-                                        src="{{ asset('storage/observatii/' . $observatie->id . '/' . $poza->nume) }}"
+                                        src="{{ $poza->path() }}"
                                         alt=""
                                         width="100%"
                                     >
