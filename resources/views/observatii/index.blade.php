@@ -76,25 +76,19 @@
                                         <span class="badge bg-secondary">Trimis</span>
                                     @endif
                                 </td>
-                                <td class="justify-content-end">
+                                <td class="text-end">
                                     <a href="{{ $observatie->path() }}"
                                         class="flex me-1"
-                                    >
-                                        <span class="badge bg-success">Vizualizează</span>
-                                    </a>
+                                    ><span class="badge bg-success">Vizualizează</span></a>
                                     <a href="{{ $observatie->path() }}/modifica"
                                         class="flex me-1"
-                                    >
-                                        <span class="badge bg-primary">Modifică</span>
-                                    </a>
+                                    ><span class="badge bg-primary">Modifică</span></a>
                                     <a
                                         href="#"
                                         data-bs-toggle="modal"
                                         data-bs-target="#stergeObservatie{{ $observatie->id }}"
                                         title="Șterge Observație"
-                                        >
-                                        <span class="badge bg-danger">Șterge</span>
-                                    </a>
+                                        ><span class="badge bg-danger">Șterge</span></a>
                                 </td>
                             </tr>
                         @empty
