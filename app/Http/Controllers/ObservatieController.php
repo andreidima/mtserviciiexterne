@@ -81,6 +81,7 @@ class ObservatieController extends Controller
 
                 // Prelucrarea pozei si salvarea pe hard-disk
                 $imagine = Image::make($poza->path());
+                $imagine->orientate(); // roteste imaginea ca sa se uploadeze in formatul ei initial (portret sau peisaj)
                 $imagine->resize(1500, 1500, function ($const) {
                     $const->aspectRatio();
                 });
