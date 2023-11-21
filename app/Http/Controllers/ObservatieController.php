@@ -69,31 +69,7 @@ class ObservatieController extends Controller
         $observatie = Observatie::create(($request->except(['poze', 'date'])));
 
         if($request->hasfile('poze')) {
-            foreach ($request->file('poze') as $poza) {
-                $nume = $poza->getClientOriginalName();
-                $cale = 'app/uploads/observatii/' . $observatie->id . '/';
-
-                if (Storage::exists($cale.$nume)){
-                    return back()->with('error', 'Poza ' . $nume . ' este deja încărcată la această Observație');
-                }
-
-                Storage::makeDirectory($cale);
-
-                // Prelucrarea pozei si salvarea pe hard-disk
-                $imagine = Image::make($poza->path());
-                $imagine->orientate(); // roteste imaginea ca sa se uploadeze in formatul ei initial (portret sau peisaj)
-                $imagine->resize(1500, 1500, function ($const) {
-                    $const->aspectRatio();
-                });
-                $imagine->save(storage_path($cale . $nume));
-
-                $poza = new ObservatiePoza;
-                $poza->observatie_id = $observatie->id;
-                $poza->nume = $nume;
-                $poza->cale = $cale;
-                $poza->user_id = $request->user()->id;
-                $poza->save();
-            }
+            salvarePozeLaObservatie($request, $observatie);
         }
 
         return redirect('observatii')->with('status', 'Observația „' . ($observatie->nume ?? '') . '” a fost adăugată cu succes!');
@@ -138,30 +114,7 @@ class ObservatieController extends Controller
         $observatie->update($request->except(['poze', 'date']));
 
         if($request->hasfile('poze')) {
-            foreach ($request->file('poze') as $poza) {
-                $nume = $poza->getClientOriginalName();
-                $cale = 'app/uploads/observatii/' . $observatie->id . '/';
-
-                if (Storage::exists($cale.$nume)){
-                    return back()->with('error', 'Poza ' . $nume . ' este deja încărcată la această tematică');
-                }
-
-                Storage::makeDirectory($cale);
-
-                // Prelucrarea pozei si salvarea pe hard-disk
-                $imagine = Image::make($poza->path());
-                $imagine->resize(1500, 1500, function ($const) {
-                    $const->aspectRatio();
-                });
-                $imagine->save(storage_path($cale . $nume));
-
-                $poza = new ObservatiePoza;
-                $poza->observatie_id = $observatie->id;
-                $poza->nume = $nume;
-                $poza->cale = $cale;
-                $poza->user_id = $request->user()->id;
-                $poza->save();
-            }
+            salvarePozeLaObservatie($request, $observatie);
         }
 
         return redirect('observatii')->with('status', 'Observația „' . ($observatie->nume ?? '') . '” a fost modificată cu succes!');
@@ -215,6 +168,36 @@ class ObservatieController extends Controller
 
             ]
         );
+    }
+
+    public function salvarePozeLaObservatie($request, $observatie)
+    {
+        foreach ($request->file('poze') as $poza) {
+            $nume = $poza->getClientOriginalName();
+            $cale = 'app/uploads/observatii/' . $observatie->id . '/';
+
+            if (Storage::exists($cale.$nume)){
+                return back()->with('error', 'Poza ' . $nume . ' este deja încărcată la această Observație');
+            }
+
+            Storage::makeDirectory($cale);
+
+            // Prelucrarea pozei si salvarea pe hard-disk
+            $imagine = Image::make($poza->path());
+            $imagine->orientate(); // roteste imaginea ca sa se uploadeze in formatul ei initial (portret sau peisaj)
+            $imagine->resize(1500, 1500, function ($const) {
+                $const->aspectRatio();
+            });
+            $imagine->save(storage_path($cale . $nume));
+
+            $poza = new ObservatiePoza;
+            $poza->observatie_id = $observatie->id;
+            $poza->nume = $nume;
+            $poza->cale = $cale;
+            $poza->user_id = $request->user()->id;
+            $poza->save();
+        }
+
     }
 
     /**

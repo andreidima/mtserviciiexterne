@@ -16,6 +16,7 @@
 
                 <div class="card-body py-2 border border-secondary"
                     style="border-radius: 0px 0px 40px 40px;"
+                    id="formularObservatii"
                 >
                     <form  class="needs-validation" novalidate method="POST" action="/observatii" enctype="multipart/form-data">
 
