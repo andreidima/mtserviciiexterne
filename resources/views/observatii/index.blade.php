@@ -43,10 +43,10 @@
                 <table class="table table-striped table-hover rounded-3">
                     <thead class="text-white rounded-3" style="background-color:#e66800;">
                         <tr class="" style="padding:2rem">
-                            <th>Nr. Crt.</th>
+                            <th>#</th>
                             <th>Observație</th>
                             <th>Firma</th>
-                            <th>Email</th>
+                            <th class="text-center">Email</th>
                             <th class="text-end">Acțiuni</th>
                         </tr>
                     </thead>
@@ -76,7 +76,7 @@
                                         <span class="badge bg-secondary">Trimis</span>
                                     @endif
                                 </td>
-                                <td class="d-flex justify-content-end">
+                                <td class="justify-content-end">
                                     <a href="{{ $observatie->path() }}"
                                         class="flex me-1"
                                     >
