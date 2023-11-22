@@ -67,32 +67,30 @@
                             </div>
 
                             <div class="row">
-                                <div class="col-lg-12 d-flex flex-wrap">
-                                    @forelse ($observatie->poze as $poza)
-                                        <div class="border border-2 pb-1 mb-1">
-                                            <div>
-                                                <a href="{{ $poza->path() }}" target="_blank">
-                                                    <img
-                                                        src="{{ $poza->path() }}"
-                                                        alt=""
-                                                        style="max-width:150px; max-height:150px;"
-                                                    >
-                                                </a>
-                                            </div>
-                                            <div class="text-center">
-                                                <a
-                                                    href="#"
-                                                    data-bs-toggle="modal"
-                                                    data-bs-target="#stergePoza{{ $poza->id }}"
-                                                    title="Șterge Poza"
-                                                    >
-                                                    <span class="badge bg-danger">Șterge</span>
-                                                </a>
-                                            </div>
+                                @forelse ($observatie->poze as $poza)
+                                    <div class="col-lg-6 border border-2 pb-1 mb-1">
+                                        <div>
+                                            <a href="{{ $poza->path() }}" target="_blank">
+                                                <img
+                                                    src="{{ $poza->path() }}"
+                                                    alt=""
+                                                    style="max-width:150px; max-height:150px;"
+                                                >
+                                            </a>
                                         </div>
-                                    @empty
-                                    @endforelse
-                                </div>
+                                        <div class="text-center">
+                                            <a
+                                                href="#"
+                                                data-bs-toggle="modal"
+                                                data-bs-target="#stergePoza{{ $poza->id }}"
+                                                title="Șterge Poza"
+                                                >
+                                                <span class="badge bg-danger">Șterge</span>
+                                            </a>
+                                        </div>
+                                    </div>
+                                @empty
+                                @endforelse
                             </div>
 
                         @endif
