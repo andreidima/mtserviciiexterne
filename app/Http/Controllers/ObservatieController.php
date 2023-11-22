@@ -211,14 +211,14 @@ class ObservatieController extends Controller
         $validator = Validator::make($observatie->firma->toArray(), [
             'email' => ['email:rfc,dns']
         ]);
-
+// dd($validator);
         if ($validator->fails()) {
             return back()
                         ->withErrors($validator)
                         ->withInput();
         }
 
-            \Mail::to($observatie->firma->email)
+            \Mail::to($observatie->firma->email ?? 'andrei.dima@usm.ro')
                 ->send(
                     new ObservatieFirma($observatie)
                 );
@@ -228,7 +228,7 @@ class ObservatieController extends Controller
             $observatie->save();
 
             return back()->with('status',
-                'Emailul către firma „' . $observatie->firma->nume . '”, cu  observația „' . $observatie->nume . '”,
+                'Emailul către firma „' . ($observatie->firma->nume ?? '') . '”, cu  observația „' . $observatie->nume . '”,
                     a fost trimis cu succes!');
 
 
