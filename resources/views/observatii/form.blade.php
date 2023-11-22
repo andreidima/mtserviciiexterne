@@ -9,7 +9,7 @@
     <div class="col-lg-12 mb-0">
 
         <div class="row mb-0">
-            <div class="col-lg-5 mb-5 mx-auto">
+            <div class="col-lg-10 mb-5 mx-auto">
                 <label for="nume" class="mb-0 ps-3">Nume<span class="text-danger">*</span></label>
                 <input
                     type="text"
@@ -18,6 +18,17 @@
                     placeholder=""
                     value="{{ old('nume', $observatie->nume) }}"
                     required>
+            </div>
+            <div class="col-lg-2 mb-5 text-lg-start text-center">
+                <label for="data" class="mb-0 ps-lg-3">Data</label>
+                <vue2-datepicker
+                    data-veche="{{ old('data', ($observatie->data ?? '')) }}"
+                    nume-camp-db="data"
+                    tip="date"
+                    value-type="YYYY-MM-DD"
+                    format="DD-MM-YYYY"
+                    :latime="{ width: '125px' }"
+                ></vue2-datepicker>
             </div>
             {{-- <div class="col-lg-5 mb-5">
                 <label for="firma_id" class="mb-0 ps-3">Firma<span class="text-danger">*</span></label>
@@ -33,7 +44,7 @@
                     @endforeach
                 </select>
             </div> --}}
-            <div class="col-lg-5 mb-4" style="position:relative;" v-click-outside="golesteFirmeListaAutocomplete">
+            <div class="col-lg-6 mb-4" style="position:relative;" v-click-outside="golesteFirmeListaAutocomplete">
                 <label for="firma_id" class="mb-0 ps-3">Firma<span class="text-danger">*</span></label>
                 <input
                     type="hidden"
@@ -77,16 +88,13 @@
                 <small v-if="!firmaId" class="ps-3">*Selectați o firmă</small>
                 <small v-else class="ps-3 text-success">*Ați selectat firma</small>
             </div>
-            <div class="col-lg-2 mb-5 text-lg-start text-center">
-                <label for="data" class="mb-0 ps-lg-3">Data</label>
-                <vue2-datepicker
-                    data-veche="{{ old('data', ($observatie->data ?? '')) }}"
-                    nume-camp-db="data"
-                    tip="date"
-                    value-type="YYYY-MM-DD"
-                    format="DD-MM-YYYY"
-                    :latime="{ width: '125px' }"
-                ></vue2-datepicker>
+            <div class="col-lg-6 mb-5 mx-auto">
+                <label for="email" class="mb-0 ps-3">Email</label>
+                <input
+                    type="text"
+                    class="form-control bg-white rounded-3 {{ $errors->has('email') ? 'is-invalid' : '' }}"
+                    name="email"
+                    value="{{ old('email', $observatie->email) }}">
             </div>
             <div class="col-lg-12 mb-5">
                 <label for="file" class="form-label mb-0 ps-3">Adaugă poze</label>
@@ -101,9 +109,9 @@
                     name="descriere" rows="3">{{ old('descriere', $observatie->descriere) }}</textarea>
             </div>
             <div class="col-lg-6 mb-5">
-                <label for="observatii" class="form-label mb-0 ps-3">Observații</label>
-                <textarea class="form-control bg-white {{ $errors->has('observatii') ? 'is-invalid' : '' }}"
-                    name="observatii" rows="3">{{ old('observatii', $observatie->observatii) }}</textarea>
+                <label for="observatii_interne" class="form-label mb-0 ps-3">Observații interne</label>
+                <textarea class="form-control bg-white {{ $errors->has('observatii_interne') ? 'is-invalid' : '' }}"
+                    name="observatii_interne" rows="3">{{ old('observatii_interne', $observatie->observatii_interne) }}</textarea>
             </div>
         </div>
 

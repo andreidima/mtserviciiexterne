@@ -159,7 +159,8 @@ class ObservatieController extends Controller
                 'nume' => 'required|max:500',
                 'descriere' => 'nullable|max:2000',
                 'data' => 'nullable|date',
-                'observatii' => 'nullable|max:2000',
+                'email' => 'required|max:250|email:rfc,dns',
+                'observatii_interne' => 'nullable|max:2000',
                 'nr_trimiteri' => 'nullable|numeric|integer|min:0|max:250',
                 'user_id' => 'nullable',
                 'poze.*' => 'nullable|mimes:jpg,jpeg,png,gif|max:5000'
@@ -208,17 +209,17 @@ class ObservatieController extends Controller
     protected function trimiteEmail(Request $request, Observatie $observatie)
     {
         // Verificare daca exista email FIRMA corect catre care sa se trimita mesajul.
-        $validator = Validator::make($observatie->firma->toArray(), [
+        $validator = Validator::make($observatie->toArray(), [
             'email' => ['email:rfc,dns']
         ]);
-// dd($validator);
+
         if ($validator->fails()) {
             return back()
                         ->withErrors($validator)
                         ->withInput();
         }
 
-            \Mail::to($observatie->firma->email ?? 'andrei.dima@usm.ro')
+            \Mail::to($observatie->email)
                 ->send(
                     new ObservatieFirma($observatie)
                 );

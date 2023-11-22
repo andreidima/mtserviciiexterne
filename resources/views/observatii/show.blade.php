@@ -30,6 +30,14 @@
                             </tr>
                             <tr>
                                 <td class="pe-4">
+                                    Data
+                                </td>
+                                <td>
+                                    {{ $observatie->data ? \Carbon\Carbon::parse($observatie->data)->isoFormat('DD.MM.YYYY') : '' }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="pe-4">
                                     Firma
                                 </td>
                                 <td>
@@ -38,10 +46,10 @@
                             </tr>
                             <tr>
                                 <td class="pe-4">
-                                    Data
+                                    Email
                                 </td>
                                 <td>
-                                    {{ $observatie->data ? \Carbon\Carbon::parse($observatie->data)->isoFormat('DD.MM.YYYY') : '' }}
+                                    {{ $observatie->email }}
                                 </td>
                             </tr>
                             <tr>
@@ -54,10 +62,10 @@
                             </tr>
                             <tr>
                                 <td class="pe-4">
-                                    Observații
+                                    Observații interne
                                 </td>
                                 <td>
-                                    {{ $observatie->observatii }}
+                                    {{ $observatie->observatii_interne }}
                                 </td>
                             </tr>
                         </table>
