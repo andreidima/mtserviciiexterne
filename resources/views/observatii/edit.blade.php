@@ -19,7 +19,7 @@
                     id="formularObservatii"
                 >
 
-                        @if (count($observatie->poze))
+                        {{-- @if (count($observatie->poze))
                             <div class="mb-4 table-responsive rounded border border-secondary">
                                 <table class="table table-striped table-hover rounded mb-0">
                                     <tr>
@@ -65,7 +65,9 @@
                                     @endforelse
                                 </table>
                             </div>
+                        @endif --}}
 
+                        @if (count($observatie->poze))
                             <div class="row">
                                 @forelse ($observatie->poze as $poza)
                                     <div class="col-lg-6 border border-2 pb-1 mb-1">
@@ -74,7 +76,8 @@
                                                 <img
                                                     src="{{ $poza->path() }}"
                                                     alt=""
-                                                    style="max-width:150px; max-height:150px;"
+                                                    {{-- style="max-width:150px; max-height:150px;" --}}
+                                                    width="100%"
                                                 >
                                             </a>
                                         </div>
