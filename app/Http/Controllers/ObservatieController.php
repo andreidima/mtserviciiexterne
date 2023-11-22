@@ -69,7 +69,7 @@ class ObservatieController extends Controller
         $observatie = Observatie::create(($request->except(['poze', 'date'])));
 
         if($request->hasfile('poze')) {
-            salvarePozeLaObservatie($request, $observatie);
+            $this->salvarePozeLaObservatie($request, $observatie);
         }
 
         return redirect('observatii')->with('status', 'Observația „' . ($observatie->nume ?? '') . '” a fost adăugată cu succes!');
@@ -114,7 +114,7 @@ class ObservatieController extends Controller
         $observatie->update($request->except(['poze', 'date']));
 
         if($request->hasfile('poze')) {
-            salvarePozeLaObservatie($request, $observatie);
+            $this->salvarePozeLaObservatie($request, $observatie);
         }
 
         return redirect('observatii')->with('status', 'Observația „' . ($observatie->nume ?? '') . '” a fost modificată cu succes!');

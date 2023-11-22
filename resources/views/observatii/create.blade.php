@@ -18,7 +18,7 @@
                     style="border-radius: 0px 0px 40px 40px;"
                     id="formularObservatii"
                 >
-                    <form  class="needs-validation" novalidate method="POST" action="/observatii" enctype="multipart/form-data">
+                    <form ref="form" class="needs-validation" novalidate method="POST" action="/observatii" enctype="multipart/form-data">
 
                                 @include ('observatii.form', [
                                     'observatie' => new App\Models\Observatie,

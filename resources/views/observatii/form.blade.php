@@ -77,8 +77,8 @@
                 <small v-if="!firmaId" class="ps-3">*Selectați o firmă</small>
                 <small v-else class="ps-3 text-success">*Ați selectat firma</small>
             </div>
-            <div class="col-lg-2 mb-5">
-                <label for="data" class="mb-0 ps-3 pe-3">Data</label>
+            <div class="col-lg-2 mb-5 text-lg-start text-center">
+                <label for="data" class="mb-0 ps-lg-3">Data</label>
                 <vue2-datepicker
                     data-veche="{{ old('data', ($observatie->data ?? '')) }}"
                     nume-camp-db="data"
@@ -108,22 +108,25 @@
         </div>
 
         <div class="row">
-            <div v-if="buttonSubmitFormApasat" class="col-lg-12 mb-2 d-flex justify-content-center">
+            {{-- <div v-if="buttonSubmitFormApasat" class="col-lg-12 mb-2 d-flex justify-content-center">
                 <div v-if="buttonSubmitFormApasat">
                     <label class="bg-warning px-2 rounded-3">Se salvează datele ...</label>
                 </div>
-            </div>
+            </div> --}}
             <div class="col-lg-12 mb-2 d-flex justify-content-center">
-                <button
+                <button v-if="!buttonSubmitFormApasat"
                     v-on:click="
                         buttonSubmitFormApasat = true;
                         $nextTick(() => {
                             $refs.form.submit();
                         });
                     "
-                    :disabled="buttonSubmitFormApasat"
+                    {{-- :disabled="buttonSubmitFormApasat" --}}
                     type="button"
                     class="btn btn-primary text-white me-3 rounded-3">{{ $buttonText }}</button>
+                <button v-cloak v-else="disabled"
+                    type="button"
+                    class="btn btn-warning text-white me-3 rounded-3">Se salvează datele ...</button>
                 <a class="btn btn-secondary rounded-3" href="/observatii">Renunță</a>
             </div>
         </div>

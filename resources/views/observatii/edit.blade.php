@@ -23,12 +23,21 @@
                             <div class="mb-4 table-responsive rounded border border-secondary">
                                 <table class="table table-striped table-hover rounded mb-0">
                                     <tr>
-                                        <td colspan="2" class="text-center">
+                                        <td colspan="3" class="text-center">
                                             Poze atașate
                                         </td>
                                     </tr>
                                     @forelse ($observatie->poze as $poza)
                                         <tr>
+                                            <td>
+                                                <a href="{{ $poza->path() }}" target="_blank">
+                                                    <img
+                                                        src="{{ $poza->path() }}"
+                                                        alt=""
+                                                        width="200"
+                                                    >
+                                                </a>
+                                            </td>
                                             <td>
                                                 {{ $poza->nume }}
                                             </td>
@@ -56,6 +65,36 @@
                                     @endforelse
                                 </table>
                             </div>
+
+                            <div class="row">
+                                <div class="col-lg-12 d-flex flex-wrap">
+                                    @forelse ($observatie->poze as $poza)
+                                        <div class="border border-2 pb-1 mb-1">
+                                            <div>
+                                                <a href="{{ $poza->path() }}" target="_blank">
+                                                    <img
+                                                        src="{{ $poza->path() }}"
+                                                        alt=""
+                                                        style="max-width:150px; max-height:150px;"
+                                                    >
+                                                </a>
+                                            </div>
+                                            <div class="text-center">
+                                                <a
+                                                    href="#"
+                                                    data-bs-toggle="modal"
+                                                    data-bs-target="#stergePoza{{ $poza->id }}"
+                                                    title="Șterge Poza"
+                                                    >
+                                                    <span class="badge bg-danger">Șterge</span>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    @empty
+                                    @endforelse
+                                </div>
+                            </div>
+
                         @endif
 
                     <form ref="form" class="needs-validation" novalidate method="POST" action="{{ $observatie->path() }}" enctype="multipart/form-data">
