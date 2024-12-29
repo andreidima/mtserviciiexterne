@@ -46,6 +46,16 @@
             </div>
         </div>
         <div class="row mb-2 p-2 rounded-3" style="background-color: rgb(132, 236, 255)">
+            <div class="col-lg-2 mb-3">
+                <label for="data_angajare" class="mb-0 ps-3">Data angajare</label>
+                <input
+                    type="text"
+                    class="form-control bg-white rounded-3 {{ $errors->has('data_angajare') ? 'is-invalid' : '' }}"
+                    name="data_angajare"
+                    placeholder=""
+                    value="{{ old('data_angajare', $salariat->data_angajare) }}"
+                    required>
+            </div>
             <div class="col-lg-2 mb-2">
                 <label for="data_ssm_psi" class="mb-0 ps-3">Data SSM/PSI<span class="text-danger">*</span></label>
                 <input
@@ -101,36 +111,6 @@
                     @endif
                 </select>
             </div>
-            <div class="col-lg-2 mb-2">
-                <label for="semnat_anexa" class="mb-0 ps-3">Semnat Anexa</label>
-                <select name="semnat_anexa" class="form-select bg-white rounded-3 {{ $errors->has('semnat_anexa') ? 'is-invalid' : '' }}">
-                    <option value='-' selected>-</option>
-                    <option value="sem" style="" {{ old('semnat_anexa', $salariat->semnat_anexa) === 'sem' ? 'selected' : ''}}>sem</option>
-                    <option value="de s" style="color:rgb(204, 0, 0)" {{ old('semnat_anexa', $salariat->semnat_anexa) === 'de s' ? 'selected' : ''}}>de s</option>
-                    @if (
-                        (old('semnat_anexa', $salariat->semnat_anexa) !== '-') &&
-                        (old('semnat_anexa', $salariat->semnat_anexa) !== 'sem') &&
-                        (old('semnat_anexa', $salariat->semnat_anexa) !== 'de s')
-                        )
-                        <option value="{{ $salariat->semnat_anexa }}" {{ (old('semnat_anexa', $salariat->semnat_anexa) === $salariat->semnat_anexa) ? 'selected' : ''}}>{{ $salariat->semnat_anexa }}</option>
-                    @endif
-                </select>
-            </div>
-            <div class="col-lg-2 mb-2">
-                <label for="semnat_eip" class="mb-0 ps-3">Semnat E.I.P.</label>
-                <select name="semnat_eip" class="form-select bg-white rounded-3 {{ $errors->has('semnat_eip') ? 'is-invalid' : '' }}">
-                    <option value='-' selected>-</option>
-                    <option value="sem" style="" {{ old('semnat_eip', $salariat->semnat_eip) === 'sem' ? 'selected' : ''}}>sem</option>
-                    <option value="de s" style="color:rgb(204, 0, 0)" {{ old('semnat_eip', $salariat->semnat_eip) === 'de s' ? 'selected' : ''}}>de s</option>
-                    @if (
-                        (old('semnat_eip', $salariat->semnat_eip) !== '-') &&
-                        (old('semnat_eip', $salariat->semnat_eip) !== 'sem') &&
-                        (old('semnat_eip', $salariat->semnat_eip) !== 'de s')
-                        )
-                        <option value="{{ $salariat->semnat_eip }}" {{ (old('semnat_eip', $salariat->semnat_eip) === $salariat->semnat_eip) ? 'selected' : ''}}>{{ $salariat->semnat_eip }}</option>
-                    @endif
-                </select>
-            </div>
             {{-- <div class="col-lg-2 mb-2">
                 <label for="semnat_psi" class="mb-0 ps-3">Semnat PSI</label>
                 <select name="semnat_psi" class="form-select bg-white rounded-3 {{ $errors->has('semnat_psi') ? 'is-invalid' : '' }}">
@@ -179,6 +159,15 @@
             </div>
         </div> --}}
         <div class="row mb-2">
+            <div class="col-lg-3 mb-3">
+                <label for="observatii_1" class="mb-0 ps-3">Observații 1</label>
+                <input
+                    type="text"
+                    class="form-control bg-white rounded-3 {{ $errors->has('observatii_1') ? 'is-invalid' : '' }}"
+                    name="observatii_1"
+                    placeholder=""
+                    value="{{ old('observatii_1', $salariat->observatii_1) }}">
+            </div>
             <div class="col-lg-2 mb-3">
                 <label for="actionar" class="mb-0 ps-3">Acționar</label>
                 <input
@@ -187,16 +176,6 @@
                     name="actionar"
                     placeholder=""
                     value="{{ old('actionar', $salariat->actionar) }}"
-                    required>
-            </div>
-            <div class="col-lg-2 mb-3">
-                <label for="data_angajare" class="mb-0 ps-3">Data angajare</label>
-                <input
-                    type="text"
-                    class="form-control bg-white rounded-3 {{ $errors->has('data_angajare') ? 'is-invalid' : '' }}"
-                    name="data_angajare"
-                    placeholder=""
-                    value="{{ old('data_angajare', $salariat->data_angajare) }}"
                     required>
             </div>
             <div class="col-lg-2 mb-3">
@@ -229,7 +208,7 @@
                     value="{{ old('traseu', $salariat->traseu) }}"
                     required>
             </div>
-            <div class="col-lg-2 mb-3">
+            {{-- <div class="col-lg-2 mb-3">
                 <label for="med_muncii" class="mb-0 ps-3">Med. Muncii</label>
                 <input
                     type="text"
@@ -237,19 +216,40 @@
                     name="med_muncii"
                     placeholder=""
                     value="{{ old('med_muncii', $salariat->med_muncii) }}">
-            </div>
+            </div> --}}
         </div>
         <div class="row mb-2">
-            <div class="col-lg-3 mb-3">
-                <label for="observatii_1" class="mb-0 ps-3">Observații 1</label>
-                <input
-                    type="text"
-                    class="form-control bg-white rounded-3 {{ $errors->has('observatii_1') ? 'is-invalid' : '' }}"
-                    name="observatii_1"
-                    placeholder=""
-                    value="{{ old('observatii_1', $salariat->observatii_1) }}">
+            <div class="col-lg-2 mb-2">
+                <label for="semnat_anexa" class="mb-0 ps-3">Semnat Anexa</label>
+                <select name="semnat_anexa" class="form-select bg-white rounded-3 {{ $errors->has('semnat_anexa') ? 'is-invalid' : '' }}">
+                    <option value='-' selected>-</option>
+                    <option value="sem" style="" {{ old('semnat_anexa', $salariat->semnat_anexa) === 'sem' ? 'selected' : ''}}>sem</option>
+                    <option value="de s" style="color:rgb(204, 0, 0)" {{ old('semnat_anexa', $salariat->semnat_anexa) === 'de s' ? 'selected' : ''}}>de s</option>
+                    @if (
+                        (old('semnat_anexa', $salariat->semnat_anexa) !== '-') &&
+                        (old('semnat_anexa', $salariat->semnat_anexa) !== 'sem') &&
+                        (old('semnat_anexa', $salariat->semnat_anexa) !== 'de s')
+                        )
+                        <option value="{{ $salariat->semnat_anexa }}" {{ (old('semnat_anexa', $salariat->semnat_anexa) === $salariat->semnat_anexa) ? 'selected' : ''}}>{{ $salariat->semnat_anexa }}</option>
+                    @endif
+                </select>
             </div>
-            <div class="col-lg-3 mb-3">
+            <div class="col-lg-2 mb-2">
+                <label for="semnat_eip" class="mb-0 ps-3">Semnat E.I.P.</label>
+                <select name="semnat_eip" class="form-select bg-white rounded-3 {{ $errors->has('semnat_eip') ? 'is-invalid' : '' }}">
+                    <option value='-' selected>-</option>
+                    <option value="sem" style="" {{ old('semnat_eip', $salariat->semnat_eip) === 'sem' ? 'selected' : ''}}>sem</option>
+                    <option value="de s" style="color:rgb(204, 0, 0)" {{ old('semnat_eip', $salariat->semnat_eip) === 'de s' ? 'selected' : ''}}>de s</option>
+                    @if (
+                        (old('semnat_eip', $salariat->semnat_eip) !== '-') &&
+                        (old('semnat_eip', $salariat->semnat_eip) !== 'sem') &&
+                        (old('semnat_eip', $salariat->semnat_eip) !== 'de s')
+                        )
+                        <option value="{{ $salariat->semnat_eip }}" {{ (old('semnat_eip', $salariat->semnat_eip) === $salariat->semnat_eip) ? 'selected' : ''}}>{{ $salariat->semnat_eip }}</option>
+                    @endif
+                </select>
+            </div>
+            {{-- <div class="col-lg-3 mb-3">
                 <label for="observatii_2" class="mb-0 ps-3">Observații 2</label>
                 <input
                     type="text"
@@ -257,7 +257,7 @@
                     name="observatii_2"
                     placeholder=""
                     value="{{ old('observatii_2', $salariat->observatii_2) }}">
-            </div>
+            </div> --}}
             {{-- <div class="col-lg-3 mb-3">
                 <label for="observatii_3" class="mb-0 ps-3">Observații 3</label>
                 <input

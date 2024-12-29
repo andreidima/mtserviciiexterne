@@ -3,12 +3,12 @@
 @section('content')
 <div class="container card" style="border-radius: 40px 40px 40px 40px;">
         <div class="row card-header align-items-center" style="border-radius: 40px 40px 0px 0px;">
-            <div class="col-lg-3">
+            <div class="col-lg-2">
                 <h4 class="mb-0">
                     SSM - Raport firme
                 </h4>
             </div>
-            <div class="col-lg-9" id="app">
+            <div class="col-lg-10" id="app">
                 <form class="needs-validation" novalidate method="GET" action="/ssm/rapoarte/firme">
                     @csrf
                     <div class="row mb-1 input-group custom-search-form justify-content-center">
@@ -40,8 +40,8 @@
                         <div class="col-md-1 d-flex align-items-center justify-content-center">
                             ȘI
                         </div>
-                        <div class="col-md-2">
-                            {{-- <select class="form-select form-select-sm mb-1" id="search_traseu" name="search_traseu">
+                        <div class="col-md-4 d-flex">
+                            <select class="form-select form-select-sm mb-1" id="search_traseu" name="search_traseu">
                                     <option value="" selected>Traseu</option>
                                 @foreach ($lista_traseu as $traseu)
                                     <option value="{{ $traseu->traseu }}"
@@ -49,7 +49,7 @@
                                     >
                                     {{ $traseu->traseu }}</option>
                                 @endforeach
-                            </select> --}}
+                            </select>
                             <select class="form-select form-select-sm mb-1" id="search_actionar" name="search_actionar">
                                     <option value="" selected>Acționar</option>
                                 @foreach ($lista_actionar as $actionar)

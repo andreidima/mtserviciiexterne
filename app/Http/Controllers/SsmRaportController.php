@@ -17,12 +17,12 @@ class SsmRaportController extends Controller
     {
         $search_ssm_luna = $request->search_ssm_luna;
         $search_psi_luna = $request->search_psi_luna;
-        // $search_traseu = $request->search_traseu;
+        $search_traseu = $request->search_traseu;
         $search_actionar = $request->search_actionar;
 
         $lista_ssm_luna = SsmFirma::select('ssm_luna')->groupBy('ssm_luna')->get();
         $lista_psi_luna = SsmFirma::select('psi_luna')->groupBy('psi_luna')->get();
-        // $lista_traseu = SsmFirma::select('traseu')->groupBy('traseu')->get();
+        $lista_traseu = SsmFirma::select('traseu')->groupBy('traseu')->orderBy('traseu')->get();
         $lista_actionar = SsmFirma::select('actionar')->groupBy('actionar')->get();
 
         $firme = SsmFirma::
@@ -33,6 +33,9 @@ class SsmRaportController extends Controller
             // ->orwhere('traseu', $search_traseu)
             ->when($search_actionar, function($query) use ($search_actionar) {
                 return $query->where('actionar', $search_actionar);
+            })
+            ->when($search_traseu, function($query) use ($search_traseu) {
+                return $query->where('traseu', $search_traseu);
             })
             // ->where('actionar', $search_actionar)
             ->where('activa', 1)
@@ -52,7 +55,7 @@ class SsmRaportController extends Controller
                 // return $pdf->stream();
                 break;
             default:
-                return view('ssm.rapoarte.firme', compact('firme', 'search_ssm_luna', 'search_psi_luna', 'search_actionar', 'lista_ssm_luna', 'lista_psi_luna', 'lista_actionar'));
+                return view('ssm.rapoarte.firme', compact('firme', 'search_ssm_luna', 'search_psi_luna', 'search_actionar', 'search_traseu', 'lista_ssm_luna', 'lista_psi_luna', 'lista_actionar', 'lista_traseu'));
         }
 
     }
@@ -111,6 +114,8 @@ class SsmRaportController extends Controller
                         ->where(function($query) {
                             $query->where([
                                         ['data_incetare',  'not like', '%c.c.c%'],
+                                        ['data_incetare',  'not like', '%ccc%'],
+                                        ['data_incetare',  'not like', '%cm%'],
                                         ['data_incetare',  'not like', '%susp%'],
                                         ['data_incetare',  'not like', '%înc%'],
                                         ['data_incetare',  'not like', '%inc%'],
@@ -127,7 +132,23 @@ class SsmRaportController extends Controller
             ->when($search_semnat_psi, function ($query, $search_semnat_psi) {
                 return $query->where('semnat_psi', $search_semnat_psi);
             })
-            ->orderBy('nume_client', 'asc')
+            // ->orderBy('nume_client', 'asc')
+            ->orderByRaw(DB::raw("
+                    case when salariat like '%revisal%' then 0 else 1 end ASC,
+                    case when salariat like '%situatie%' then 0 else 1 end ASC,
+                    case when salariat like '%3 luni%' then 0 else 1 end ASC,
+                    case when salariat like '%3luni%' then 0 else 1 end ASC,
+                    case when salariat like '%6 luni%' then 0 else 1 end ASC,
+                    case when salariat like '%6luni%' then 0 else 1 end ASC,
+                    case when
+                        data_incetare like '%înc%' or
+                        data_incetare like '%lip%' or
+                        data_incetare like '%susp%' or
+                        data_incetare like '%c.c.c%' or
+                        data_incetare like '%ccc%' or
+                        data_incetare like '%cm%'
+                    then 0 else 1 end DESC
+                "))
             ->orderBy('salariat')
             ->get();
 

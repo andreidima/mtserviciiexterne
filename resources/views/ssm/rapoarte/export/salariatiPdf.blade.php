@@ -13,6 +13,7 @@
         * {
             /* padding: 0;
             text-indent: 0; */
+            line-height: 1;
         }
         table{
             border-collapse:collapse;
@@ -28,7 +29,7 @@
             page-break-inside: avoid;
         }
         th, td {
-            padding: 5px 5px;
+            padding: 0px 1px;
             border-width:1px;
             border-style: solid;
             table-layout:fixed;
@@ -70,13 +71,13 @@
                             <tr>
                                 <td colspan="7" style="border-width: 0px">
                                     {{-- <div style="border:dashed #999; border-radius: 25px; padding:0px 20px"> --}}
-                                    <div>
+                                    {{-- <div> --}}
                                         {{-- <h3 style="">
                                             MT Servicii Externe
                                         </h3> --}}
 
 
-                                        <h2 style="text-align: center">
+                                        <h2 style="margin:0px; padding:0px; text-align: center">
                                             Raport SSM - Salariați
                                             {{-- ({{ $salariati->count() }}) --}}
                                         </h2>
@@ -99,9 +100,9 @@
                                                                 {{ $salariati->count() }}
                                                             </span>
                                         </h3> --}}
-                                    </div>
+                                    {{-- </div> --}}
 
-                                    <br><br>
+                                    <br>
                                 </td>
                             </tr>
                         @endif

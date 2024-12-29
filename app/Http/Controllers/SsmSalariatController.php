@@ -5,10 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\DB;
-
 use App\Models\SsmSalariat;
-
 use Illuminate\Database\Eloquent\Builder;
+use App\Exports\SsmSalariatiExport;
 
 class SsmSalariatController extends Controller
 {
@@ -78,7 +77,7 @@ class SsmSalariatController extends Controller
                             ->orWhere('observatii_2', 'like', '%' . $searchObservatii . '%');
             });
 
-        $salariati = $query
+        $sortedQuery = $query
                         ->orderBy('nume_client')
                         ->orderByRaw(DB::raw("
                                 case when salariat like '%revisal%' then 0 else 1 end ASC,
@@ -97,8 +96,14 @@ class SsmSalariatController extends Controller
                                 then 0 else 1 end DESC
                             "))
                         ->orderBy($campSortare, $ordineSortare)
-                        ->orderBy('salariat')
-                        ->simplePaginate(200);
+                        ->orderBy('salariat');
+
+        if ($request->action === 'excel'){
+            $exporter = new SsmSalariatiExport();
+            return $exporter->export($sortedQuery);
+        }
+
+        $salariati=$sortedQuery->simplePaginate(200);
 
         $nrSalariatiDeRezolvat = SsmSalariat::
                 where('semnat_ssm', 'Lipsa')
@@ -111,8 +116,6 @@ class SsmSalariatController extends Controller
         $lista_traseu = SsmSalariat::select('traseu')->groupBy('traseu')->get();
 
         $request->session()->forget('salariat_return_url');
-
-        // dd($salariati);
 
         return view('ssm.salariati.index', compact('salariati', 'searchDataSsmPsi', 'search_firma_nume', 'search_salariat', 'search_cnp', 'search_traseu', 'search_de_rezolvat', 'lista_firma', 'lista_traseu', 'nrSalariatiDeRezolvat', 'searchDataInc', 'searchActionar', 'searchObservatii'));
     }

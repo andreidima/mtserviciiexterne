@@ -89,7 +89,7 @@ class SsmFirmaController extends Controller
             ->orderBy('nume')
             ->simplePaginate(25);
 
-        $lista_traseu = SsmFirma::select('traseu')->groupBy('traseu')->get();
+        $lista_traseu = SsmFirma::select('traseu')->groupBy('traseu')->orderBy('traseu')->get();
         $lista_actionar = SsmFirma::select('actionar')->groupBy('actionar')->get();
         $lista_ssm_luna = SsmFirma::select('ssm_luna')->groupBy('ssm_luna')->get();
         $lista_psi_luna = SsmFirma::select('psi_luna')->groupBy('psi_luna')->get();

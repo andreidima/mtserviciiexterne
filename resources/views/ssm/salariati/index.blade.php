@@ -194,7 +194,7 @@
                                     value="{{ $searchObservatii }}">
                         </div>
                         <div class="col-md-3 mb-1">
-                            <button class="btn btn-sm btn-primary text-white col-md-12 me-3 border border-dark rounded-3" type="submit">
+                            <button class="btn btn-sm btn-primary text-white col-md-12 border border-dark rounded-3" name="action" value="cauta" type="submit">
                                 <i class="fas fa-search text-white me-1"></i>Caută
                             </button>
                         </div>
@@ -202,6 +202,11 @@
                             <a class="btn btn-sm bg-secondary text-white col-md-12 border border-dark rounded-3" href="/ssm/salariati" role="button">
                                 <i class="far fa-trash-alt text-white me-1"></i>Resetează
                             </a>
+                        </div>
+                        <div class="col-md-3 mb-1">
+                            <button class="btn btn-sm btn-success text-white col-md-12 me-3 border border-dark rounded-3" name="action" value="excel" type="submit">
+                                <i class="fas fa-file-excel text-white me-1"></i>Excel
+                            </button>
                         </div>
                     </div>
             </div>
@@ -229,8 +234,7 @@
                     @csrf
                 <thead class="text-white rounded" style="background-color:#e66800; font-size: 5px !important">
                     <tr class="" style="padding:2rem; font-size: 5px">
-                        <th rowspan="2" class="text-center m-0 p-0" style="font-size: 14px;">
-                            {{-- # --}}
+                        {{-- <th rowspan="2" class="text-center m-0 p-0" style="font-size: 14px;">
                             <button class="btn btn-sm btn-primary text-white mx-0 py-0 px-1 border-0 rounded-3" type="submit" name="butonSortare" value="nr_crt.asc">
                                 <i class='fas fa-sort-up'></i>
                             </button>
@@ -238,7 +242,8 @@
                             <button class="btn btn-sm btn-primary text-white mx-0 py-0 px-1 border-0 rounded-3" type="submit" name="butonSortare" value="nr_crt.desc">
                                 <i class='fas fa-sort-down'></i>
                             </button>
-                        </th>
+                        </th> --}}
+                        <th rowspan="2" class="text-center" style=" font-size: 14px; padding:1px;">#</th>
                         <th rowspan="2" class="text-center" style=" font-size: 14px; padding:1px;">Acțiuni</th>
                         <th rowspan="2" class="text-center" style="font-size: 14px; padding:1px;">
                             Nume client
@@ -306,13 +311,13 @@
                                 <i class='fas fa-sort-down'></i>
                             </button>
                         </th>
-                        <th colspan="2" class="text-center" style="font-size: 14px; padding:1px;">Semnat</th>
+                        {{-- <th colspan="2" class="text-center" style="font-size: 14px; padding:1px;">Semnat</th> --}}
                     </tr>
                     <tr class="">
                         <th class="text-center" style="font-size: 14px; padding:1px;">SSM</th>
                         <th class="text-center" style="font-size: 14px; padding:1px;">PSI</th>
-                        <th class="text-center" style="font-size: 14px; padding:1px;">Anexa</th>
-                        <th class="text-center" style="font-size: 14px; padding:1px;">E.I.P.</th>
+                        {{-- <th class="text-center" style="font-size: 14px; padding:1px;">Anexa</th>
+                        <th class="text-center" style="font-size: 14px; padding:1px;">E.I.P.</th> --}}
                     </tr>
                 </thead>
                 </form>
@@ -330,19 +335,19 @@
                         @else
                             <tr style="">
                         @endif
-                            <td style="font-size: 14px; padding:0px; width: 23px;">
-                                {{-- {{ ($salariati ->currentpage()-1) * $salariati ->perpage() + $loop->index + 1 }} --}}
-                                {{-- {{ $salariat->nr_crt }} --}}
+                            {{-- <td style="font-size: 14px; padding:0px; width: 23px;">
                                 <input type="text"
                                         style="width: 23px; border: none; padding:0px"
                                         id="nr_crt"
-                                        {{-- name="nr_crt" --}}
                                         value="{{ $salariat->nr_crt }}"
                                         v-on:blur = "axiosActualizeazaSalariat({{ $salariat->id }}, 'nr_crt', $event.target.value)"
                                         >
                                 <div v-cloak v-if="(axiosActualizatSalariatId == {{ $salariat->id }}) && (axiosActualizatCamp == 'nr_crt')" class="me-2 text-success">
                                     <i class="fas fa-thumbs-up"></i>
                                 </div>
+                            </td> --}}
+                            <td class="p-0 text-end" style="font-size: 14px; padding:1px;">
+                                {{ $loop->iteration }}
                             </td>
                             <td class="p-0 text-center">
                                 <div class="d-flex justify-content-end">
@@ -580,32 +585,38 @@
                                 {{ $salariat->data_angajare }}
                             </td>
                             <td style="font-size: 14px; padding:1px;">
-                                {{ $salariat->data_incetare }}
+                                {{-- {{ $salariat->data_incetare }} --}}
+                                <input type="text"
+                                        style="width: 60px; border: none; padding:0px"
+                                        id="data_incetare"
+                                        {{-- name="data_incetare" --}}
+                                        value="{{ $salariat->data_incetare }}"
+                                        v-on:blur = "axiosActualizeazaSalariat({{ $salariat->id }}, 'data_incetare', $event.target.value)"
+                                        >
+                                <div v-cloak v-if="(axiosActualizatSalariatId == {{ $salariat->id }}) && (axiosActualizatCamp == 'data_incetare')" class="me-2 text-success">
+                                    <i class="fas fa-thumbs-up"></i>
+                                </div>
                             </td>
                             <td style="font-size: 14px; padding:1px;">
                                 {{ $salariat->traseu }}
                             </td>
                             <td style="font-size: 14px; padding:1px;">
-                                {{ $salariat->observatii_1 ? ($salariat->observatii_1 . '.') : ''}}
-                                {{ $salariat->observatii_2 ? ($salariat->observatii_2 . '.') : ''}}
-                                {{-- {{ $salariat->observatii_3 ? ($salariat->observatii_3 . '') : ''}} --}}
+                                {{-- {{ $salariat->observatii_1 ? ($salariat->observatii_1 . '.') : ''}} --}}
+                                {{-- {{ $salariat->observatii_2 ? ($salariat->observatii_2 . '.') : ''}} --}}
+                                <input type="text"
+                                        {{-- style="width: 80px; border: none; padding:0px" --}}
+                                        style="width: calc(1ch * {{ strlen($salariat->observatii_1) > 8 ? (strlen($salariat->observatii_1) + 2) : 9 }}); border: none; padding:0px"
+                                        id="observatii_1"
+                                        {{-- name="observatii_1" --}}
+                                        value="{{ $salariat->observatii_1 }}"
+                                        v-on:blur = "axiosActualizeazaSalariat({{ $salariat->id }}, 'observatii_1', $event.target.value)"
+                                        >
+                                <div v-cloak v-if="(axiosActualizatSalariatId == {{ $salariat->id }}) && (axiosActualizatCamp == 'observatii_1')" class="me-2 text-success">
+                                    <i class="fas fa-thumbs-up"></i>
+                                </div>
                             </td>
-                            <td style="font-size: 14px; padding:1px;">
-                                {{-- @if ((strpos($salariat->semnat_anexa, 'de s') !== false))
-                                    <span style="font-size: 14px; color:rgb(204, 0, 0)">
-                                        {{ $salariat->semnat_anexa }}
-                                    </span>
-                                @else
-                                    {{ $salariat->semnat_anexa }}
-                                @endif --}}
-                                {{-- <input type="text"
-                                        style="width: 30px; border: none; padding:0px; {{ (strpos($salariat->semnat_anexa, 'de s') !== false) ? 'color:rgb(204, 0, 0)' : '' }}"
-                                        id="semnat_anexa" name="semnat_anexa"
-                                        value="{{ $salariat->semnat_anexa }}"
-                                        v-on:blur = "axiosActualizeazaSalariat({{ $salariat->id }}, 'semnat_anexa', $event.target.value)"
-                                        > --}}
+                            {{-- <td style="font-size: 14px; padding:1px;">
                                 <select
-                                    {{-- name="semnat_anexa"  --}}
                                     class="bg-white rounded-3 {{ $errors->has('semnat_anexa') ? 'is-invalid' : '' }}"
                                         style="width: 30px; border: none; padding:0px; appearance: none;
                                             {{ (strpos($salariat->semnat_anexa, 'de s') !== false) ? 'color:rgb(204, 0, 0)' : ''}}
@@ -620,23 +631,9 @@
                                 <div v-cloak v-if="(axiosActualizatSalariatId == {{ $salariat->id }}) && (axiosActualizatCamp == 'semnat_anexa')" class="me-2 text-success">
                                     <i class="fas fa-thumbs-up"></i>
                                 </div>
-                            </td>
-                            <td style="font-size: 14px; padding:1px;">
-                                {{-- @if ((strpos($salariat->semnat_eip, 'de s') !== false))
-                                    <span style="font-size: 14px; color:rgb(204, 0, 0)">
-                                        {{ $salariat->semnat_eip }}
-                                    </span>
-                                @else
-                                    {{ $salariat->semnat_eip }}
-                                @endif --}}
-                                {{-- <input type="text"
-                                        style="width: 30px; border: none; padding:0px; {{ (strpos($salariat->semnat_eip, 'de s') !== false) ? 'color:rgb(204, 0, 0)' : '' }}"
-                                        id="semnat_eip" name="semnat_eip"
-                                        value="{{ $salariat->semnat_eip }}"
-                                        v-on:blur = "axiosActualizeazaSalariat({{ $salariat->id }}, 'semnat_eip', $event.target.value)"
-                                        > --}}
+                            </td> --}}
+                            {{-- <td style="font-size: 14px; padding:1px;">
                                 <select
-                                    {{-- name="semnat_eip"  --}}
                                     class="bg-white rounded-3 {{ $errors->has('semnat_eip') ? 'is-invalid' : '' }}"
                                         style="width: 30px; border: none; padding:0px; appearance: none;
                                             {{ (strpos($salariat->semnat_eip, 'de s') !== false) ? 'color:rgb(204, 0, 0)' : ''}}
@@ -651,7 +648,7 @@
                                 <div v-cloak v-if="(axiosActualizatSalariatId == {{ $salariat->id }}) && (axiosActualizatCamp == 'semnat_eip')" class="me-2 text-success">
                                     <i class="fas fa-thumbs-up"></i>
                                 </div>
-                            </td>
+                            </td> --}}
                         </tr>
                     @empty
                         {{-- <div>Nu s-au gasit rezervări în baza de date. Încearcă alte date de căutare</div> --}}
