@@ -42,6 +42,9 @@ class SsmRaportController extends Controller
             ->when($search_traseu, function($query) use ($search_traseu) {
                 return $query->where('traseu', $search_traseu);
             })
+            ->when(!($search_ssm_luna || $search_psi_luna || $search_actionar || $search_traseu), function($query) {
+                return $query->where('id', '-1');
+            })
             // ->where('actionar', $search_actionar)
             ->where('activa', 1)
             ->orderBy('traseu', 'asc')
@@ -53,6 +56,9 @@ class SsmRaportController extends Controller
                 return view('ssm.rapoarte.export.firmePdf', compact('firme', 'search_ssm_luna', 'search_psi_luna'));
                 break;
             case 'exportPdf':
+                if ($firme->count() > 500) {
+                    return back()->with('error', 'Nu se pot extrage mai mult de 500 firme odată. Filtrați datele pentru a limita numărul de firme.');
+                }
                 $pdf = \PDF::loadView('ssm.rapoarte.export.firmePdf', compact('firme', 'search_ssm_luna', 'search_psi_luna'))
                     ->setPaper('a4', 'portrait');
                 $pdf->getDomPDF()->set_option("enable_php", true);
