@@ -280,6 +280,16 @@
                         </th>
                         <th rowspan="2" class="text-center" style="font-size: 14px; padding:1px;">CNP</th>
                         <th rowspan="2" class="text-center" style="font-size: 14px; padding:1px;">
+                            Compartiment
+                            <br>
+                            <button class="btn btn-sm btn-primary text-white mx-0 py-0 px-1 border-0 rounded-3" type="submit" name="butonSortare" value="compartiment.asc">
+                                <i class='fas fa-sort-up'></i>
+                            </button>
+                            <button class="btn btn-sm btn-primary text-white mx-0 py-0 px-1 border-0 rounded-3" type="submit" name="butonSortare" value="compartiment.desc">
+                                <i class='fas fa-sort-down'></i>
+                            </button>
+                        </th>
+                        <th rowspan="2" class="text-center" style="font-size: 14px; padding:1px;">
                             Funcția
                             <button class="btn btn-sm btn-primary text-white mx-0 py-0 px-1 border-0 rounded-3" type="submit" name="butonSortare" value="functia.asc">
                                 <i class='fas fa-sort-up'></i>
@@ -560,6 +570,9 @@
                             </td>
                             <td style="font-size: 14px; padding:1px;">
                                 {{ $salariat->cnp }}
+                            </td>
+                            <td style="font-size: 14px; padding:1px;">
+                                {{ $salariat->compartiment }}
                             </td>
                             <td style="font-size: 14px; padding:1px;" title="{{ $salariat->functia }}">
                                 {{-- @php

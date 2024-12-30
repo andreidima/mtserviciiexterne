@@ -74,7 +74,7 @@
 
                         @if ($loop->first)
                             <tr>
-                                <td colspan="7" style="border-width: 0px">
+                                <td colspan="6" style="border-width: 0px">
                                     {{-- <div style="border:dashed #999; border-radius: 25px; padding:0px 20px"> --}}
                                     {{-- <div> --}}
                                         {{-- <h3 style="">
@@ -105,7 +105,7 @@
                         @endif)
 
                         <tr class="" style="padding:2rem; background-color:rgb(241, 241, 241)">
-                            <th colspan="7">
+                            <th colspan="6">
                                 Traseu:
                                     <span class="badge bg-dark" style="font-size: 100%">
                                         {{ $firme_per_traseu->first()->traseu ?? '' }}
@@ -120,7 +120,7 @@
                         <tr class="" style="padding:2rem">
                             <th rowspan="2">#</th>
                             <th rowspan="2">Firma</th>
-                            <th rowspan="2">CUI</th>
+                            {{-- <th rowspan="2">CUI</th> --}}
                             <th colspan="2" class="text-center">Luna</th>
                             <th colspan="2" class="text-center">Stare fișe</th>
                         </tr>
@@ -139,9 +139,9 @@
                                 <td>
                                     {{ $firma->nume ?? '' }}
                                 </td>
-                                <td>
+                                {{-- <td>
                                     {{ $firma->cui ?? '' }}
-                                </td>
+                                </td> --}}
                                 <td>
                                     @php
                                         $ultimulNumarDinPerioada = null;
@@ -327,7 +327,9 @@
                         @endforelse
                 </table>
 
-                <br><br>
+                @if (!$loop->last)
+                    <br><br>
+                @endif
 
                 @empty
                 @endforelse

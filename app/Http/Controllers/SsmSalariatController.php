@@ -224,6 +224,7 @@ class SsmSalariatController extends Controller
                 'cnp' => 'nullable|max:200',
                 'semnat_ssm' => 'required|max:200',
                 'semnat_psi' => 'required|max:200',
+                'compartiment' => 'nullable|max:200',
                 'functia' => 'nullable|max:200',
                 'med_muncii' => 'nullable|max:200',
                 // 'med_muncii_zi' => 'nullable|max:200',

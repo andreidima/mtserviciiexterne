@@ -24,7 +24,7 @@
                     value="{{ old('salariat', $salariat->salariat) }}"
                     required>
             </div>
-            <div class="col-lg-3 mb-2">
+            <div class="col-lg-2 mb-2">
                 <label for="cnp" class="mb-0 ps-3">CNP</label>
                 <input
                     type="text"
@@ -34,7 +34,17 @@
                     value="{{ old('cnp', $salariat->cnp) }}"
                     required>
             </div>
-            <div class="col-lg-3 mb-2">
+            <div class="col-lg-2 mb-2">
+                <label for="compartiment" class="mb-0 ps-3">Compartiment</label>
+                <input
+                    type="text"
+                    class="form-control bg-white rounded-3 {{ $errors->has('compartiment') ? 'is-invalid' : '' }}"
+                    name="compartiment"
+                    placeholder=""
+                    value="{{ old('compartiment', $salariat->compartiment) }}"
+                    required>
+            </div>
+            <div class="col-lg-2 mb-2">
                 <label for="functia" class="mb-0 ps-3">Funcția</label>
                 <input
                     type="text"

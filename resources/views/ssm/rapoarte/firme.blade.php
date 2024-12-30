@@ -23,9 +23,9 @@
                                 @endforeach
                             </select>
                         </div>
-                        <div class="col-md-1 d-flex align-items-center justify-content-center">
+                        {{-- <div class="col-md-1 d-flex align-items-center justify-content-center">
                             SAU
-                        </div>
+                        </div> --}}
                         <div class="col-md-2">
                             <select class="form-select form-select-sm mb-1" id="search_psi_luna" name="search_psi_luna">
                                     <option value="" selected>Luna PSI</option>
@@ -37,9 +37,9 @@
                                 @endforeach
                             </select>
                         </div>
-                        <div class="col-md-1 d-flex align-items-center justify-content-center">
+                        {{-- <div class="col-md-1 d-flex align-items-center justify-content-center">
                             ȘI
-                        </div>
+                        </div> --}}
                         <div class="col-md-4 d-flex">
                             <select class="form-select form-select-sm mb-1" id="search_traseu" name="search_traseu">
                                     <option value="" selected>Traseu</option>
