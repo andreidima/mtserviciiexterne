@@ -25,6 +25,7 @@ class SsmFirmaController extends Controller
         $search_administrator_si_pers_desemnata = \Request::get('search_administrator_si_pers_desemnata');
         $search_domeniu_de_activitate = \Request::get('search_domeniu_de_activitate');
         $search_actionar = \Request::get('search_actionar');
+        $search_tip = \Request::get('search_tip');
         $search_ssm_luna = \Request::get('search_ssm_luna');
         $search_psi_luna = \Request::get('search_psi_luna');
         $search_perioada = \Request::get('search_perioada');
@@ -63,6 +64,9 @@ class SsmFirmaController extends Controller
             ->when($search_actionar, function ($query, $search_actionar) {
                 return $query->where('actionar', $search_actionar);
             })
+            ->when($search_tip, function ($query, $search_tip) {
+                return $query->where('tip', $search_tip);
+            })
             ->when($search_ssm_luna, function ($query, $search_ssm_luna) {
                 return $query->where('ssm_luna', $search_ssm_luna);
             })
@@ -91,6 +95,7 @@ class SsmFirmaController extends Controller
 
         $lista_traseu = SsmFirma::select('traseu')->groupBy('traseu')->orderBy('traseu')->get();
         $lista_actionar = SsmFirma::select('actionar')->groupBy('actionar')->get();
+        $lista_tip = SsmFirma::select('tip')->groupBy('tip')->get();
         $lista_ssm_luna = SsmFirma::select('ssm_luna')->groupBy('ssm_luna')->get();
         $lista_psi_luna = SsmFirma::select('psi_luna')->groupBy('psi_luna')->get();
         $lista_perioada = SsmFirma::select('perioada')->groupBy('perioada')->get();
@@ -99,9 +104,9 @@ class SsmFirmaController extends Controller
         $request->session()->forget('firma_return_url');
 
         return view('ssm.firme.index', compact('firme', 'search_firma_si_cui', 'search_adresa_si_observatii', 'search_traseu', 'search_administrator_si_pers_desemnata', 'search_domeniu_de_activitate',
-            'search_actionar', 'search_ssm_luna', 'search_psi_luna', 'search_perioada',
+            'search_actionar', 'search_tip', 'search_ssm_luna', 'search_psi_luna', 'search_perioada',
             'search_contract_firma', 'search_contract_numar', 'search_observatii',
-            'lista_traseu', 'lista_actionar', 'lista_ssm_luna', 'lista_psi_luna', 'lista_perioada', 'lista_contract_firma', 'searchActiva'
+            'lista_traseu', 'lista_actionar', 'lista_tip', 'lista_ssm_luna', 'lista_psi_luna', 'lista_perioada', 'lista_contract_firma', 'searchActiva'
         ));
     }
 
@@ -202,6 +207,7 @@ class SsmFirmaController extends Controller
                 'doc' => 'nullable|max:200',
                 'perioada' => 'nullable|max:200',
                 'actionar' => 'nullable|max:200',
+                'tip' => 'nullable|max:200',
                 'ssm_luna' => 'nullable|max:200',
                 'psi_luna' => 'nullable|max:200',
                 'ssm_stare_fise' => 'nullable|max:200',
@@ -238,5 +244,18 @@ class SsmFirmaController extends Controller
             'firmaId' => $request->firmaId,
             'camp' => $request->camp,
         ]);
+    }
+
+    public function duplica(Request $request, SsmFirma $firma)
+    {
+        $firma = $firma->replicate(['created_at', 'updated_at']);
+
+        $firma->nume = $firma->nume . ' DUPLICAT';
+
+        $firma->save();
+
+        $request->session()->get('firma_return_url') ?? $request->session()->put('firma_return_url', url()->previous());
+
+        return view('ssm.firme.edit', compact('firma'));
     }
 }

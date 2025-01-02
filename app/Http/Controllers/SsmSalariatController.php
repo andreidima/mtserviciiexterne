@@ -26,6 +26,8 @@ class SsmSalariatController extends Controller
         $search_traseu = \Request::get('search_traseu');
         $search_de_rezolvat = \Request::get('search_de_rezolvat');
         $searchDataInc = \Request::get('searchDataInc');
+        $searchSemnatSsm = \Request::get('searchSemnatSsm');
+        $searchSemnatPsi = \Request::get('searchSemnatPsi');
         $searchActionar = \Request::get('searchActionar');
         $searchObservatii = \Request::get('searchObservatii');
 
@@ -68,6 +70,12 @@ class SsmSalariatController extends Controller
             })
             ->when($searchDataInc, function ($query, $searchDataInc) {
                 return $query->where('data_incetare', 'like', '%' . $searchDataInc . '%');
+            })
+            ->when($searchSemnatSsm, function ($query, $searchSemnatSsm) {
+                return $query->where('semnat_ssm', 'like', '%' . $searchSemnatSsm . '%');
+            })
+            ->when($searchSemnatPsi, function ($query, $searchSemnatPsi) {
+                return $query->where('semnat_psi', 'like', '%' . $searchSemnatPsi . '%');
             })
             ->when($searchActionar, function ($query, $searchActionar) {
                 return $query->where('actionar', 'like', '%' . $searchActionar . '%');
@@ -117,7 +125,8 @@ class SsmSalariatController extends Controller
 
         $request->session()->forget('salariat_return_url');
 
-        return view('ssm.salariati.index', compact('salariati', 'searchDataSsmPsi', 'search_firma_nume', 'search_salariat', 'search_cnp', 'search_traseu', 'search_de_rezolvat', 'lista_firma', 'lista_traseu', 'nrSalariatiDeRezolvat', 'searchDataInc', 'searchActionar', 'searchObservatii'));
+        return view('ssm.salariati.index', compact('salariati', 'searchDataSsmPsi', 'search_firma_nume', 'search_salariat', 'search_cnp', 'search_traseu', 'search_de_rezolvat', 'lista_firma', 'lista_traseu',
+            'nrSalariatiDeRezolvat', 'searchDataInc', 'searchSemnatSsm', 'searchSemnatPsi', 'searchActionar', 'searchObservatii'));
     }
 
     /**

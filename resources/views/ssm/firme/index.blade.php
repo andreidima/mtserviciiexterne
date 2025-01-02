@@ -33,7 +33,7 @@
                                 @endforeach
                             </select>
                         </div>
-                        <div class="col-md-2">
+                        <div class="col-md-1">
                             <select class="form-select form-select-sm mb-1" id="search_actionar" name="search_actionar" >
                                     <option value="" selected>Acționar</option>
                                 @foreach ($lista_actionar as $actionar)
@@ -41,6 +41,17 @@
                                         {{ isset($actionar->actionar) ? ($actionar->actionar === $search_actionar ? 'selected' : '') : '' }}
                                     >
                                     {{ $actionar->actionar }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="col-md-1">
+                            <select class="form-select form-select-sm mb-1" id="search_tip" name="search_tip" >
+                                    <option value="" selected>Tip</option>
+                                @foreach ($lista_tip as $tip)
+                                    <option value="{{ $tip->tip }}"
+                                        {{ isset($tip->tip) ? ($tip->tip === $search_tip ? 'selected' : '') : '' }}
+                                    >
+                                    {{ $tip->tip }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -153,7 +164,9 @@
                         </th>
                         {{-- <th rowspan="2" class="text-center" style="font-size: 14px; padding:1px;">Doc</th> --}}
                         {{-- <th rowspan="2" class="text-center" style="font-size: 14px; padding:1px;"></th> --}}
-                        <th rowspan="2" class="text-center" style="font-size: 14px; padding:1px;"></th>
+                        <th rowspan="2" class="text-center" style="font-size: 14px; padding:1px;" title="Acționar / Tip firmă">
+                            <i class="fas fa-info text-primary"></i>
+                        </th>
                         <th colspan="2" class="text-center" style=" font-size: 14px; padding:1px;">Luna</th>
                         <th colspan="2" class="text-center" style=" font-size: 14px; padding:1px;">Stare fișe</th>
                         <th rowspan="2" class="text-center" style="font-size: 14px; padding:1px;">
@@ -213,6 +226,16 @@
                                             <i class="fas fa-edit" style="font-size: 10px;"></i>
                                         </span>
                                     </a>
+                                    <a href="{{ $firma->path() }}/duplica"
+                                            class="me-1"
+                                            title="Duplică Firma"
+                                        {{-- class="flex" --}}
+                                    >
+                                        <span class="badge bg-success" style="font-size: 10px;">
+                                            {{-- Modifică --}}
+                                            <i class="fas fa-clone" style="font-size: 10px;"></i>
+                                        </span>
+                                    </a>
                                     {{-- <div style="flex" class=""> --}}
                                         <a
                                             href="#"
@@ -244,8 +267,10 @@
                             {{-- <td style="font-size: 14px; padding:1px;" class="text-center">
                                 {{ $firma->perioada }}
                             </td> --}}
-                            <td style="font-size: 14px; padding:1px;" class="text-center">
+                            <td style="font-size: 14px; padding:1px;" class="text-center" title="Acționar / Tip firmă">
                                 {{ $firma->actionar }}
+                                <br>
+                                {{ $firma->tip }}
                             </td>
                             <td style="font-size: 14px; padding:1px; font-weight:bold" class="text-center">
                                 {{-- In prima faza se seteaza ce culoare sa fie la textul ce se va scrie in input --}}

@@ -113,19 +113,19 @@
                                     <span class="badge bg-dark" style="font-size: 140%">
                                         {{ $salariati_per_firma->first()->nume_client ?? '' }}
                                     </span>
-                                    {{-- /
-                                    Salariați =
-                                    <span class="badge bg-success fs-6">
+                                    -
+                                    <span class="badge bg-success fs-6" style="font-size: 140%;">
                                         {{ $salariati_per_firma->count() }}
-                                    </span> --}}
+                                    </span>
+                                    salariați
                             </th>
                         </tr>
                         <tr class="" style="padding:2rem">
                             <th rowspan="2">#</th>
                             <th rowspan="2">Salariat</th>
                             <th rowspan="2">Funcția</th>
-                            <th rowspan="2">Data angajării</th>
-                            <th rowspan="2">Data SSM/ PSI</th>
+                            <th rowspan="2">Data ang</th>
+                            <th rowspan="2">Data<br>SSM/ PSI</th>
                             <th colspan="2" class="text-center">Semnat</th>
                         </tr>
                         <tr>
@@ -134,12 +134,16 @@
                         </tr>
 
                         @forelse ($salariati_per_firma as $salariat)
+                            @if (stripos($salariat->salariat, 'revisal') || stripos($salariat->salariat, 'situatie'))
+                                @continue
+                            @endif
+
                             <tr>
-                                <td align="">
+                                <td style="">
                                     {{ $loop->iteration }}
                                 </td>
                                 <td>
-                                    @if (stripos($salariat->salariat, '3 luni') !== false)
+                                    {{-- @if (stripos($salariat->salariat, '3 luni') !== false)
                                         {!! str_replace("3 luni", "<span style='font-size: 12px; color:rgb(0, 140, 255)'>3 luni</span>", $salariat->salariat) !!}
                                     @elseif (stripos($salariat->salariat, '3luni') !== false)
                                         {!! str_replace("3luni", "<span style='font-size: 12px; color:rgb(0, 140, 255)'>3luni</span>", $salariat->salariat) !!}
@@ -149,7 +153,8 @@
                                         {!! str_replace("6luni", "<span style='font-size: 12px; color:rgb(0, 140, 255)'>6luni</span>", $salariat->salariat) !!}
                                     @else
                                         {!! $salariat->salariat !!}
-                                    @endif
+                                    @endif --}}
+                                    {!! preg_replace('/(3 luni|3luni|6 luni|6luni|6L)/', '<span style="font-size: 12px; color:rgb(0, 140, 255)">$1</span>', $salariat->salariat) !!}
                                 </td>
                                 <td>
                                     @php

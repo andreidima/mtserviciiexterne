@@ -59,14 +59,23 @@
                     placeholder=""
                     value="{{ old('perioada', $firma->perioada) }}">
             </div>
-            <div class="col-lg-3 mb-3">
-                <label for="actionar" class="mb-0 ps-3">Acționar</label>
+            <div class="col-lg-1 mb-3">
+                <label for="actionar" class="mb-0 ps-1">Acționar</label>
                 <input
                     type="text"
                     class="form-control bg-white rounded-3 {{ $errors->has('actionar') ? 'is-invalid' : '' }}"
                     name="actionar"
                     placeholder=""
                     value="{{ old('actionar', $firma->actionar) }}">
+            </div>
+            <div class="col-lg-1 mb-3">
+                <label for="tip" class="mb-0 ps-3">Tip</label>
+                <input
+                    type="text"
+                    class="form-control bg-white rounded-3 {{ $errors->has('tip') ? 'is-invalid' : '' }}"
+                    name="tip"
+                    placeholder=""
+                    value="{{ old('tip', $firma->tip) }}">
             </div>
             <div class="col-lg-3 mb-3 p-1 d-flex align-items-end justify-content-center">
                 <div class="form-check">

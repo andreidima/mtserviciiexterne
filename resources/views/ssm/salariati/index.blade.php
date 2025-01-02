@@ -177,7 +177,7 @@
                                 </label>
                             </div>
                         </div>
-                        <div class="col-md-3 mb-1">
+                        <div class="col-md-2 mb-1">
                             <input type="text" class="form-control form-control-sm rounded-3" id="searchDataSsmPsi" name="searchDataSsmPsi" placeholder="Data SSM/ PSI"
                                     value="{{ $searchDataSsmPsi }}">
                         </div>
@@ -186,10 +186,18 @@
                                     value="{{ $searchDataInc }}">
                         </div>
                         <div class="col-md-1 mb-1">
+                            <input type="text" class="form-control form-control-sm p-0 rounded-3" id="searchSemnatSsm" name="searchSemnatSsm" placeholder="SSM"
+                                    value="{{ $searchSemnatSsm }}">
+                        </div>
+                        <div class="col-md-1 mb-1">
+                            <input type="text" class="form-control form-control-sm p-0 rounded-3" id="searchSemnatPsi" name="searchSemnatPsi" placeholder="PSI"
+                                    value="{{ $searchSemnatPsi }}">
+                        </div>
+                        <div class="col-md-1 mb-1">
                             <input type="text" class="form-control form-control-sm rounded-3" id="searchActionar" name="searchActionar" placeholder="I / C"
                                     value="{{ $searchActionar }}">
                         </div>
-                        <div class="col-md-3 mb-1">
+                        <div class="col-md-2 mb-1">
                             <input type="text" class="form-control form-control-sm rounded-3" id="searchObservatii" name="searchObservatii" placeholder="Observații"
                                     value="{{ $searchObservatii }}">
                         </div>
@@ -405,8 +413,8 @@
                                 {{ mb_substr($salariat->nume_client, 0, 20) }}
                                 {{-- {{ $salariat->nume_client }} --}}
                             </td>
-                            <td style="font-size: 14px; padding:1px;">
-                                @if (stripos($salariat->salariat, '3 luni') !== false)
+                            <td style="font-size: 14px; padding:1px;" title="{{ $salariat->salariat }}">
+                                {{-- @if (stripos($salariat->salariat, '3 luni') !== false)
                                     {!! str_replace("3 luni", "<span class='text-primary' style='font-size: 14px;'>3 luni</span>", $salariat->salariat) !!}
                                 @elseif (stripos($salariat->salariat, '3luni') !== false)
                                     {!! str_replace("3luni", "<span class='text-primary' style='font-size: 14px;'>3luni</span>", $salariat->salariat) !!}
@@ -416,12 +424,24 @@
                                     {!! str_replace("6luni", "<span class='text-primary' style='font-size: 14px;'>6luni</span>", $salariat->salariat) !!}
                                 @else
                                     {!! $salariat->salariat !!}
-                                @endif
+                                @endif --}}
+                                @php
+                                    $text = $salariat->salariat;
+                                    // Match '3 luni' or '6 luni'
+                                    preg_match('/(3 luni|3luni|6 luni|6luni|6L)/', $text, $matches);
+                                    $highlight = $matches[0] ?? null;
+                                    // Ensure the text is trimmed to 30 characters while keeping '3 luni' or '6 luni' if present
+                                    $displayText = Str::limit($text, 30);
+                                    if ($highlight && !str_contains($displayText, $highlight)) {
+                                        $displayText .= ' ' . $highlight;
+                                    }
+                                @endphp
+                                {!! preg_replace('/(3 luni|3luni|6 luni|6luni|6L)/', '<span class="text-primary" style="font-size: 14px;">$1</span>', e($displayText)) !!}
                             </td>
                             <td style="font-size: 14px; padding:0px;">
                                 <input type="text"
                                         style="width: 60px; border: none; padding:0px"
-                                        id="data_ssm_psi"
+                                        {{-- id="data_ssm_psi" --}}
                                         {{-- name="data_ssm_psi" --}}
                                         value="{{ $salariat->data_ssm_psi }}"
                                         v-on:blur = "axiosActualizeazaSalariat({{ $salariat->id }}, 'data_ssm_psi', $event.target.value)"
@@ -479,7 +499,8 @@
                                     >
                                     <option value="" selected></option>
                                     <option value='-' style="color:rgb(0, 0, 0)" {{ $salariat->semnat_ssm === '-' ? 'selected' : ''}}>-</option>
-                                    <option value="client" style="color:rgb(0, 140, 255)" {{ $salariat->semnat_ssm === 'client' ? 'selected' : ''}}><span style="color:rgb(0, 140, 255)">client</span></option>
+                                    {{-- <option value="client" style="color:rgb(0, 140, 255)" {{ $salariat->semnat_ssm === 'client' ? 'selected' : ''}}><span style="color:rgb(0, 140, 255)">client</span></option> --}}
+                                    <option value="client" style="color:rgb(0, 140, 255)" {{ $salariat->semnat_ssm === 'client' ? 'selected' : ''}}>client</option>
                                     <option value="Lipsa" style="color:rgb(255, 0, 0)" {{ $salariat->semnat_ssm === 'Lipsa' ? 'selected' : ''}}>Lipsa</option>
                                     <option value="comp.la cl." style="color:rgb(0, 180, 75)" {{ $salariat->semnat_ssm === 'comp.la cl.' ? 'selected' : ''}}>comp.la cl.</option>
                                     <option value="n.de s" style="color:blueviolet" {{ $salariat->semnat_ssm === 'n.de s' ? 'selected' : ''}}>n. de s</option>
@@ -539,7 +560,8 @@
                                     >
                                     <option value="" selected></option>
                                     <option value='-' style="color:rgb(0, 0, 0)" {{ $salariat->semnat_psi === '-' ? 'selected' : ''}}>-</option>
-                                    <option value="client" style="color:rgb(0, 140, 255)" {{ $salariat->semnat_psi === 'client' ? 'selected' : ''}}><span style="color:rgb(0, 140, 255)">client</span></option>
+                                    {{-- <option value="client" style="color:rgb(0, 140, 255)" {{ $salariat->semnat_psi === 'client' ? 'selected' : ''}}><span style="color:rgb(0, 140, 255)">client</span></option> --}}
+                                    <option value="client" style="color:rgb(0, 140, 255)" {{ $salariat->semnat_psi === 'client' ? 'selected' : ''}}>client</option>
                                     <option value="Lipsa" style="color:rgb(255, 0, 0)" {{ $salariat->semnat_psi === 'Lipsa' ? 'selected' : ''}}>Lipsa</option>
                                     <option value="comp.la cl." style="color:rgb(0, 180, 75)" {{ $salariat->semnat_psi === 'comp.la cl.' ? 'selected' : ''}}>comp.la cl.</option>
                                     <option value="n.de s" style="color:blueviolet" {{ $salariat->semnat_psi === 'n.de s' ? 'selected' : ''}}>n. de s</option>
@@ -600,12 +622,34 @@
                             <td style="font-size: 14px; padding:1px;">
                                 {{-- {{ $salariat->data_incetare }} --}}
                                 <input type="text"
-                                        style="width: 60px; border: none; padding:0px"
-                                        id="data_incetare"
-                                        {{-- name="data_incetare" --}}
+                                        style="width: 60px; border: none; padding:0px; {{ (stripos($salariat->data_incetare, 'lunar') !== false) ? 'color:red;' : null }}"
                                         value="{{ $salariat->data_incetare }}"
                                         v-on:blur = "axiosActualizeazaSalariat({{ $salariat->id }}, 'data_incetare', $event.target.value)"
+                                        @change="($event.target.value === 'lunar') ? $event.target.style.color = 'red' : $event.target.style.color = 'black'"
                                         >
+
+                                {{-- Tried here to make with a div element, so it could be colored just part of text --}}
+                                {{-- <script type="application/javascript">
+                                    function highlightText(element) {
+                                        let text = element.innerText;
+                                        element.innerHTML = text.replace(/\b(lunar|lunar P)\b/gi, '<span style="color: red;">$1</span>');
+                                    }
+                                </script>
+                                <div
+                                    contenteditable="true"
+                                    style="border: 0px solid #ccc; padding: 0px; width: 60px; height: 15px; font-size: 90%; background-color:white;
+                                    direction: ltr;
+                                    text-align: left;
+                                    white-space: nowrap;
+                                    overflow: hidden;
+                                    outline: none;
+                                    font-family: inherit;
+                                    font-size: inherit;
+                                    unicode-bidi: plaintext; "
+                                    v-on:blur = "axiosActualizeazaSalariat({{ $salariat->id }}, 'data_incetare', $event.target.innerText)"
+                                    oninput="highlightText(this)"
+                                ></div> --}}
+
                                 <div v-cloak v-if="(axiosActualizatSalariatId == {{ $salariat->id }}) && (axiosActualizatCamp == 'data_incetare')" class="me-2 text-success">
                                     <i class="fas fa-thumbs-up"></i>
                                 </div>
@@ -619,7 +663,7 @@
                                 <input type="text"
                                         {{-- style="width: 80px; border: none; padding:0px" --}}
                                         style="width: calc(1ch * {{ strlen($salariat->observatii_1) > 8 ? (strlen($salariat->observatii_1) + 2) : 9 }}); border: none; padding:0px"
-                                        id="observatii_1"
+                                        {{-- id="observatii_1" --}}
                                         {{-- name="observatii_1" --}}
                                         value="{{ $salariat->observatii_1 }}"
                                         v-on:blur = "axiosActualizeazaSalariat({{ $salariat->id }}, 'observatii_1', $event.target.value)"
