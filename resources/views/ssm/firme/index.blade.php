@@ -121,15 +121,23 @@
                                 <option value="0" {{ $searchActiva == "0" ? 'selected' : '' }}>Inactive</option>
                             </select>
                         </div>
-                        <div class="col-md-5">
+                        <div class="col-md-1">
+                        </div>
+                        <div class="col-md-3">
                             <button class="btn btn-sm btn-primary text-white col-lg-12 border border-dark rounded-3" type="submit">
                                 <i class="fas fa-search text-white me-1"></i>Caută
                             </button>
                         </div>
-                        <div class="col-md-5">
+                        <div class="col-md-3">
                             <a class="btn btn-sm bg-secondary text-white col-lg-12 border border-dark rounded-3" href="/ssm/firme" role="button">
                                 <i class="far fa-trash-alt text-white me-1"></i>Resetează căutarea
                             </a>
+                        </div>
+                        <div class="col-md-3">
+                            <button class="btn btn-sm btn-warning text-black col-lg-12 border border-dark rounded-3" type="submit"
+                                name="action" value="exportPdf">
+                                    <i class="fas fa-file-pdf text-black me-1"></i>PDF
+                            </button>
                         </div>
                     </div>
                 </form>
@@ -493,7 +501,8 @@
                                     <option value="noi" style="color:black" {{ $firma->ssm_stare_fise === 'noi' ? 'selected' : ''}}>noi</option>
                                     {{-- <option value="noi;s" style="color:black" {{ $firma->ssm_stare_fise === 'noi;s' ? 'selected' : ''}}>noi;s</option> --}}
                                     <option value="noi;s.p" style="color:black" {{ $firma->ssm_stare_fise === 'noi;s.p' ? 'selected' : ''}}>noi;s.p</option>
-                                    <option value="noi.p;s.p" style="color:black" {{ $firma->ssm_stare_fise === 'noi.p;s.p' ? 'selected' : ''}}>noi.p;s.p</option>
+                                    {{-- <option value="noi.p;s.p" style="color:black" {{ $firma->ssm_stare_fise === 'noi.p;s.p' ? 'selected' : ''}}>noi.p;s.p</option> --}}
+                                    <option value="noi.part." style="color:black" {{ $firma->ssm_stare_fise === 'noi.part.' ? 'selected' : ''}}>noi.part.</option>
                                     <option value="comp.la cl." style="color:rgb(0, 145, 77)" {{ $firma->ssm_stare_fise === 'comp.la cl.' ? 'selected' : ''}}>comp.la cl.</option>
                                     <option value="cl;de s" style="color:rgb(0, 96, 175)" {{ $firma->ssm_stare_fise === 'cl;de s' ? 'selected' : ''}}>cl;de s</option>
                                     <option value="cl.p;de s" style="color:rgb(0, 96, 175)" {{ $firma->ssm_stare_fise === 'cl.p;de s' ? 'selected' : ''}}>cl.p;de s</option>
@@ -568,7 +577,8 @@
                                     <option value="noi" style="color:black" {{ $firma->psi_stare_fise === 'noi' ? 'selected' : ''}}>noi</option>
                                     {{-- <option value="noi;s" style="color:black" {{ $firma->psi_stare_fise === 'noi;s' ? 'selected' : ''}}>noi;s</option> --}}
                                     <option value="noi;s.p" style="color:black" {{ $firma->psi_stare_fise === 'noi;s.p' ? 'selected' : ''}}>noi;s.p</option>
-                                    <option value="noi.p;s.p" style="color:black" {{ $firma->psi_stare_fise === 'noi.p;s.p' ? 'selected' : ''}}>noi.p;s.p</option>
+                                    {{-- <option value="noi.p;s.p" style="color:black" {{ $firma->psi_stare_fise === 'noi.p;s.p' ? 'selected' : ''}}>noi.p;s.p</option> --}}
+                                    <option value="noi.part." style="color:black" {{ $firma->psi_stare_fise === 'noi.part.' ? 'selected' : ''}}>noi.part.</option>
                                     <option value="comp.la cl." style="color:rgb(0, 145, 77)" {{ $firma->psi_stare_fise === 'comp.la cl.' ? 'selected' : ''}}>comp.la cl.</option>
                                     <option value="cl;de s" style="color:rgb(0, 96, 175)" {{ $firma->psi_stare_fise === 'cl;de s' ? 'selected' : ''}}>cl;de s</option>
                                     <option value="cl.p;de s" style="color:rgb(0, 96, 175)" {{ $firma->psi_stare_fise === 'cl.p;de s' ? 'selected' : ''}}>cl.p;de s</option>

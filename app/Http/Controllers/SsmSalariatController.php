@@ -20,9 +20,9 @@ class SsmSalariatController extends Controller
     {
         $searchDataSsmPsi = \Request::get('searchDataSsmPsi');
         $search_firma_nume = \Request::get('search_firma_nume');
+        $search_sectie = \Request::get('search_sectie');
         $search_salariat = \Request::get('search_salariat');
         $search_cnp = \Request::get('search_cnp');
-        $search_traseu = \Request::get('search_traseu');
         $search_traseu = \Request::get('search_traseu');
         $search_de_rezolvat = \Request::get('search_de_rezolvat');
         $searchDataInc = \Request::get('searchDataInc');
@@ -46,10 +46,13 @@ class SsmSalariatController extends Controller
             //     return $query->where('nume_client', $search_firma);
             // })
             when($searchDataSsmPsi, function ($query, $searchDataSsmPsi) {
-                return $query->where('data_ssm_psi', 'like', '%' . $searchDataSsmPsi . '%');
+                return $query->where('data_ssm_psi', $searchDataSsmPsi);
             })
             ->when($search_firma_nume, function ($query, $search_firma_nume) {
                 return $query->where('nume_client', 'like', '%' . $search_firma_nume . '%');
+            })
+            ->when($search_sectie, function ($query, $search_sectie) {
+                return $query->where('sectie', 'like', '%' . $search_sectie . '%');
             })
             ->when($search_salariat, function ($query, $search_salariat) {
                 return $query->where('salariat', 'like', '%' . $search_salariat . '%');
@@ -60,7 +63,7 @@ class SsmSalariatController extends Controller
             ->when($search_traseu, function ($query, $search_traseu) {
                 return $query->where('traseu', $search_traseu);
             })
-            ->when($search_de_rezolvat == 'da', function ($query, $search_traseu) {
+            ->when($search_de_rezolvat == 'da', function ($query) {
                 return $query->where(function ($query) {
                     $query->where('semnat_ssm', 'Lipsa')
                         ->orwhere('semnat_ssm', 'n.de s')
@@ -94,6 +97,7 @@ class SsmSalariatController extends Controller
                                 case when salariat like '%3luni%' then 0 else 1 end ASC,
                                 case when salariat like '%6 luni%' then 0 else 1 end ASC,
                                 case when salariat like '%6luni%' then 0 else 1 end ASC,
+                                case when salariat like '%6L%' then 0 else 1 end ASC,
                                 case when
                                     data_incetare like '%înc%' or
                                     data_incetare like '%lip%' or
@@ -111,7 +115,20 @@ class SsmSalariatController extends Controller
             return $exporter->export($sortedQuery);
         }
 
-        $salariati=$sortedQuery->simplePaginate(200);
+        if ($request->action === 'exportPdf'){
+                $salariati = $sortedQuery->get();
+                if ($salariati->count() > 500) {
+                    return back()->with('error', 'Nu se pot extrage mai mult de 500 salariați odată. Filtrați datele pentru a limita numărul de salariați.');
+                }
+                // $pdf = \PDF::loadView('ssm.rapoarte.export.salariatiPdf', compact('salariati', 'search_data_ssm_psi', 'search_semnat_ssm', 'search_semnat_psi', 'search_firma'))
+                $pdf = \PDF::loadView('ssm.rapoarte.export.salariatiPdf', compact('salariati'))
+                    ->setPaper('a4', 'portrait');
+                $pdf->getDomPDF()->set_option("enable_php", true);
+                return $pdf->download('Raport SSM - salariati.pdf');
+                // return $pdf->stream();
+        }
+
+        $salariati = $sortedQuery->simplePaginate(200);
 
         $nrSalariatiDeRezolvat = SsmSalariat::
                 where('semnat_ssm', 'Lipsa')
@@ -125,7 +142,7 @@ class SsmSalariatController extends Controller
 
         $request->session()->forget('salariat_return_url');
 
-        return view('ssm.salariati.index', compact('salariati', 'searchDataSsmPsi', 'search_firma_nume', 'search_salariat', 'search_cnp', 'search_traseu', 'search_de_rezolvat', 'lista_firma', 'lista_traseu',
+        return view('ssm.salariati.index', compact('salariati', 'searchDataSsmPsi', 'search_firma_nume', 'search_sectie', 'search_salariat', 'search_cnp', 'search_traseu', 'search_de_rezolvat', 'lista_firma', 'lista_traseu',
             'nrSalariatiDeRezolvat', 'searchDataInc', 'searchSemnatSsm', 'searchSemnatPsi', 'searchActionar', 'searchObservatii'));
     }
 
@@ -233,7 +250,7 @@ class SsmSalariatController extends Controller
                 'cnp' => 'nullable|max:200',
                 'semnat_ssm' => 'required|max:200',
                 'semnat_psi' => 'required|max:200',
-                'compartiment' => 'nullable|max:200',
+                'sectie' => 'nullable|max:200',
                 'functia' => 'nullable|max:200',
                 'med_muncii' => 'nullable|max:200',
                 // 'med_muncii_zi' => 'nullable|max:200',

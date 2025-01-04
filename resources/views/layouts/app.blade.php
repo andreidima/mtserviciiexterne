@@ -60,7 +60,7 @@
                                         </a>
                                     </li>
                                     <li><hr class="dropdown-divider"></li>
-                                    <li>
+                                    {{-- <li>
                                         <a class="dropdown-item" href="/ssm/rapoarte/firme">
                                             Raport firme
                                         </a>
@@ -69,7 +69,7 @@
                                         <a class="dropdown-item" href="/ssm/rapoarte/salariati">
                                             Raport salariați
                                         </a>
-                                    </li>
+                                    </li> --}}
                                     <li>
                                         <a class="dropdown-item" href="/ssm/rapoarte-pentru-medicina-muncii/salariati">
                                             Raport medicina muncii

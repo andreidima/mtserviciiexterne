@@ -152,11 +152,11 @@
                             <input type="text" class="form-control form-control-sm rounded-3" id="search_salariat" name="search_salariat" placeholder="Salariat"
                                     value="{{ $search_salariat }}">
                         </div>
-                        <div class="col-md-3 mb-1">
+                        <div class="col-md-2 mb-1">
                             <input type="text" class="form-control form-control-sm rounded-3" id="search_cnp" name="search_cnp" placeholder="CNP"
                                     value="{{ $search_cnp }}">
                         </div>
-                        <div class="col-md-3 mb-1">
+                        <div class="col-md-2 mb-1">
                             <select class="form-select form-select-sm mb-1" id="search_traseu" name="search_traseu" >
                                     <option value="" selected>Traseu</option>
                                 @foreach ($lista_traseu as $traseu)
@@ -166,6 +166,10 @@
                                     {{ $traseu->traseu }}</option>
                                 @endforeach
                             </select>
+                        </div>
+                        <div class="col-md-2 mb-1">
+                            <input type="text" class="form-control form-control-sm rounded-3" id="search_sectie" name="search_sectie" placeholder="Secție"
+                                    value="{{ $search_sectie }}">
                         </div>
                         <div class="col-md-3 mb-1 d-flex justify-content-center">
                             <div class="form-check">
@@ -210,6 +214,11 @@
                             <a class="btn btn-sm bg-secondary text-white col-md-12 border border-dark rounded-3" href="/ssm/salariati" role="button">
                                 <i class="far fa-trash-alt text-white me-1"></i>Resetează
                             </a>
+                        </div>
+                        <div class="col-md-3 mb-1">
+                            <button class="btn btn-sm btn-warning text-black col-lg-12 border border-dark rounded-3" type="submit" name="action" value="exportPdf">
+                                    <i class="fas fa-file-pdf text-black me-1"></i>PDF
+                            </button>
                         </div>
                         <div class="col-md-3 mb-1">
                             <button class="btn btn-sm btn-success text-white col-md-12 me-3 border border-dark rounded-3" name="action" value="excel" type="submit">
@@ -288,16 +297,6 @@
                         </th>
                         <th rowspan="2" class="text-center" style="font-size: 14px; padding:1px;">CNP</th>
                         <th rowspan="2" class="text-center" style="font-size: 14px; padding:1px;">
-                            Compartiment
-                            <br>
-                            <button class="btn btn-sm btn-primary text-white mx-0 py-0 px-1 border-0 rounded-3" type="submit" name="butonSortare" value="compartiment.asc">
-                                <i class='fas fa-sort-up'></i>
-                            </button>
-                            <button class="btn btn-sm btn-primary text-white mx-0 py-0 px-1 border-0 rounded-3" type="submit" name="butonSortare" value="compartiment.desc">
-                                <i class='fas fa-sort-down'></i>
-                            </button>
-                        </th>
-                        <th rowspan="2" class="text-center" style="font-size: 14px; padding:1px;">
                             Funcția
                             <button class="btn btn-sm btn-primary text-white mx-0 py-0 px-1 border-0 rounded-3" type="submit" name="butonSortare" value="functia.asc">
                                 <i class='fas fa-sort-up'></i>
@@ -330,6 +329,16 @@
                             </button>
                         </th>
                         {{-- <th colspan="2" class="text-center" style="font-size: 14px; padding:1px;">Semnat</th> --}}
+                        <th rowspan="2" class="text-center" style="font-size: 14px; padding:1px;">
+                            Secție
+                            <br>
+                            <button class="btn btn-sm btn-primary text-white mx-0 py-0 px-1 border-0 rounded-3" type="submit" name="butonSortare" value="sectie.asc">
+                                <i class='fas fa-sort-up'></i>
+                            </button>
+                            <button class="btn btn-sm btn-primary text-white mx-0 py-0 px-1 border-0 rounded-3" type="submit" name="butonSortare" value="sectie.desc">
+                                <i class='fas fa-sort-down'></i>
+                            </button>
+                        </th>
                     </tr>
                     <tr class="">
                         <th class="text-center" style="font-size: 14px; padding:1px;">SSM</th>
@@ -593,9 +602,6 @@
                             <td style="font-size: 14px; padding:1px;">
                                 {{ $salariat->cnp }}
                             </td>
-                            <td style="font-size: 14px; padding:1px;">
-                                {{ $salariat->compartiment }}
-                            </td>
                             <td style="font-size: 14px; padding:1px;" title="{{ $salariat->functia }}">
                                 {{-- @php
                                 $salariatFunctia = substr($salariat->functia, 0, 20);
@@ -706,6 +712,9 @@
                                     <i class="fas fa-thumbs-up"></i>
                                 </div>
                             </td> --}}
+                            <td style="font-size: 14px; padding:1px;">
+                                {{ $salariat->sectie }}
+                            </td>
                         </tr>
                     @empty
                         {{-- <div>Nu s-au gasit rezervări în baza de date. Încearcă alte date de căutare</div> --}}

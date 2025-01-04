@@ -90,8 +90,21 @@ class SsmFirmaController extends Controller
                 });
             })
             ->where('activa', $searchActiva)
-            ->orderBy('nume')
-            ->simplePaginate(25);
+            ->orderBy('nume');
+
+        if ($request->input('action') === 'exportPdf') {
+            $firme = $firme->get();
+            if ($firme->count() > 500) {
+                return back()->with('error', 'Nu se pot extrage mai mult de 500 firme odată. Filtrați datele pentru a limita numărul de firme.');
+            }
+            $pdf = \PDF::loadView('ssm.rapoarte.export.firmePdf', compact('firme', 'search_ssm_luna', 'search_psi_luna'))
+                ->setPaper('a4', 'portrait');
+            $pdf->getDomPDF()->set_option("enable_php", true);
+            return $pdf->download('Raport SSM - firme.pdf');
+            // return $pdf->stream();
+        }
+
+        $firme = $firme->simplePaginate(25);
 
         $lista_traseu = SsmFirma::select('traseu')->groupBy('traseu')->orderBy('traseu')->get();
         $lista_actionar = SsmFirma::select('actionar')->groupBy('actionar')->get();

@@ -35,13 +35,13 @@
                     required>
             </div>
             <div class="col-lg-2 mb-2">
-                <label for="compartiment" class="mb-0 ps-3">Compartiment</label>
+                <label for="sectie" class="mb-0 ps-3">Secție</label>
                 <input
                     type="text"
-                    class="form-control bg-white rounded-3 {{ $errors->has('compartiment') ? 'is-invalid' : '' }}"
-                    name="compartiment"
+                    class="form-control bg-white rounded-3 {{ $errors->has('sectie') ? 'is-invalid' : '' }}"
+                    name="sectie"
                     placeholder=""
-                    value="{{ old('compartiment', $salariat->compartiment) }}"
+                    value="{{ old('sectie', $salariat->sectie) }}"
                     required>
             </div>
             <div class="col-lg-2 mb-2">

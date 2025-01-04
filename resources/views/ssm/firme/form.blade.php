@@ -117,7 +117,8 @@
                     <option value="noi" {{ old('ssm_stare_fise', $firma->ssm_stare_fise) === 'noi' ? 'selected' : ''}}>noi</option>
                     {{-- <option value="noi;s" {{ old('ssm_stare_fise', $firma->ssm_stare_fise) === 'noi;s' ? 'selected' : ''}}>noi;s</option> --}}
                     <option value="noi;s.p" {{ old('ssm_stare_fise', $firma->ssm_stare_fise) === 'noi;s.p' ? 'selected' : ''}}>noi;s.p</option>
-                    <option value="noi.p;s.p" {{ old('ssm_stare_fise', $firma->ssm_stare_fise) === 'noi.p;s.p' ? 'selected' : ''}}>noi.p;s.p</option>
+                    {{-- <option value="noi.p;s.p" {{ old('ssm_stare_fise', $firma->ssm_stare_fise) === 'noi.p;s.p' ? 'selected' : ''}}>noi.p;s.p</option> --}}
+                    <option value="noi.part." {{ old('ssm_stare_fise', $firma->ssm_stare_fise) === 'noi.part.' ? 'selected' : ''}}>noi.part.</option>
                     <option value="comp.la cl." style="color:rgb(0, 145, 77)" {{ old('ssm_stare_fise', $firma->ssm_stare_fise) === 'comp.la cl.' ? 'selected' : ''}}>comp.la cl.</option>
                     <option value="cl;de s" style="color:rgb(0, 96, 175)" {{ old('ssm_stare_fise', $firma->ssm_stare_fise) === 'cl;de s' ? 'selected' : ''}}>cl;de s</option>
                     <option value="cl.p;de s" style="color:rgb(0, 96, 175)" {{ old('ssm_stare_fise', $firma->ssm_stare_fise) === 'cl.p;de s' ? 'selected' : ''}}>cl.p;de s</option>
@@ -136,7 +137,8 @@
                         (old('ssm_stare_fise', $firma->ssm_stare_fise) !== 'noi') &&
                         // (old('ssm_stare_fise', $firma->ssm_stare_fise) !== 'noi;s') &&
                         (old('ssm_stare_fise', $firma->ssm_stare_fise) !== 'noi;s.p') &&
-                        (old('ssm_stare_fise', $firma->ssm_stare_fise) !== 'noi.p;s.p') &&
+                        // (old('ssm_stare_fise', $firma->ssm_stare_fise) !== 'noi.p;s.p') &&
+                        (old('ssm_stare_fise', $firma->ssm_stare_fise) !== 'noi.part.') &&
                         (old('ssm_stare_fise', $firma->ssm_stare_fise) !== 'comp.la cl.') &&
                         (old('ssm_stare_fise', $firma->ssm_stare_fise) !== 'cl;de s') &&
                         (old('ssm_stare_fise', $firma->ssm_stare_fise) !== 'cl.p;de s') &&
@@ -162,7 +164,8 @@
                     <option value="noi" {{ old('psi_stare_fise', $firma->psi_stare_fise) === 'noi' ? 'selected' : ''}}>noi</option>
                     {{-- <option value="noi;s" {{ old('psi_stare_fise', $firma->psi_stare_fise) === 'noi;s' ? 'selected' : ''}}>noi;s</option> --}}
                     <option value="noi;s.p" {{ old('psi_stare_fise', $firma->psi_stare_fise) === 'noi;s.p' ? 'selected' : ''}}>noi;s.p</option>
-                    <option value="noi.p;s.p" {{ old('psi_stare_fise', $firma->psi_stare_fise) === 'noi.p;s.p' ? 'selected' : ''}}>noi.p;s.p</option>
+                    {{-- <option value="noi.p;s.p" {{ old('psi_stare_fise', $firma->psi_stare_fise) === 'noi.p;s.p' ? 'selected' : ''}}>noi.p;s.p</option> --}}
+                    <option value="noi.part." {{ old('psi_stare_fise', $firma->psi_stare_fise) === 'noi.part.' ? 'selected' : ''}}>noi.part.</option>
                     <option value="comp.la cl." style="color:rgb(0, 145, 77)" {{ old('psi_stare_fise', $firma->psi_stare_fise) === 'comp.la cl.' ? 'selected' : ''}}>comp.la cl.</option>
                     <option value="cl;de s" style="color:rgb(0, 96, 175)" {{ old('psi_stare_fise', $firma->psi_stare_fise) === 'cl;de s' ? 'selected' : ''}}>cl;de s</option>
                     <option value="cl.p;de s" style="color:rgb(0, 96, 175)" {{ old('psi_stare_fise', $firma->psi_stare_fise) === 'cl.p;de s' ? 'selected' : ''}}>cl.p;de s</option>
@@ -181,7 +184,8 @@
                         (old('psi_stare_fise', $firma->psi_stare_fise) !== 'noi') &&
                         // (old('psi_stare_fise', $firma->psi_stare_fise) !== 'noi;s') &&
                         (old('psi_stare_fise', $firma->psi_stare_fise) !== 'noi;s.p') &&
-                        (old('psi_stare_fise', $firma->psi_stare_fise) !== 'noi.p;s.p') &&
+                        // (old('psi_stare_fise', $firma->psi_stare_fise) !== 'noi.p;s.p') &&
+                        (old('psi_stare_fise', $firma->psi_stare_fise) !== 'noi.part.') &&
                         (old('psi_stare_fise', $firma->psi_stare_fise) !== 'comp.la cl.') &&
                         (old('psi_stare_fise', $firma->psi_stare_fise) !== 'cl;de s') &&
                         (old('psi_stare_fise', $firma->psi_stare_fise) !== 'cl.p;de s') &&
