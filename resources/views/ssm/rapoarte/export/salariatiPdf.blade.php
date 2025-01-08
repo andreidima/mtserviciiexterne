@@ -133,10 +133,23 @@
                             <th>PSI</th>
                         </tr>
 
-                        @forelse ($salariati_per_firma as $salariat)
-                            @if (stripos($salariat->salariat, 'revisal') || stripos($salariat->salariat, 'situatie'))
-                                @continue
+                        @forelse ($salariati_per_firma->groupBy('sectie') as $salariati_per_sectie)
+                            @if ($salariati_per_sectie->first()->sectie ?? null)
+                                <tr>
+                                    <th colspan="7" style="background-color:rgb(241, 241, 241)">
+                                        Secția
+                                        <span class="badge bg-dark" style="font-size: 140%">
+                                            {{ $salariati_per_sectie->first()->sectie ?? null }}
+                                        </span>
+                                        -
+                                        <span class="badge bg-success fs-6" style="font-size: 140%;">
+                                            {{ $salariati_per_sectie->count() }}
+                                        </span>
+                                        salariați
+                                    </th>
+                                </tr>
                             @endif
+                        @forelse ($salariati_per_sectie as $salariat)
 
                             <tr>
                                 <td style="">
@@ -204,6 +217,8 @@
                                         </span>
                                 </td>
                             </tr>
+                        @empty
+                        @endforelse
                         @empty
                         @endforelse
                 </table>

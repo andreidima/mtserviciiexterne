@@ -88,9 +88,13 @@ class SsmSalariatController extends Controller
                             ->orWhere('observatii_2', 'like', '%' . $searchObservatii . '%');
             });
 
-        $sortedQuery = $query
-                        ->orderBy('nume_client')
-                        ->orderByRaw(DB::raw("
+        $sortedQuery = $query->orderBy('nume_client');
+
+        if ($request->action === 'exportPdf'){
+            $sortedQuery = $query->orderBy('sectie');
+        }
+
+        $sortedQuery = $sortedQuery->orderByRaw(DB::raw("
                                 case when salariat like '%revisal%' then 0 else 1 end ASC,
                                 case when salariat like '%situatie%' then 0 else 1 end ASC,
                                 case when salariat like '%3 luni%' then 0 else 1 end ASC,
@@ -116,11 +120,16 @@ class SsmSalariatController extends Controller
         }
 
         if ($request->action === 'exportPdf'){
-                $salariati = $sortedQuery->get();
+                $salariati = $sortedQuery
+                    ->where('salariat', 'not like', '%revisal%')
+                    ->where('salariat', 'not like', '%situatie%')
+
+                    ->get();
+
                 if ($salariati->count() > 500) {
                     return back()->with('error', 'Nu se pot extrage mai mult de 500 salariați odată. Filtrați datele pentru a limita numărul de salariați.');
                 }
-                // $pdf = \PDF::loadView('ssm.rapoarte.export.salariatiPdf', compact('salariati', 'search_data_ssm_psi', 'search_semnat_ssm', 'search_semnat_psi', 'search_firma'))
+                // return view('ssm.rapoarte.export.salariatiPdf', compact('salariati'));
                 $pdf = \PDF::loadView('ssm.rapoarte.export.salariatiPdf', compact('salariati'))
                     ->setPaper('a4', 'portrait');
                 $pdf->getDomPDF()->set_option("enable_php", true);
