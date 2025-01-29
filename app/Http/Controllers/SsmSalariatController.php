@@ -310,12 +310,12 @@ class SsmSalariatController extends Controller
             $request->nume_client ? $salariat->nume_client = $request->nume_client : '';
             $request->functia ? $salariat->functia = $request->functia : '';
             $request->traseu ? $salariat->traseu = $request->traseu : '';
+            $request->modificariGlobaleObservatii ? $salariat->observatii_1 = $request->modificariGlobaleObservatii : '';
             $request->modificariGlobaleData_ssm_psi ? $salariat->data_ssm_psi = $request->modificariGlobaleData_ssm_psi : '';
             $request->modificariGlobaleSemnat_ssm ? $salariat->semnat_ssm = $request->modificariGlobaleSemnat_ssm : '';
             $request->modificariGlobaleSemnat_psi ? $salariat->semnat_psi = $request->modificariGlobaleSemnat_psi : '';
-            $request->modificariGlobaleSemnatAnexa ? $salariat->semnat_anexa = $request->modificariGlobaleSemnatAnexa : '';
+            // $request->modificariGlobaleSemnatAnexa ? $salariat->semnat_anexa = $request->modificariGlobaleSemnatAnexa : '';
             // $request->modificariGlobaleSemnatEip ? $salariat->semnat_eip = $request->modificariGlobaleSemnatEip : '';
-            // $request->modificariGlobaleObservatii ? $salariat->observatii_1 = $request->modificariGlobaleObservatii : '';
             $request->modificariGlobaleDataIncetare ? $salariat->data_incetare = $request->modificariGlobaleDataIncetare : '';
             $request->modificariGlobaleSectie ? $salariat->sectie = $request->modificariGlobaleSectie : '';
 
