@@ -104,7 +104,7 @@
                             <option value="cl.de s" style="color:rgb(0, 96, 175)" {{ old('semnat_psi') === 'cl.de s' ? 'selected' : ''}}>cl.de s</option> --}}
                         </select>
                     </div>
-                    <div class="col-lg-2 mb-2">
+                    {{-- <div class="col-lg-2 mb-2">
                         <small for="modificariGlobaleSemnatAnexa" class="mb-0 ps-1">Semnat Anexa</small>
                         <select name="modificariGlobaleSemnatAnexa" class="form-select form-select-sm bg-white rounded-3 {{ $errors->has('modificariGlobaleSemnatAnexa') ? 'is-invalid' : '' }}">
                             <option value="" selected></option>
@@ -121,6 +121,22 @@
                             <option value="sem" style="" {{ old('modificariGlobaleSemnatEip') === 'sem' ? 'selected' : ''}}>sem</option>
                             <option value="de s" style="color:rgb(204, 0, 0)" {{ old('modificariGlobaleSemnatEip') === 'de s' ? 'selected' : ''}}>de s</option>
                         </select>
+                    </div> --}}
+                    <div class="col-md-2 mb-2">
+                        <small for="modificariGlobaleDataIncetare" class="mb-0 ps-1">Data încetare</small>
+                        <input
+                            type="text"
+                            class="form-control form-control-sm rounded-3 {{ $errors->has('modificariGlobaleDataIncetare') ? 'is-invalid' : '' }}"
+                            name="modificariGlobaleDataIncetare"
+                            value="{{ old('modificariGlobaleDataIncetare') }}">
+                    </div>
+                    <div class="col-md-2 mb-2">
+                        <small for="modificariGlobaleSectie" class="mb-0 ps-1">Secție</small>
+                        <input
+                            type="text"
+                            class="form-control form-control-sm rounded-3 {{ $errors->has('modificariGlobaleSectie') ? 'is-invalid' : '' }}"
+                            name="modificariGlobaleSectie"
+                            value="{{ old('modificariGlobaleSectie') }}">
                     </div>
 
                     <div class="col-lg-12 mb-2 text-center">

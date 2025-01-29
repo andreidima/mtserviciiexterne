@@ -286,15 +286,17 @@ class SsmSalariatController extends Controller
         $request->validate(
             [
                 'salariati_selectati' => 'required|array|between:1,100',
-                'nume_client' => 'required_without_all:functia,traseu,modificariGlobaleData_ssm_psi,modificariGlobaleSemnat_ssm,modificariGlobaleSemnat_psi,modificariGlobaleSemnatAnexa,modificariGlobaleSemnatEip,modificariGlobaleObservatii|max:200',
+                'nume_client' => 'required_without_all:functia,traseu,modificariGlobaleData_ssm_psi,modificariGlobaleSemnat_ssm,modificariGlobaleSemnat_psi,modificariGlobaleSemnatAnexa,modificariGlobaleSemnatEip,modificariGlobaleObservatii,modificariGlobaleDataIncetare,modificariGlobaleSectie|max:200',
                 'functia' => 'nullable|max:200',
                 'traseu' => 'nullable|max:200',
                 'modificariGlobaleObservatii' => 'nullable|max:200',
                 'modificariGlobaleData_ssm_psi' => 'nullable|max:200',
                 'modificariGlobaleSemnat_ssm' => 'nullable|max:200',
                 'modificariGlobaleSemnat_psi' => 'nullable|max:200',
-                'modificariGlobaleSemnatAnexa' => 'nullable|max:200',
-                'modificariGlobaleSemnatEip' => 'nullable|max:200',
+                // 'modificariGlobaleSemnatAnexa' => 'nullable|max:200',
+                // 'modificariGlobaleSemnatEip' => 'nullable|max:200',
+                'modificariGlobaleDataIncetare' => 'nullable|max:200',
+                'modificariGlobaleSectie' => 'nullable|max:200',
             ],
             [
                 'salariati_selectati.required' => 'Nu ați selectat nici un salariat!',
@@ -312,8 +314,10 @@ class SsmSalariatController extends Controller
             $request->modificariGlobaleSemnat_ssm ? $salariat->semnat_ssm = $request->modificariGlobaleSemnat_ssm : '';
             $request->modificariGlobaleSemnat_psi ? $salariat->semnat_psi = $request->modificariGlobaleSemnat_psi : '';
             $request->modificariGlobaleSemnatAnexa ? $salariat->semnat_anexa = $request->modificariGlobaleSemnatAnexa : '';
-            $request->modificariGlobaleSemnatEip ? $salariat->semnat_eip = $request->modificariGlobaleSemnatEip : '';
-            $request->modificariGlobaleObservatii ? $salariat->observatii_1 = $request->modificariGlobaleObservatii : '';
+            // $request->modificariGlobaleSemnatEip ? $salariat->semnat_eip = $request->modificariGlobaleSemnatEip : '';
+            // $request->modificariGlobaleObservatii ? $salariat->observatii_1 = $request->modificariGlobaleObservatii : '';
+            $request->modificariGlobaleDataIncetare ? $salariat->data_incetare = $request->modificariGlobaleDataIncetare : '';
+            $request->modificariGlobaleSectie ? $salariat->sectie = $request->modificariGlobaleSectie : '';
 
             $salariat->save();
         }
